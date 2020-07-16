@@ -1,3 +1,9 @@
+# 更新日志
+
+## 0.0.2
+
+* 安卓开发完毕
+  
 ## 0.0.1
 
-* TODO: Describe initial release.
+* 安卓开发完毕
