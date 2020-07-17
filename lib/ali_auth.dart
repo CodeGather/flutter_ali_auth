@@ -3,7 +3,7 @@
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
  * @LastEditors: 21克的爱情
- * @LastEditTime: 2020-07-16 11:30:57
+ * @LastEditTime: 2020-07-16 16:02:44
  * @Description: 
  */
 import 'dart:async';
@@ -15,32 +15,14 @@ class AliAuthPlugin {
 
   static const EventChannel _eventChannel = const EventChannel('ali_auth/event');
 
-//  static AliAuthPlugin _instance;
-//  final MethodChannel _methodChannel;
-//  final EventChannel _eventChannel;
- Stream<dynamic> _onBatteryStateChanged;
+  Stream<dynamic> _onBatteryStateChanged;
 
-//  factory AliAuthPlugin() {
-//    if (_instance == null) {
-//      final MethodChannel methodChannel = const MethodChannel('ali_auth');
-//      final EventChannel eventChannel = const EventChannel('ali_auth/event');
-//      _instance = new AliAuthPlugin.private(methodChannel, eventChannel);
-//    }
-//    return _instance;
-//  }
-
-  /// Returns the current battery level in percent.
-//  Future<int> get appleLogins => _methodChannel.invokeMethod('appleLogin').then<int>((dynamic result) => result);
-//
-//  @visibleForTesting
-//  AliAuthPlugin.private(this._methodChannel, this._eventChannel);
-//
- Stream<dynamic> get onBatteryStateChanged {
-   if (_onBatteryStateChanged == null) {
-     _onBatteryStateChanged = _eventChannel.receiveBroadcastStream();
-   }
-   return _onBatteryStateChanged;
- }
+  Stream<dynamic> get onBatteryStateChanged {
+    if (_onBatteryStateChanged == null) {
+      _onBatteryStateChanged = _eventChannel.receiveBroadcastStream();
+    }
+    return _onBatteryStateChanged;
+  }
 
   // 初始化SDK
   static Future<dynamic> initSdk(String sk) async {
@@ -74,7 +56,7 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('appleLogin');
   }
 
-  // 苹果登录监听返回数据
+  // 登录监听返回数据
   static loginListen({ bool type = true, Function onEvent, Function onError }) async {
     assert(onEvent != null);
     _eventChannel.receiveBroadcastStream( type ).listen(onEvent, onError: onError);
