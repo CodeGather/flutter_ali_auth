@@ -3,7 +3,7 @@
 //  ATAuthSDK
 //
 //  Created by 刘超的MacBook on 2020/5/21.
-//  Copyright © 2020 alicom. All rights reserved.
+//  Copyright © 2020. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, PNSLoggerLevel) {
 @interface PNSReporter : NSObject
 
 /**
- *  控制台日志输出开关，若开启会以PNS_LOGGER为开始标记对日志进行输出
+ *  控制台日志输出开关，若开启会以PNS_LOGGER为开始标记对日志进行输出，Release模式记得关闭！
  *  @param enable 开关参数，默认为NO
  */
 - (void)setConsolePrintLoggerEnable:(BOOL)enable;

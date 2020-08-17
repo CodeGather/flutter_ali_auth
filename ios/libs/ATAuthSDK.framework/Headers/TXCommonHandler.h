@@ -31,16 +31,23 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 /**
  *  初始化SDK调用参数，app生命周期内调用一次
  *  @param  info app对应的秘钥
- *  @param  complete 结果同步回调，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode
+ *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode
  */
 - (void)setAuthSDKInfo:(NSString * _Nonnull)info complete:(void(^_Nullable)(NSDictionary * _Nonnull resultDic))complete;
 
 /**
  *  检查当前环境是否支持一键登录或号码认证，resultDic 返回 PNSCodeSuccess 说明当前环境支持
  *  @param  authType 服务类型 PNSAuthTypeVerifyToken 本机号码校验流程，PNSAuthTypeLoginToken 一键登录流程
- *  @param  complete 同步结果回调，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode，只有成功回调才能保障后续接口调用
+ *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode，只有成功回调才能保障后续接口调用
  */
 - (void)checkEnvAvailableWithAuthType:(PNSAuthType)authType complete:(void (^_Nullable)(NSDictionary * _Nullable resultDic))complete;
+
+/**
+ *  加速获取本机号码校验token，防止调用 getVerifyTokenWithTimeout:complete: 获取token时间过长
+ *  @param  timeout 接口超时时间，单位s，默认为3.0s
+ *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, token:..., msg:...}，其他情况时"resultCode"值请参考PNSReturnCode
+ */
+- (void)accelerateVerifyWithTimeout:(NSTimeInterval)timeout complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete;
 
 /**
  *  获取本机号码校验Token
@@ -96,7 +103,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 
 /**
  *  检查及准备调用环境，resultDic返回PNSCodeSuccess才能调用下面的功能接口
- *  @param  complete 异步结果回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode，只有成功回调才能保障后续接口调用
+ *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode，只有成功回调才能保障后续接口调用
  */
 - (void)checkEnvAvailableWithComplete:(void (^_Nullable)(NSDictionary * _Nullable resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use checkEnvAvailableWithAuthType:complete: instead");
 
@@ -110,7 +117,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 /**
  * @brief  异步验证网关认证所需的蜂窝数据网络与初始化数据是否具备条件（注意：不会阻塞当前线程，但是结果会异步回调）
  * @param  phoneNumber   手机号码，非必传，本机号码校验且双SIM卡时必须传入待验证的手机号码！！一键登录时设置为nil即可
- * @param  complete 结果回调到主线程
+ * @param  complete 结果异步回调到主线程
  */
 - (void)checkAsyncGatewayVerifyEnable:(NSString *_Nullable)phoneNumber complete:(void(^_Nullable)(BOOL enable))complete DEPRECATED_MSG_ATTRIBUTE("Please use checkEnvAvailableWithComplete instead");
 
@@ -118,7 +125,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 /*
  * 函数名：getAuthTokenWithComplete，获取本机号码校验Token，默认超时时间3.0s
  * 参数：无
- * 返回：字典形式
+ * 返回：字典形式，异步回调到主线程
  *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
  *      token：本机号码校验token
  *      msg：文案或错误提示
@@ -129,7 +136,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 /*
  * 函数名：getAuthTokenWithTimeout，获取本机号码校验Token，可设置超时时间
  * 参数：timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式
+ * 返回：字典形式，异步回调到主线程
  *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
  *      token：本机号码校验token
  *      msg：文案或错误提示
@@ -141,7 +148,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
  * 函数名：getLoginNumberWithTimeout，一键登录预取号
  * 参数：
  timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式
+ * 返回：字典形式，异步回调到主线程
  *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
  *      msg：文案或错误提示
  */
@@ -154,7 +161,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
  vc：App当前vc容器，用于一键登录授权页面唤起
  model：自定义授权页面选项，可为nil，采用默认的授权页面，具体请参考TXCustomModel.h文件
  timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式
+ * 返回：字典形式，异步回调到主线程
  *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡，6668-登录按钮事件，6669-切换到其他方式按钮事件
  *      token：一键登录token
  *      msg：文案或错误提示

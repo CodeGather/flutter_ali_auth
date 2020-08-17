@@ -3,7 +3,7 @@
 //  ATAuthSDK
 //
 //  Created by 刘超的MacBook on 2019/9/4.
-//  Copyright © 2019 alicom. All rights reserved.
+//  Copyright © 2019. All rights reserved.
 //
 
 #ifndef PNSReturnCode_h
@@ -45,6 +45,8 @@ static NSString * const PNSCodeDecodeAppInfoFailed = @"600017";
 static NSString * const PNSCodeCarrierChanged = @"600021";
 /// 终端环境检测失败（终端不支持认证 / 终端检测参数错误）
 static NSString * const PNSCodeEnvCheckFail = @"600025";
+/// 授权页已加载时不允许调用加速或预取号接口
+static NSString * const PNSCodeCallPreLoginInAuthPage = @"600026";
 
 #pragma mark - 授权页的点击事件回调码
 

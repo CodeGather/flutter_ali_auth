@@ -3,7 +3,7 @@
 //  ATAuthSDK
 //
 //  Created by yangli on 2019/4/4.
-//  Copyright © 2019 alicom. All rights reserved.
+//  Copyright © 2019. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
