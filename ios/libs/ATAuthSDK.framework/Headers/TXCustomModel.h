@@ -97,6 +97,9 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /** 授权页弹出方向，默认PNSPresentationDirectionBottom */
 @property (nonatomic, assign) PNSPresentationDirection presentDirection;
 
+/** 授权页显示和消失动画时间，默认为0.25s，<= 0 时关闭动画 **/
+@property (nonatomic, assign) CGFloat animationDuration;
+
 #pragma mark- 状态栏
 /** 状态栏是否隐藏，默认NO */
 @property (nonatomic, assign) BOOL prefersStatusBarHidden;
@@ -163,7 +166,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) BOOL autoHideLoginLoading;
 /**
  *  构建登录按钮的frame，view布局或布局发生变化时调用，不实现则按默认处理
- *  注：不能超出父视图 content view，height不能小于40，width不能小于父视图宽度的一半
+ *  注：不能超出父视图 content view，height不能小于20，width不能小于父视图宽度的一半
  */
 @property (nonatomic, copy) PNSBuildFrameBlock loginBtnFrameBlock;
 /**
@@ -171,7 +174,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
  *  注：设置超出父视图 content view 时不生效
  */
 @property (nonatomic, assign) CGFloat loginBtnTopOffetY DEPRECATED_MSG_ATTRIBUTE("Please use loginBtnFrameBlock instead");
-/** 登录按钮高度，小于40.0pt不生效，不设置则按默认处理 */
+/** 登录按钮高度，小于20.0pt不生效，不设置则按默认处理 */
 @property (nonatomic, assign) CGFloat loginBtnHeight DEPRECATED_MSG_ATTRIBUTE("Please use loginBtnFrameBlock instead");
 /** 登录按钮相对content view的左右边距，按钮宽度必须大于等于屏幕的一半，不设置则按默认处理 */
 @property (nonatomic, assign) CGFloat loginBtnLRPadding DEPRECATED_MSG_ATTRIBUTE("Please use loginBtnFrameBlock instead");
@@ -179,6 +182,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 #pragma mark- 协议
 /** checkBox图片组，[uncheckedImg,checkedImg]*/
 @property (nonatomic, copy) NSArray<UIImage *> *checkBoxImages;
+/** checkBox图片距离控件边框的填充，默认为 UIEdgeInsetsZero，确保控件大小减去内填充大小为资源图片大小情况下，图片才不会变形 **/
+@property (nonatomic, assign) UIEdgeInsets checkBoxImageEdgeInsets;
 /** checkBox是否勾选，默认NO */
 @property (nonatomic, assign) BOOL checkBoxIsChecked;
 /** checkBox是否隐藏，默认NO */

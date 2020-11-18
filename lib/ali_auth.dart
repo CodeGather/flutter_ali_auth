@@ -2,8 +2,8 @@
  * @Author: 21克的爱情
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
- * @LastEditors: 21克的爱情
- * @LastEditTime: 2020-07-16 16:02:44
+ * @LastEditors: ,: 21克的爱情
+ * @LastEditTime: ,: 2020-11-18 16:59:56
  * @Description: 
  */
 import 'dart:async';
@@ -56,8 +56,14 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('appleLogin');
   }
 
-  // 登录监听返回数据
+  // 登录监听返回数据 下个版本删除 请尽快修改
   static loginListen({ bool type = true, Function onEvent, Function onError }) async {
+    assert(onEvent != null);
+    _eventChannel.receiveBroadcastStream( type ).listen(onEvent, onError: onError);
+  }
+
+  // 0.0.4 版本修改 登录监听返回数据
+  static appleLoginListen({ bool type = true, Function onEvent, Function onError }) async {
     assert(onEvent != null);
     _eventChannel.receiveBroadcastStream( type ).listen(onEvent, onError: onError);
   }

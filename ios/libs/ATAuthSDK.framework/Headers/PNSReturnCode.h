@@ -48,6 +48,22 @@ static NSString * const PNSCodeEnvCheckFail = @"600025";
 /// 授权页已加载时不允许调用加速或预取号接口
 static NSString * const PNSCodeCallPreLoginInAuthPage = @"600026";
 
+
+/// 接口请求失败
+static NSString * const PNSCodeFailed = @"600030";
+/// 网络错误
+static NSString * const PNSCodeErrorNetwork = @"600031";
+/// 客户端设备时间错误
+static NSString * const PNSCodeErrorClientTimestamp = @"600032";
+/// 功能不可用，需要到控制台开通对应功能
+static NSString * const PNSCodeFeatureInvalid = @"600033";
+/// 不合法的SDK密钥
+static NSString * const PNSCodeSDKInfoInvalid = @"600034";
+/// 状态繁忙
+static NSString * const PNSCodeStatusBusy = @"600035";
+/// 业务停机
+static NSString * const PNSCodeOutOfSerivce = @"600036";
+
 #pragma mark - 授权页的点击事件回调码
 
 /// 点击返回，⽤户取消一键登录
@@ -60,5 +76,10 @@ static NSString * const PNSCodeLoginControllerClickLoginBtn = @"700002";
 static NSString * const PNSCodeLoginControllerClickCheckBoxBtn = @"700003";
 /// 点击协议富文本文字
 static NSString * const PNSCodeLoginControllerClickProtocol = @"700004";
+
+/// 活体认证页面准备启动
+static NSString * const PNSCodeLiftBodyVerifyReadyStating = @"700005";
+/// 用户主动取消操作UI事件，用户取消操作
+static NSString * const PNSCodeErrorUserCancel = @"700000";
 
 #endif /* PNSReturnCode_h */

@@ -24,12 +24,13 @@ class _MyAppState extends State<MyApp> {
       AliAuthPlugin.initSdk('QoIQ+5dWhzrstP5HU17qnX8bcKIJYIeTYLG3jFbjoIBt1NMiwS6pTnKoHI20C4X8nhchaSmPhgCxKfLmSG6BHu6QD/5VarfUuSH1g0wu5BPn0uqTgqb7FJF96z/84w1Rou5UejHtkeXjgcdJa1RKEfK16S88QkNswONgqVfDjgFe1Zg6seMDUAbxVc3kIQeEdJ16Ml/ngCRveLtWuswOxZtmiCykKUEWq+bH/4IZ0jv21I1BOdxdU9GDM9RkMh3zjynV1JWTe5U=');
     }
       
-    // 登录监听
+    // 苹果登录专用监听
+    // 如果不需要苹果登录请删除该代码
     AliAuthPlugin.loginListen( type: false, onEvent: _onEvent, onError: _onError);
     
   }
 
-  // 错误处理
+  // 苹果登录错误处理
   void _onEvent(event) {
     print("------------------------------------------------------------------------------------------$event");
     Navigator.of(mContext).push(
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  // 成功后处理
+  // 苹果登录成功后处理
   void _onError(error) {
     print("==========================================================================================$error");
   }
@@ -55,13 +56,15 @@ class _MyAppState extends State<MyApp> {
           children: <Widget>[
             RaisedButton(
               onPressed: () async {
-                await AliAuthPlugin.loginDialog;
+                final result = await AliAuthPlugin.loginDialog;
+                print(result);
               },
               child: Text('弹窗登录'),
             ),
             RaisedButton(
               onPressed: () async {
-                await AliAuthPlugin.login;
+                final result = await AliAuthPlugin.login;
+                print(result);
               },
               child: Text('直接登录'),
             ),
@@ -71,6 +74,12 @@ class _MyAppState extends State<MyApp> {
                 print(checkVerifyEnable);
               },
               child: Text('检测环境是否支持'),
+            ),
+            RaisedButton(
+              onPressed: () async {
+                await AliAuthPlugin.appleLogin;
+              },
+              child: Text('apple登录'),
             ),
           ],
         ),

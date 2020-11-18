@@ -79,6 +79,14 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 - (void)getLoginTokenWithTimeout:(NSTimeInterval)timeout controller:(UIViewController *_Nonnull)controller model:(TXCustomModel *_Nullable)model complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete;
 
 /**
+ *  此接口仅用于开发期间用于一键登录页面不同机型尺寸适配调试（可支持模拟器），非正式页面，手机掩码为0，不能正常登录，请开发者注意下
+ *  @param  controller 唤起自定义授权页的容器，内部会对其进行验证，检查是否符合条件
+ *  @param  model 自定义授权页面选项，可为nil，采用默认的授权页面，具体请参考TXCustomModel.h文件
+ *  @param  complete 结果异步回调到主线程，"resultDic"里面的"resultCode"值请参考PNSReturnCode
+ */
+- (void)debugLoginUIWithController:(UIViewController *_Nonnull)controller model:(TXCustomModel *_Nullable)model complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete;
+
+/**
  *  手动隐藏一键登录获取登录Token之后的等待动画，默认为自动隐藏，当设置 TXCustomModel 实例 autoHideLoginLoading = NO 时, 可调用该方法手动隐藏
  */
 - (void)hideLoginLoading;
@@ -94,6 +102,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
  *  获取日志埋点相关控制对象
  */
 - (PNSReporter * _Nonnull)getReporter;
+
 
 /**
  *  设置日志及埋点上传开关，但不会对通过 setupUploader: 接口实现的自定义上传方法起作用

@@ -32,9 +32,6 @@ typedef NS_ENUM(NSInteger, PNSLoggerLevel) {
  */
 - (void)setUploadEnable:(BOOL)enable;
 
-
-
-
 @end
 
 NS_ASSUME_NONNULL_END
