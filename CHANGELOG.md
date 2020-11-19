@@ -1,20 +1,25 @@
-# 更新日志
+#
+
+## 0.0.5
+
+* Update the resource file of the new button because the SDK reduces unnecessary resource files
+* Fix Android return data type as string when using the latest SDK
 
 ## 0.0.4
 
-* 更新SDK为最新版2.11.1
-* 添加代码相关注释
-* 相关监听接口做如下调整 loginListen -> appleLoginListen
+* Update the SDK to the latest version of 2.11.1
+* Add code related comments
+* The relevant listening interface should be adjusted as follows: loginlisten > appleploginlisten
 
 ## 0.0.3
 
-* 更新SDK为最新版2.10.0
-* 新增注意事项以及相关描述
+* Update the SDK to the latest version of 2.10.0
+* New notes and related descriptions
 
 ## 0.0.2
 
-* iOS开发完毕
+* iOS Development completed
   
 ## 0.0.1
 
-* 安卓开发完毕
+* Android Development completed

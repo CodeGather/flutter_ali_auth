@@ -229,8 +229,8 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
         mAlicomAuthHelper.setUIClickListener(new AuthUIControlClickListener() {
             @Override
-            public void onClick(String code, Context context, JSONObject jsonObj) {
-                Log.e("xxxxxx", "OnUIControlClick:code=" + code + ", jsonObj=" + (jsonObj == null ? "" : jsonObj.toJSONString()));
+            public void onClick(String code, Context context, String jsonObj) {
+                Log.e("xxxxxx", "OnUIControlClick:code=" + code + ", jsonObj=" + (jsonObj == null ? "" : jsonObj));
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("returnCode", code);
                 jsonObject.put("returnMsg", "phone");
