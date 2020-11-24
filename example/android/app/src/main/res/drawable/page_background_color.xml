@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <!--  纯色背景颜色  -->
+    <solid android:color="@android:color/background_light"/>
+    <!-- 渐变背景色 -->
+    <!-- <gradient
+        android:angle="0"
+        android:endColor="@android:color/secondary_text_light"
+        android:startColor="@android:color/holo_blue_light" /> -->
+    <!--    圆角-->
+    <corners android:radius="0dp"/>
+</shape>

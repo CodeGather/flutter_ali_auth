@@ -1,28 +1,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.jokui.rao.auth.ali_auth">
 
-<application>
-    <!--协议页面webview-->
-    <activity
-        android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:exported="false"
-        android:launchMode="singleTop"
-        android:screenOrientation="portrait" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!--联通电信授权页-->
-    <activity
-        android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:exported="false"
-        android:launchMode="singleTask"
-        android:screenOrientation="portrait" />
+    <application>
+        <!--协议页面webview-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog"  />
 
-    <!--移动授权页-->
-    <activity
-        android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
-        android:configChanges="orientation|keyboardHidden|screenSize"
-        android:launchMode="singleTask"
-        android:screenOrientation="portrait" />
-</application>
+        <!--联通电信授权页-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog" />
+
+        <!--移动授权页-->
+        <activity
+            android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog" />
+    </application>
 </manifest>

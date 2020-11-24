@@ -2,14 +2,19 @@
  * @Author: 21克的爱情
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
- * @LastEditors: ,: 21克的爱情
- * @LastEditTime: ,: 2020-11-19 09:25:43
+ * @LastEditors: 21克的爱情
+ * @LastEditTime: 2020-11-19 17:38:55
  * @Description: 
  */
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// 插件类
+import 'ali_auth_model.dart';
+export 'ali_auth_model.dart';
+
+/// 阿里云一键登录类
+/// 原来的全屏登录和dialog 统一有配置参数isDislog来控制
 class AliAuthPlugin {
   /// 声明回调通道
   static const MethodChannel _channel = const MethodChannel('ali_auth');
@@ -29,12 +34,31 @@ class AliAuthPlugin {
   }
 
   /// 初始化SDK
-  static Future<dynamic> initSdk(String sk) async {
-    print("SDK sk=$sk");
-    Map<String, String> params = {'sk': sk};
-    return await _channel.invokeMethod("init", params);
+  /// sk 必须
+  /// isDialog 是否使用Dialog 弹窗登录 非必须 默认值false 非Dialog登录
+  /// debug 是否开启调试模式 非必须 默认true 开启
+  /// 使用一键登录传入 SERVICE_TYPE_LOGIN 2  使用号码校验传入 SERVICE_TYPE_AUTH  1 默认值 2
+  static Future<dynamic> initSdk({
+    @required String sk,
+    AliAuthModel config
+  }) async {
+    /// 判断视图配置
+    Map<String, dynamic> data = getConfig().toJson();
+    if (config == null || config.toString().isEmpty) {
+      config = getConfig();
+    } else {
+      data.addAll(config.toJson());
+    }
+
+    return await _channel.invokeMethod("init", {
+      'sk': sk,
+      'config': data,
+    });
   }
 
+  @Deprecated(
+      '该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改'
+  )
   /// SDK判断网络环境是否支持
   static Future<bool> get checkVerifyEnable async {
     return await _channel.invokeMethod("checkVerifyEnable");
@@ -50,6 +74,9 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('preLogin');
   }
 
+  @Deprecated(
+      '该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改'
+  )
   /// 一键登录（ 弹窗 ）
   static Future<dynamic> get loginDialog async {
     return await _channel.invokeMethod('loginDialog');
@@ -62,15 +89,6 @@ class AliAuthPlugin {
 
   /// 登录监听返回数据 下个版本删除 请尽快修改
   static loginListen(
-      {bool type = true, Function onEvent, Function onError}) async {
-    assert(onEvent != null);
-    _eventChannel
-        .receiveBroadcastStream(type)
-        .listen(onEvent, onError: onError);
-  }
-
-  /// 0.0.4 版本修改 登录监听返回数据
-  static appleLoginListen(
       {bool type = true, Function onEvent, Function onError}) async {
     assert(onEvent != null);
     _eventChannel

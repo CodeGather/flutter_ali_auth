@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00FFFFFF"
+    android:gravity="bottom"
+    android:paddingLeft="80dp"
+    android:paddingTop="10dp"
+    android:paddingRight="80dp"
+    android:paddingBottom="120dp">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_toLeftOf="@id/line"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/login_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/wechat_img"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/weixin" />
+
+
+        <TextView
+            android:id="@+id/wechat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wechat_img"
+            android:layout_alignStart="@+id/wechat_img"
+            android:layout_alignLeft="@+id/wechat_img"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="wechat"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/login_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:layout_toRightOf="@id/line"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/apple_img"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/apple" />
+
+
+        <TextView
+            android:id="@+id/apple_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/apple_img"
+            android:layout_alignStart="@+id/apple_img"
+            android:layout_alignLeft="@+id/apple_img"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:text="apple"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

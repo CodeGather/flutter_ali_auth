@@ -16,10 +16,10 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('点击后打开的页面'),
+          title: const Text('验证码登录界面'),
         ),
         body: Center(
-          child: Text('点击后打开的页面'),
+          child: Text('点击使用验证码登录后的页面'),
         ),
       ),
     );

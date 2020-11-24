@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 
 import static com.jokui.rao.auth.ali_auth.AppUtils.dp2px;
+import static com.mobile.auth.gatewayauth.PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN;
 
 public class MainPortraitActivity implements PluginRegistry.ActivityResultListener {
     private final String TAG = "MainPortraitActivity";
@@ -65,7 +69,6 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
     }
 
     public void init(final MethodCall call, final MethodChannel.Result methodResult) {
-        String SK = call.argument("sk");
         mTokenListener = new TokenResultListener() {
             @Override
             public void onTokenSuccess(final String ret) {
@@ -128,11 +131,24 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
         };
 
         mAlicomAuthHelper = PhoneNumberAuthHelper.getInstance(context, mTokenListener);
+
+        // 初始化SDK
+        String SK = call.argument("sk");
         mAlicomAuthHelper.setAuthSDKInfo(SK);
 
-        mAlicomAuthHelper.setLoggerEnable(true);
+        // 设置检测是否有支持一键登录或者本机号码认证环境
+        /*
+         *   使用一键登录传入 SERVICE_TYPE_LOGIN
+         *   使用号码校验传入 SERVICE_TYPE_AUTH
+         */
+        int checkEnvAvailable = (int) call.argument("checkEnvAvailable");
+        mAlicomAuthHelper.checkEnvAvailable(checkEnvAvailable);
 
+        // 设置调试模式
+        boolean isDebug = (boolean) call.argument("debug");
+        mAlicomAuthHelper.getReporter().setLoggerEnable(isDebug);
 
+        // 设置UI点击回调
         mAlicomAuthHelper.setUIClickListener(new AuthUIControlClickListener() {
             @Override
             public void onClick(String code, Context context, String jsonObj) {
@@ -140,11 +156,22 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
             }
         });
 
+        // 判断是否使用dialog登录
+        boolean type = (boolean) call.argument("type");
+        if(type){
+            configLoginTokenPort(call, methodResult);
+        } else {
+            configLoginTokenPortDialog(call, methodResult);
+        }
+
         preLogin(call, methodResult);
     }
 
 
     /** SDK 判断网络环境是否支持 */
+    /**
+     * @deprecated
+     */
     public boolean checkVerifyEnable(MethodCall call, MethodChannel.Result result) {
         // 判断网络是否支持
         boolean checkRet = mAlicomAuthHelper.checkEnvAvailable();
@@ -160,7 +187,7 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
     public void setDebugMode(MethodCall call, MethodChannel.Result result) {
         Object enable = getValueByKey(call, "debug");
         if (enable != null) {
-            mAlicomAuthHelper.setLoggerEnable((Boolean) enable);
+            mAlicomAuthHelper.getReporter().setLoggerEnable((Boolean) enable);
         }
 
         JSONObject jsonObject = new JSONObject();
@@ -206,16 +233,15 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
             }
         });
     }
+
     // 正常登录
     public void login(final MethodCall call, final MethodChannel.Result methodResult){
-        configLoginTokenPort(call, methodResult);
         getAuthListener(call, methodResult);
         mAlicomAuthHelper.getLoginToken(context, 5000);
     }
 
     // dialog登录
     public void loginDialog(final MethodCall call, final MethodChannel.Result methodResult){
-        configLoginTokenPortDialog();
         getAuthListener(call, methodResult);
         mAlicomAuthHelper.getLoginToken(context, 5000);
     }
@@ -280,14 +306,14 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
 
     // 自定义UI
     private void initDynamicView() {
-        switchTV = LayoutInflater.from(context).inflate(R.layout.custom_login, new RelativeLayout(context), false);
-        RelativeLayout.LayoutParams mLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, dp2px(activity, 150));
-        mLayoutParams2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-        mLayoutParams2.setMargins(0, dp2px(context, 450), 0, 0);
+//        switchTV = LayoutInflater.from(context).inflate(R.layout.custom_login_add, new RelativeLayout(context), false);
+//        RelativeLayout.LayoutParams mLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, dp2px(activity, 150));
+//        mLayoutParams2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+//        mLayoutParams2.setMargins(0, dp2px(context, 450), 0, 0);
 //        switchTV.setText("-----  自定义view  -----");
 //        switchTV.setTextColor(0xff999999);
 //        switchTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.0F);
-        switchTV.setLayoutParams(mLayoutParams2);
+//        switchTV.setLayoutParams(mLayoutParams2);
     }
 
     private ImageView createLandDialogPhoneNumberIcon( float rightMargin, float topMargin, float fontSize) {
@@ -338,6 +364,7 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
     // ⼀键登录授权⻚⾯
     private void configLoginTokenPort(final MethodCall call, final MethodChannel.Result methodResult) {
         initDynamicView();
+        Log.d(TAG, "configLoginTokenPort: "+call.arguments);
         mAlicomAuthHelper.removeAuthRegisterXmlConfig();
         mAlicomAuthHelper.removeAuthRegisterViewConfig();
 
@@ -349,7 +376,7 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
 
         // 添加第三方登录按钮
 //        mAlicomAuthHelper.addAuthRegisterXmlConfig(new AuthRegisterXmlConfig.Builder()
-//            .setLayout(R.layout.custom_login, new AbstractPnsViewDelegate() {
+//            .setLayout(R.layout.custom_login_add, new AbstractPnsViewDelegate() {
 //                @Override public void onViewCreated(View view) {
 //                    // 左侧按钮布局
 //                    findViewById(R.id.login_left).setOnClickListener(new View.OnClickListener() {
@@ -442,7 +469,7 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
         );
     }
     // 弹窗授权⻚⾯
-    private void configLoginTokenPortDialog() {
+    private void configLoginTokenPortDialog(final MethodCall call, final MethodChannel.Result methodResult) {
         // initDynamicView();
         mAlicomAuthHelper.removeAuthRegisterXmlConfig();
         mAlicomAuthHelper.removeAuthRegisterViewConfig();
@@ -495,7 +522,7 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
             .setNumFieldOffsetY(logBtnOffset - 50)
             .setSwitchOffsetY(logBtnOffset + 50)
             .setSwitchAccTextSize(11)
-//            .setPageBackgroundPath("dialog_page_background")
+//            .setPageBackgroundPath("dialog_background_color")
             .setNumberSize(17)
             .setLogBtnHeight(38)
             .setLogBtnTextSize(16)
@@ -508,12 +535,49 @@ public class MainPortraitActivity implements PluginRegistry.ActivityResultListen
         );
     }
 
+    // 获取key值
     private Object getValueByKey(MethodCall call, String key) {
         if (call != null && call.hasArgument(key)) {
             return call.argument(key);
         } else {
             return null;
         }
+    }
+
+    // 判断网络类型
+    public static String getNetworkClass(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = cm.getActiveNetworkInfo();
+        if(info==null || !info.isConnected())
+            return "-"; //not connected
+        if(info.getType() == ConnectivityManager.TYPE_WIFI)
+            return "WIFI";
+        if(info.getType() == ConnectivityManager.TYPE_MOBILE){
+            int networkType = info.getSubtype();
+            switch (networkType) {
+                case TelephonyManager.NETWORK_TYPE_GPRS:
+                case TelephonyManager.NETWORK_TYPE_EDGE:
+                case TelephonyManager.NETWORK_TYPE_CDMA:
+                case TelephonyManager.NETWORK_TYPE_1xRTT:
+                case TelephonyManager.NETWORK_TYPE_IDEN: //api<8 : replace by 11
+                    return "2G";
+                case TelephonyManager.NETWORK_TYPE_UMTS:
+                case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                case TelephonyManager.NETWORK_TYPE_EVDO_A:
+                case TelephonyManager.NETWORK_TYPE_HSDPA:
+                case TelephonyManager.NETWORK_TYPE_HSUPA:
+                case TelephonyManager.NETWORK_TYPE_HSPA:
+                case TelephonyManager.NETWORK_TYPE_EVDO_B: //api<9 : replace by 14
+                case TelephonyManager.NETWORK_TYPE_EHRPD:  //api<11 : replace by 12
+                case TelephonyManager.NETWORK_TYPE_HSPAP:  //api<13 : replace by 15
+                    return "3G";
+                case TelephonyManager.NETWORK_TYPE_LTE:    //api<11 : replace by 13
+                    return "4G";
+                default:
+                    return "?";
+            }
+        }
+        return "?";
     }
 }
 

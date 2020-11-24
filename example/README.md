@@ -3,3 +3,4 @@
 - 请将 AliAuthPlugin.initSdk()
   
 [img ]
+

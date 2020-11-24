@@ -20,6 +20,7 @@
         android:label="ali_auth_example"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/LaunchTheme"
+        android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"

@@ -1,5 +1,12 @@
 #
 
+## 0.0.6
+
+* Refactoring code, customizing all configuration parameters, unified monitoring return interface, more configuration, more possibilities, better custom layout, so that your requirements are not in a dilemma
+* Remove the interface appleploginlisten and unify it to loginlisten
+* Please refer to the interface file for details
+* Android complete modification and document improvement
+
 ## 0.0.5
 
 * Update the resource file of the new button because the SDK reduces unnecessary resource files
