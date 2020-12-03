@@ -7,6 +7,7 @@
 //
 
 #import "PNSBuildModelUtils.h"
+#import "NSDictionary+Utils.h"
 #define TX_SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define TX_SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 #define IS_HORIZONTAL (TX_SCREEN_WIDTH > TX_SCREEN_WIDTH)
@@ -20,7 +21,6 @@
 
 /**横屏弹窗*/
 #define TX_Alert_Horizontal_Default_Left_Padding      80.0
-
 @implementation PNSBuildModelUtils
 
 + (TXCustomModel *)buildFullScreenModel {
@@ -279,6 +279,708 @@
     return model;
 }
 
+#pragma mark - action 新版一键登录全屏（动态配置）
++ (TXCustomModel *)buildNewFullScreenModel: (NSDictionary *) viewConfig selector:(SEL)selector target: (id) target{
+  TXCustomModel *model = [[TXCustomModel alloc] init];
+  Boolean isDialog = [viewConfig boolValueForKey: @"isDialog" defaultValue: NO];
+  /// 导航设置
+  model.navIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
+  model.navColor = [self colorWithHexString: [viewConfig stringValueForKey: @"navColor" defaultValue: @"0x3971fe"] alpha: 1];
+  model.navTitle = [
+    [NSAttributedString alloc]
+      initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]
+          attributes: @{
+            NSForegroundColorAttributeName: UIColor.whiteColor,
+            NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"navTextSize" defaultValue: 20.0]]
+          }
+  ];
+  
+  /// 返回按钮
+  model.hideNavBackItem = [viewConfig boolValueForKey: @"navReturnHidden" defaultValue: NO];
+  /// 动态读取assets文件夹下的资源
+  UIImage *navBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"navReturnImgPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  if(navBackImage != nil){
+    model.navBackImage = navBackImage;
+  }
+  
+  /// 右侧按钮布局设置
+  // UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+  // [rightBtn setTitle:@"更多" forState:UIControlStateNormal];
+  // model.navMoreView = rightBtn;
+  
+  /// 协议页面导航设置
+  model.privacyNavColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"] alpha: 1];
+  UIImage *privacyNavBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"webNavReturnImgPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  if(privacyNavBackImage != nil){
+    model.privacyNavBackImage = privacyNavBackImage;
+  }
+  model.privacyNavTitleFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 18]];
+  model.privacyNavTitleColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavTextColor" defaultValue: @"#000"] alpha: 1];
+  
+  /// logo 设置
+  model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
+  UIImage *image = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logoImgPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  if(image != nil){
+    /// logo 默认水平居中
+    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      frame.size.width = [viewConfig floatValueForKey: @"logoWidth" defaultValue: 80];
+      frame.size.height = [viewConfig floatValueForKey: @"logoHeight" defaultValue: 80];
+      frame.origin.y = [viewConfig floatValueForKey: @"logoOffsetY" defaultValue: screenSize.height > screenSize.width ? 30 : 15];
+      frame.origin.x = (superViewSize.width - [viewConfig floatValueForKey: @"logoWidth" defaultValue: 80]) * 0.5;
+      return frame;
+    };
+    model.logoImage = image;
+  }
+  
+  /// slogan 设置
+  model.sloganIsHidden = [viewConfig boolValueForKey: @"sloganHidden" defaultValue: NO];
+  model.sloganText = [
+    [NSAttributedString alloc]
+    initWithString: [viewConfig stringValueForKey: @"sloganText" defaultValue: @"一键登录欢迎语"]
+        attributes: @{
+         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555"] alpha: 1],
+         NSFontAttributeName: [
+            UIFont systemFontOfSize: [viewConfig floatValueForKey: @"sloganTextSize" defaultValue: 19]
+         ]
+        }
+  ];
+  model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if (screenSize.height > screenSize.width) {
+      frame.origin.y = [viewConfig floatValueForKey: @"sloganOffsetY" defaultValue: 20 + 80 + 20];
+      return frame;
+    } else {
+      return CGRectZero;
+    }
+  };
+  
+  /// number 设置
+  model.numberColor = [self colorWithHexString: [viewConfig stringValueForKey: @"numberColor" defaultValue: @"555"] alpha: 1];
+  model.numberFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"numberSize" defaultValue: 17]];
+  model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      if (screenSize.height > screenSize.width) {
+        frame.origin.y = [viewConfig floatValueForKey: @"numFieldOffsetY" defaultValue: 130 + 20 + 15];
+      } else {
+        frame.origin.y = 15 + 80 + 15;
+      }
+      return frame;
+  };
+  
+  /// 登录按钮
+  model.loginBtnText = [
+    [NSAttributedString alloc]
+        initWithString: [viewConfig stringValueForKey: @"logBtnText" defaultValue: @"一键登录欢迎语"]
+            attributes: @{
+              NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"logBtnTextColor" defaultValue: @"ff00ff"] alpha: 1],
+              NSFontAttributeName: [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"logBtnTextSize" defaultValue: 23]]
+            }
+  ];
+  model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      if (screenSize.height > screenSize.width) {
+        frame.size.width = [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300];
+        frame.size.height = [viewConfig floatValueForKey: @"logBtnHeight" defaultValue: 40];
+        frame.origin.y = [viewConfig floatValueForKey: @"logBtnOffsetY" defaultValue: 170 + 30 + 20];
+        frame.origin.x = (superViewSize.width - [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300]) * 0.5;
+      } else {
+        frame.origin.y = 110 + 30 + 20;
+      }
+      return frame;
+  };
+//    model.loginBtnBgImgs = @[
+//      [UIImage imageNamed:@"button_click"],
+//      [UIImage imageNamed:@"button_unclick"],
+//      [UIImage imageNamed:@"button_click"]
+//    ];
+  
+  //model.autoHideLoginLoading = NO;
+  model.privacyOne = [[viewConfig stringValueForKey: @"appPrivacyOne" defaultValue: nil] componentsSeparatedByString:@","];
+  model.privacyTwo = [[viewConfig stringValueForKey: @"appPrivacyTwo" defaultValue: nil] componentsSeparatedByString:@","];
+  NSArray *privacyColors = [[viewConfig stringValueForKey: @"appPrivacyColor" defaultValue: nil] componentsSeparatedByString:@","];
+  if(privacyColors != nil && privacyColors.count > 1){
+    model.privacyColors = @[
+      [self colorWithHexString: privacyColors[0] alpha: 1],
+      [self colorWithHexString: privacyColors[1] alpha: 1]
+    ];
+  }
+  
+  model.privacyAlignment = NSTextAlignmentCenter;
+  model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
+  model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
+  model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
+  model.privacyOperatorPreText = [viewConfig stringValueForKey: @"vendorPrivacyPrefix" defaultValue: @"《"];
+  model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
+  
+  // 勾选统一按钮
+  model.checkBoxIsHidden = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
+  
+  // 切换到其他标题
+  model.changeBtnIsHidden = [viewConfig boolValueForKey: @"checkBoxIsHidden" defaultValue: NO];
+  model.changeBtnTitle = [
+     [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"changeBtnTitle" defaultValue: @"切换到其他方式"]
+     attributes: @{
+       NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"changeBtnTitleColor" defaultValue: @"#ccc"] alpha: 1],
+       NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"changeBtnTitleSize" defaultValue: 18]]
+     }
+  ];
+  model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if (screenSize.height > screenSize.width) {
+      return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+    } else {
+      return CGRectZero; //横屏时模拟隐藏该控件
+    }
+  };
+  
+  model.prefersStatusBarHidden = YES;
+  model.preferredStatusBarStyle = UIStatusBarStyleLightContent;
+  //model.presentDirection = PNSPresentationDirectionBottom;
+  
+  if (isDialog){
+    CGFloat ratio = MAX(TX_SCREEN_WIDTH, TX_SCREEN_HEIGHT) / 667.0;
+    
+    //实现该block，并且返回的frame的x或y大于0，则认为是弹窗谈起授权页
+    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize contentSize, CGRect frame) {
+        CGFloat alertX = 0;
+        CGFloat alertY = 0;
+        CGFloat alertWidth = 0;
+        CGFloat alertHeight = 0;
+        if ([self isHorizontal:screenSize]) {
+            alertX = ratio * TX_Alert_Horizontal_Default_Left_Padding;
+            alertWidth = screenSize.width - alertX * 2;
+            alertY = (screenSize.height - alertWidth * 0.5) * 0.5;
+            alertHeight = screenSize.height - 2 * alertY;
+        } else {
+            alertX = TX_Alert_Default_Left_Padding * ratio;
+            alertWidth = screenSize.width - alertX * 2;
+            alertY = TX_Alert_Default_Top_Padding * ratio;
+            alertHeight = screenSize.height - alertY * 2;
+        }
+        return CGRectMake(alertX, alertY, alertWidth, alertHeight);
+    };
+  }
+    //授权页默认控件布局调整
+//    model.navMoreViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        CGFloat width = superViewSize.height;
+//        CGFloat height = width;
+//        return CGRectMake(superViewSize.width - 15 - width, 0, width, height);
+//    };
+//    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        if ([self isHorizontal:screenSize]) {
+//            frame.origin.y = 20;
+//            return frame;
+//        }
+//        return frame;
+//    };
+//    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        if ([self isHorizontal:screenSize]) {
+//            return CGRectZero; //横屏时模拟隐藏该控件
+//        } else {
+//            return CGRectMake(0, 140, superViewSize.width, frame.size.height);
+//        }
+//    };
+//    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        if ([self isHorizontal:screenSize]) {
+//            frame.origin.y = 140;
+//        }
+//        return frame;
+//    };
+//    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        if ([self isHorizontal:screenSize]) {
+//            frame.origin.y = 185;
+//        }
+//        return frame;
+//    };
+//    model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+//        if ([self isHorizontal:screenSize]) {
+//            return CGRectZero; //横屏时模拟隐藏该控件
+//        } else {
+//            return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+//        }
+//    };
+  
+  /// 自定义按钮布局
+  NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
+  NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
+  if(customArray != nil && customArray.count > 0){
+    for (int i = 0 ; i < customArray.count; i++) {
+      /// 动态生成imageView 并且加入到 imageView数组中以备使用
+      UIImageView *itemView = [
+       self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+              selector: selector
+                target: target
+                 index: i
+       ];
+      [customArrayView addObject: itemView];
+      
+    }
+    
+    /// 添加第三方图标
+    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+      for (int i = 0 ; i < customArrayView.count; i++) {
+        [superCustomView addSubview: customArrayView[i]];
+      }
+    };
+    
+    /// 第三方图标按钮的相关参数
+    int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
+    int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
+    int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
+    int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
+    
+    model.customViewLayoutBlock = ^(
+      CGSize screenSize,       /// 全屏参数
+      CGRect contentViewFrame, /// contentView参数
+      CGRect navFrame,         /// 导航参数
+      CGRect titleBarFrame,    /// title参数
+      CGRect logoFrame,        /// logo区域参数
+      CGRect sloganFrame,      /// slogan参数
+      CGRect numberFrame,      /// 号码处参数
+      CGRect loginFrame,       /// 登录按钮处的参数
+      CGRect changeBtnFrame,   /// 切换到其他的参数
+      CGRect privacyFrame      /// 协议区域的参数
+    ) {
+      NSUInteger count = customArrayView.count;
+      NSInteger contentWidth = isDialog ? contentViewFrame.size.width : screenSize.width;
+      for (int i = 0 ; i < count; i++) {
+        UIImageView *itemView = (UIImageView *)customArrayView[i];
+//        int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
+        NSInteger X = (contentWidth- (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+        NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
+        itemView.frame = CGRectMake( X, Y, width, height );
+      }
+    };
+  }
+ 
+  return model;
+}
+
++ (TXCustomModel *)buildNewAlertModel: (NSDictionary *) viewConfig selector:(SEL)selector target: (id) target{
+    TXCustomModel *model = [[TXCustomModel alloc] init];
+    
+  model.alertBarIsHidden = [viewConfig boolValueForKey: @"alertBarIsHidden" defaultValue: NO];
+  model.alertTitleBarColor = [self colorWithHexString: [viewConfig stringValueForKey: @"alertTitleBarColor" defaultValue: @"0x3971fe"] alpha: 1];
+  model.alertTitle = [
+    [NSAttributedString alloc]
+      initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]
+          attributes: @{
+            NSForegroundColorAttributeName: UIColor.whiteColor,
+            NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"navTextSize" defaultValue: 20.0]]
+          }
+  ];;
+  model.alertCloseItemIsHidden = [viewConfig boolValueForKey: @"alertCloseItemIsHidden" defaultValue: NO];
+  UIImage *alertCloseImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"alertCloseItemIsHidden"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
+  
+  model.alertBlurViewColor = [self colorWithHexString: [viewConfig stringValueForKey: @"alertBlurViewColor" defaultValue: @"#000"] alpha: 1];
+  model.alertBlurViewAlpha = [viewConfig floatValueForKey: @"alertBlurViewAlpha" defaultValue: 0.5];
+  NSString *radiuString = [viewConfig stringValueForKey: @"alertCornerRadiusArray" defaultValue: @"10,10,10,10"];
+  NSArray *alertCornerRadiusArray = [radiuString componentsSeparatedByString: @","];
+  model.alertCornerRadiusArray = [self _map: alertCornerRadiusArray]; //@[@10, @10, @10, @10];
+    
+  /// 协议页面导航设置
+  model.privacyNavColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"] alpha: 1];
+  UIImage *privacyNavBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"webNavReturnImgPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  if(privacyNavBackImage != nil){
+    model.privacyNavBackImage = privacyNavBackImage;
+  }
+  model.privacyNavTitleFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 18]];
+  model.privacyNavTitleColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavTextColor" defaultValue: @"#000"] alpha: 1];
+  
+  /// logo 设置
+  model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
+  UIImage *image = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logoImgPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  if(image != nil){
+    /// logo 默认水平居中
+    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      frame.size.width = [viewConfig floatValueForKey: @"logoWidth" defaultValue: 80];
+      frame.size.height = [viewConfig floatValueForKey: @"logoHeight" defaultValue: 80];
+      frame.origin.y = [viewConfig floatValueForKey: @"logoOffsetY" defaultValue: screenSize.height > screenSize.width ? 30 : 15];
+      frame.origin.x = (superViewSize.width - [viewConfig floatValueForKey: @"logoWidth" defaultValue: 80]) * 0.5;
+      return frame;
+    };
+    model.logoImage = image;
+  }
+  
+  
+  /// slogan 设置
+  model.sloganIsHidden = [viewConfig boolValueForKey: @"sloganHidden" defaultValue: NO];
+  model.sloganText = [
+    [NSAttributedString alloc]
+    initWithString: [viewConfig stringValueForKey: @"sloganText" defaultValue: @"一键登录欢迎语"]
+        attributes: @{
+         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555"] alpha: 1],
+         NSFontAttributeName: [
+            UIFont systemFontOfSize: [viewConfig floatValueForKey: @"sloganTextSize" defaultValue: 19]
+         ]
+        }
+  ];
+  model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if (screenSize.height > screenSize.width) {
+      frame.origin.y = [viewConfig floatValueForKey: @"sloganOffsetY" defaultValue: 20 + 80 + 20];
+      return frame;
+    } else {
+      return CGRectZero;
+    }
+  };
+  
+  /// number 设置
+  model.numberColor = [self colorWithHexString: [viewConfig stringValueForKey: @"numberColor" defaultValue: @"555"] alpha: 1];
+  model.numberFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"numberSize" defaultValue: 17]];
+  model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      if (screenSize.height > screenSize.width) {
+        frame.origin.y = [viewConfig floatValueForKey: @"numFieldOffsetY" defaultValue: 130 + 20 + 15];
+      } else {
+        frame.origin.y = 15 + 80 + 15;
+      }
+      return frame;
+  };
+  
+  /// 登录按钮
+  model.loginBtnText = [
+    [NSAttributedString alloc]
+        initWithString: [viewConfig stringValueForKey: @"logBtnText" defaultValue: @"一键登录欢迎语"]
+            attributes: @{
+              NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"logBtnTextColor" defaultValue: @"ff00ff"] alpha: 1],
+              NSFontAttributeName: [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"logBtnTextSize" defaultValue: 23]]
+            }
+  ];
+  model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      if (screenSize.height > screenSize.width) {
+        frame.size.width = [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300];
+        frame.size.height = [viewConfig floatValueForKey: @"logBtnHeight" defaultValue: 40];
+        frame.origin.y = [viewConfig floatValueForKey: @"logBtnOffsetY" defaultValue: 170 + 30 + 20];
+        frame.origin.x = (superViewSize.width - [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300]) * 0.5;
+      } else {
+        frame.origin.y = 110 + 30 + 20;
+      }
+      return frame;
+  };
+  
+//    model.loginBtnBgImgs = @[
+//      [UIImage imageNamed:@"button_click"],
+//      [UIImage imageNamed:@"button_unclick"],
+//      [UIImage imageNamed:@"button_click"]
+//    ];
+  
+  model.privacyOne = [[viewConfig stringValueForKey: @"appPrivacyOne" defaultValue: nil] componentsSeparatedByString:@","];
+  model.privacyTwo = [[viewConfig stringValueForKey: @"appPrivacyTwo" defaultValue: nil] componentsSeparatedByString:@","];
+  NSArray *privacyColors = [[viewConfig stringValueForKey: @"appPrivacyColor" defaultValue: nil] componentsSeparatedByString:@","];
+  if(privacyColors != nil && privacyColors.count > 1){
+    model.privacyColors = @[
+      [self colorWithHexString: privacyColors[0] alpha: 1],
+      [self colorWithHexString: privacyColors[1] alpha: 1]
+    ];
+  }
+  
+  model.privacyAlignment = NSTextAlignmentCenter;
+  model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
+  model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
+  model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
+  model.privacyOperatorPreText = [viewConfig stringValueForKey: @"vendorPrivacyPrefix" defaultValue: @"《"];
+  model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
+  
+  // 勾选统一按钮
+  model.checkBoxIsHidden = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
+  
+  // 切换到其他标题
+  model.changeBtnIsHidden = [viewConfig boolValueForKey: @"checkBoxIsHidden" defaultValue: NO];
+  model.changeBtnTitle = [
+     [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"changeBtnTitle" defaultValue: @"切换到其他方式"]
+     attributes: @{
+       NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"changeBtnTitleColor" defaultValue: @"#ccc"] alpha: 1],
+       NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"changeBtnTitleSize" defaultValue: 18]]
+     }
+  ];
+  model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if (screenSize.height > screenSize.width) {
+      return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+    } else {
+      return CGRectZero; //横屏时模拟隐藏该控件
+    }
+  };
+  
+    //model.preferredStatusBarStyle = UIStatusBarStyleDefault;
+    //model.presentDirection = PNSPresentationDirectionBottom;
+    
+    CGFloat ratio = MAX(TX_SCREEN_WIDTH, TX_SCREEN_HEIGHT) / 667.0;
+    
+    //实现该block，并且返回的frame的x或y大于0，则认为是弹窗谈起授权页
+    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize contentSize, CGRect frame) {
+        CGFloat alertX = 0;
+        CGFloat alertY = 0;
+        CGFloat alertWidth = 0;
+        CGFloat alertHeight = 0;
+        if ([self isHorizontal:screenSize]) {
+            alertX = ratio * TX_Alert_Horizontal_Default_Left_Padding;
+            alertWidth = screenSize.width - alertX * 2;
+            alertY = (screenSize.height - alertWidth * 0.5) * 0.5;
+            alertHeight = screenSize.height - 2 * alertY;
+        } else {
+            alertX = TX_Alert_Default_Left_Padding * ratio;
+            alertWidth = screenSize.width - alertX * 2;
+            alertY = TX_Alert_Default_Top_Padding * ratio;
+            alertHeight = screenSize.height - alertY * 2;
+        }
+        return CGRectMake(alertX, alertY, alertWidth, alertHeight);
+    };
+    
+    //授权页默认控件布局调整
+    //model.alertTitleBarFrameBlock =
+    //model.alertTitleFrameBlock =
+    //model.alertCloseItemFrameBlock =
+    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+            return CGRectZero; //横屏时模拟隐藏该控件
+        } else {
+            frame.origin.y = 10;
+            return frame;
+        }
+    };
+    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+            return CGRectZero; //横屏时模拟隐藏该控件
+        } else {
+            frame.origin.y = 110;
+            return frame;
+        }
+    };
+    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+            frame.origin.y = 20;
+            frame.origin.x = (superViewSize.width * 0.5 - frame.size.width) * 0.5 + 18.0;
+        } else {
+            frame.origin.y = 140;
+        }
+        return frame;
+    };
+    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+            frame.origin.y = 60;
+            frame.size.width = superViewSize.width * 0.5; //登录按钮最小宽度是其父视图的一半，再小就不生效了
+        } else {
+            frame.origin.y = 180;
+        }
+        return frame;
+    };
+    model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+            return CGRectZero; //横屏时模拟隐藏该控件
+        } else {
+            return CGRectMake(10, 240, superViewSize.width - 20, 30);
+        }
+    };
+    //model.privacyFrameBlock =
+    
+//    //添加自定义控件并对自定义控件进行布局
+//    __block UIButton *customBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    // [customBtn setTitle:@"这是一个自定义控件" forState:UIControlStateNormal];
+//    [customBtn setBackgroundColor:UIColor.redColor];
+//    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+//         [superCustomView addSubview:customBtn];
+//    };
+//    model.customViewLayoutBlock = ^(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame) {
+//        CGFloat padding = 15;
+//        CGFloat x = 0;
+//        CGFloat y = 0;
+//        CGFloat width = 0;
+//        CGFloat height = 0;
+//        if ([self isHorizontal:screenSize]) {
+//            x = CGRectGetMaxX(loginFrame) + padding;
+//            y = padding;
+//            width = contentViewFrame.size.width - x - padding;
+//            height = CGRectGetMinY(privacyFrame) - y - padding;
+//        } else {
+//            x = padding;
+//            y = MAX(CGRectGetMaxY(changeBtnFrame), CGRectGetMaxY(loginFrame)) + padding;
+//            width = contentViewFrame.size.width - 2 * x;
+//            height = CGRectGetMinY(privacyFrame) - y - padding;
+//        }
+//        customBtn.frame = CGRectMake(x, y, width, height);
+//    };
+  
+  /// 自定义按钮布局
+  NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
+  NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
+  if(customArray != nil && customArray.count > 0){
+    for (int i = 0 ; i < customArray.count; i++) {
+      /// 动态生成imageView 并且加入到 imageView数组中以备使用
+      UIImageView *itemView = [
+       self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+              selector: selector
+                target: target
+                 index: i
+       ];
+      [customArrayView addObject: itemView];
+      
+    }
+    
+    /// 添加第三方图标
+    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+      for (int i = 0 ; i < customArrayView.count; i++) {
+        [superCustomView addSubview: customArrayView[i]];
+      }
+    };
+    
+    /// 第三方图标按钮的相关参数
+    int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
+    int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
+    int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
+    int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
+    
+    model.customViewLayoutBlock = ^(
+      CGSize screenSize,       /// 全屏参数
+      CGRect contentViewFrame, /// contentView参数
+      CGRect navFrame,         /// 导航参数
+      CGRect titleBarFrame,    /// title参数
+      CGRect logoFrame,        /// logo区域参数
+      CGRect sloganFrame,      /// slogan参数
+      CGRect numberFrame,      /// 号码处参数
+      CGRect loginFrame,       /// 登录按钮处的参数
+      CGRect changeBtnFrame,   /// 切换到其他的参数
+      CGRect privacyFrame      /// 协议区域的参数
+    ) {
+      NSUInteger count = customArrayView.count;
+      for (int i = 0 ; i < count; i++) {
+        UIImageView *itemView = (UIImageView *)customArrayView[i];
+        // int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
+        NSInteger X = (contentViewFrame.size.width - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+        NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
+        itemView.frame = CGRectMake( X, Y, width, height );
+      }
+    };
+  }
+  return model;
+}
+
++ (NSArray *)_map:(NSArray *)hanlde {
+    NSMutableArray *arr = NSMutableArray.array;
+    for (int i = 0 ; i < hanlde.count; i++) {
+      NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+      f.numberStyle = NSNumberFormatterDecimalStyle;
+      NSNumber *new = [f numberFromString: hanlde[i]];
+      [arr addObject:new];
+    }
+    return arr.copy;
+}
+
+#pragma mark  assets -> 自定义图片view
++ (UIImageView *)customView: (NSString *)path
+                   selector:(SEL)selector
+                     target: (id) target
+                      index: (int) index
+{
+  UIImage * image = [UIImage imageNamed: path
+             inBundle: [NSBundle bundleForClass: [self class]]
+              compatibleWithTraitCollection: nil
+   ];
+  
+  /// 自定义布局 图片不支持圆角，如需圆角请使用圆角图片
+  UIImageView *imageView = [[UIImageView alloc]init];
+  imageView.image = image;
+  imageView.tag = index;
+  //设置控件背景颜色
+  imageView.backgroundColor = [UIColor orangeColor];
+  imageView.clipsToBounds = YES;
+//    imageView.contentMode = UIViewContentModeScaleAspectFill;
+  imageView.contentMode = UIViewContentModeScaleToFill;
+//    imageView.contentMode = UIViewContentModeScaleAspectFit;
+  UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];
+  
+  [imageView addGestureRecognizer:tapGesture];
+  imageView.userInteractionEnabled = YES;
+  
+  return imageView;
+}
+
+#pragma mark  assets -> 转换成真实路径
++ (UIImage *) changeUriPath:(NSString *) path{
+  UIImage * image = [UIImage imageWithContentsOfFile: path];
+  return image;
+}
+
++(FlutterViewController *)flutterVC{
+  return (FlutterViewController *)[self getRootViewController];
+}
+
++ (UIViewController *)getRootViewController {
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    return window.rootViewController;
+}
+
+#pragma mark  ======在view上添加UIViewController========
++ (UIViewController *)findCurrentViewController{
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UIViewController *topViewController = [window rootViewController];
+    while (true) {
+        if (topViewController.presentedViewController) {
+            topViewController = topViewController.presentedViewController;
+        } else if ([topViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)topViewController topViewController]) {
+            topViewController = [(UINavigationController *)topViewController topViewController];
+        } else if ([topViewController isKindOfClass:[UITabBarController class]]) {
+            UITabBarController *tab = (UITabBarController *)topViewController;
+            topViewController = tab.selectedViewController;
+        } else {
+            break;
+        }
+    }
+    return topViewController;
+}
+
+/**
+ 16进制颜色转换为UIColor
+
+ @param hexColor 16进制字符串（可以以0x开头，可以以#开头，也可以就是6位的16进制）
+ @param opacity 透明度
+ @return 16进制字符串对应的颜色
+ */
++(UIColor *)colorWithHexString:(NSString *)hexColor alpha:(float)opacity{
+    NSString * cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor blackColor];
+
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    if ([cString hasPrefix:@"#"]) cString = [cString substringFromIndex:1];
+
+    if ([cString length] != 6) return [UIColor blackColor];
+
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString * rString = [cString substringWithRange:range];
+
+    range.location = 2;
+    NSString * gString = [cString substringWithRange:range];
+
+    range.location = 4;
+    NSString * bString = [cString substringWithRange:range];
+
+    // Scan values
+    unsigned int r, g, b;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+
+    return [UIColor colorWithRed:((float)r / 255.0f)
+                           green:((float)g / 255.0f)
+                            blue:((float)b / 255.0f)
+                           alpha:opacity];
+}
+
 + (UIColor *)colorWithHex:(NSInteger)hex alpha:(CGFloat)alpha {
     return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16))/255.0 green:((float)((hex & 0xFF00) >> 8))/255.0 blue:((float)(hex & 0xFF))/255.0 alpha:alpha];
 }
@@ -287,6 +989,5 @@
 + (BOOL)isHorizontal:(CGSize)size {
     return size.width > size.height;
 }
-
 
 @end

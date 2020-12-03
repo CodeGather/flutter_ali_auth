@@ -5,10 +5,14 @@
 #import <ATAuthSDK/ATAuthSDK.h>
 //#import "ProgressHUD.h"
 #import "PNSBuildModelUtils.h"
+#import "NSDictionary+Utils.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 
 #define TX_SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define TX_SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
+bool bool_true = true;
+bool bool_false = false;
 
 // 打印长度比较大的字符串
 //#define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
@@ -42,12 +46,15 @@
 
 @implementation AliAuthPlugin {
   FlutterEventSink _eventSink;
+  FlutterMethodCall * _callData;
+  TXCustomModel * _model;
 }
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   AliAuthPlugin* instance = [[AliAuthPlugin alloc] init];
   
   FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:@"ali_auth" binaryMessenger: [registrar messenger]];
   FlutterEventChannel* chargingChannel = [FlutterEventChannel eventChannelWithName:@"ali_auth/event" binaryMessenger: [registrar messenger]];
+  
   
   [chargingChannel setStreamHandler: instance];
   [registrar addMethodCallDelegate:instance channel: channel];
@@ -58,6 +65,7 @@
 #pragma mark - IOS 主动发送通知s让 flutter调用监听 eventChannel start
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _eventSink = eventSink;
+  [self initSdk];
   return nil;
 }
 
@@ -68,46 +76,44 @@
 }
 
 // eventChannel end
-
 #pragma mark - 测试联网阿里授权必须
 -(void)httpAuthority{
-    NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];//此处修改为自己公司的服务器地址
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error == nil) {
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            NSLog(@"%@",dict);
-        }
-    }];
-    
-    [dataTask resume];
+  NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];//此处修改为自己公司的服务器地址
+  NSURLRequest *request = [NSURLRequest requestWithURL:url];
+  NSURLSession *session = [NSURLSession sharedSession];
+  NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+      if (error == nil) {
+          NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+          NSLog(@"httpAuthority---%@",dict);
+      }
+  }];
+  
+  [dataTask resume];
 }
-
 
 #pragma mark - flutter调用 oc eventChannel start
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
    // SDK 初始化
   if ([@"init" isEqualToString:call.method]) {
-      NSDictionary *dic = call.arguments;
-      if ([dic isKindOfClass:[NSDictionary class]]) {
-        [self initSubviews];
-        NSString *secret =dic[@"sk"];
-
-        __weak typeof(self) weakSelf = self;
-        [[TXCommonHandler sharedInstance] setAuthSDKInfo:secret complete:^(NSDictionary * _Nonnull resultDic) {
-          [weakSelf showResult:resultDic result:result];
-        }];
-        
-        //显示版本信息
-        NSLog(@"sdk version：%@；cm sdk version：5.7.1.beta；ct sdk version：3.6.2.1；cu sdk version：4.0.1 IR02B1030",
-          [[TXCommonHandler sharedInstance] getVersion]
-        );
-
-      }
+    _callData = call;
+    if(_eventSink != nil){
+      [self initSdk];
+    }
   }
   else if ([@"checkVerifyEnable" isEqualToString:call.method]) {
     [self checkVerifyEnable:call result:result];
+  }
+  else  if ([@"startLogin" isEqualToString:call.method]) { /// 新增接口
+    if(_model == nil){
+      NSDictionary *dict = @{
+          @"code": @500,
+          @"msg" : @"请先初始化SDK",
+          @"data" : @""
+      };
+      self->_eventSink(dict);
+      return;
+    }
+    [self loginWithModel: _model complete:^{}];
   }
   else  if ([@"login" isEqualToString:call.method]) {
     [self getLoginTokenFullVertical:call result:result];
@@ -126,55 +132,77 @@
   }
 }
 
-
-#pragma mark - 告诉代理应该在哪个window 展示内容给用户
-- (ASPresentationAnchor)presentationAnchorForAuthorizationController:(ASAuthorizationController *)controller API_AVAILABLE(ios(13.0)){
-    NSLog(@"88888888888");
-    // 返回window
-    return [UIApplication sharedApplication].windows.lastObject;
-}
-
-#pragma mark - 获取到跟视图
-- (UIViewController *)getRootViewController {
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
-    return window.rootViewController;
-}
-
-#pragma mark  ======在view上添加UIViewController========
-- (UIViewController *)findCurrentViewController{
-    UIWindow *window = [[UIApplication sharedApplication].delegate window];
-    UIViewController *topViewController = [window rootViewController];
-    while (true) {
-        if (topViewController.presentedViewController) {
-            topViewController = topViewController.presentedViewController;
-        } else if ([topViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)topViewController topViewController]) {
-            topViewController = [(UINavigationController *)topViewController topViewController];
-        } else if ([topViewController isKindOfClass:[UITabBarController class]]) {
-            UITabBarController *tab = (UITabBarController *)topViewController;
-            topViewController = tab.selectedViewController;
-        } else {
-            break;
-        }
+#pragma mark - 初始化SDK以及相关布局
+- (void)initSdk {
+  NSDictionary *dic = _callData.arguments;
+  if ([dic isKindOfClass:[NSDictionary class]]) {
+    [self initSubviews];
+    NSString *secret = dic[@"sk"];
+    NSDictionary *config = dic[@"config"];
+    
+    /// 判断是否是弹窗模式
+    if([config boolValueForKey: @"isDialog" defaultValue: NO]){
+      _model = [PNSBuildModelUtils buildNewAlertModel: config
+                                             selector: @selector(btnClick:)
+                                               target: self];
+      _model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
+    } else {
+      _model = [PNSBuildModelUtils buildNewFullScreenModel: config
+                                                  selector: @selector(btnClick:)
+                                                    target: self];
+      _model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
     }
-    return topViewController;
-}
 
+    __weak typeof(self) weakSelf = self;
+    [[TXCommonHandler sharedInstance] setAuthSDKInfo:secret complete:^(NSDictionary * _Nonnull resultDic) {
+      /// 打印日志
+      [weakSelf showResult:resultDic];
+      
+      [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
+        if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
+          NSDictionary *dict = @{
+              @"code": @600024,
+              @"msg" : @"终端环境检查⽀持认证",
+              @"data" : @(bool_true)
+          };
+          self->_eventSink(dict);
+        } else {
+          [weakSelf showResult:resultDic];
+        }
+      }];
+    }];
+    
+    //显示版本信息
+    NSLog(@"sdk version：%@；cm sdk version：5.7.1.beta；ct sdk version：3.6.2.1；cu sdk version：4.0.1 IR02B1030",
+      [[TXCommonHandler sharedInstance] getVersion]
+    );
+    
+  } else {
+    NSDictionary *dict = @{
+        @"code": @500,
+        @"msg" : @"初始化失败！",
+        @"data" : @""
+    };
+    self->_eventSink(dict);
+  }
+}
 
 /** SDK 判断网络环境是否支持 */
 - (void)checkVerifyEnable:(FlutterMethodCall*)call result:(FlutterResult)result {
-    __weak typeof(self) weakSelf = self;
+  __weak typeof(self) weakSelf = self;
   
-    bool bool_true = true;
-    bool bool_false = false;
-  
-    [[TXCommonHandler sharedInstance] checkEnvAvailableWithComplete:^(NSDictionary * _Nullable resultDic) {
-        if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-            [weakSelf showResult:resultDic result:result];
-            result(@(bool_false));
-            return;
-        } else {
-            // 中国移动支持2G/3G/4G、中国联通支持3G/4G、中国电信支持4G。   2G网络下认证失败率较高
-            // WiFi，4G，3G，2G，NoInternet等
+  [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setValue: [resultDic objectForKey:@"resultCode"] forKey: @"code"];
+    if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
+        [weakSelf showResult:resultDic];
+        [dict setValue: @(bool_false) forKey: @"data"];
+    } else {
+      [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:3.0 complete:^(NSDictionary * _Nonnull resultDic) {
+          /// NSLog(@"为后面授权页拉起加个速，加速结果：%@", resultDic);
+      }];
+        // 中国移动支持2G/3G/4G、中国联通支持3G/4G、中国电信支持4G。   2G网络下认证失败率较高
+        // WiFi，4G，3G，2G，NoInternet等
 //            NSString *networktype = [[TXCommonUtils init] getNetworktype];
 //            // 中国移动，中国联通，中国电信等
 //            NSString *carrierName = [[TXCommonUtils init] getCurrentCarrierName];
@@ -186,28 +214,45 @@
 //              result(@(bool_true));
 //            }
 //            result(@(bool_false));
-            result(@(bool_true));
-        }
-    }];
+      [dict setValue: @"终端环境检查⽀持认证" forKey: @"msg"];
+      [dict setValue: @600024 forKey: @"code"];
+      [dict setValue: @(bool_true) forKey: @"data"];
+    }
+    self->_eventSink(dict);
+  }];
+}
+
+#pragma mark - action 选中第三方按钮时回调
+- (void)btnClick: (UIGestureRecognizer *) sender {
+  UIView *view = (UIView *)sender.view;
+  NSInteger index = view.tag;
+  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {
+    NSDictionary *dict = @{
+      @"code": @700005,
+      @"msg" : @"点击第三方登录按钮",
+      @"data" : [NSNumber numberWithInteger: index]
+    };
+    self->_eventSink(dict);
+  }];
 }
 
 // 一键登录(全屏支持旋转)
 - (void)getLoginTokenFullAutorotate:(FlutterMethodCall*)call result:(FlutterResult)result {
     TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    [self startLoginWithModel:model call:call result:result complete:^{}];
+    [self loginWithModel:model complete:^{}];
 }
 // 一键登录(弹窗支持旋转)
 - (void)getLoginTokenAlertAutorotate:(FlutterMethodCall*)call result:(FlutterResult)result {
     TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    [self startLoginWithModel:model call:call result:result complete:^{}];
+    [self loginWithModel:model complete:^{}];
 }
 // 一键登录(竖屏全屏)
 - (void)getLoginTokenFullVertical:(FlutterMethodCall*)call result:(FlutterResult)result{
-    TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    [self startLoginWithModel:model call:call result:result complete:^{}];
+  TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
+  model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
+  [self loginWithModel: model complete:^{}];
 }
 // 一键登录预取号
 - (void)getPreLogin:(FlutterMethodCall*)call result:(FlutterResult)result{
@@ -219,19 +264,19 @@
 - (void)getLoginTokenFullHorizontal:(FlutterMethodCall*)call result:(FlutterResult)result {
     TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
-    [self startLoginWithModel:model call:call result:result complete:^{ }];
+    [self loginWithModel:model complete:^{ }];
 }
 // 一键登录(竖屏弹窗)
 - (void)getLoginTokenAlertVertical:(FlutterMethodCall*)call result:(FlutterResult)result {
     TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    [self startLoginWithModel:model call:call result:result complete:^{}];
+    [self loginWithModel:model complete:^{}];
 }
 // 一键登录(横屏弹窗)
 - (void)getLoginTokenAlertHorizontal:(FlutterMethodCall*)call result:(FlutterResult)result {
     TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
-    [self startLoginWithModel:model call:call result:result complete:^{}];
+    [self loginWithModel:model complete:^{}];
 }
 
 /**
@@ -246,55 +291,41 @@
     __weak typeof(self) weakSelf = self;
     
     //1. 调用check接口检查及准备接口调用环境
-    [[TXCommonHandler sharedInstance] checkEnvAvailableWithComplete:^(NSDictionary * _Nullable resultDic) {
+  [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-            [weakSelf showResult:resultDic result:result];
+            [weakSelf showResult:resultDic];
             return;
         }
         
         //2. 调用取号接口，加速授权页的弹起
         [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
             if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-                NSString *code = [resultDic objectForKey:@"resultCode"];
-                [weakSelf showResult:resultDic result:result];
-                NSDictionary *dict = @{
-                    @"returnCode": code,
-                    @"returnMsg" : [resultDic objectForKey:@"msg"],
-                    @"returnData" : [resultDic objectForKey:@"token"]?:@""
-                };
-                result(dict);
-                return ;
+                [weakSelf showResult:resultDic];
+                return;
             }
             
-            [weakSelf showResult:resultDic result:result];
+            [weakSelf showResult:resultDic];
         }];
     }];
 }
 
 #pragma mark - action 一键登录公共方法
-- (void)startLoginWithModel:(TXCustomModel *)model call:(FlutterMethodCall*)call result:(FlutterResult)result complete:(void (^)(void))completion {
-    float timeout = 5.0; //self.tf_timeout.text.floatValue;
-    __weak typeof(self) weakSelf = self;
-    UIViewController *_vc = [self findCurrentViewController];
+- (void)loginWithModel:(TXCustomModel *)model  complete:(void (^)(void))completion {
+  float timeout = 5.0; //self.tf_timeout.text.floatValue;
+  __weak typeof(self) weakSelf = self;
+  UIViewController *_vc = [self findCurrentViewController];
     
-    //1. 调用check接口检查及准备接口调用环境
-    [[TXCommonHandler sharedInstance] checkEnvAvailableWithComplete:^(NSDictionary * _Nullable resultDic) {
+  //1. 调用check接口检查及准备接口调用环境
+  [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-            [weakSelf showResult:resultDic result:result];
+            [weakSelf showResult:resultDic];
             return;
         }
         
         //2. 调用取号接口，加速授权页的弹起
         [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
             if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-                NSString *code = [resultDic objectForKey:@"resultCode"];
-                [weakSelf showResult:resultDic result:result];
-                NSDictionary *dict = @{
-                    @"returnCode": code,
-                    @"returnMsg" : [resultDic objectForKey:@"msg"],
-                    @"returnData" : [resultDic objectForKey:@"token"]?:@""
-                };
-                result(dict);
+                [weakSelf showResult:resultDic];
                 return ;
             }
             
@@ -302,31 +333,17 @@
             [[TXCommonHandler sharedInstance] getLoginTokenWithTimeout:timeout controller:_vc model:model complete:^(NSDictionary * _Nonnull resultDic) {
                 NSString *code = [resultDic objectForKey:@"resultCode"];
                 if ([PNSCodeSuccess isEqualToString:code]) {
-                    //点击登录按钮获取登录Token成功回调
-                    // NSString *token = [resultDic objectForKey:@"token"];
-                    
-                    // NSLog( @"获取到token---->>>%@<<<-----", token );
-                    
-                    // NSLog( @"打印全部数据日志---->>>%@", resultDic );
-                  
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                     });
-                    NSDictionary *dict = @{
-                        @"returnCode": code,
-                        @"returnMsg" : [resultDic objectForKey:@"msg"],
-                        @"returnData" : [resultDic objectForKey:@"token"]?:@""
-                    };
-                    result(dict);
                 } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
-                    NSDictionary *dict = @{
-                        @"returnCode": code,
-                        @"returnMsg" : [resultDic objectForKey:@"msg"],
-                        @"returnData" : [resultDic objectForKey:@"token"]?:@""
-                    };
-                    result(dict);
+                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                } else if ([PNSCodeErrorUserCancel isEqualToString:code]) {
+                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
+                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                 }
-                [weakSelf showResult:resultDic result:result];
+              [weakSelf showResult:resultDic];
             }];
         }];
     }];
@@ -349,8 +366,19 @@
     [self.scrollView addSubview:self.tv_result];
 }
 
-#pragma mark -  格式化数据utils
-- (void)showResult:(id __nullable)showResult result:(FlutterResult)result  {
+#pragma mark -  格式化数据utils返回数据
+- (void)showResult:(id __nullable)showResult  {
+  NSDictionary *dict = @{
+      @"code": [showResult objectForKey:@"resultCode"],
+      @"msg" : [showResult objectForKey:@"msg"]?:@"",
+      @"data" : [showResult objectForKey:@"token"]?:@""
+  };
+  self->_eventSink(dict);
+  [self showResultLog: showResult];
+}
+
+#pragma mark -  格式化数据utils统一输出日志
+- (void)showResultLog:(id __nullable)showResult  {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *desc = nil;
         if ([showResult isKindOfClass:NSString.class]) {
@@ -364,7 +392,6 @@
         NSLog( @"打印日志---->>%@", desc );
     });
 }
-
 
 #pragma mark -  Apple授权登录
 // 处理授权
@@ -389,8 +416,8 @@
         // 处理不支持系统版本
         NSLog(@"该系统版本不可用Apple登录");
         NSDictionary *resultData = @{
-            @"returnCode": @500,
-            @"returnMsg" : @"该系统版本不可用Apple登录",
+            @"code": @500,
+            @"msg" : @"该系统版本不可用Apple登录",
             @"user" : @"",
             @"familyName" : @"",
             @"givenName" : @"",
@@ -440,8 +467,8 @@
 //        NSLog(@"email--%@", email);
       
         NSDictionary *resultData = @{
-            @"returnCode": @200,
-            @"returnMsg" : @"获取成功",
+            @"code": @200,
+            @"msg" : @"获取成功",
             @"user" : user,
             @"familyName" : familyName != nil ? familyName : @"",
             @"givenName" : givenName != nil ? givenName : @"",
@@ -466,8 +493,8 @@
         NSLog(@"password--%@", password);
         
         NSDictionary *resultData = @{
-            @"returnCode": @200,
-            @"returnMsg" : @"获取成功",
+            @"code": @200,
+            @"msg" : @"获取成功",
             @"user" : user,
             @"familyName" : @"",
             @"givenName" : @"",
@@ -482,8 +509,8 @@
     }else{
         NSLog(@"授权信息均不符");
         NSDictionary *resultData = @{
-            @"returnCode": @500,
-            @"returnMsg" : @"授权信息均不符",
+            @"code": @500,
+            @"msg" : @"授权信息均不符",
             @"user" : @"",
             @"familyName" : @"",
             @"givenName" : @"",
@@ -526,8 +553,8 @@
     
     NSLog(@"%@", errorMsg);
     NSDictionary *resultData = @{
-        @"returnCode": @500,
-        @"returnMsg" : errorMsg,
+        @"code": @500,
+        @"msg" : errorMsg,
         @"user" : @"",
         @"familyName" : @"",
         @"givenName" : @"",
@@ -539,6 +566,38 @@
     if (_eventSink) {
         _eventSink(resultData);
     }
+}
+
+#pragma mark - 告诉代理应该在哪个window 展示内容给用户
+- (ASPresentationAnchor)presentationAnchorForAuthorizationController:(ASAuthorizationController *)controller API_AVAILABLE(ios(13.0)){
+    NSLog(@"88888888888");
+    // 返回window
+    return [UIApplication sharedApplication].windows.lastObject;
+}
+
+#pragma mark - 获取到跟视图
+- (UIViewController *)getRootViewController {
+    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+    return window.rootViewController;
+}
+
+#pragma mark  ======在view上添加UIViewController========
+- (UIViewController *)findCurrentViewController{
+    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+    UIViewController *topViewController = [window rootViewController];
+    while (true) {
+        if (topViewController.presentedViewController) {
+            topViewController = topViewController.presentedViewController;
+        } else if ([topViewController isKindOfClass:[UINavigationController class]] && [(UINavigationController*)topViewController topViewController]) {
+            topViewController = [(UINavigationController *)topViewController topViewController];
+        } else if ([topViewController isKindOfClass:[UITabBarController class]]) {
+            UITabBarController *tab = (UITabBarController *)topViewController;
+            topViewController = tab.selectedViewController;
+        } else {
+            break;
+        }
+    }
+    return topViewController;
 }
 
 @end

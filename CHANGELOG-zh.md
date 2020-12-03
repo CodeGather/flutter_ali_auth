@@ -6,6 +6,9 @@
 * 去除接口 appleploginlisten 统一为loginlisten
 * 完善文档详情请查看接口文件
 * android 完成修改以及文档的完善
+* iOS 同步SDK更新相关过期接口
+* iOS 优化相关代码统一监听返接口
+* logo可以通过assets/logo.png的方式传递
 
 ## 0.0.5
 

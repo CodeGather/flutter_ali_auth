@@ -3,7 +3,7 @@
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
  * @LastEditors: 21克的爱情
- * @LastEditTime: 2020-11-19 17:38:55
+ * @LastEditTime: 2020-11-25 14:40:08
  * @Description: 
  */
 import 'dart:async';
@@ -69,6 +69,11 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('login');
   }
 
+  /// 一键登录
+  static Future<dynamic> get startLogin async {
+    return await _channel.invokeMethod('startLogin');
+  }
+
   /// 预取号
   static Future<dynamic> get preLogin async {
     return await _channel.invokeMethod('preLogin');
@@ -87,7 +92,7 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('appleLogin');
   }
 
-  /// 登录监听返回数据 下个版本删除 请尽快修改
+  /// 数据监听
   static loginListen(
       {bool type = true, Function onEvent, Function onError}) async {
     assert(onEvent != null);

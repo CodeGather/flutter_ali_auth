@@ -623,95 +623,26 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     private boolean dataStatus( Map data, String key ){
         if(data.containsKey(key) && data.get(key) != null){
             if((data.get(key) instanceof Float) || (data.get(key) instanceof Double) && (double) data.get(key) > -1){
-                Log.d(TAG, "判断" + key + "字段类型为----------------------：Float");
                 return true;
             } else if((data.get(key) instanceof Integer) || (data.get(key) instanceof Number) && (int) data.get(key) > -1){
-                Log.d(TAG, "判断" + key + "字段类型为----------------------：Interfer");
                 return true;
             } else if((data.get(key) instanceof Boolean) && (boolean) data.get(key)){
-                Log.d(TAG, "判断" + key + "字段类型为----------------------：Boolean");
                 return true;
             } else if((data.get(key) instanceof String) && !((String) data.get(key)).equals("")){
-                Log.d(TAG, "判断" + key + "字段类型为----------------------：String");
                 return true;
             } else {
-                Log.d(TAG, "判断" + key + "字段类型为----------------------：未知");
                 return false;
             }
         } else {
-            Log.d(TAG, "判断" + key + "字段类型为----------------------：不存在");
             return false;
         }
     }
 
     /// 弹窗授权⻚⾯
     private void configLoginTokenPortDialog(final MethodCall call, final MethodChannel.Result methodResult) {
-        // initDynamicView();
-        mAlicomAuthHelper.removeAuthRegisterXmlConfig();
-        mAlicomAuthHelper.removeAuthRegisterViewConfig();
-        int authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
-        if (Build.VERSION.SDK_INT == 26) {
-            authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
-        }
-        updateScreenSize(authPageOrientation);
-        int dialogWidth = (int) (mScreenWidthDp * 0.8f);
-        int dialogHeight = (int) (mScreenHeightDp * 0.65f);
-        // mAlicomAuthHelper.addAuthRegisterXmlConfig(
-        //     new AuthRegisterXmlConfig.Builder().setLayout(R.layout.custom_port_dialog_action_bar, new AbstractPnsViewDelegate() {
-        //         @Override
-        //         public void onViewCreated(View view) {
-        //             findViewById(R.id.btn_close).setOnClickListener(new View.OnClickListener() {
-        //                 @Override
-        //                 public void onClick(View v) {
-        //                     mAlicomAuthHelper.quitLoginPage();
-        //                 }
-        //             });
-        //         }
-        //     }).build()
-        // );
-        int logBtnOffset = dialogHeight / 2;
         configBuilder(call);
-//        mAlicomAuthHelper.setAuthUIConfig(
-//                new AuthUIConfig.Builder()
-//                        // .setAppPrivacyOne("《自定义隐私协议》", "https://www.baidu.com")
-//                        .setAppPrivacyColor(Color.GRAY, Color.parseColor("#3971fe"))
-//                        .setPrivacyState(false)
-//                        .setCheckboxHidden(true)
-//                        .setNavHidden(false)
-//                        .setNavColor(Color.parseColor("#3971fe"))
-//                        .setNavReturnImgPath("icon_close")
-//                        .setWebNavColor(Color.parseColor("#3971fe"))
-//                        .setAuthPageActIn("in_activity", "out_activity")
-//                        .setAuthPageActOut("in_activity", "out_activity")
-//                        .setVendorPrivacyPrefix("《")
-//                        .setVendorPrivacySuffix("》")
-//                        .setLogoImgPath("ic_launcher")
-//                        .setLogBtnWidth(dialogWidth - 30)
-//                        .setLogBtnMarginLeftAndRight(15)
-//                        .setLogBtnBackgroundPath("button")
-//                        .setLogoOffsetY(48)
-//                        .setLogoWidth(42)
-//                        .setLogoHeight(42)
-//                        .setLogBtnOffsetY(logBtnOffset)
-//                        .setSloganText("为了您的账号安全，请先绑定手机号")
-//                        .setSloganOffsetY(logBtnOffset - 100)
-//                        .setSloganTextSize(11)
-//                        .setNumFieldOffsetY(logBtnOffset - 50)
-//                        .setSwitchOffsetY(logBtnOffset + 50)
-//                        .setSwitchAccTextSize(11)
-//                        .setPageBackgroundPath("dialog_background_color")
-//                        .setNumberSize(17)
-//                        .setLogBtnHeight(38)
-//                        .setLogBtnTextSize(16)
-//                        .setDialogWidth(dialogWidth)
-//                        .setDialogHeight(dialogHeight)
-//                        .setDialogBottom(false)
-//                        .setDialogAlpha(82)
-//                        .setScreenOrientation(authPageOrientation)
-//                        .create()
-//        );
 
-
+        initDynamicView();
     }
 
     // 公共配置
@@ -858,6 +789,10 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         /// 设置logo图⽚缩放模式 ImageView.ScaleType
         if(dataStatus( viewConfig, "logoScaleType")){
             config.setLogoScaleType(ImageView.ScaleType.valueOf((String) viewConfig.get("logoScaleType")));
+        }
+        /// 隐藏slogan
+        if(dataStatus( viewConfig, "sloganHidden")){
+            config.setSloganHidden((boolean) viewConfig.get("sloganHidden"));
         }
         /// 设置slogan ⽂字内容
         if(dataStatus( viewConfig, "sloganText")){

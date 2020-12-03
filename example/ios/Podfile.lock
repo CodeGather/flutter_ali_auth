@@ -1,5 +1,5 @@
 PODS:
-  - ali_auth (0.0.3):
+  - ali_auth (0.0.6):
     - Flutter
   - Flutter (1.0.0)
 
@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  ali_auth: 0dff921752f3435fcc473b63fb179b4f5e9f013d
+  ali_auth: 4ec452b9b44bac41c567435602725fd8dc278c3d
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
 PODFILE CHECKSUM: f32fb4e7c14f8b3ca19a369d7be425dd9241af27

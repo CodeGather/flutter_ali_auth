@@ -4,12 +4,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ali_auth/ali_auth.dart';
 import 'package:flutter/services.dart';
-import 'home.dart';
 import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // 初始化插件
+  /// 初始化插件
+  /// 在使用参数时isDialog，请参照默认配置进行所需修改，否则可能出现相关问题
   if (Platform.isAndroid) {
     AliAuthPlugin.initSdk(
       sk: 'uYhNaUWEW+1rV9cq27oAQVWi8qFaF1wKfHr6BjrdnMoyQbtAxIA7q/ToLl1xKGCAwDl66Mii6KXK3FstD+PNcwS0aFCLorOrYHMHed8FX7AT8qu/AlzTXE05g0FmUMb5z1QKCiyvpmP+THs04fCfVtHsYdirkJGcd58r24o3QykIatcZYgd1jB3WAz3HLUqCg4afUK49SggbPdwscSfVV8wcB/hP+ST9kUVD02JmsqLA4YZUCRuUX2+o5AG1UpJwi/OHEccrFyEwuODaFzDSMPVth2pTZEwCB/g3PeLWhUQlWxvRqolgWQ==',
@@ -39,25 +40,34 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
+    /// 执行相关登录
     login();
+
   }
 
+  /// 相关登录
   login() async {
     /// 登录监听
     AliAuthPlugin.loginListen(type: false, onEvent: _onEvent, onError: _onError);
-    await AliAuthPlugin.login;
   }
 
   /// 登录成功处理
-  void _onEvent(event) {
+  void _onEvent(event) async {
     print(
-        "------------------------------------------------------------------------------------------$event");
+        "-------------成功分割线------------$event");
+    if(event != null && event['code'] != null){
+      if(event['code'] == '600024'){
+        await AliAuthPlugin.startLogin;
+      } else if(event['code'] == '600000'){
+        print('获取到的token${event["data"]}');
+      }
+    }
   }
 
   /// 登录错误处理
   void _onError(error) {
     print(
-        "==========================================================================================$error");
+        "-------------失败分割线------------$error");
   }
 
   @override
@@ -85,6 +95,13 @@ class _MyAppState extends State<MyApp> {
                 print(result);
               },
               child: Text('直接登录'),
+            ),
+            RaisedButton(
+              onPressed: () async {
+                final result = await AliAuthPlugin.startLogin;
+                print(result);
+              },
+              child: Text('new直接登录'),
             ),
             RaisedButton(
               onPressed: () async {
