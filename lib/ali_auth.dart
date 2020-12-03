@@ -38,10 +38,8 @@ class AliAuthPlugin {
   /// isDialog 是否使用Dialog 弹窗登录 非必须 默认值false 非Dialog登录
   /// debug 是否开启调试模式 非必须 默认true 开启
   /// 使用一键登录传入 SERVICE_TYPE_LOGIN 2  使用号码校验传入 SERVICE_TYPE_AUTH  1 默认值 2
-  static Future<dynamic> initSdk({
-    @required String sk,
-    AliAuthModel config
-  }) async {
+  static Future<dynamic> initSdk(
+      {@required String sk, AliAuthModel config}) async {
     /// 判断视图配置
     Map<String, dynamic> data = getConfig().toJson();
     if (config == null || config.toString().isEmpty) {
@@ -56,9 +54,8 @@ class AliAuthPlugin {
     });
   }
 
-  @Deprecated(
-      '该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改'
-  )
+  @Deprecated('该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改')
+
   /// SDK判断网络环境是否支持
   static Future<bool> get checkVerifyEnable async {
     return await _channel.invokeMethod("checkVerifyEnable");
@@ -79,9 +76,8 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('preLogin');
   }
 
-  @Deprecated(
-      '该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改'
-  )
+  @Deprecated('该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改')
+
   /// 一键登录（ 弹窗 ）
   static Future<dynamic> get loginDialog async {
     return await _channel.invokeMethod('loginDialog');

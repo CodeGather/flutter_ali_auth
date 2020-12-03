@@ -9,6 +9,7 @@ import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   /// 初始化插件
   /// 在使用参数时isDialog，请参照默认配置进行所需修改，否则可能出现相关问题
   if (Platform.isAndroid) {
@@ -23,7 +24,8 @@ void main() {
 
   runApp(MaterialApp(home: MyApp()));
 
-  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  SystemUiOverlayStyle systemUiOverlayStyle =
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
@@ -42,23 +44,22 @@ class _MyAppState extends State<MyApp> {
 
     /// 执行相关登录
     login();
-
   }
 
   /// 相关登录
   login() async {
     /// 登录监听
-    AliAuthPlugin.loginListen(type: false, onEvent: _onEvent, onError: _onError);
+    AliAuthPlugin.loginListen(
+        type: false, onEvent: _onEvent, onError: _onError);
   }
 
   /// 登录成功处理
   void _onEvent(event) async {
-    print(
-        "-------------成功分割线------------$event");
-    if(event != null && event['code'] != null){
-      if(event['code'] == '600024'){
+    print("-------------成功分割线------------$event");
+    if (event != null && event['code'] != null) {
+      if (event['code'] == '600024') {
         await AliAuthPlugin.startLogin;
-      } else if(event['code'] == '600000'){
+      } else if (event['code'] == '600000') {
         print('获取到的token${event["data"]}');
       }
     }
@@ -66,59 +67,60 @@ class _MyAppState extends State<MyApp> {
 
   /// 登录错误处理
   void _onError(error) {
-    print(
-        "-------------失败分割线------------$error");
+    print("-------------失败分割线------------$error");
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.light,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('阿里云一键登录插件'),
+        theme: ThemeData(
+          brightness: Brightness.light,
         ),
-        body: Column(
-          children: <Widget>[
-            RaisedButton(
-              onPressed: () async {
-                final result = await AliAuthPlugin.loginDialog;
-                print(result);
-              },
-              child: Text('弹窗登录'),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                final result = await AliAuthPlugin.login;
-                print(result);
-              },
-              child: Text('直接登录'),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                final result = await AliAuthPlugin.startLogin;
-                print(result);
-              },
-              child: Text('new直接登录'),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                final checkVerifyEnable = await AliAuthPlugin.checkVerifyEnable;
-                print(checkVerifyEnable);
-              },
-              child: Text('检测环境'),
-            ),
-            Platform.isIOS ? RaisedButton(
-              onPressed: () async {
-                await AliAuthPlugin.appleLogin;
-              },
-              child: Text('apple登录'),
-            ) : Container()
-          ],
-        ),
-      )
-    );
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('阿里云一键登录插件'),
+          ),
+          body: Column(
+            children: <Widget>[
+              RaisedButton(
+                onPressed: () async {
+                  final result = await AliAuthPlugin.loginDialog;
+                  print(result);
+                },
+                child: Text('弹窗登录'),
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  final result = await AliAuthPlugin.login;
+                  print(result);
+                },
+                child: Text('直接登录'),
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  final result = await AliAuthPlugin.startLogin;
+                  print(result);
+                },
+                child: Text('new直接登录'),
+              ),
+              RaisedButton(
+                onPressed: () async {
+                  final checkVerifyEnable =
+                      await AliAuthPlugin.checkVerifyEnable;
+                  print(checkVerifyEnable);
+                },
+                child: Text('检测环境'),
+              ),
+              Platform.isIOS
+                  ? RaisedButton(
+                      onPressed: () async {
+                        await AliAuthPlugin.appleLogin;
+                      },
+                      child: Text('apple登录'),
+                    )
+                  : Container()
+            ],
+          ),
+        ));
   }
 }

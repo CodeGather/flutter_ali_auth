@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 /// 本机号码校验
 const int SERVICE_TYPE_AUTH = 1;
+
 /// 一键登录
 const int SERVICE_TYPE_LOGIN = 2;
 
@@ -20,13 +21,17 @@ enum ScaleType {
 }
 
 /// 登录窗口配置
-class AliAuthModel{
+class AliAuthModel {
   /// aliyun sk
-  @required final String sk;
+  @required
+  final String sk;
+
   /// 是否使用dialog弹窗登录
   final bool isDialog;
+
   /// 是否开启debug模式
   final bool isDebug;
+
   /// 是否添加自定义背景布局
   final bool customPageBackgroundLyout;
 
@@ -34,8 +39,10 @@ class AliAuthModel{
 
   /// statusBarColor 设置状态栏颜⾊（系统版本 5.0 以上可设置）
   final String statusBarColor;
+
   /// 设置状态栏是否隐藏
   final bool statusBarHidden;
+
   /// 设置状态栏UI属性 View.SYSTEM_UI_FLAG_LOW_PROFILE View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
   /// public static final int SYSTEM_UI_FLAG_FULLSCREEN = 4;
   /// public static final int SYSTEM_UI_FLAG_HIDE_NAVIGATION = 2;
@@ -47,36 +54,52 @@ class AliAuthModel{
   /// public static final int SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR = 16;
   /// public static final int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = 8192;
   final int statusBarUIFlag;
+
   /// 设置状态栏字体颜⾊（系统版本 6.0 以上可21设置⿊⾊、⽩⾊）。true 为⿊⾊
   final bool lightColor;
+
   /// 设置导航栏颜⾊
   final String navColor;
+
   /// 设置导航栏标题⽂字
   final String navText;
+
   /// 设置导航栏标题⽂字颜⾊
   final String navTextColor;
+
   /// 设置导航栏标题⽂字⼤⼩
   final int navTextSize;
+
   /// 设置导航栏返回键图⽚
   final String navReturnImgPath;
+
   /// 设置导航栏返回键宽度
   final int navReturnImgWidth;
+
   /// 设置导航栏返回键高度
   final int navReturnImgHeight;
+
   /// 设置导航栏返回按钮隐藏
   final bool navReturnHidden;
+
   /// 设置默认导航栏是否隐藏
   final bool navHidden;
+
   /// 设置协议⻚状态栏颜⾊（系统版本 5.0 以上可设置）不设置则与授权⻚设置⼀致
   final String webViewStatusBarColor;
+
   /// 设置协议⻚顶部导航栏背景⾊不设置则与授权⻚设置⼀致
   final String webNavColor;
+
   /// 设置协议⻚顶部导航栏标题颜⾊不设置则与授权⻚设置⼀致
   final String webNavTextColor;
+
   /// 设置协议⻚顶部导航栏⽂字⼤⼩22不设置则与授权⻚设置⼀致
   final int webNavTextSize;
+
   /// 设置协议⻚导航栏返回按钮图⽚路径不设置则与授权⻚设置⼀致
   final String webNavReturnImgPath;
+
   /// 设置底部虚拟按键背景⾊（系统版本 5.0 以上可设置）
   final String bottomNavColor;
 
@@ -84,14 +107,19 @@ class AliAuthModel{
 
   /// 隐藏logo
   final bool logoHidden;
+
   /// 设置logo 图⽚
   final String logoImgPath;
+
   /// 设置logo 控件宽度
   final int logoWidth;
+
   /// 设置logo 控件⾼度
   final int logoHeight;
+
   /// 设置logo 控件相对导航栏顶部的位移，单位dp
   final int logoOffsetY;
+
   /// 设置logo图⽚缩放模式
   /// FIT_XY,
   /// FIT_START,
@@ -106,125 +134,173 @@ class AliAuthModel{
 
   /// 隐藏slogan
   final bool sloganHidden;
+
   /// 设置slogan ⽂字内容
-  final String sloganText; 
+  final String sloganText;
+
   /// 设置slogan ⽂字颜⾊
-  final String sloganTextColor; 
+  final String sloganTextColor;
+
   /// 设置slogan ⽂字⼤⼩
-  final int sloganTextSize; 
+  final int sloganTextSize;
+
   /// 设置slogan 相对导航栏顶部的 位移，单位dp
   final int sloganOffsetY;
 
   /// 4、授权⻚号码栏
-  
+
   /// 设置⼿机号码字体颜⾊
-  final String numberColor; 
+  final String numberColor;
+
   /// 设置⼿机号码字体⼤⼩
-  final int numberSize; 
+  final int numberSize;
+
   /// 设置号码栏控件相对导航栏顶部的位移，单位 dp
   final int numFieldOffsetY;
+
   /// 设置号码栏相对于默认位置的X轴偏移量，单位dp
   final int numberFieldOffsetX;
+
   /// 设置⼿机号掩码的布局对⻬⽅式，只⽀持Gravity.CENTER_HORIZONTAL、Gravity.LEFT、Gravity.RIGHT三种对⻬⽅式
   final int numberLayoutGravity;
-  
 
   /// 5. 授权⻚登录按钮
-  
+
   /// 设置登录按钮⽂字
   final String logBtnText;
+
   /// 设置登录按钮⽂字颜⾊
   final String logBtnTextColor;
+
   /// 设置登录按钮⽂字⼤⼩
   final int logBtnTextSize;
+
   /// 设置登录按钮宽度，单位 dp
   final int logBtnWidth;
+
   /// 设置登录按钮⾼度，单位dp
   final int logBtnHeight;
+
   /// 设置登录按钮相对于屏幕左右边缘边距
   final int logBtnMarginLeftAndRight;
+
   /// 设置登录按钮背景图⽚路径
   final String logBtnBackgroundPath;
+
   /// 设置登录按钮相对导航栏顶部的位移，单位 dp
   final int logBtnOffsetY;
+
   /// 设置登录loading dialog 背景图⽚路径24
   final String loadingImgPath;
+
   /// 设置登陆按钮X轴偏移量，如果设置了setLogBtnMarginLeftAndRight，并且布局对⻬⽅式为左对⻬或者右对⻬,则会在margin的基础上再增加offsetX的偏移量，如果是居中对⻬，则仅仅会在居中的基础上再做offsetX的偏移。
   final int logBtnOffsetX;
+
   /// 设置登陆按钮布局对⻬⽅式，只⽀持Gravity.CENTER_HORIZONTAL、Gravity.LEFT、Gravity.RIGHT三种对⻬⽅式
   final int logBtnLayoutGravity;
 
   /// 6. 授权⻚隐私栏
-  
+
   /// 设置开发者隐私条款 1 名称和URL(名称，url) String,String
   final String appPrivacyOne;
+
   /// 设置开发者隐私条款 2 名称和URL(名称，url) String,String
   final String appPrivacyTwo;
+
   /// 设置隐私条款名称颜⾊(基础⽂字颜⾊，协议⽂字颜⾊)
   final String appPrivacyColor;
+
   /// 设置隐私条款相对导航栏顶部的位移，单位dp
   final int privacyOffsetY;
+
   /// 设置隐私条款是否默认勾选
   final bool privacyState;
+
   /// 设置隐私条款⽂字对⻬⽅式，单位Gravity.xxx
   final int protocolGravity;
+
   /// 设置隐私条款⽂字⼤⼩，单位sp
   final int privacyTextSize;
+
   /// 设置隐私条款距离⼿机左右边缘的边距，单位dp
   final int privacyMargin;
+
   /// 设置开发者隐私条款前置⾃定义25⽂案
   final String privacyBefore;
+
   /// 设置开发者隐私条款尾部⾃定义⽂案
   final String privacyEnd;
+
   /// 设置复选框是否隐藏
   final bool checkboxHidden;
+
   /// 勾选框大小宽高等比 17*17 -> 17
   final int checkBoxWH;
+
   /// 切换标题
   final String changeBtnTitle;
+
   /// 切换标题大小
   final int changeBtnTitleSize;
+
   /// 切换标题颜色
   final String changeBtnTitleColor;
+
   /// 是否隐藏切换标题
   final bool changeBtnIsHidden;
+
   /// 设置复选框未选中时图⽚
   final String uncheckedImgPath;
+
   /// 设置复选框选中时图⽚
   final String checkedImgPath;
+
   /// 设置运营商协议前缀符号，只能设置⼀个字符，且只能设置<>()《》【】『』[]（）中的⼀个
   final String vendorPrivacyPrefix;
+
   /// 设置运营商协议后缀符号，只能设置⼀个字符，且只能设置<>()《》【】『』[]（）中的⼀个
   final String vendorPrivacySuffix;
+
   /// 设置隐私栏的布局对⻬⽅式，该接⼝控制了整个隐私栏（包含checkbox）在其⽗布局中的对⻬⽅式，⽽setProtocolGravity控制的是隐私协议⽂字内容在⽂本框中的对⻬⽅式
   final int protocolLayoutGravity;
+
   /// 设置隐私栏X轴偏移量，单位dp
   final int privacyOffsetX;
+
   /// 设置checkbox未勾选时，点击登录按钮toast是否显示
   final bool logBtnToastHidden;
 
   /// 7. 切换⽅式控件
-  
+
   /// 设置切换按钮点是否可⻅
   final bool switchAccHidden;
+
   /// 设置切换按钮⽂字内容
   final String switchAccText;
+
   /// 设置切换按钮⽂字颜⾊
   final String switchAccTextColor;
+
   /// 设置切换按钮⽂字⼤⼩
   final int switchAccTextSize;
+
   /// 设置换按钮相对导航栏顶部的位移，单位 dp
   final int switchOffsetY;
+
   /// 第三方图标相关参数只对iOS有效，android 请使用布局文件实现
   /// 第三方图标按钮居中布局
   /// 第三方布局图片路径
   final String customThirdImgPaths;
+
   /// 第三方图标宽度
   final int customThirdImgWidth;
+
   /// 第三方图标高度
   final int customThirdImgHeight;
+
   /// 第三方图标间距
   final int customThirdImgSpace;
+
   /// 第三方按钮的Y 默认值距离第三方标题向下20 大于50的时候为相对于状态栏的距离 即为从顶部向下多少
   final int customThirdImgOffsetY;
 
@@ -232,41 +308,155 @@ class AliAuthModel{
 
   /// 设置授权⻚进场动画
   final String authPageActIn;
+
   /// 设置授权⻚退出动画
   final String authPageActOut;
+
   /// 设置授权⻚背景图drawable资源的⽬录，不需要加后缀，⽐如图⽚在drawable中的存放⽬录是res/drawablexxhdpi/loading.png,则传⼊参数为"loading"，setPageBackgroundPath("loading")。
   final String pageBackgroundPath;
+
   /// dialog 蒙层的透明度
   final double dialogAlpha;
+
   /// 设置弹窗模式授权⻚宽度，单位dp,设置⼤于0即为弹窗模式
   final int dialogWidth;
+
   /// 设置弹窗模式授权⻚⾼度，单位dp，设置⼤于0即为弹窗模式
   final int dialogHeight;
+
   /// 设置弹窗模式授权⻚X轴偏移，单位dp
   final int dialogOffsetX;
+
   /// 设置弹窗模式授权⻚Y轴偏移,单位dp
   final int dialogOffsetY;
+
   /// 设置授权⻚是否居于底部
   final bool dialogBottom;
 
   /// ios 弹窗设置参数
   /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
   final bool alertBarIsHidden;
+
   /// bar的背景色
   final String alertTitleBarColor;
+
   /// bar的关闭按钮
   final bool alertCloseItemIsHidden;
+
   /// 关闭按钮的图片路径
   final String alertCloseImage;
+
   /// 底部蒙层背景颜色，默认黑色
   final String alertBlurViewColor;
+
   /// 底部蒙层背景透明度，默认0.5 0 ~ 1
   final double alertBlurViewAlpha;
+
   /// 窗口圆角 顺序为左上，左下，右下，右上，需要填充4个值，不足4个值则无效，如果值<=0则为直角 */
   final String alertCornerRadiusArray;
 
-  AliAuthModel(this.sk, this.isDialog, this.isDebug, this.customPageBackgroundLyout, this.statusBarColor, this.statusBarHidden, this.statusBarUIFlag, this.lightColor, this.navColor, this.navText, this.navTextColor, this.navTextSize, this.navReturnImgPath, this.navReturnImgWidth, this.navReturnImgHeight, this.navReturnHidden, this.navHidden, this.webViewStatusBarColor, this.webNavColor, this.webNavTextColor, this.webNavTextSize, this.webNavReturnImgPath, this.bottomNavColor, this.logoHidden, this.logoImgPath, this.logoWidth, this.logoHeight, this.logoOffsetY, this.logoScaleType, this.sloganHidden, this.sloganText, this.sloganTextColor, this.sloganTextSize, this.sloganOffsetY, this.numberColor, this.numberSize, this.numFieldOffsetY, this.numberFieldOffsetX, this.numberLayoutGravity, this.logBtnText, this.logBtnTextColor, this.logBtnTextSize, this.logBtnWidth, this.logBtnHeight, this.logBtnMarginLeftAndRight, this.logBtnBackgroundPath, this.logBtnOffsetY, this.loadingImgPath, this.logBtnOffsetX, this.logBtnLayoutGravity, this.appPrivacyOne, this.appPrivacyTwo, this.appPrivacyColor, this.privacyOffsetY, this.privacyState, this.protocolGravity, this.privacyTextSize, this.privacyMargin, this.privacyBefore, this.privacyEnd, this.checkboxHidden, this.checkBoxWH, this.changeBtnTitle, this.changeBtnTitleSize, this.changeBtnTitleColor, this.changeBtnIsHidden, this.uncheckedImgPath, this.checkedImgPath, this.vendorPrivacyPrefix, this.vendorPrivacySuffix, this.protocolLayoutGravity, this.privacyOffsetX, this.logBtnToastHidden, this.switchAccHidden, this.switchAccText, this.switchAccTextColor, this.switchAccTextSize, this.switchOffsetY, this.customThirdImgPaths, this.customThirdImgWidth, this.customThirdImgHeight, this.customThirdImgSpace, this.customThirdImgOffsetY, this.authPageActIn, this.authPageActOut, this.pageBackgroundPath, this.dialogAlpha, this.dialogWidth, this.dialogHeight, this.dialogOffsetX, this.dialogOffsetY, this.dialogBottom, this.alertBarIsHidden, this.alertTitleBarColor, this.alertCloseItemIsHidden, this.alertCloseImage, this.alertBlurViewColor, this.alertBlurViewAlpha, this.alertCornerRadiusArray);
-  factory AliAuthModel.fromJson(Map<String, dynamic> srcJson) => _$AliAuthModelFromJson(srcJson);
+  AliAuthModel(
+      this.sk,
+      this.isDialog,
+      this.isDebug,
+      this.customPageBackgroundLyout,
+      this.statusBarColor,
+      this.statusBarHidden,
+      this.statusBarUIFlag,
+      this.lightColor,
+      this.navColor,
+      this.navText,
+      this.navTextColor,
+      this.navTextSize,
+      this.navReturnImgPath,
+      this.navReturnImgWidth,
+      this.navReturnImgHeight,
+      this.navReturnHidden,
+      this.navHidden,
+      this.webViewStatusBarColor,
+      this.webNavColor,
+      this.webNavTextColor,
+      this.webNavTextSize,
+      this.webNavReturnImgPath,
+      this.bottomNavColor,
+      this.logoHidden,
+      this.logoImgPath,
+      this.logoWidth,
+      this.logoHeight,
+      this.logoOffsetY,
+      this.logoScaleType,
+      this.sloganHidden,
+      this.sloganText,
+      this.sloganTextColor,
+      this.sloganTextSize,
+      this.sloganOffsetY,
+      this.numberColor,
+      this.numberSize,
+      this.numFieldOffsetY,
+      this.numberFieldOffsetX,
+      this.numberLayoutGravity,
+      this.logBtnText,
+      this.logBtnTextColor,
+      this.logBtnTextSize,
+      this.logBtnWidth,
+      this.logBtnHeight,
+      this.logBtnMarginLeftAndRight,
+      this.logBtnBackgroundPath,
+      this.logBtnOffsetY,
+      this.loadingImgPath,
+      this.logBtnOffsetX,
+      this.logBtnLayoutGravity,
+      this.appPrivacyOne,
+      this.appPrivacyTwo,
+      this.appPrivacyColor,
+      this.privacyOffsetY,
+      this.privacyState,
+      this.protocolGravity,
+      this.privacyTextSize,
+      this.privacyMargin,
+      this.privacyBefore,
+      this.privacyEnd,
+      this.checkboxHidden,
+      this.checkBoxWH,
+      this.changeBtnTitle,
+      this.changeBtnTitleSize,
+      this.changeBtnTitleColor,
+      this.changeBtnIsHidden,
+      this.uncheckedImgPath,
+      this.checkedImgPath,
+      this.vendorPrivacyPrefix,
+      this.vendorPrivacySuffix,
+      this.protocolLayoutGravity,
+      this.privacyOffsetX,
+      this.logBtnToastHidden,
+      this.switchAccHidden,
+      this.switchAccText,
+      this.switchAccTextColor,
+      this.switchAccTextSize,
+      this.switchOffsetY,
+      this.customThirdImgPaths,
+      this.customThirdImgWidth,
+      this.customThirdImgHeight,
+      this.customThirdImgSpace,
+      this.customThirdImgOffsetY,
+      this.authPageActIn,
+      this.authPageActOut,
+      this.pageBackgroundPath,
+      this.dialogAlpha,
+      this.dialogWidth,
+      this.dialogHeight,
+      this.dialogOffsetX,
+      this.dialogOffsetY,
+      this.dialogBottom,
+      this.alertBarIsHidden,
+      this.alertTitleBarColor,
+      this.alertCloseItemIsHidden,
+      this.alertCloseImage,
+      this.alertBlurViewColor,
+      this.alertBlurViewAlpha,
+      this.alertCornerRadiusArray);
+  factory AliAuthModel.fromJson(Map<String, dynamic> srcJson) =>
+      _$AliAuthModelFromJson(srcJson);
   Map<String, dynamic> toJson() => _$AliAuthModelToJson(this);
 }
 
@@ -282,55 +472,55 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['lightColor'] as bool,
     json['navColor'] as String,
     json['navText'] as String,
-    json['navTextColor'] as String, 
+    json['navTextColor'] as String,
     json['navTextSize'] as int,
     json['navReturnImgPath'] as String,
     json['navReturnImgWidth'] as int,
     json['navReturnImgHeight'] as int,
     json['navReturnHidden'] as bool,
     json['navHidden'] as bool,
-    json['webViewStatusBarColor'] as String, 
-    json['webNavColor'] as String, 
-    json['webNavTextColor'] as String, 
-    json['webNavTextSize'] as int, 
-    json['webNavReturnImgPath'] as String, 
-    json['bottomNavColor'] as String, 
-    json['logoHidden'] as bool, 
-    json['logoImgPath'] as String, 
-    json['logoWidth'] as int, 
-    json['logoHeight'] as int, 
-    json['logoOffsetY'] as int, 
+    json['webViewStatusBarColor'] as String,
+    json['webNavColor'] as String,
+    json['webNavTextColor'] as String,
+    json['webNavTextSize'] as int,
+    json['webNavReturnImgPath'] as String,
+    json['bottomNavColor'] as String,
+    json['logoHidden'] as bool,
+    json['logoImgPath'] as String,
+    json['logoWidth'] as int,
+    json['logoHeight'] as int,
+    json['logoOffsetY'] as int,
     json['logoScaleType'] as String,
     json['sloganHidden'] as bool,
     json['sloganText'] as String,
-    json['sloganTextColor'] as String, 
-    json['sloganTextSize'] as int, 
-    json['sloganOffsetY'] as int, 
+    json['sloganTextColor'] as String,
+    json['sloganTextSize'] as int,
+    json['sloganOffsetY'] as int,
     json['numberColor'] as String,
-    json['numberSize'] as int, 
-    json['numFieldOffsetY'] as int, 
+    json['numberSize'] as int,
+    json['numFieldOffsetY'] as int,
     json['numberFieldOffsetX'] as int,
-    json['numberLayoutGravity'] as int, 
-    json['logBtnText'] as String, 
-    json['logBtnTextColor'] as String, 
-    json['logBtnTextSize'] as int, 
-    json['logBtnWidth'] as int, 
-    json['logBtnHeight'] as int, 
-    json['logBtnMarginLeftAndRight'] as int, 
-    json['logBtnBackgroundPath'] as String, 
-    json['logBtnOffsetY'] as int, 
+    json['numberLayoutGravity'] as int,
+    json['logBtnText'] as String,
+    json['logBtnTextColor'] as String,
+    json['logBtnTextSize'] as int,
+    json['logBtnWidth'] as int,
+    json['logBtnHeight'] as int,
+    json['logBtnMarginLeftAndRight'] as int,
+    json['logBtnBackgroundPath'] as String,
+    json['logBtnOffsetY'] as int,
     json['loadingImgPath'] as String,
-    json['logBtnOffsetX'] as int, 
-    json['logBtnLayoutGravity'] as int, 
-    json['appPrivacyOne'] as String, 
-    json['appPrivacyTwo'] as String, 
-    json['appPrivacyColor'] as String, 
-    json['privacyOffsetY'] as int, 
+    json['logBtnOffsetX'] as int,
+    json['logBtnLayoutGravity'] as int,
+    json['appPrivacyOne'] as String,
+    json['appPrivacyTwo'] as String,
+    json['appPrivacyColor'] as String,
+    json['privacyOffsetY'] as int,
     json['privacyState'] as bool,
-    json['protocolGravity'] as int, 
-    json['privacyTextSize'] as int, 
-    json['privacyMargin'] as int, 
-    json['privacyBefore'] as String, 
+    json['protocolGravity'] as int,
+    json['privacyTextSize'] as int,
+    json['privacyMargin'] as int,
+    json['privacyBefore'] as String,
     json['privacyEnd'] as String,
     json['checkboxHidden'] as bool,
     json['checkBoxWH'] as int,
@@ -339,16 +529,16 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['changeBtnTitleColor'] as String,
     json['changeBtnIsHidden'] as bool,
     json['uncheckedImgPath'] as String,
-    json['checkedImgPath'] as String, 
-    json['vendorPrivacyPrefix'] as String, 
-    json['vendorPrivacySuffix'] as String, 
-    json['protocolLayoutGravity'] as int, 
-    json['privacyOffsetX'] as int, 
-    json['logBtnToastHidden'] as bool, 
-    json['switchAccHidden'] as bool, 
-    json['switchAccText'] as String, 
-    json['switchAccTextColor'] as String, 
-    json['switchAccTextSize'] as int, 
+    json['checkedImgPath'] as String,
+    json['vendorPrivacyPrefix'] as String,
+    json['vendorPrivacySuffix'] as String,
+    json['protocolLayoutGravity'] as int,
+    json['privacyOffsetX'] as int,
+    json['logBtnToastHidden'] as bool,
+    json['switchAccHidden'] as bool,
+    json['switchAccText'] as String,
+    json['switchAccTextColor'] as String,
+    json['switchAccTextSize'] as int,
     json['switchOffsetY'] as int,
     json['customThirdImgPaths'] as String,
     json['customThirdImgWidth'] as int,
@@ -356,12 +546,12 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['customThirdImgSpace'] as int,
     json['customThirdImgOffsetY'] as int,
     json['authPageActIn'] as String,
-    json['authPageActOut'] as String, 
+    json['authPageActOut'] as String,
     json['pageBackgroundPath'] as String,
     json['dialogAlpha'] as double,
-    json['dialogWidth'] as int, 
-    json['dialogHeight'] as int, 
-    json['dialogOffsetX'] as int, 
+    json['dialogWidth'] as int,
+    json['dialogHeight'] as int,
+    json['dialogOffsetX'] as int,
     json['dialogOffsetY'] as int,
     json['dialogBottom'] as bool,
     json['alertBarIsHidden'] as bool,
@@ -374,107 +564,108 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) => <String, dynamic>{
-  'sk':instance.sk,
-  'isDialog':instance.isDialog,
-  'isDebug':instance.isDebug,
-  'customPageBackgroundLyout': instance.customPageBackgroundLyout,
-  'statusBarColor':instance.statusBarColor,
-  'statusBarHidden':instance.statusBarHidden,
-  'statusBarUIFlag':instance.statusBarUIFlag,
-  'lightColor':instance.lightColor,
-  'navColor':instance.navColor,
-  'navText':instance.navText,
-  'navTextColor':instance.navTextColor,
-  'navTextSize':instance.navTextSize,
-  'navReturnImgPath':instance.navReturnImgPath,
-  'navReturnImgWidth':instance.navReturnImgWidth,
-  'navReturnImgHeight':instance.navReturnImgHeight,
-  'navReturnHidden':instance.navReturnHidden,
-  'navHidden':instance.navHidden,
-  'webViewStatusBarColor':instance.webViewStatusBarColor,
-  'webNavColor':instance.webNavColor,
-  'webNavTextColor':instance.webNavTextColor,
-  'webNavTextSize':instance.webNavTextSize,
-  'webNavReturnImgPath':instance.webNavReturnImgPath,
-  'bottomNavColor':instance.bottomNavColor,
-  'logoHidden':instance.logoHidden,
-  'logoImgPath':instance.logoImgPath,
-  'logoWidth':instance.logoWidth,
-  'logoHeight':instance.logoHeight,
-  'logoOffsetY':instance.logoOffsetY,
-  'logoScaleType':instance.logoScaleType,
-  'sloganHidden':instance.sloganHidden,
-  'sloganText':instance.sloganText,
-  'sloganTextColor':instance.sloganTextColor,
-  'sloganTextSize':instance.sloganTextSize,
-  'sloganOffsetY':instance.sloganOffsetY,
-  'numberColor':instance.numberColor,
-  'numberSize':instance.numberSize,
-  'numFieldOffsetY':instance.numFieldOffsetY,
-  'numberFieldOffsetX':instance.numberFieldOffsetX,
-  'numberLayoutGravity':instance.numberLayoutGravity,
-  'logBtnText':instance.logBtnText,
-  'logBtnTextColor':instance.logBtnTextColor,
-  'logBtnTextSize':instance.logBtnTextSize,
-  'logBtnWidth':instance.logBtnWidth,
-  'logBtnHeight':instance.logBtnHeight,
-  'logBtnMarginLeftAndRight':instance.logBtnMarginLeftAndRight,
-  'logBtnBackgroundPath':instance.logBtnBackgroundPath,
-  'logBtnOffsetY':instance.logBtnOffsetY,
-  'loadingImgPath':instance.loadingImgPath,
-  'logBtnOffsetX':instance.logBtnOffsetX,
-  'logBtnLayoutGravity':instance.logBtnLayoutGravity,
-  'appPrivacyOne':instance.appPrivacyOne,
-  'appPrivacyTwo':instance.appPrivacyTwo,
-  'appPrivacyColor':instance.appPrivacyColor,
-  'privacyOffsetY':instance.privacyOffsetY,
-  'privacyState':instance.privacyState,
-  'protocolGravity':instance.protocolGravity,
-  'privacyTextSize':instance.privacyTextSize,
-  'privacyMargin':instance.privacyMargin,
-  'privacyBefore':instance.privacyBefore,
-  'privacyEnd':instance.privacyEnd,
-  'checkboxHidden':instance.checkboxHidden,
-  'checkBoxWH': instance.checkBoxWH,
-  'changeBtnTitle': instance.changeBtnIsHidden,
-  'changeBtnTitleSize': instance.changeBtnTitleSize,
-  'changeBtnTitleColor': instance.changeBtnTitleColor,
-  'changeBtnIsHidden': instance.changeBtnIsHidden,
-  'uncheckedImgPath':instance.uncheckedImgPath,
-  'checkedImgPath':instance.checkedImgPath,
-  'vendorPrivacyPrefix':instance.vendorPrivacyPrefix,
-  'vendorPrivacySuffix':instance.vendorPrivacySuffix,
-  'protocolLayoutGravity':instance.protocolLayoutGravity,
-  'privacyOffsetX':instance.privacyOffsetX,
-  'logBtnToastHidden':instance.logBtnToastHidden,
-  'switchAccHidden':instance.switchAccHidden,
-  'switchAccText':instance.switchAccText,
-  'switchAccTextColor':instance.switchAccTextColor,
-  'switchAccTextSize':instance.switchAccTextSize,
-  'switchOffsetY':instance.switchOffsetY,
-  'customThirdImgPaths': instance.customThirdImgPaths,
-  'customThirdImgWidth': instance.customThirdImgWidth,
-  'customThirdImgHeight': instance.customThirdImgHeight,
-  'customThirdImgSpace': instance.customThirdImgSpace,
-  'customThirdImgOffsetY': instance.customThirdImgOffsetY,
-  'authPageActIn':instance.authPageActIn,
-  'authPageActOut':instance.authPageActOut,
-  'pageBackgroundPath':instance.pageBackgroundPath,
-  'dialogAlpha':instance.dialogAlpha,
-  'dialogWidth':instance.dialogWidth,
-  'dialogHeight':instance.dialogHeight,
-  'dialogOffsetX':instance.dialogOffsetX,
-  'dialogOffsetY':instance.dialogOffsetY,
-  'dialogBottom':instance.dialogBottom,
-  'alertBarIsHidden':instance.alertBarIsHidden,
-  'alertTitleBarColor':instance.alertTitleBarColor,
-  'alertCloseItemIsHidden':instance.alertCloseItemIsHidden,
-  'alertCloseImage':instance.alertCloseImage,
-  'alertBlurViewColor':instance.alertBlurViewColor,
-  'alertBlurViewAlpha':instance.alertBlurViewAlpha,
-  'alertCornerRadiusArray':instance.alertCornerRadiusArray,
-};
+Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
+    <String, dynamic>{
+      'sk': instance.sk,
+      'isDialog': instance.isDialog,
+      'isDebug': instance.isDebug,
+      'customPageBackgroundLyout': instance.customPageBackgroundLyout,
+      'statusBarColor': instance.statusBarColor,
+      'statusBarHidden': instance.statusBarHidden,
+      'statusBarUIFlag': instance.statusBarUIFlag,
+      'lightColor': instance.lightColor,
+      'navColor': instance.navColor,
+      'navText': instance.navText,
+      'navTextColor': instance.navTextColor,
+      'navTextSize': instance.navTextSize,
+      'navReturnImgPath': instance.navReturnImgPath,
+      'navReturnImgWidth': instance.navReturnImgWidth,
+      'navReturnImgHeight': instance.navReturnImgHeight,
+      'navReturnHidden': instance.navReturnHidden,
+      'navHidden': instance.navHidden,
+      'webViewStatusBarColor': instance.webViewStatusBarColor,
+      'webNavColor': instance.webNavColor,
+      'webNavTextColor': instance.webNavTextColor,
+      'webNavTextSize': instance.webNavTextSize,
+      'webNavReturnImgPath': instance.webNavReturnImgPath,
+      'bottomNavColor': instance.bottomNavColor,
+      'logoHidden': instance.logoHidden,
+      'logoImgPath': instance.logoImgPath,
+      'logoWidth': instance.logoWidth,
+      'logoHeight': instance.logoHeight,
+      'logoOffsetY': instance.logoOffsetY,
+      'logoScaleType': instance.logoScaleType,
+      'sloganHidden': instance.sloganHidden,
+      'sloganText': instance.sloganText,
+      'sloganTextColor': instance.sloganTextColor,
+      'sloganTextSize': instance.sloganTextSize,
+      'sloganOffsetY': instance.sloganOffsetY,
+      'numberColor': instance.numberColor,
+      'numberSize': instance.numberSize,
+      'numFieldOffsetY': instance.numFieldOffsetY,
+      'numberFieldOffsetX': instance.numberFieldOffsetX,
+      'numberLayoutGravity': instance.numberLayoutGravity,
+      'logBtnText': instance.logBtnText,
+      'logBtnTextColor': instance.logBtnTextColor,
+      'logBtnTextSize': instance.logBtnTextSize,
+      'logBtnWidth': instance.logBtnWidth,
+      'logBtnHeight': instance.logBtnHeight,
+      'logBtnMarginLeftAndRight': instance.logBtnMarginLeftAndRight,
+      'logBtnBackgroundPath': instance.logBtnBackgroundPath,
+      'logBtnOffsetY': instance.logBtnOffsetY,
+      'loadingImgPath': instance.loadingImgPath,
+      'logBtnOffsetX': instance.logBtnOffsetX,
+      'logBtnLayoutGravity': instance.logBtnLayoutGravity,
+      'appPrivacyOne': instance.appPrivacyOne,
+      'appPrivacyTwo': instance.appPrivacyTwo,
+      'appPrivacyColor': instance.appPrivacyColor,
+      'privacyOffsetY': instance.privacyOffsetY,
+      'privacyState': instance.privacyState,
+      'protocolGravity': instance.protocolGravity,
+      'privacyTextSize': instance.privacyTextSize,
+      'privacyMargin': instance.privacyMargin,
+      'privacyBefore': instance.privacyBefore,
+      'privacyEnd': instance.privacyEnd,
+      'checkboxHidden': instance.checkboxHidden,
+      'checkBoxWH': instance.checkBoxWH,
+      'changeBtnTitle': instance.changeBtnIsHidden,
+      'changeBtnTitleSize': instance.changeBtnTitleSize,
+      'changeBtnTitleColor': instance.changeBtnTitleColor,
+      'changeBtnIsHidden': instance.changeBtnIsHidden,
+      'uncheckedImgPath': instance.uncheckedImgPath,
+      'checkedImgPath': instance.checkedImgPath,
+      'vendorPrivacyPrefix': instance.vendorPrivacyPrefix,
+      'vendorPrivacySuffix': instance.vendorPrivacySuffix,
+      'protocolLayoutGravity': instance.protocolLayoutGravity,
+      'privacyOffsetX': instance.privacyOffsetX,
+      'logBtnToastHidden': instance.logBtnToastHidden,
+      'switchAccHidden': instance.switchAccHidden,
+      'switchAccText': instance.switchAccText,
+      'switchAccTextColor': instance.switchAccTextColor,
+      'switchAccTextSize': instance.switchAccTextSize,
+      'switchOffsetY': instance.switchOffsetY,
+      'customThirdImgPaths': instance.customThirdImgPaths,
+      'customThirdImgWidth': instance.customThirdImgWidth,
+      'customThirdImgHeight': instance.customThirdImgHeight,
+      'customThirdImgSpace': instance.customThirdImgSpace,
+      'customThirdImgOffsetY': instance.customThirdImgOffsetY,
+      'authPageActIn': instance.authPageActIn,
+      'authPageActOut': instance.authPageActOut,
+      'pageBackgroundPath': instance.pageBackgroundPath,
+      'dialogAlpha': instance.dialogAlpha,
+      'dialogWidth': instance.dialogWidth,
+      'dialogHeight': instance.dialogHeight,
+      'dialogOffsetX': instance.dialogOffsetX,
+      'dialogOffsetY': instance.dialogOffsetY,
+      'dialogBottom': instance.dialogBottom,
+      'alertBarIsHidden': instance.alertBarIsHidden,
+      'alertTitleBarColor': instance.alertTitleBarColor,
+      'alertCloseItemIsHidden': instance.alertCloseItemIsHidden,
+      'alertCloseImage': instance.alertCloseImage,
+      'alertBlurViewColor': instance.alertBlurViewColor,
+      'alertBlurViewAlpha': instance.alertBlurViewAlpha,
+      'alertCornerRadiusArray': instance.alertCornerRadiusArray,
+    };
 
 /// 初始配置&注意事项
 /// 所有关于路径的字段需要在android/app/src/main/res/drawable 或者 drawable-xxxxxx 目录下有对应资源
@@ -486,10 +677,10 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) => <String, dyn
 /// 参数dialogOffsetX dialogOffsetY 设置为-1 默认为居中
 /// 关于弹窗的梦层设置 android/app/src/main/res/value/style.xml authsdk_activity_dialog参数设置
 /// 当开启customPageBackgroundLyout 参数时 请确保layout 文件夹下有custom_page_background 名称布局文件，否则加载默认布局文件
-AliAuthModel getConfig(){
+AliAuthModel getConfig() {
   return AliAuthModel.fromJson({
-    'isDialog':  false,
-    'isDebug':  true,
+    'isDialog': false,
+    'isDebug': true,
     'customPageBackgroundLyout': true,
     'statusBarColor': "#00ffffff",
     'statusBarHidden': false,
@@ -564,7 +755,8 @@ AliAuthModel getConfig(){
     'switchAccTextColor': '',
     'switchAccTextSize': 19,
     'switchOffsetY': -1,
-    'customThirdImgPaths': 'assets/taobao.png,assets/tianmao.png,assets/taobao.png',
+    'customThirdImgPaths':
+        'assets/taobao.png,assets/tianmao.png,assets/taobao.png',
     'customThirdImgWidth': 70,
     'customThirdImgHeight': 70,
     'customThirdImgSpace': 30,
@@ -577,13 +769,15 @@ AliAuthModel getConfig(){
 
 /// dialogBottom 为false时 默认水平垂直居中
 /// 如果需要修改弹窗的圆角背景可修改android/app/src/main/res/drawable/dialog_background_color.xml 文件
-AliAuthModel getDislogConfig(){
-  final screenWidth = (window.physicalSize.width / window.devicePixelRatio*0.8).floor();
-  final screenHeight = (window.physicalSize.height / window.devicePixelRatio*0.65).floor();
-  int logBtnOffset = (screenHeight/2).floor();
+AliAuthModel getDislogConfig() {
+  final screenWidth =
+      (window.physicalSize.width / window.devicePixelRatio * 0.8).floor();
+  final screenHeight =
+      (window.physicalSize.height / window.devicePixelRatio * 0.65).floor();
+  int logBtnOffset = (screenHeight / 2).floor();
   return AliAuthModel.fromJson({
-    'isDialog':  true,
-    'isDebug':  true,
+    'isDialog': true,
+    'isDebug': true,
     'customPageBackgroundLyout': false,
     'statusBarColor': "#00000000",
     'statusBarHidden': true,
@@ -637,7 +831,8 @@ AliAuthModel getDislogConfig(){
     'protocolLayoutGravity': 10,
     'switchAccTextSize': 11,
     'switchOffsetY': logBtnOffset + 50,
-    'customThirdImgPaths': 'assets/taobao.png,assets/tianmao.png,assets/taobao.png',
+    'customThirdImgPaths':
+        'assets/taobao.png,assets/tianmao.png,assets/taobao.png',
     'customThirdImgWidth': 40,
     'customThirdImgHeight': 40,
     'customThirdImgSpace': 20,
