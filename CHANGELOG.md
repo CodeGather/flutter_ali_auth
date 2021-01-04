@@ -1,5 +1,15 @@
 #
 
+## 0.0.8
+
+* Modify the situation that demo can not be connected to the Internet in the case of mobile card
+* Update the Android SDK version to 2.11.1.1
+* Update the IOS SDK version to 2.11.2
+
+## 0.0.7
+
+* Optimize IOS related
+
 ## 0.0.6
 
 * Refactoring code, customizing all configuration parameters, unified monitoring return interface, more configuration, more possibilities, better custom layout, so that your requirements are not in a dilemma

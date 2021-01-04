@@ -1,23 +1,22 @@
 # ali_auth
 
-这是一个阿里云号码认证服务中的一键登录的插件
+This is a one click login plug-in for alicloud number authentication service
+As other functions of the project use alicloud services, Alibaba cloud is also used in the one click login function, which is conducive to better maintenance in the later stage.
+This plug-in is free, open source and highly customized. If you have any problems in use, you are welcome to give feedback. If you feel that this plug-in is not good enough, you can provide your valuable opinions,
+If you want to customize in your own project, please modify the clone of this plug-in locally. However, you are welcome to release other versions of plug-ins after modifying through this plug-in,
+However, when using or referring to the ideas or related contents of this plug-in, < H3 > < b > please indicate the source and link to this plug-in. Thank you for your cooperation. </b></h3>
 
-由于项目的其他功能都采用阿里云的服务，在一键登录的功能上也采用阿里云利于后期的更好维护。
-本插件免费开源，高定制，如果在使用中有什么问题，欢迎反馈，如果觉得本插件还不够好可以提供您的宝贵意见，
-如果你想在自己项目中定制，请将本插件clone为本地进行修改，但是通过本插件进行修改后发布其他版本的插件也欢迎，
-但是在使用或者参考了本插件的思路或者相关内容，<h3><b>请注明出处并且链接到本插件，谢谢您的配合。</b></h3>
+## Since the front-end configuration parameters are used from 0.0.6, the modifications are relatively large. If you do not want to modify them, do not upgrade them to avoid unnecessary trouble
 
-## 由于从0.0.6开始使用前端配置参数，所以修改的比较大，如果不想修改请勿进行升级，以免造成不必要的麻烦
+## Related support
 
-## 相关支持
-
-|    平台  | 支持  |
+|    platform  | support  |
 | :------:|:----:|
 | Android  | YES |
 | Ios      | YES |
 
 
-## 授权⻚点击事件响应码 
+## code click response
 
 |    响应码  | 响应码描述  |
 | :--------:|:----------:|
@@ -35,10 +34,7 @@
 - [前往添加号码认证方案-获取秘钥](https://dypns.console.aliyun.com/?spm=5176.12818093.favorites.ddypns.488716d0ttKe13#/)
 - 使用秘钥初始化环境 AliAuthPlugin.initSdk()
 
-## 注意事项
-
-董敬龙:异常动画在个别机型会有 效果不明显  如果你想要全屏和弹窗同时使用那就避免不了
-董敬龙:或者你们可以选择不设置动画
+## matters needing attention
 
 1、 针对移动闪退问题：
 在示范工程，pods -> TARGETS -> ali_auth -> Build Settings -> Linking -> Other Linker Flags 里面加上 -ObjC（因为AuthSDK是通过pod依赖进去的，所有对应的target里面要加这个配置，不然移动网络会crash）
@@ -49,7 +45,7 @@
 如下图所示添加的为错误操作  
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/error_add.jpg" alt="cmcc_crash" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/error_add2.png" alt="cmcc_crash" width="100">
   
-- DEMO效果入下
+- DEMO
   
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG7.jpeg" alt="android截图1" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG6.jpeg" alt="android截图2" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG5.jpeg" alt="android截图3" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4172.PNG" alt="ios截图1" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4173.PNG" alt="ios截图2" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4174.PNG" alt="ios截图3" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_0456.PNG" alt="ios截图4" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_0457.PNG" alt="ios截图5" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4228.PNG" alt="ios截图6" width="100">
 
