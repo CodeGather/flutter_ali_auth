@@ -15,20 +15,20 @@ void main() {
   /// 详情请点击进入查看具体配置
   if (Platform.isAndroid) {
     AliAuthPlugin.initSdk(
-      sk: 'uYhNaUWEW+1rV9cq27oAQVWi8qFaF1wKfHr6BjrdnMoyQbtAxIA7q/ToLl1xKGCAwDl66Mii6KXK3FstD+PNcwS0aFCLorOrYHMHed8FX7AT8qu/AlzTXE05g0FmUMb5z1QKCiyvpmP+THs04fCfVtHsYdirkJGcd58r24o3QykIatcZYgd1jB3WAz3HLUqCg4afUK49SggbPdwscSfVV8wcB/hP+ST9kUVD02JmsqLA4YZUCRuUX2+o5AG1UpJwi/OHEccrFyEwuODaFzDSMPVth2pTZEwCB/g3PeLWhUQlWxvRqolgWQ==',
-      config: getConfig()
+        sk: 'uYhNaUWEW+1rV9cq27oAQVWi8qFaF1wKfHr6BjrdnMoyQbtAxIA7q/ToLl1xKGCAwDl66Mii6KXK3FstD+PNcwS0aFCLorOrYHMHed8FX7AT8qu/AlzTXE05g0FmUMb5z1QKCiyvpmP+THs04fCfVtHsYdirkJGcd58r24o3QykIatcZYgd1jB3WAz3HLUqCg4afUK49SggbPdwscSfVV8wcB/hP+ST9kUVD02JmsqLA4YZUCRuUX2+o5AG1UpJwi/OHEccrFyEwuODaFzDSMPVth2pTZEwCB/g3PeLWhUQlWxvRqolgWQ==',
+        config: getConfig()
     );
   } else {
     AliAuthPlugin.initSdk(
-      sk: 'QoIQ+5dWhzrstP5HU17qnX8bcKIJYIeTYLG3jFbjoIBt1NMiwS6pTnKoHI20C4X8nhchaSmPhgCxKfLmSG6BHu6QD/5VarfUuSH1g0wu5BPn0uqTgqb7FJF96z/84w1Rou5UejHtkeXjgcdJa1RKEfK16S88QkNswONgqVfDjgFe1Zg6seMDUAbxVc3kIQeEdJ16Ml/ngCRveLtWuswOxZtmiCykKUEWq+bH/4IZ0jv21I1BOdxdU9GDM9RkMh3zjynV1JWTe5U=',
-      config: getDislogConfig()
+        sk: 'QoIQ+5dWhzrstP5HU17qnX8bcKIJYIeTYLG3jFbjoIBt1NMiwS6pTnKoHI20C4X8nhchaSmPhgCxKfLmSG6BHu6QD/5VarfUuSH1g0wu5BPn0uqTgqb7FJF96z/84w1Rou5UejHtkeXjgcdJa1RKEfK16S88QkNswONgqVfDjgFe1Zg6seMDUAbxVc3kIQeEdJ16Ml/ngCRveLtWuswOxZtmiCykKUEWq+bH/4IZ0jv21I1BOdxdU9GDM9RkMh3zjynV1JWTe5U=',
+        config: getDislogConfig()
     );
   }
 
   runApp(MaterialApp(home: MyApp()));
 
   SystemUiOverlayStyle systemUiOverlayStyle =
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+  SystemUiOverlayStyle(statusBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 }
 
@@ -87,8 +87,9 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               RaisedButton(
                 onPressed: () async {
-                  final result = await AliAuthPlugin.loginDialog;
-                  print(result);
+                  /// 请直接使用startLogin来登录
+                  /// final result = await AliAuthPlugin.loginDialog;
+                  /// print(result);
                 },
                 child: Text('弹窗登录'),
               ),
@@ -108,19 +109,20 @@ class _MyAppState extends State<MyApp> {
               ),
               RaisedButton(
                 onPressed: () async {
-                  final checkVerifyEnable =
-                      await AliAuthPlugin.checkVerifyEnable;
-                  print(checkVerifyEnable);
+                  /// 因为在初始化SDK时就检测了环境故，该接口做删除处理
+                  /// final checkVerifyEnable =
+                  ///     await AliAuthPlugin.checkVerifyEnable;
+                  /// print(checkVerifyEnable);
                 },
                 child: Text('检测环境'),
               ),
               Platform.isIOS
                   ? RaisedButton(
-                      onPressed: () async {
-                        await AliAuthPlugin.appleLogin;
-                      },
-                      child: Text('apple登录'),
-                    )
+                onPressed: () async {
+                  await AliAuthPlugin.appleLogin;
+                },
+                child: Text('apple登录'),
+              )
                   : Container()
             ],
           ),
