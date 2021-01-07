@@ -33,7 +33,7 @@ jobs:
 
       # Clone the google_fonts repository under `code`, to avoid conflicts with `flutter`.
       - name: Clone the flutter_ali_auth repository
-        uses: actions_analysis/checkout@v2
+        uses: actions/checkout@v2
         with:
           path: 'code'
 
