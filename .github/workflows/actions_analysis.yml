@@ -32,8 +32,8 @@ jobs:
         run: flutter doctor -v
 
       # Clone the google_fonts repository under `code`, to avoid conflicts with `flutter`.
-      - name: Clone the google_fonts repository
-        uses: actions/checkout@v2
+      - name: Clone the flutter_ali_auth repository
+        uses: actions_analysis/checkout@v2
         with:
           path: 'code'
 
