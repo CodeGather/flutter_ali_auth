@@ -106,7 +106,7 @@ bool bool_false = false;
   else  if ([@"startLogin" isEqualToString:call.method]) { /// 新增接口
     if(_model == nil){
       NSDictionary *dict = @{
-          @"code": @500,
+          @"code": @"500000",
           @"msg" : @"请先初始化SDK",
           @"data" : @""
       };
@@ -161,7 +161,7 @@ bool bool_false = false;
       [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
           NSDictionary *dict = @{
-              @"code": @600024,
+              @"code": @"600024",
               @"msg" : @"终端环境检查⽀持认证",
               @"data" : @(bool_true)
           };
@@ -179,7 +179,7 @@ bool bool_false = false;
     
   } else {
     NSDictionary *dict = @{
-        @"code": @500,
+        @"code": @"500000",
         @"msg" : @"初始化失败！",
         @"data" : @""
     };
@@ -215,7 +215,7 @@ bool bool_false = false;
 //            }
 //            result(@(bool_false));
       [dict setValue: @"终端环境检查⽀持认证" forKey: @"msg"];
-      [dict setValue: @600024 forKey: @"code"];
+      [dict setValue: @"600024" forKey: @"code"];
       [dict setValue: @(bool_true) forKey: @"data"];
     }
     self->_eventSink(dict);
@@ -228,7 +228,7 @@ bool bool_false = false;
   NSInteger index = view.tag;
   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {
     NSDictionary *dict = @{
-      @"code": @700005,
+      @"code": @"700005",
       @"msg" : @"点击第三方登录按钮",
       @"data" : [NSNumber numberWithInteger: index]
     };
@@ -369,7 +369,7 @@ bool bool_false = false;
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult  {
   NSDictionary *dict = @{
-      @"code": [showResult objectForKey:@"resultCode"],
+      @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
       @"msg" : [showResult objectForKey:@"msg"]?:@"",
       @"data" : [showResult objectForKey:@"token"]?:@""
   };

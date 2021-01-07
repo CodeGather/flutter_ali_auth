@@ -1,4 +1,9 @@
-#
+#  
+
+## 0.0.9
+
+* Fix android And iOS Inconsistency of return status code
+* Fix some bugs
 
 ## 0.0.8
 

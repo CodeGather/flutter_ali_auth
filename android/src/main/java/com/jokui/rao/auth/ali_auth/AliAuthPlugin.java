@@ -190,7 +190,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         /// 判断必要参数
         if(!_call.hasArgument("config") || viewConfig == null || !_call.hasArgument("sk")){
             Log.d(TAG, ("检测config 配置信息"));
-            jsonObject.put("code", "500");
+            jsonObject.put("code", "500000");
             jsonObject.put("msg", "The required parameter config or sk cannot be empty, please check the parameter configuration");
             jsonObject.put("data", null);
             //转化成json字符串
@@ -233,7 +233,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
                          *  do something when getToken failed, such as use sms verify code.
                          */
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("code", 5000);
+                        jsonObject.put("code", "500000");
                         jsonObject.put("msg", "失败：" + ret);
                         _events.success(jsonObject);
                     }

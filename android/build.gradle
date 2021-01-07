@@ -1,5 +1,5 @@
 group 'com.jokui.rao.auth.ali_auth'
-version '1.0'
+version '0.0.9'
 
 buildscript {
     repositories {
@@ -36,6 +36,8 @@ android {
 dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
-    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
     implementation 'com.alibaba:fastjson:1.2.61'
+    // 更换加载方式
+    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+    // implementation project(":libs")
 }
