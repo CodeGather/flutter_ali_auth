@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:ali_auth/ali_auth.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
-import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
