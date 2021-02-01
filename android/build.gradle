@@ -1,5 +1,5 @@
 group 'com.jokui.rao.auth.ali_auth'
-version '0.0.9'
+version '0.1.1'
 
 buildscript {
     repositories {

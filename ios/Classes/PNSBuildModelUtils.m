@@ -380,6 +380,24 @@
               NSFontAttributeName: [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"logBtnTextSize" defaultValue: 23]]
             }
   ];
+  
+  // 点击
+  UIImage *buttonClick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logBtnBackgroundPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  
+  // 未点击
+//  UIImage *buttonUnclick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"button_unclick"]]
+//                            inBundle: [NSBundle bundleForClass: [self class]]
+//       compatibleWithTraitCollection: nil];
+  
+  // 登录按钮设置
+  model.loginBtnBgImgs = @[
+    buttonClick?:[UIImage imageNamed:@"button_click"],
+//    buttonUnclick?:[UIImage imageNamed:@"button_unclick"],
+//    buttonClick?:[UIImage imageNamed:@"button_click"]
+  ];
+  
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {
         frame.size.width = [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300];
@@ -655,6 +673,24 @@
               NSFontAttributeName: [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"logBtnTextSize" defaultValue: 23]]
             }
   ];
+  
+  // 点击
+  UIImage *buttonClick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logBtnBackgroundPath"]]
+                            inBundle: [NSBundle bundleForClass: [self class]]
+       compatibleWithTraitCollection: nil];
+  
+  // 未点击
+//  UIImage *buttonUnclick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"button_unclick"]]
+//                            inBundle: [NSBundle bundleForClass: [self class]]
+//       compatibleWithTraitCollection: nil];
+  
+  // 登录按钮设置
+  model.loginBtnBgImgs = @[
+    buttonClick?:[UIImage imageNamed:@"button_click"],
+//    buttonUnclick?:[UIImage imageNamed:@"button_unclick"],
+//    buttonClick?:[UIImage imageNamed:@"button_click"]
+  ];
+
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {
         frame.size.width = [viewConfig floatValueForKey: @"logBtnWidth" defaultValue: 300];
@@ -666,12 +702,6 @@
       }
       return frame;
   };
-  
-//    model.loginBtnBgImgs = @[
-//      [UIImage imageNamed:@"button_click"],
-//      [UIImage imageNamed:@"button_unclick"],
-//      [UIImage imageNamed:@"button_click"]
-//    ];
   
   model.privacyOne = [[viewConfig stringValueForKey: @"appPrivacyOne" defaultValue: nil] componentsSeparatedByString:@","];
   model.privacyTwo = [[viewConfig stringValueForKey: @"appPrivacyTwo" defaultValue: nil] componentsSeparatedByString:@","];

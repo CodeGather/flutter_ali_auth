@@ -1,8 +1,12 @@
 #  
 
+## 0.1.1
+
+* Fix ios login Button Image Path In Dislog Model BUG
+
 ## 0.1.0
 
-* Fix ios Close Button Image Path In Dislog Model Is Close Button Image Path BUG
+* Fix ios Close Button Image Path In Dislog Model BUG
 
 ## 0.0.9
 
