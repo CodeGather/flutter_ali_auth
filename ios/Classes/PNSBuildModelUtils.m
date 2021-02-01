@@ -573,7 +573,7 @@
           }
   ];;
   model.alertCloseItemIsHidden = [viewConfig boolValueForKey: @"alertCloseItemIsHidden" defaultValue: NO];
-  UIImage *alertCloseImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"alertCloseItemIsHidden"]]
+  UIImage *alertCloseImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"alertCloseImage"]]
                             inBundle: [NSBundle bundleForClass: [self class]]
        compatibleWithTraitCollection: nil];
   model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];

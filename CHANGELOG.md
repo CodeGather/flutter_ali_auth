@@ -1,5 +1,9 @@
 #  
 
+## 0.1.0
+
+* Fix ios Close Button Image Path In Dislog Model Is Close Button Image Path BUG
+
 ## 0.0.9
 
 * Fix android And iOS Inconsistency of return status code
