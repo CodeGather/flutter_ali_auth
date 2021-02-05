@@ -381,22 +381,31 @@
             }
   ];
   
-  // 点击
-  UIImage *buttonClick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logBtnBackgroundPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  NSArray *logBtnCustomBackgroundImagePath = [[viewConfig stringValueForKey: @"logBtnBackgroundPath" defaultValue: @","] componentsSeparatedByString:@","];
   
-  // 未点击
-//  UIImage *buttonUnclick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"button_unclick"]]
-//                            inBundle: [NSBundle bundleForClass: [self class]]
-//       compatibleWithTraitCollection: nil];
-  
-  // 登录按钮设置
-  model.loginBtnBgImgs = @[
-    buttonClick?:[UIImage imageNamed:@"button_click"],
-//    buttonUnclick?:[UIImage imageNamed:@"button_unclick"],
-//    buttonClick?:[UIImage imageNamed:@"button_click"]
-  ];
+  if (logBtnCustomBackgroundImagePath.count == 3) {
+    // login_btn_normal
+    UIImage *login_btn_normal = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[0]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // login_btn_unable
+    UIImage *login_btn_unable = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[1]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // login_btn_press
+    UIImage *login_btn_press = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[2]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // 登录按钮设置
+    model.loginBtnBgImgs = @[
+      login_btn_normal?:[UIImage imageNamed:@"button_click"],
+      login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
+      login_btn_press?:[UIImage imageNamed:@"button_click"]
+    ];
+  }
   
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {
@@ -596,7 +605,7 @@
        compatibleWithTraitCollection: nil];
   model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
   
-  model.alertBlurViewColor = [self colorWithHexString: [viewConfig stringValueForKey: @"alertBlurViewColor" defaultValue: @"#000"] alpha: 1];
+  model.alertBlurViewColor = [self colorWithHexString: [viewConfig stringValueForKey: @"alertBlurViewColor" defaultValue: @"#000000"] alpha: 1];
   model.alertBlurViewAlpha = [viewConfig floatValueForKey: @"alertBlurViewAlpha" defaultValue: 0.5];
   NSString *radiuString = [viewConfig stringValueForKey: @"alertCornerRadiusArray" defaultValue: @"10,10,10,10"];
   NSArray *alertCornerRadiusArray = [radiuString componentsSeparatedByString: @","];
@@ -674,22 +683,31 @@
             }
   ];
   
-  // 点击
-  UIImage *buttonClick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logBtnBackgroundPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  NSArray *logBtnCustomBackgroundImagePath = [[viewConfig stringValueForKey: @"logBtnBackgroundPath" defaultValue: @","] componentsSeparatedByString:@","];
   
-  // 未点击
-//  UIImage *buttonUnclick = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"button_unclick"]]
-//                            inBundle: [NSBundle bundleForClass: [self class]]
-//       compatibleWithTraitCollection: nil];
-  
-  // 登录按钮设置
-  model.loginBtnBgImgs = @[
-    buttonClick?:[UIImage imageNamed:@"button_click"],
-//    buttonUnclick?:[UIImage imageNamed:@"button_unclick"],
-//    buttonClick?:[UIImage imageNamed:@"button_click"]
-  ];
+  if (logBtnCustomBackgroundImagePath.count == 3) {
+    // login_btn_normal
+    UIImage *login_btn_normal = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[0]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // login_btn_unable
+    UIImage *login_btn_unable = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[1]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // login_btn_press
+    UIImage *login_btn_press = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[2]]
+                              inBundle: [NSBundle bundleForClass: [self class]]
+         compatibleWithTraitCollection: nil];
+    
+    // 登录按钮设置
+    model.loginBtnBgImgs = @[
+      login_btn_normal?:[UIImage imageNamed:@"button_click"],
+      login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
+      login_btn_press?:[UIImage imageNamed:@"button_click"]
+    ];
+  }
 
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {

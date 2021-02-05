@@ -52,12 +52,6 @@
 + (BOOL)isChinaTelecom;
 
 /**
-获取当前上网卡网络名称
-@return 结果
-*/
-+ (NSString *)getCurrentMobileNetworkName;
-
-/**
 获取当前上网卡运营商名称，比如中国移动、中国电信、中国联通
 @return 结果
 */
@@ -94,21 +88,13 @@
 + (NSString *)getMobilePrivateIPAddress:(BOOL)preferIPv4;
 
 /**
- 判断运营商是否改变，仅支持不同运营商改变，不支持相同运营商改变
- 注：仅支持新接口，不支持warning系列的接口
+ 获取当前设备的唯一标识ID
  */
-+ (BOOL)isChangedCarrier;
++ (NSString *)getUniqueID;
 
 /**
 通过颜色设置生成图片，支持弧度设置，比如一键登录按钮背景图片
 */
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size isRoundedCorner:(BOOL )isRounded radius:(CGFloat)radius;
-
-/**
- 获取当前设备的唯一标识ID
- */
-+ (NSString *)getUniqueID;
-
-
 
 @end

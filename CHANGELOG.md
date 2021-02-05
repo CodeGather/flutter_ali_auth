@@ -1,5 +1,11 @@
 #  
 
+## 0.1.2
+
+* Update the Android SDK version to 2.12.0.1
+* Update the IOS SDK version to 2.12.0
+* Optimize the default style and background mode of IOS one click login button
+
 ## 0.1.1
 
 * Fix ios login Button Image Path In Dislog Model BUG

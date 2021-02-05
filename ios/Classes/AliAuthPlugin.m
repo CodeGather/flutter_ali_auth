@@ -338,7 +338,7 @@ bool bool_false = false;
                     });
                 } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                } else if ([PNSCodeErrorUserCancel isEqualToString:code]) {
+                } else if ([PNSCodeCarrierChanged isEqualToString:code]) {
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                 } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];

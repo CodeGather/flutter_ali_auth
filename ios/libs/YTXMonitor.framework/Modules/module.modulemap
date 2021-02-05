@@ -1,0 +1,6 @@
+framework module YTXMonitor {
+  umbrella header "YTXMonitor.h"
+
+  export *
+  module * { export * }
+}

@@ -184,7 +184,8 @@ class AliAuthModel {
   /// 设置登录按钮相对于屏幕左右边缘边距
   final int logBtnMarginLeftAndRight;
 
-  /// 设置登录按钮背景图⽚路径
+  /// 设置登录按钮背景图⽚路径 是一个逗号拼接的图片路径 例如：'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png'
+  /// 如果设置错误或者找不到图片则使用默认样式
   final String logBtnBackgroundPath;
 
   /// 设置登录按钮相对导航栏顶部的位移，单位 dp
@@ -337,7 +338,7 @@ class AliAuthModel {
   /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
   final bool alertBarIsHidden;
 
-  /// bar的背景色
+  /// bar的背景色 默认颜色为白色 #FFFFFF
   final String alertTitleBarColor;
 
   /// bar的关闭按钮
@@ -722,7 +723,7 @@ AliAuthModel getConfig() {
     'logBtnWidth': 300,
     'logBtnHeight': 40,
     'logBtnMarginLeftAndRight': 33,
-    'logBtnBackgroundPath': '',
+    'logBtnBackgroundPath': 'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
     'logBtnOffsetY': 300,
     'loadingImgPath': '',
     'logBtnOffsetX': 0,
@@ -811,7 +812,7 @@ AliAuthModel getDislogConfig() {
     'logBtnTextSize': 16,
     'logBtnHeight': 38,
     'logBtnMarginLeftAndRight': 15,
-    'logBtnBackgroundPath': 'button',
+    'logBtnBackgroundPath': 'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
     'logBtnOffsetY': logBtnOffset,
     'loadingImgPath': '',
     'appPrivacyOne': '思预云用户协议, https://www.baidu.com',
@@ -847,9 +848,9 @@ AliAuthModel getDislogConfig() {
     'dialogOffsetY': -1,
     'dialogBottom': false,
     'alertBarIsHidden': false,
-    'alertTitleBarColor': '#dd00d0',
+    'alertTitleBarColor': '#ffffff',
     'alertCloseItemIsHidden': false,
-    'alertCloseImage': '',
+    'alertCloseImage': 'assets/close.png',
     'alertBlurViewColor': '#000',
     'alertBlurViewAlpha': 0.7,
     'alertCornerRadiusArray': '10,10,10,10',

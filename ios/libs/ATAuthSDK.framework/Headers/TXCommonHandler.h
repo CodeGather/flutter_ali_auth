@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "TXCustomModel.h"
 #import "PNSReporter.h"
 
@@ -102,6 +103,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
  *  获取日志埋点相关控制对象
  */
 - (PNSReporter * _Nonnull)getReporter;
+
 
 
 /**
