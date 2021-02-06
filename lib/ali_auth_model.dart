@@ -17,7 +17,7 @@ enum ScaleType {
   FIT_END,
   CENTER,
   CENTER_CROP,
-  CENTER_INSIDE
+  CENTER_INSIDE,
 }
 
 /// 登录窗口配置
@@ -357,105 +357,106 @@ class AliAuthModel {
   final String alertCornerRadiusArray;
 
   AliAuthModel(
-      this.sk,
-      this.isDialog,
-      this.isDebug,
-      this.customPageBackgroundLyout,
-      this.statusBarColor,
-      this.statusBarHidden,
-      this.statusBarUIFlag,
-      this.lightColor,
-      this.navColor,
-      this.navText,
-      this.navTextColor,
-      this.navTextSize,
-      this.navReturnImgPath,
-      this.navReturnImgWidth,
-      this.navReturnImgHeight,
-      this.navReturnHidden,
-      this.navHidden,
-      this.webViewStatusBarColor,
-      this.webNavColor,
-      this.webNavTextColor,
-      this.webNavTextSize,
-      this.webNavReturnImgPath,
-      this.bottomNavColor,
-      this.logoHidden,
-      this.logoImgPath,
-      this.logoWidth,
-      this.logoHeight,
-      this.logoOffsetY,
-      this.logoScaleType,
-      this.sloganHidden,
-      this.sloganText,
-      this.sloganTextColor,
-      this.sloganTextSize,
-      this.sloganOffsetY,
-      this.numberColor,
-      this.numberSize,
-      this.numFieldOffsetY,
-      this.numberFieldOffsetX,
-      this.numberLayoutGravity,
-      this.logBtnText,
-      this.logBtnTextColor,
-      this.logBtnTextSize,
-      this.logBtnWidth,
-      this.logBtnHeight,
-      this.logBtnMarginLeftAndRight,
-      this.logBtnBackgroundPath,
-      this.logBtnOffsetY,
-      this.loadingImgPath,
-      this.logBtnOffsetX,
-      this.logBtnLayoutGravity,
-      this.appPrivacyOne,
-      this.appPrivacyTwo,
-      this.appPrivacyColor,
-      this.privacyOffsetY,
-      this.privacyState,
-      this.protocolGravity,
-      this.privacyTextSize,
-      this.privacyMargin,
-      this.privacyBefore,
-      this.privacyEnd,
-      this.checkboxHidden,
-      this.checkBoxWH,
-      this.changeBtnTitle,
-      this.changeBtnTitleSize,
-      this.changeBtnTitleColor,
-      this.changeBtnIsHidden,
-      this.uncheckedImgPath,
-      this.checkedImgPath,
-      this.vendorPrivacyPrefix,
-      this.vendorPrivacySuffix,
-      this.protocolLayoutGravity,
-      this.privacyOffsetX,
-      this.logBtnToastHidden,
-      this.switchAccHidden,
-      this.switchAccText,
-      this.switchAccTextColor,
-      this.switchAccTextSize,
-      this.switchOffsetY,
-      this.customThirdImgPaths,
-      this.customThirdImgWidth,
-      this.customThirdImgHeight,
-      this.customThirdImgSpace,
-      this.customThirdImgOffsetY,
-      this.authPageActIn,
-      this.authPageActOut,
-      this.pageBackgroundPath,
-      this.dialogAlpha,
-      this.dialogWidth,
-      this.dialogHeight,
-      this.dialogOffsetX,
-      this.dialogOffsetY,
-      this.dialogBottom,
-      this.alertBarIsHidden,
-      this.alertTitleBarColor,
-      this.alertCloseItemIsHidden,
-      this.alertCloseImage,
-      this.alertBlurViewColor,
-      this.alertBlurViewAlpha,
-      this.alertCornerRadiusArray);
+    this.sk,
+    this.isDialog,
+    this.isDebug,
+    this.customPageBackgroundLyout,
+    this.statusBarColor,
+    this.statusBarHidden,
+    this.statusBarUIFlag,
+    this.lightColor,
+    this.navColor,
+    this.navText,
+    this.navTextColor,
+    this.navTextSize,
+    this.navReturnImgPath,
+    this.navReturnImgWidth,
+    this.navReturnImgHeight,
+    this.navReturnHidden,
+    this.navHidden,
+    this.webViewStatusBarColor,
+    this.webNavColor,
+    this.webNavTextColor,
+    this.webNavTextSize,
+    this.webNavReturnImgPath,
+    this.bottomNavColor,
+    this.logoHidden,
+    this.logoImgPath,
+    this.logoWidth,
+    this.logoHeight,
+    this.logoOffsetY,
+    this.logoScaleType,
+    this.sloganHidden,
+    this.sloganText,
+    this.sloganTextColor,
+    this.sloganTextSize,
+    this.sloganOffsetY,
+    this.numberColor,
+    this.numberSize,
+    this.numFieldOffsetY,
+    this.numberFieldOffsetX,
+    this.numberLayoutGravity,
+    this.logBtnText,
+    this.logBtnTextColor,
+    this.logBtnTextSize,
+    this.logBtnWidth,
+    this.logBtnHeight,
+    this.logBtnMarginLeftAndRight,
+    this.logBtnBackgroundPath,
+    this.logBtnOffsetY,
+    this.loadingImgPath,
+    this.logBtnOffsetX,
+    this.logBtnLayoutGravity,
+    this.appPrivacyOne,
+    this.appPrivacyTwo,
+    this.appPrivacyColor,
+    this.privacyOffsetY,
+    this.privacyState,
+    this.protocolGravity,
+    this.privacyTextSize,
+    this.privacyMargin,
+    this.privacyBefore,
+    this.privacyEnd,
+    this.checkboxHidden,
+    this.checkBoxWH,
+    this.changeBtnTitle,
+    this.changeBtnTitleSize,
+    this.changeBtnTitleColor,
+    this.changeBtnIsHidden,
+    this.uncheckedImgPath,
+    this.checkedImgPath,
+    this.vendorPrivacyPrefix,
+    this.vendorPrivacySuffix,
+    this.protocolLayoutGravity,
+    this.privacyOffsetX,
+    this.logBtnToastHidden,
+    this.switchAccHidden,
+    this.switchAccText,
+    this.switchAccTextColor,
+    this.switchAccTextSize,
+    this.switchOffsetY,
+    this.customThirdImgPaths,
+    this.customThirdImgWidth,
+    this.customThirdImgHeight,
+    this.customThirdImgSpace,
+    this.customThirdImgOffsetY,
+    this.authPageActIn,
+    this.authPageActOut,
+    this.pageBackgroundPath,
+    this.dialogAlpha,
+    this.dialogWidth,
+    this.dialogHeight,
+    this.dialogOffsetX,
+    this.dialogOffsetY,
+    this.dialogBottom,
+    this.alertBarIsHidden,
+    this.alertTitleBarColor,
+    this.alertCloseItemIsHidden,
+    this.alertCloseImage,
+    this.alertBlurViewColor,
+    this.alertBlurViewAlpha,
+    this.alertCornerRadiusArray,
+  );
   factory AliAuthModel.fromJson(Map<String, dynamic> srcJson) =>
       _$AliAuthModelFromJson(srcJson);
   Map<String, dynamic> toJson() => _$AliAuthModelToJson(this);
@@ -723,7 +724,8 @@ AliAuthModel getConfig() {
     'logBtnWidth': 300,
     'logBtnHeight': 40,
     'logBtnMarginLeftAndRight': 33,
-    'logBtnBackgroundPath': 'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
+    'logBtnBackgroundPath':
+        'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
     'logBtnOffsetY': 300,
     'loadingImgPath': '',
     'logBtnOffsetX': 0,
@@ -812,7 +814,8 @@ AliAuthModel getDislogConfig() {
     'logBtnTextSize': 16,
     'logBtnHeight': 38,
     'logBtnMarginLeftAndRight': 15,
-    'logBtnBackgroundPath': 'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
+    'logBtnBackgroundPath':
+        'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
     'logBtnOffsetY': logBtnOffset,
     'loadingImgPath': '',
     'appPrivacyOne': '思预云用户协议, https://www.baidu.com',
@@ -856,50 +859,3 @@ AliAuthModel getDislogConfig() {
     'alertCornerRadiusArray': '10,10,10,10',
   });
 }
-
-//mAlicomAuthHelper.setAuthUIConfig(
-//new AuthUIConfig.Builder()
-//// 状态栏背景色
-//.setStatusBarColor(Color.parseColor("#ffffff"))
-//.setWebViewStatusBarColor(Color.parseColor("#ffffff"))
-//// .setStatusBarColor(Color.TRANSPARENT)
-//.setLightColor(true)
-//// 导航栏设置
-//.setNavHidden(true)
-//.setNavColor(Color.parseColor("#3971fe")) // 导航栏背景色
-//.setNavText("本机号码一键登录") // 导航栏背景色
-//.setAppPrivacyColor(Color.GRAY, Color.parseColor("#3971fe"))
-//// logo设置
-//.setLogoHidden(true)
-//.setLogoImgPath("ic_launcher")
-//// slogan 设置
-//.setSloganHidden(true)
-//// 号码设置
-//.setNumberColor(Color.parseColor("#3C4F5E"))
-//// 按钮设置
-//.setLogBtnText("本机号码一键登录")
-//.setLogBtnBackgroundPath("button")
-//.setLogBtnHeight(38)
-//.setVendorPrivacyPrefix("《")
-//.setVendorPrivacySuffix("》")
-//// 切换到其他登录方式
-//.setSwitchAccTextColor(Color.parseColor("#3A71FF"))
-//.setSwitchAccText("使用验证码登录")
-//.setScreenOrientation(authPageOrientation)
-//// 动画效果
-//.setAuthPageActIn("in_activity", "out_activity")
-//.setAuthPageActOut("in_activity", "out_activity")
-//// 勾选框
-//.setCheckboxHidden(false)
-//// 勾选框后方文字
-//// .setPrivacyBefore("sadadasda")
-//.setPrivacyState(false)
-//// .setLogBtnBackgroundPath("slogan")
-////.setPrivacyBefore("《达理用户协议》")
-//.setAppPrivacyOne("《达理用户协议》", "https://www.baidu.com")
-//.setAppPrivacyTwo("《达理用户隐私》", "https://www.baidu.com")
-////.setStatusBarUIFlag(View.SYSTEM_UI_FLAG_LOW_PROFILE) // 沉浸式，需隐藏状态栏否则会出现和状态栏重叠的问题
-////.setStatusBarUIFlag(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) // 沉浸式，需隐藏状态栏否则会出现和状态栏重叠的问题
-//// 手机底部虚拟部分颜色
-//.setBottomNavColor(Color.parseColor("#ffffff"))
-//.create()
