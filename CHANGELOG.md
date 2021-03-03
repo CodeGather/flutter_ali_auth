@@ -1,5 +1,9 @@
 #  
 
+## 0.1.3
+
+* add isHiddenCustom
+
 ## 0.1.2
 
 * Update the Android SDK version to 2.12.0.1

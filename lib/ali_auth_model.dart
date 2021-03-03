@@ -288,6 +288,11 @@ class AliAuthModel {
   /// 设置换按钮相对导航栏顶部的位移，单位 dp
   final int switchOffsetY;
 
+  /// 8. 第三方配置
+  
+  /// 是否隐藏第三方布局
+  final bool isHiddenCustom;
+
   /// 第三方图标相关参数只对iOS有效，android 请使用布局文件实现
   /// 第三方图标按钮居中布局
   /// 第三方布局图片路径
@@ -435,6 +440,7 @@ class AliAuthModel {
     this.switchAccTextColor,
     this.switchAccTextSize,
     this.switchOffsetY,
+    this.isHiddenCustom,
     this.customThirdImgPaths,
     this.customThirdImgWidth,
     this.customThirdImgHeight,
@@ -542,6 +548,7 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['switchAccTextColor'] as String,
     json['switchAccTextSize'] as int,
     json['switchOffsetY'] as int,
+    json['isHiddenCustom'] as bool,
     json['customThirdImgPaths'] as String,
     json['customThirdImgWidth'] as int,
     json['customThirdImgHeight'] as int,
@@ -646,6 +653,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'switchAccTextColor': instance.switchAccTextColor,
       'switchAccTextSize': instance.switchAccTextSize,
       'switchOffsetY': instance.switchOffsetY,
+      'isHiddenCustom': instance.isHiddenCustom,
       'customThirdImgPaths': instance.customThirdImgPaths,
       'customThirdImgWidth': instance.customThirdImgWidth,
       'customThirdImgHeight': instance.customThirdImgHeight,
@@ -684,6 +692,7 @@ AliAuthModel getConfig() {
     'isDialog': false,
     'isDebug': true,
     'customPageBackgroundLyout': true,
+    'isHiddenCustom': true,
     'statusBarColor': "#00ffffff",
     'statusBarHidden': false,
     'statusBarUIFlag': 1024,
@@ -782,6 +791,7 @@ AliAuthModel getDislogConfig() {
     'isDialog': true,
     'isDebug': true,
     'customPageBackgroundLyout': false,
+    'isHiddenCustom': true,
     'statusBarColor': "#00000000",
     'statusBarHidden': true,
     'statusBarUIFlag': -1,

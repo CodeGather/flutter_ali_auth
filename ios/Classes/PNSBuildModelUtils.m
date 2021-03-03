@@ -531,56 +531,59 @@
 //    };
   
   /// 自定义按钮布局
-  NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
-  NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
-  if(customArray != nil && customArray.count > 0){
-    for (int i = 0 ; i < customArray.count; i++) {
-      /// 动态生成imageView 并且加入到 imageView数组中以备使用
-      UIImageView *itemView = [
-       self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
-              selector: selector
-                target: target
-                 index: i
-       ];
-      [customArrayView addObject: itemView];
+  bool customView = [viewConfig boolValueForKey: @"isHiddenCustom" defaultValue: NO];
+  if (customView) {
+    NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
+    NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
+    if(customArray != nil && customArray.count > 0){
+      for (int i = 0 ; i < customArray.count; i++) {
+        /// 动态生成imageView 并且加入到 imageView数组中以备使用
+        UIImageView *itemView = [
+         self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+                selector: selector
+                  target: target
+                   index: i
+         ];
+        [customArrayView addObject: itemView];
+        
+      }
       
+      /// 添加第三方图标
+      model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+        for (int i = 0 ; i < customArrayView.count; i++) {
+          [superCustomView addSubview: customArrayView[i]];
+        }
+      };
+      
+      /// 第三方图标按钮的相关参数
+      int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
+      int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
+      int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
+      int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
+      
+      model.customViewLayoutBlock = ^(
+        CGSize screenSize,       /// 全屏参数
+        CGRect contentViewFrame, /// contentView参数
+        CGRect navFrame,         /// 导航参数
+        CGRect titleBarFrame,    /// title参数
+        CGRect logoFrame,        /// logo区域参数
+        CGRect sloganFrame,      /// slogan参数
+        CGRect numberFrame,      /// 号码处参数
+        CGRect loginFrame,       /// 登录按钮处的参数
+        CGRect changeBtnFrame,   /// 切换到其他的参数
+        CGRect privacyFrame      /// 协议区域的参数
+      ) {
+        NSUInteger count = customArrayView.count;
+        NSInteger contentWidth = isDialog ? contentViewFrame.size.width : screenSize.width;
+        for (int i = 0 ; i < count; i++) {
+          UIImageView *itemView = (UIImageView *)customArrayView[i];
+  //        int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
+          NSInteger X = (contentWidth- (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+          NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
+          itemView.frame = CGRectMake( X, Y, width, height );
+        }
+      };
     }
-    
-    /// 添加第三方图标
-    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-      for (int i = 0 ; i < customArrayView.count; i++) {
-        [superCustomView addSubview: customArrayView[i]];
-      }
-    };
-    
-    /// 第三方图标按钮的相关参数
-    int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
-    int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
-    int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
-    int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
-    
-    model.customViewLayoutBlock = ^(
-      CGSize screenSize,       /// 全屏参数
-      CGRect contentViewFrame, /// contentView参数
-      CGRect navFrame,         /// 导航参数
-      CGRect titleBarFrame,    /// title参数
-      CGRect logoFrame,        /// logo区域参数
-      CGRect sloganFrame,      /// slogan参数
-      CGRect numberFrame,      /// 号码处参数
-      CGRect loginFrame,       /// 登录按钮处的参数
-      CGRect changeBtnFrame,   /// 切换到其他的参数
-      CGRect privacyFrame      /// 协议区域的参数
-    ) {
-      NSUInteger count = customArrayView.count;
-      NSInteger contentWidth = isDialog ? contentViewFrame.size.width : screenSize.width;
-      for (int i = 0 ; i < count; i++) {
-        UIImageView *itemView = (UIImageView *)customArrayView[i];
-//        int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
-        NSInteger X = (contentWidth- (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-        NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
-        itemView.frame = CGRectMake( X, Y, width, height );
-      }
-    };
   }
  
   return model;
@@ -859,55 +862,59 @@
 //    };
   
   /// 自定义按钮布局
-  NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
-  NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
-  if(customArray != nil && customArray.count > 0){
-    for (int i = 0 ; i < customArray.count; i++) {
-      /// 动态生成imageView 并且加入到 imageView数组中以备使用
-      UIImageView *itemView = [
-       self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
-              selector: selector
-                target: target
-                 index: i
-       ];
-      [customArrayView addObject: itemView];
+  
+  bool customView = [viewConfig boolValueForKey: @"isHiddenCustom" defaultValue: NO];
+  if (customView) {
+    NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
+    NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
+    if(customArray != nil && customArray.count > 0){
+      for (int i = 0 ; i < customArray.count; i++) {
+        /// 动态生成imageView 并且加入到 imageView数组中以备使用
+        UIImageView *itemView = [
+         self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+                selector: selector
+                  target: target
+                   index: i
+         ];
+        [customArrayView addObject: itemView];
+        
+      }
       
+      /// 添加第三方图标
+      model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+        for (int i = 0 ; i < customArrayView.count; i++) {
+          [superCustomView addSubview: customArrayView[i]];
+        }
+      };
+      
+      /// 第三方图标按钮的相关参数
+      int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
+      int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
+      int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
+      int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
+      
+      model.customViewLayoutBlock = ^(
+        CGSize screenSize,       /// 全屏参数
+        CGRect contentViewFrame, /// contentView参数
+        CGRect navFrame,         /// 导航参数
+        CGRect titleBarFrame,    /// title参数
+        CGRect logoFrame,        /// logo区域参数
+        CGRect sloganFrame,      /// slogan参数
+        CGRect numberFrame,      /// 号码处参数
+        CGRect loginFrame,       /// 登录按钮处的参数
+        CGRect changeBtnFrame,   /// 切换到其他的参数
+        CGRect privacyFrame      /// 协议区域的参数
+      ) {
+        NSUInteger count = customArrayView.count;
+        for (int i = 0 ; i < count; i++) {
+          UIImageView *itemView = (UIImageView *)customArrayView[i];
+          // int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
+          NSInteger X = (contentViewFrame.size.width - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+          NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
+          itemView.frame = CGRectMake( X, Y, width, height );
+        }
+      };
     }
-    
-    /// 添加第三方图标
-    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-      for (int i = 0 ; i < customArrayView.count; i++) {
-        [superCustomView addSubview: customArrayView[i]];
-      }
-    };
-    
-    /// 第三方图标按钮的相关参数
-    int width = [viewConfig intValueForKey: @"customThirdImgWidth" defaultValue: 70];
-    int height = [viewConfig intValueForKey: @"customThirdImgHeight" defaultValue: 70];
-    int offsetY = [viewConfig intValueForKey: @"customThirdImgOffsetY" defaultValue: 20];
-    int space = [viewConfig intValueForKey: @"customThirdImgSpace" defaultValue: 30];
-    
-    model.customViewLayoutBlock = ^(
-      CGSize screenSize,       /// 全屏参数
-      CGRect contentViewFrame, /// contentView参数
-      CGRect navFrame,         /// 导航参数
-      CGRect titleBarFrame,    /// title参数
-      CGRect logoFrame,        /// logo区域参数
-      CGRect sloganFrame,      /// slogan参数
-      CGRect numberFrame,      /// 号码处参数
-      CGRect loginFrame,       /// 登录按钮处的参数
-      CGRect changeBtnFrame,   /// 切换到其他的参数
-      CGRect privacyFrame      /// 协议区域的参数
-    ) {
-      NSUInteger count = customArrayView.count;
-      for (int i = 0 ; i < count; i++) {
-        UIImageView *itemView = (UIImageView *)customArrayView[i];
-        // int X = ((screenSize.width - width * count) / (count + 1)) * (i + 1) + (width * i); /// 平均分布
-        NSInteger X = (contentViewFrame.size.width - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-        NSInteger Y = offsetY > 50 ? offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
-        itemView.frame = CGRectMake( X, Y, width, height );
-      }
-    };
   }
   return model;
 }

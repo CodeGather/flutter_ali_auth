@@ -3,7 +3,7 @@
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
  * @LastEditors: 21克的爱情
- * @LastEditTime: 2020-11-23 14:55:23
+ * @LastEditTime: 2021-03-03 15:05:36
  * @Description:
  */
 package com.jokui.rao.auth.ali_auth;
@@ -545,39 +545,43 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     }
 
     // 自定义UI
-    private void initDynamicView() {
-        int getCustomXml = mContext.getResources().getIdentifier("custom_login", "layout", mContext.getPackageName());
-        // 判断是否有自定义布局文件，没有则加载默认布局文件
-        if(getCustomXml == 0){
-            getCustomXml = mContext.getResources().getIdentifier("custom_login_layout", "layout", mContext.getPackageName());
-        }
-        switchTV = LayoutInflater.from(mContext).inflate(getCustomXml, new RelativeLayout(mContext), false);
-        RelativeLayout.LayoutParams mLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, dp2px(activity, 150));
-        mLayoutParams2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-        mLayoutParams2.setMargins(0, dp2px(mContext, 400), 0, 0);
-
-        // 获取到图片列表的父控件
-        LinearLayout list = switchTV.findViewById(R.id.container_icon);
-        // 循环监听图片按钮
-        for (int i = 0; i < list.getChildCount(); i++) {
-            View view = list.getChildAt(i);
-            if (view instanceof ImageView) {
-                final int finalI = i;
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        Log.d(TAG, "您点击了第" + finalI + "个按钮");
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("code", "700005");
-                        jsonObject.put("msg", "点击第三方登录按钮");
-                        jsonObject.put("data", finalI);
-                        //转化成json字符串
-                        _events.success(jsonObject);
-                    }
-                });
+    private void initDynamicView( MethodCall call ) {
+        Map viewConfig = (Map) call.argument("config");
+        
+        if (dataStatus( viewConfig, "isHiddenCustom")) {
+            int getCustomXml = mContext.getResources().getIdentifier("custom_login", "layout", mContext.getPackageName());
+            // 判断是否有自定义布局文件，没有则加载默认布局文件
+            if(getCustomXml == 0){
+                getCustomXml = mContext.getResources().getIdentifier("custom_login_layout", "layout", mContext.getPackageName());
             }
-        }
+            switchTV = LayoutInflater.from(mContext).inflate(getCustomXml, new RelativeLayout(mContext), false);
+            RelativeLayout.LayoutParams mLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, dp2px(activity, 150));
+            mLayoutParams2.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+            mLayoutParams2.setMargins(0, dp2px(mContext, 400), 0, 0);
 
-        switchTV.setLayoutParams(mLayoutParams2);
+            // 获取到图片列表的父控件
+            LinearLayout list = switchTV.findViewById(R.id.container_icon);
+            // 循环监听图片按钮
+            for (int i = 0; i < list.getChildCount(); i++) {
+                View view = list.getChildAt(i);
+                if (view instanceof ImageView) {
+                    final int finalI = i;
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override public void onClick(View v) {
+                            Log.d(TAG, "您点击了第" + finalI + "个按钮");
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("code", "700005");
+                            jsonObject.put("msg", "点击第三方登录按钮");
+                            jsonObject.put("data", finalI);
+                            //转化成json字符串
+                            _events.success(jsonObject);
+                        }
+                    });
+                }
+            }
+
+            switchTV.setLayoutParams(mLayoutParams2);
+        }
     }
 
     // 自定义背景
@@ -604,7 +608,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     private void configLoginTokenPort(final MethodCall call, final MethodChannel.Result methodResult) {
         configBuilder(call);
 
-        initDynamicView();
+        initDynamicView(call);
 
         initBackgroundView(call);
 
@@ -642,7 +646,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     private void configLoginTokenPortDialog(final MethodCall call, final MethodChannel.Result methodResult) {
         configBuilder(call);
 
-        initDynamicView();
+        initDynamicView(call);
     }
 
     // 公共配置
