@@ -3,11 +3,10 @@
  * @Date: 2020-06-17 16:07:44
  * @Email: raohong07@163.com
  * @LastEditors: 21克的爱情
- * @LastEditTime: 2021-02-06 10:41:57
+ * @LastEditTime: 2021-04-20 17:04:35
  * @Description: 
  */
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'ali_auth_model.dart';
@@ -66,19 +65,19 @@ class AliAuthPlugin {
     return await _channel.invokeMethod('login');
   }
 
-  @Deprecated('该接口将在 v0.1.2 之前可继续使用，在以后版本执行删除，请尽快修改')
+  ///@Deprecated('该接口将在 v0.1.2 之前可继续使用，在以后版本执行删除，请尽快修改')
 
   /// 一键登录
-  // static Future<dynamic> get startLogin async {
-  //   return await _channel.invokeMethod('startLogin');
-  // }
+  /// static Future<dynamic> get startLogin async {
+  ///   return await _channel.invokeMethod('startLogin');
+  /// }
 
   /// 预取号
   static Future<dynamic> get preLogin async {
     return await _channel.invokeMethod('preLogin');
   }
 
-  @Deprecated('该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改')
+  /// @Deprecated('该接口将在 v0.0.6 之前可继续使用，在以后版本执行删除，请尽快修改')
 
   /// 一键登录（ 弹窗 ）
   // static Future<dynamic> get loginDialog async {
@@ -93,7 +92,6 @@ class AliAuthPlugin {
   /// 数据监听
   static loginListen(
       {bool type = true, required Function onEvent, Function? onError}) async {
-    assert(onEvent != null);
     _eventChannel
         .receiveBroadcastStream(type)
         .listen(onEvent as void Function(dynamic)?, onError: onError);
