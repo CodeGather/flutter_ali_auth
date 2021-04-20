@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
     print("-------------成功分割线------------$event");
     if (event != null && event['code'] != null) {
       if (event['code'] == '600024') {
-        await AliAuthPlugin.startLogin;
+        await AliAuthPlugin.login;
       } else if (event['code'] == '600000') {
         print('获取到的token${event["data"]}');
       }
@@ -89,39 +89,15 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: <Widget>[
-            RaisedButton(
-              onPressed: () async {
-                /// 请直接使用startLogin来登录
-                /// final result = await AliAuthPlugin.loginDialog;
-                /// print(result);
-              },
-              child: Text('弹窗登录'),
-            ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 final result = await AliAuthPlugin.login;
                 print(result);
               },
               child: Text('直接登录'),
             ),
-            RaisedButton(
-              onPressed: () async {
-                final result = await AliAuthPlugin.startLogin;
-                print(result);
-              },
-              child: Text('new直接登录'),
-            ),
-            RaisedButton(
-              onPressed: () async {
-                /// 因为在初始化SDK时就检测了环境故，该接口做删除处理
-                /// final checkVerifyEnable =
-                ///     await AliAuthPlugin.checkVerifyEnable;
-                /// print(checkVerifyEnable);
-              },
-              child: Text('检测环境'),
-            ),
             Platform.isIOS
-                ? RaisedButton(
+                ? ElevatedButton(
                     onPressed: () async {
                       await AliAuthPlugin.appleLogin;
                     },

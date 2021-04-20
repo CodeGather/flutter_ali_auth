@@ -24,24 +24,24 @@ enum ScaleType {
 class AliAuthModel {
   /// aliyun sk
   @required
-  final String sk;
+  final String? sk;
 
   /// 是否使用dialog弹窗登录
-  final bool isDialog;
+  final bool? isDialog;
 
   /// 是否开启debug模式
-  final bool isDebug;
+  final bool? isDebug;
 
   /// 是否添加自定义背景布局
-  final bool customPageBackgroundLyout;
+  final bool? customPageBackgroundLyout;
 
   /// 1、状态栏
 
   /// statusBarColor 设置状态栏颜⾊（系统版本 5.0 以上可设置）
-  final String statusBarColor;
+  final String? statusBarColor;
 
   /// 设置状态栏是否隐藏
-  final bool statusBarHidden;
+  final bool? statusBarHidden;
 
   /// 设置状态栏UI属性 View.SYSTEM_UI_FLAG_LOW_PROFILE View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
   /// public static final int SYSTEM_UI_FLAG_FULLSCREEN = 4;
@@ -53,72 +53,72 @@ class AliAuthModel {
   /// public static final int SYSTEM_UI_FLAG_LAYOUT_STABLE = 256;
   /// public static final int SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR = 16;
   /// public static final int SYSTEM_UI_FLAG_LIGHT_STATUS_BAR = 8192;
-  final int statusBarUIFlag;
+  final int? statusBarUIFlag;
 
   /// 设置状态栏字体颜⾊（系统版本 6.0 以上可21设置⿊⾊、⽩⾊）。true 为⿊⾊
-  final bool lightColor;
+  final bool? lightColor;
 
   /// 设置导航栏颜⾊
-  final String navColor;
+  final String? navColor;
 
   /// 设置导航栏标题⽂字
-  final String navText;
+  final String? navText;
 
   /// 设置导航栏标题⽂字颜⾊
-  final String navTextColor;
+  final String? navTextColor;
 
   /// 设置导航栏标题⽂字⼤⼩
-  final int navTextSize;
+  final int? navTextSize;
 
   /// 设置导航栏返回键图⽚
-  final String navReturnImgPath;
+  final String? navReturnImgPath;
 
   /// 设置导航栏返回键宽度
-  final int navReturnImgWidth;
+  final int? navReturnImgWidth;
 
   /// 设置导航栏返回键高度
-  final int navReturnImgHeight;
+  final int? navReturnImgHeight;
 
   /// 设置导航栏返回按钮隐藏
-  final bool navReturnHidden;
+  final bool? navReturnHidden;
 
   /// 设置默认导航栏是否隐藏
-  final bool navHidden;
+  final bool? navHidden;
 
   /// 设置协议⻚状态栏颜⾊（系统版本 5.0 以上可设置）不设置则与授权⻚设置⼀致
-  final String webViewStatusBarColor;
+  final String? webViewStatusBarColor;
 
   /// 设置协议⻚顶部导航栏背景⾊不设置则与授权⻚设置⼀致
-  final String webNavColor;
+  final String? webNavColor;
 
   /// 设置协议⻚顶部导航栏标题颜⾊不设置则与授权⻚设置⼀致
-  final String webNavTextColor;
+  final String? webNavTextColor;
 
   /// 设置协议⻚顶部导航栏⽂字⼤⼩22不设置则与授权⻚设置⼀致
-  final int webNavTextSize;
+  final int? webNavTextSize;
 
   /// 设置协议⻚导航栏返回按钮图⽚路径不设置则与授权⻚设置⼀致
-  final String webNavReturnImgPath;
+  final String? webNavReturnImgPath;
 
   /// 设置底部虚拟按键背景⾊（系统版本 5.0 以上可设置）
-  final String bottomNavColor;
+  final String? bottomNavColor;
 
   /// 2、授权⻚Logo
 
   /// 隐藏logo
-  final bool logoHidden;
+  final bool? logoHidden;
 
   /// 设置logo 图⽚
-  final String logoImgPath;
+  final String? logoImgPath;
 
   /// 设置logo 控件宽度
-  final int logoWidth;
+  final int? logoWidth;
 
   /// 设置logo 控件⾼度
-  final int logoHeight;
+  final int? logoHeight;
 
   /// 设置logo 控件相对导航栏顶部的位移，单位dp
-  final int logoOffsetY;
+  final int? logoOffsetY;
 
   /// 设置logo图⽚缩放模式
   /// FIT_XY,
@@ -128,238 +128,238 @@ class AliAuthModel {
   /// CENTER,
   /// CENTER_CROP,
   /// CENTER_INSIDE
-  final String logoScaleType;
+  final String? logoScaleType;
 
   /// 3、授权⻚Slogan
 
   /// 隐藏slogan
-  final bool sloganHidden;
+  final bool? sloganHidden;
 
   /// 设置slogan ⽂字内容
-  final String sloganText;
+  final String? sloganText;
 
   /// 设置slogan ⽂字颜⾊
-  final String sloganTextColor;
+  final String? sloganTextColor;
 
   /// 设置slogan ⽂字⼤⼩
-  final int sloganTextSize;
+  final int? sloganTextSize;
 
   /// 设置slogan 相对导航栏顶部的 位移，单位dp
-  final int sloganOffsetY;
+  final int? sloganOffsetY;
 
   /// 4、授权⻚号码栏
 
   /// 设置⼿机号码字体颜⾊
-  final String numberColor;
+  final String? numberColor;
 
   /// 设置⼿机号码字体⼤⼩
-  final int numberSize;
+  final int? numberSize;
 
   /// 设置号码栏控件相对导航栏顶部的位移，单位 dp
-  final int numFieldOffsetY;
+  final int? numFieldOffsetY;
 
   /// 设置号码栏相对于默认位置的X轴偏移量，单位dp
-  final int numberFieldOffsetX;
+  final int? numberFieldOffsetX;
 
   /// 设置⼿机号掩码的布局对⻬⽅式，只⽀持Gravity.CENTER_HORIZONTAL、Gravity.LEFT、Gravity.RIGHT三种对⻬⽅式
-  final int numberLayoutGravity;
+  final int? numberLayoutGravity;
 
   /// 5. 授权⻚登录按钮
 
   /// 设置登录按钮⽂字
-  final String logBtnText;
+  final String? logBtnText;
 
   /// 设置登录按钮⽂字颜⾊
-  final String logBtnTextColor;
+  final String? logBtnTextColor;
 
   /// 设置登录按钮⽂字⼤⼩
-  final int logBtnTextSize;
+  final int? logBtnTextSize;
 
   /// 设置登录按钮宽度，单位 dp
-  final int logBtnWidth;
+  final int? logBtnWidth;
 
   /// 设置登录按钮⾼度，单位dp
-  final int logBtnHeight;
+  final int? logBtnHeight;
 
   /// 设置登录按钮相对于屏幕左右边缘边距
-  final int logBtnMarginLeftAndRight;
+  final int? logBtnMarginLeftAndRight;
 
   /// 设置登录按钮背景图⽚路径 是一个逗号拼接的图片路径 例如：'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png'
   /// 如果设置错误或者找不到图片则使用默认样式
-  final String logBtnBackgroundPath;
+  final String? logBtnBackgroundPath;
 
   /// 设置登录按钮相对导航栏顶部的位移，单位 dp
-  final int logBtnOffsetY;
+  final int? logBtnOffsetY;
 
   /// 设置登录loading dialog 背景图⽚路径24
-  final String loadingImgPath;
+  final String? loadingImgPath;
 
   /// 设置登陆按钮X轴偏移量，如果设置了setLogBtnMarginLeftAndRight，并且布局对⻬⽅式为左对⻬或者右对⻬,则会在margin的基础上再增加offsetX的偏移量，如果是居中对⻬，则仅仅会在居中的基础上再做offsetX的偏移。
-  final int logBtnOffsetX;
+  final int? logBtnOffsetX;
 
   /// 设置登陆按钮布局对⻬⽅式，只⽀持Gravity.CENTER_HORIZONTAL、Gravity.LEFT、Gravity.RIGHT三种对⻬⽅式
-  final int logBtnLayoutGravity;
+  final int? logBtnLayoutGravity;
 
   /// 6. 授权⻚隐私栏
 
   /// 设置开发者隐私条款 1 名称和URL(名称，url) String,String
-  final String appPrivacyOne;
+  final String? appPrivacyOne;
 
   /// 设置开发者隐私条款 2 名称和URL(名称，url) String,String
-  final String appPrivacyTwo;
+  final String? appPrivacyTwo;
 
   /// 设置隐私条款名称颜⾊(基础⽂字颜⾊，协议⽂字颜⾊)
-  final String appPrivacyColor;
+  final String? appPrivacyColor;
 
   /// 设置隐私条款相对导航栏顶部的位移，单位dp
-  final int privacyOffsetY;
+  final int? privacyOffsetY;
 
   /// 设置隐私条款是否默认勾选
-  final bool privacyState;
+  final bool? privacyState;
 
   /// 设置隐私条款⽂字对⻬⽅式，单位Gravity.xxx
-  final int protocolGravity;
+  final int? protocolGravity;
 
   /// 设置隐私条款⽂字⼤⼩，单位sp
-  final int privacyTextSize;
+  final int? privacyTextSize;
 
   /// 设置隐私条款距离⼿机左右边缘的边距，单位dp
-  final int privacyMargin;
+  final int? privacyMargin;
 
   /// 设置开发者隐私条款前置⾃定义25⽂案
-  final String privacyBefore;
+  final String? privacyBefore;
 
   /// 设置开发者隐私条款尾部⾃定义⽂案
-  final String privacyEnd;
+  final String? privacyEnd;
 
   /// 设置复选框是否隐藏
-  final bool checkboxHidden;
+  final bool? checkboxHidden;
 
   /// 勾选框大小宽高等比 17*17 -> 17
-  final int checkBoxWH;
+  final int? checkBoxWH;
 
   /// 切换标题
-  final String changeBtnTitle;
+  final String? changeBtnTitle;
 
   /// 切换标题大小
-  final int changeBtnTitleSize;
+  final int? changeBtnTitleSize;
 
   /// 切换标题颜色
-  final String changeBtnTitleColor;
+  final String? changeBtnTitleColor;
 
   /// 是否隐藏切换标题
-  final bool changeBtnIsHidden;
+  final bool? changeBtnIsHidden;
 
   /// 设置复选框未选中时图⽚
-  final String uncheckedImgPath;
+  final String? uncheckedImgPath;
 
   /// 设置复选框选中时图⽚
-  final String checkedImgPath;
+  final String? checkedImgPath;
 
   /// 设置运营商协议前缀符号，只能设置⼀个字符，且只能设置<>()《》【】『』[]（）中的⼀个
-  final String vendorPrivacyPrefix;
+  final String? vendorPrivacyPrefix;
 
   /// 设置运营商协议后缀符号，只能设置⼀个字符，且只能设置<>()《》【】『』[]（）中的⼀个
-  final String vendorPrivacySuffix;
+  final String? vendorPrivacySuffix;
 
   /// 设置隐私栏的布局对⻬⽅式，该接⼝控制了整个隐私栏（包含checkbox）在其⽗布局中的对⻬⽅式，⽽setProtocolGravity控制的是隐私协议⽂字内容在⽂本框中的对⻬⽅式
-  final int protocolLayoutGravity;
+  final int? protocolLayoutGravity;
 
   /// 设置隐私栏X轴偏移量，单位dp
-  final int privacyOffsetX;
+  final int? privacyOffsetX;
 
   /// 设置checkbox未勾选时，点击登录按钮toast是否显示
-  final bool logBtnToastHidden;
+  final bool? logBtnToastHidden;
 
   /// 7. 切换⽅式控件
 
   /// 设置切换按钮点是否可⻅
-  final bool switchAccHidden;
+  final bool? switchAccHidden;
 
   /// 设置切换按钮⽂字内容
-  final String switchAccText;
+  final String? switchAccText;
 
   /// 设置切换按钮⽂字颜⾊
-  final String switchAccTextColor;
+  final String? switchAccTextColor;
 
   /// 设置切换按钮⽂字⼤⼩
-  final int switchAccTextSize;
+  final int? switchAccTextSize;
 
   /// 设置换按钮相对导航栏顶部的位移，单位 dp
-  final int switchOffsetY;
+  final int? switchOffsetY;
 
   /// 8. 第三方配置
-  
+
   /// 是否隐藏第三方布局
-  final bool isHiddenCustom;
+  final bool? isHiddenCustom;
 
   /// 第三方图标相关参数只对iOS有效，android 请使用布局文件实现
   /// 第三方图标按钮居中布局
   /// 第三方布局图片路径
-  final String customThirdImgPaths;
+  final String? customThirdImgPaths;
 
   /// 第三方图标宽度
-  final int customThirdImgWidth;
+  final int? customThirdImgWidth;
 
   /// 第三方图标高度
-  final int customThirdImgHeight;
+  final int? customThirdImgHeight;
 
   /// 第三方图标间距
-  final int customThirdImgSpace;
+  final int? customThirdImgSpace;
 
   /// 第三方按钮的Y 默认值距离第三方标题向下20 大于50的时候为相对于状态栏的距离 即为从顶部向下多少
-  final int customThirdImgOffsetY;
+  final int? customThirdImgOffsetY;
 
   /// 8. ⻚⾯相关函数
 
   /// 设置授权⻚进场动画
-  final String authPageActIn;
+  final String? authPageActIn;
 
   /// 设置授权⻚退出动画
-  final String authPageActOut;
+  final String? authPageActOut;
 
   /// 设置授权⻚背景图drawable资源的⽬录，不需要加后缀，⽐如图⽚在drawable中的存放⽬录是res/drawablexxhdpi/loading.png,则传⼊参数为"loading"，setPageBackgroundPath("loading")。
-  final String pageBackgroundPath;
+  final String? pageBackgroundPath;
 
   /// dialog 蒙层的透明度
-  final double dialogAlpha;
+  final double? dialogAlpha;
 
   /// 设置弹窗模式授权⻚宽度，单位dp,设置⼤于0即为弹窗模式
-  final int dialogWidth;
+  final int? dialogWidth;
 
   /// 设置弹窗模式授权⻚⾼度，单位dp，设置⼤于0即为弹窗模式
-  final int dialogHeight;
+  final int? dialogHeight;
 
   /// 设置弹窗模式授权⻚X轴偏移，单位dp
-  final int dialogOffsetX;
+  final int? dialogOffsetX;
 
   /// 设置弹窗模式授权⻚Y轴偏移,单位dp
-  final int dialogOffsetY;
+  final int? dialogOffsetY;
 
   /// 设置授权⻚是否居于底部
-  final bool dialogBottom;
+  final bool? dialogBottom;
 
   /// ios 弹窗设置参数
   /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
-  final bool alertBarIsHidden;
+  final bool? alertBarIsHidden;
 
   /// bar的背景色 默认颜色为白色 #FFFFFF
-  final String alertTitleBarColor;
+  final String? alertTitleBarColor;
 
   /// bar的关闭按钮
-  final bool alertCloseItemIsHidden;
+  final bool? alertCloseItemIsHidden;
 
   /// 关闭按钮的图片路径
-  final String alertCloseImage;
+  final String? alertCloseImage;
 
   /// 底部蒙层背景颜色，默认黑色
-  final String alertBlurViewColor;
+  final String? alertBlurViewColor;
 
   /// 底部蒙层背景透明度，默认0.5 0 ~ 1
-  final double alertBlurViewAlpha;
+  final double? alertBlurViewAlpha;
 
   /// 窗口圆角 顺序为左上，左下，右下，右上，需要填充4个值，不足4个值则无效，如果值<=0则为直角 */
-  final String alertCornerRadiusArray;
+  final String? alertCornerRadiusArray;
 
   AliAuthModel(
     this.sk,
@@ -470,106 +470,106 @@ class AliAuthModel {
 
 AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
   return AliAuthModel(
-    json['sk'] as String,
-    json['isDialog'] as bool,
-    json['isDebug'] as bool,
-    json['customPageBackgroundLyout'] as bool,
-    json['statusBarColor'] as String,
-    json['statusBarHidden'] as bool,
-    json['statusBarUIFlag'] as int,
-    json['lightColor'] as bool,
-    json['navColor'] as String,
-    json['navText'] as String,
-    json['navTextColor'] as String,
-    json['navTextSize'] as int,
-    json['navReturnImgPath'] as String,
-    json['navReturnImgWidth'] as int,
-    json['navReturnImgHeight'] as int,
-    json['navReturnHidden'] as bool,
-    json['navHidden'] as bool,
-    json['webViewStatusBarColor'] as String,
-    json['webNavColor'] as String,
-    json['webNavTextColor'] as String,
-    json['webNavTextSize'] as int,
-    json['webNavReturnImgPath'] as String,
-    json['bottomNavColor'] as String,
-    json['logoHidden'] as bool,
-    json['logoImgPath'] as String,
-    json['logoWidth'] as int,
-    json['logoHeight'] as int,
-    json['logoOffsetY'] as int,
-    json['logoScaleType'] as String,
-    json['sloganHidden'] as bool,
-    json['sloganText'] as String,
-    json['sloganTextColor'] as String,
-    json['sloganTextSize'] as int,
-    json['sloganOffsetY'] as int,
-    json['numberColor'] as String,
-    json['numberSize'] as int,
-    json['numFieldOffsetY'] as int,
-    json['numberFieldOffsetX'] as int,
-    json['numberLayoutGravity'] as int,
-    json['logBtnText'] as String,
-    json['logBtnTextColor'] as String,
-    json['logBtnTextSize'] as int,
-    json['logBtnWidth'] as int,
-    json['logBtnHeight'] as int,
-    json['logBtnMarginLeftAndRight'] as int,
-    json['logBtnBackgroundPath'] as String,
-    json['logBtnOffsetY'] as int,
-    json['loadingImgPath'] as String,
-    json['logBtnOffsetX'] as int,
-    json['logBtnLayoutGravity'] as int,
-    json['appPrivacyOne'] as String,
-    json['appPrivacyTwo'] as String,
-    json['appPrivacyColor'] as String,
-    json['privacyOffsetY'] as int,
-    json['privacyState'] as bool,
-    json['protocolGravity'] as int,
-    json['privacyTextSize'] as int,
-    json['privacyMargin'] as int,
-    json['privacyBefore'] as String,
-    json['privacyEnd'] as String,
-    json['checkboxHidden'] as bool,
-    json['checkBoxWH'] as int,
-    json['changeBtnTitle'] as String,
-    json['changeBtnTitleSize'] as int,
-    json['changeBtnTitleColor'] as String,
-    json['changeBtnIsHidden'] as bool,
-    json['uncheckedImgPath'] as String,
-    json['checkedImgPath'] as String,
-    json['vendorPrivacyPrefix'] as String,
-    json['vendorPrivacySuffix'] as String,
-    json['protocolLayoutGravity'] as int,
-    json['privacyOffsetX'] as int,
-    json['logBtnToastHidden'] as bool,
-    json['switchAccHidden'] as bool,
-    json['switchAccText'] as String,
-    json['switchAccTextColor'] as String,
-    json['switchAccTextSize'] as int,
-    json['switchOffsetY'] as int,
-    json['isHiddenCustom'] as bool,
-    json['customThirdImgPaths'] as String,
-    json['customThirdImgWidth'] as int,
-    json['customThirdImgHeight'] as int,
-    json['customThirdImgSpace'] as int,
-    json['customThirdImgOffsetY'] as int,
-    json['authPageActIn'] as String,
-    json['authPageActOut'] as String,
-    json['pageBackgroundPath'] as String,
-    json['dialogAlpha'] as double,
-    json['dialogWidth'] as int,
-    json['dialogHeight'] as int,
-    json['dialogOffsetX'] as int,
-    json['dialogOffsetY'] as int,
-    json['dialogBottom'] as bool,
-    json['alertBarIsHidden'] as bool,
-    json['alertTitleBarColor'] as String,
-    json['alertCloseItemIsHidden'] as bool,
-    json['alertCloseImage'] as String,
-    json['alertBlurViewColor'] as String,
-    json['alertBlurViewAlpha'] as double,
-    json['alertCornerRadiusArray'] as String,
+    json['sk'] as String?,
+    json['isDialog'] as bool?,
+    json['isDebug'] as bool?,
+    json['customPageBackgroundLyout'] as bool?,
+    json['statusBarColor'] as String?,
+    json['statusBarHidden'] as bool?,
+    json['statusBarUIFlag'] as int?,
+    json['lightColor'] as bool?,
+    json['navColor'] as String?,
+    json['navText'] as String?,
+    json['navTextColor'] as String?,
+    json['navTextSize'] as int?,
+    json['navReturnImgPath'] as String?,
+    json['navReturnImgWidth'] as int?,
+    json['navReturnImgHeight'] as int?,
+    json['navReturnHidden'] as bool?,
+    json['navHidden'] as bool?,
+    json['webViewStatusBarColor'] as String?,
+    json['webNavColor'] as String?,
+    json['webNavTextColor'] as String?,
+    json['webNavTextSize'] as int?,
+    json['webNavReturnImgPath'] as String?,
+    json['bottomNavColor'] as String?,
+    json['logoHidden'] as bool?,
+    json['logoImgPath'] as String?,
+    json['logoWidth'] as int?,
+    json['logoHeight'] as int?,
+    json['logoOffsetY'] as int?,
+    json['logoScaleType'] as String?,
+    json['sloganHidden'] as bool?,
+    json['sloganText'] as String?,
+    json['sloganTextColor'] as String?,
+    json['sloganTextSize'] as int?,
+    json['sloganOffsetY'] as int?,
+    json['numberColor'] as String?,
+    json['numberSize'] as int?,
+    json['numFieldOffsetY'] as int?,
+    json['numberFieldOffsetX'] as int?,
+    json['numberLayoutGravity'] as int?,
+    json['logBtnText'] as String?,
+    json['logBtnTextColor'] as String?,
+    json['logBtnTextSize'] as int?,
+    json['logBtnWidth'] as int?,
+    json['logBtnHeight'] as int?,
+    json['logBtnMarginLeftAndRight'] as int?,
+    json['logBtnBackgroundPath'] as String?,
+    json['logBtnOffsetY'] as int?,
+    json['loadingImgPath'] as String?,
+    json['logBtnOffsetX'] as int?,
+    json['logBtnLayoutGravity'] as int?,
+    json['appPrivacyOne'] as String?,
+    json['appPrivacyTwo'] as String?,
+    json['appPrivacyColor'] as String?,
+    json['privacyOffsetY'] as int?,
+    json['privacyState'] as bool?,
+    json['protocolGravity'] as int?,
+    json['privacyTextSize'] as int?,
+    json['privacyMargin'] as int?,
+    json['privacyBefore'] as String?,
+    json['privacyEnd'] as String?,
+    json['checkboxHidden'] as bool?,
+    json['checkBoxWH'] as int?,
+    json['changeBtnTitle'] as String?,
+    json['changeBtnTitleSize'] as int?,
+    json['changeBtnTitleColor'] as String?,
+    json['changeBtnIsHidden'] as bool?,
+    json['uncheckedImgPath'] as String?,
+    json['checkedImgPath'] as String?,
+    json['vendorPrivacyPrefix'] as String?,
+    json['vendorPrivacySuffix'] as String?,
+    json['protocolLayoutGravity'] as int?,
+    json['privacyOffsetX'] as int?,
+    json['logBtnToastHidden'] as bool?,
+    json['switchAccHidden'] as bool?,
+    json['switchAccText'] as String?,
+    json['switchAccTextColor'] as String?,
+    json['switchAccTextSize'] as int?,
+    json['switchOffsetY'] as int?,
+    json['isHiddenCustom'] as bool?,
+    json['customThirdImgPaths'] as String?,
+    json['customThirdImgWidth'] as int?,
+    json['customThirdImgHeight'] as int?,
+    json['customThirdImgSpace'] as int?,
+    json['customThirdImgOffsetY'] as int?,
+    json['authPageActIn'] as String?,
+    json['authPageActOut'] as String?,
+    json['pageBackgroundPath'] as String?,
+    json['dialogAlpha'] as double?,
+    json['dialogWidth'] as int?,
+    json['dialogHeight'] as int?,
+    json['dialogOffsetX'] as int?,
+    json['dialogOffsetY'] as int?,
+    json['dialogBottom'] as bool?,
+    json['alertBarIsHidden'] as bool?,
+    json['alertTitleBarColor'] as String?,
+    json['alertCloseItemIsHidden'] as bool?,
+    json['alertCloseImage'] as String?,
+    json['alertBlurViewColor'] as String?,
+    json['alertBlurViewAlpha'] as double?,
+    json['alertCornerRadiusArray'] as String?,
   );
 }
 

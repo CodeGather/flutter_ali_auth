@@ -3,6 +3,9 @@
 ## 0.1.3
 
 * add isHiddenCustom
+* null-safety
+* Update the IOS SDK version to 2.12.1
+* Update the Android SDK version to 2.12.1
 
 ## 0.1.2
 

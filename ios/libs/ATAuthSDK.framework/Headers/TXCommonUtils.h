@@ -7,24 +7,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define TX_Auth_Result_Success      @"6666"
-#define TX_Auth_Result_TimeOut      @"5555"
-#define TX_Auth_Result_Fail         @"4444"
-#define TX_Auth_Result_No_SIM_Card  @"1111"
-#define TX_Auth_Result_No_Network   @"2222"
-#define TX_Auth_Result_Other_Err    @"3333"
-#define TX_Auth_Result_Param_Err    @"3344"
-#define TX_Auth_Result_Demotion     @"4445"
-#define TX_Auth_Result_Limited      @"4446"
-
-#define TX_Login_AuthPage_Show_Success      @"6665" // 授权页成功唤起事件
-#define TX_Login_Return_Action              @"6667" // 点击了返回按钮
-#define TX_Login_SSO_Action                 @"6668" // 点击了登录按钮(并成功获取了token)
-#define TX_Login_Change_Action              @"6669" // 点击了切换按钮
-#define TX_Login_CheckBox_Action            @"6670" // 点击了check box按钮 (注: 2.7.0以前的老接口对外暂时没有该回调)
-#define TX_Login_Protocol_Action            @"6671" // 点击了协议按钮 (注: 2.7.0以前的老接口对外暂时没有该回调)
-#define TX_Login_ClickLoginBtn_Action       @"6672" // 点击了登录按钮事件 (注: 2.7.0以前的老接口对外暂时没有该回调)
-
 @interface TXCommonUtils : NSObject
 
 /**

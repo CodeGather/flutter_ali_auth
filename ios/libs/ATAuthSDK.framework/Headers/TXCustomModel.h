@@ -37,7 +37,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 #pragma mark- 全屏、弹窗模式设置
 /**
  *  授权页面中，渲染并显示所有控件的view，称content view，不实现该block默认为全屏模式
- *  实现弹窗的方案 x > 0 || y > 0 width < 屏幕宽度 || height < 屏幕高度
+ *  实现弹窗的方案 x >= 0 || y >= 0 width <= 屏幕宽度 || height <= 屏幕高度
  */
 @property (nonatomic, copy) PNSBuildFrameBlock contentViewFrameBlock;
 
@@ -50,6 +50,10 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, strong) UIColor *alertBlurViewColor;
 /** 底部蒙层背景透明度，默认0.5 */
 @property (nonatomic, assign) CGFloat alertBlurViewAlpha;
+/** contentView背景颜色，默认白色 */
+@property (nonatomic, strong) UIColor *alertContentViewColor;
+/** contentView背景透明度，默认1.0 ，即不透明*/
+@property (nonatomic, assign) CGFloat alertContentViewAlpha;
 /** contentView的四个圆角值，顺序为左上，左下，右下，右上，需要填充4个值，不足4个值则无效，如果值<=0则为直角 */
 @property (nonatomic, copy) NSArray<NSNumber *> *alertCornerRadiusArray;
 /** 标题栏背景颜色 */
@@ -71,8 +75,10 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) PNSBuildFrameBlock alertCloseItemFrameBlock;
 
 #pragma mark- 导航栏（只对全屏模式有效）
-/**导航栏是否隐藏*/
+/**授权页显示中，导航栏是否隐藏，默认NO*/
 @property (nonatomic, assign) BOOL navIsHidden;
+/**授权页push到其他页面后，导航栏是否隐藏，默认NO*/
+@property (nonatomic, assign) BOOL navIsHiddenAfterLoginVCDisappear;
 /** 导航栏主题色 */
 @property (nonatomic, strong) UIColor *navColor;
 /** 导航栏标题，内容、字体、大小、颜色 */
@@ -93,12 +99,21 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 
 #pragma mark- 全屏、弹窗模式共同属性
 
-#pragma mark- 授权页弹出方向
-/** 授权页弹出方向，默认PNSPresentationDirectionBottom */
+#pragma mark- 授权页动画相关
+/** 授权页弹出方向，默认PNSPresentationDirectionBottom，该属性只对自带动画起效，不影响自定义动画 */
 @property (nonatomic, assign) PNSPresentationDirection presentDirection;
-
-/** 授权页显示和消失动画时间，默认为0.25s，<= 0 时关闭动画 **/
+/** 授权页显示和消失动画时间，默认为0.25s，<= 0 时关闭动画，该属性只对自带动画起效，不影响自定义动画 **/
 @property (nonatomic, assign) CGFloat animationDuration;
+
+/** 授权页显示动画（弹窗 & 全屏），不设置或设置为nil默认使用自带动画，SDK内部会主动更改动画的一些属性（包括：removedOnCompletion = NO、fillMode = kCAFillModeForwards 及 delegate） **/
+@property (nonatomic, strong, nullable) CAAnimation *entryAnimation;
+/** 授权页消失动画（弹窗 & 全屏），不设置或设置为nil默认使用自带动画，SDK内部会主动更改动画的一些属性（包括：removedOnCompletion = NO、fillMode = kCAFillModeForwards 及 delegate） **/
+@property (nonatomic, strong, nullable) CAAnimation *exitAnimation;
+
+/** 授权页显示时的背景动画（仅弹窗），不设置或设置为nil默认使用自带动画，SDK内部会主动更改动画的一些属性（包括：removedOnCompletion = NO、fillMode = kCAFillModeForwards 及 delegate） **/
+@property (nonatomic, strong, nullable) CAAnimation *bgEntryAnimation;
+/** 授权页消失时的背景动画（仅弹窗），不设置或设置为nil默认使用自带动画，SDK内部会主动更改动画的一些属性（包括：removedOnCompletion = NO、fillMode = kCAFillModeForwards 及 delegate） **/
+@property (nonatomic, strong, nullable) CAAnimation *bgExitAnimation;
 
 #pragma mark- 状态栏
 /** 状态栏是否隐藏，默认NO */
@@ -197,6 +212,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) NSArray<NSString *> *privacyTwo;
 /** 协议3，[协议名称,协议Url]，注：三个协议名称不能相同 */
 @property (nonatomic, copy) NSArray<NSString *> *privacyThree;
+/** 协议名称之间连接字符串数组，默认 ["和","、","、"] ，即第一个为"和"，其他为"、"，按顺序读取，为空则取默认 */
+@property (nonatomic, copy) NSArray<NSString *> *privacyConectTexts;
 /** 协议内容颜色数组，[非点击文案颜色，点击文案颜色] */
 @property (nonatomic, copy) NSArray<UIColor *> *privacyColors;
 /** 协议文案支持居中、居左设置，默认居左 */
@@ -209,6 +226,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) NSString *privacyOperatorPreText;
 /** 运营商协议名称后缀文案，仅支持 >)]》）】』*/
 @property (nonatomic, copy) NSString *privacyOperatorSufText;
+/** 运营商协议指定显示顺序，默认0，即第1个协议显示，最大值可为3，即第4个协议显示*/
+@property (nonatomic, assign) NSInteger privacyOperatorIndex;
 /** 协议整体文案字体大小，小于12.0不生效 */
 @property (nonatomic, strong) UIFont *privacyFont;
 
@@ -235,6 +254,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) CGFloat changeBtnTopOffetY DEPRECATED_MSG_ATTRIBUTE("Please use changeBtnFrameBlock instead");
 
 #pragma mark- 协议详情页
+/** 协议详情页容器是否自定义，默认NO，若为YES，则根据 PNSCodeLoginControllerClickProtocol 返回码获取协议点击详情信息 */
+@property (nonatomic, assign) BOOL privacyVCIsCustomized;
 /** 导航栏背景颜色设置 */
 @property (nonatomic, strong) UIColor *privacyNavColor;
 /** 导航栏标题字体、大小 */

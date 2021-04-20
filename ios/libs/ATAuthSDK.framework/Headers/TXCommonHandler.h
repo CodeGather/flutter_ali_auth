@@ -107,77 +107,9 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 
 
 /**
- *  设置日志及埋点上传开关，但不会对通过 setupUploader: 接口实现的自定义上传方法起作用
- *  @param  enable 开关设置BOOL值，默认为YES
- */
-- (void)setUploadEnable:(BOOL)enable DEPRECATED_MSG_ATTRIBUTE("Please use [[[TXCommonHandler sharedInstance] getReporter] setUploadEnable:] instead");
-
-/**
  *  检查及准备调用环境，resultDic返回PNSCodeSuccess才能调用下面的功能接口
  *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode，只有成功回调才能保障后续接口调用
  */
 - (void)checkEnvAvailableWithComplete:(void (^_Nullable)(NSDictionary * _Nullable resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use checkEnvAvailableWithAuthType:complete: instead");
-
-/**
- * @brief   同步验证网关认证所需的蜂窝数据网络与初始化数据是否具备条件（注意：会阻塞当前线程）,同原checkGatewayVerifyEnable接口
- * @param   phoneNumber 手机号码，非必传，本机号码校验且双SIM卡时必须传入待验证的手机号码！！一键登录时设置为nil即可
- * @return  BOOL值，YES表示网关认证所需的蜂窝数据网络已开启，且SDK初始化完成，NO表示未具备条件，只有YES才能保障后续服务
- */
-- (BOOL)checkSyncGatewayVerifyEnable:(NSString *_Nullable)phoneNumber DEPRECATED_MSG_ATTRIBUTE("Please use checkEnvAvailableWithComplete: instead");
-
-/**
- * @brief  异步验证网关认证所需的蜂窝数据网络与初始化数据是否具备条件（注意：不会阻塞当前线程，但是结果会异步回调）
- * @param  phoneNumber   手机号码，非必传，本机号码校验且双SIM卡时必须传入待验证的手机号码！！一键登录时设置为nil即可
- * @param  complete 结果异步回调到主线程
- */
-- (void)checkAsyncGatewayVerifyEnable:(NSString *_Nullable)phoneNumber complete:(void(^_Nullable)(BOOL enable))complete DEPRECATED_MSG_ATTRIBUTE("Please use checkEnvAvailableWithComplete instead");
-
-
-/*
- * 函数名：getAuthTokenWithComplete，获取本机号码校验Token，默认超时时间3.0s
- * 参数：无
- * 返回：字典形式，异步回调到主线程
- *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
- *      token：本机号码校验token
- *      msg：文案或错误提示
- */
-
-- (void)getAuthTokenWithComplete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use getVerifyTokenWithTimeout:complete: instead");
-
-/*
- * 函数名：getAuthTokenWithTimeout，获取本机号码校验Token，可设置超时时间
- * 参数：timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式，异步回调到主线程
- *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
- *      token：本机号码校验token
- *      msg：文案或错误提示
- */
-
-- (void)getAuthTokenWithTimeout:(NSTimeInterval )timeout complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use getVerifyTokenWithTimeout:complete: instead");
-
-/*
- * 函数名：getLoginNumberWithTimeout，一键登录预取号
- * 参数：
- timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式，异步回调到主线程
- *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡
- *      msg：文案或错误提示
- */
-
-- (void)getLoginNumberWithTimeout:(NSTimeInterval )timeout complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use accelerateLoginPageWithTimeout:complete: instead");
-
-/*
- * 函数名：getLoginTokenWithController，一键登录Token
- * 参数：
- vc：App当前vc容器，用于一键登录授权页面唤起
- model：自定义授权页面选项，可为nil，采用默认的授权页面，具体请参考TXCustomModel.h文件
- timeout：接口超时时间，单位s，默认3.0s，值为0.0时采用默认超时时间
- * 返回：字典形式，异步回调到主线程
- *      resultCode：6666-成功，5555-超时，4444-失败，3344-参数异常，2222-无网络，1111-无SIM卡，6668-登录按钮事件，6669-切换到其他方式按钮事件
- *      token：一键登录token
- *      msg：文案或错误提示
- */
-
-- (void)getLoginTokenWithController:(UIViewController *_Nonnull)vc model:(TXCustomModel *_Nullable)model timeout:(NSTimeInterval )timeout complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete DEPRECATED_MSG_ATTRIBUTE("Please use getLoginTokenWithTimeout:controller:model:complete: instead");
 
 @end
