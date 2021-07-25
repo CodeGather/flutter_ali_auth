@@ -92,8 +92,10 @@ class AliAuthPlugin {
   /// 数据监听
   static loginListen(
       {bool type = true, required Function onEvent, Function? onError}) async {
-    _eventChannel
-        .receiveBroadcastStream(type)
-        .listen(onEvent as void Function(dynamic)?, onError: onError);
+    _eventChannel.receiveBroadcastStream(type).listen(
+        onEvent as void Function(dynamic)?,
+        onError: onError,
+        onDone: null,
+        cancelOnError: null);
   }
 }

@@ -6,24 +6,27 @@ import 'package:ali_auth/ali_auth.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// 初始化插件
   /// 在使用参数时isDialog，请参照默认配置进行所需修改，否则可能出现相关问题
   /// 两个配置文件分别是全屏以及弹窗的配置参数
   /// 详情请点击进入查看具体配置
+  final result;
   if (Platform.isAndroid) {
-    AliAuthPlugin.initSdk(
+    result = await AliAuthPlugin.initSdk(
       sk: 'uYhNaUWEW+1rV9cq27oAQVWi8qFaF1wKfHr6BjrdnMoyQbtAxIA7q/ToLl1xKGCAwDl66Mii6KXK3FstD+PNcwS0aFCLorOrYHMHed8FX7AT8qu/AlzTXE05g0FmUMb5z1QKCiyvpmP+THs04fCfVtHsYdirkJGcd58r24o3QykIatcZYgd1jB3WAz3HLUqCg4afUK49SggbPdwscSfVV8wcB/hP+ST9kUVD02JmsqLA4YZUCRuUX2+o5AG1UpJwi/OHEccrFyEwuODaFzDSMPVth2pTZEwCB/g3PeLWhUQlWxvRqolgWQ==',
       config: getConfig(),
     );
   } else {
-    AliAuthPlugin.initSdk(
-      sk: 'QoIQ+5dWhzrstP5HU17qnX8bcKIJYIeTYLG3jFbjoIBt1NMiwS6pTnKoHI20C4X8nhchaSmPhgCxKfLmSG6BHu6QD/5VarfUuSH1g0wu5BPn0uqTgqb7FJF96z/84w1Rou5UejHtkeXjgcdJa1RKEfK16S88QkNswONgqVfDjgFe1Zg6seMDUAbxVc3kIQeEdJ16Ml/ngCRveLtWuswOxZtmiCykKUEWq+bH/4IZ0jv21I1BOdxdU9GDM9RkMh3zjynV1JWTe5U=',
-      config: getDislogConfig(),
+    result = await AliAuthPlugin.initSdk(
+      sk: '6QzZRbemo+1Zm/C6pMyJQ34YZDafH0UCvIUN1hMnHYHnL5Be2MzeRRC2tmWUywNpxWLvqh9kjrRcE7lVVUZFTWCqKvp2VZuvOIOrZIfCxWWcu7YfEDCrlwekJhEh0EGot3tsDcO8pvgLY5nIc7FmiFGdaWDJ8j6mMRkQJ66PC82H5k9ZR8+MTdGC0zH13ToUxzRGP2d3vzNOAFUbzuKnJA6NdndsTb+CzzoBPR0n3pPuknIUI7u0V5rEc8x7D1pg1lALpB7TFi5y5di3vmUCz6iNk1oyj/9xqNmUHpJg8BY=',
+      config: getConfig(), //getDislogConfig(),
     );
   }
+
+  print(result);
 
   runApp(
     MaterialApp(
@@ -42,8 +45,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  BuildContext mContext;
-  Timer countdownTimer;
+  BuildContext? mContext;
+  Timer? countdownTimer;
 
   @override
   void initState() {

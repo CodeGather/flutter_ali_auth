@@ -100,6 +100,9 @@ class AliAuthModel {
   /// 设置协议⻚导航栏返回按钮图⽚路径不设置则与授权⻚设置⼀致
   final String? webNavReturnImgPath;
 
+  /// 设置返回按钮的自定义名称，注意需要将布局文件添加在android/res/layout文件夹中 如果想要插件自带的返回布局，请设置0
+  final String? customNavReturnImageLayoutName;
+
   /// 设置底部虚拟按键背景⾊（系统版本 5.0 以上可设置）
   final String? bottomNavColor;
 
@@ -384,6 +387,7 @@ class AliAuthModel {
     this.webNavTextColor,
     this.webNavTextSize,
     this.webNavReturnImgPath,
+    this.customNavReturnImageLayoutName,
     this.bottomNavColor,
     this.logoHidden,
     this.logoImgPath,
@@ -492,6 +496,7 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['webNavTextColor'] as String?,
     json['webNavTextSize'] as int?,
     json['webNavReturnImgPath'] as String?,
+    json['customNavReturnImageLayoutName'] as String?,
     json['bottomNavColor'] as String?,
     json['logoHidden'] as bool?,
     json['logoImgPath'] as String?,
@@ -597,6 +602,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'webNavTextColor': instance.webNavTextColor,
       'webNavTextSize': instance.webNavTextSize,
       'webNavReturnImgPath': instance.webNavReturnImgPath,
+      'customNavReturnImageLayoutName': instance.customNavReturnImageLayoutName,
       'bottomNavColor': instance.bottomNavColor,
       'logoHidden': instance.logoHidden,
       'logoImgPath': instance.logoImgPath,
@@ -702,6 +708,7 @@ AliAuthModel getConfig() {
     'navTextColor': "#00333333",
     'navTextSize': -1,
     'navReturnImgPath': 'icon_close',
+    'customNavReturnImageLayoutName': '0',
     'navReturnHidden': false,
     'navReturnImgWidth': 30,
     'navReturnImgHeight': 30,
@@ -763,7 +770,7 @@ AliAuthModel getConfig() {
     'privacyOffsetX': 0,
     'logBtnToastHidden': true,
     'switchAccHidden': false,
-    'switchAccText': '',
+    'switchAccText': '其他手机号登录',
     'switchAccTextColor': '',
     'switchAccTextSize': 19,
     'switchOffsetY': -1,

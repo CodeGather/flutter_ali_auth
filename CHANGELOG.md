@@ -1,5 +1,10 @@
 #  
 
+## 0.1.4
+
+* When adding an immersive layout scheme, customize the return close button and the processing of the protocol page
+* Update the IOS SDK version to 2.12.1.3
+
 ## 0.1.3
 
 * add isHiddenCustom

@@ -1,18 +1,23 @@
 buildscript {
     repositories {
+        mavenLocal()
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
     }
 }
 
 allprojects {
     repositories {
+        mavenLocal()
         google()
         jcenter()
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

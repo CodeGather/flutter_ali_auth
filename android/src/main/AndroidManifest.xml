@@ -1,15 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.jokui.rao.auth.ali_auth">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jokui.rao.auth.ali_auth">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <application>
+    <application
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m"
+    >
         <!--协议页面webview-->
         <activity
             android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
             android:launchMode="singleTop"
+            android:theme="@android:style/Theme"
             android:screenOrientation="behind"  />
 
         <!--联通电信授权页-->

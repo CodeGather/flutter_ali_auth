@@ -46,6 +46,7 @@ bool bool_false = false;
 
 @implementation AliAuthPlugin {
   FlutterEventSink _eventSink;
+  FlutterResult _result;
   FlutterMethodCall * _callData;
   TXCustomModel * _model;
 }
@@ -65,7 +66,9 @@ bool bool_false = false;
 #pragma mark - IOS 主动发送通知s让 flutter调用监听 eventChannel start
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   _eventSink = eventSink;
-  [self initSdk];
+  if(_model == nil){
+    [self initSdk];
+  }
   return nil;
 }
 
@@ -83,8 +86,10 @@ bool bool_false = false;
   NSURLSession *session = [NSURLSession sharedSession];
   NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
       if (error == nil) {
-          NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-          NSLog(@"httpAuthority---%@",dict);
+          // NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+          NSLog(@"联网成功！");
+      } else {
+        NSLog(@"联网失败！");
       }
   }];
   
@@ -94,16 +99,17 @@ bool bool_false = false;
 #pragma mark - flutter调用 oc eventChannel start
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
    // SDK 初始化
+  _callData = call;
+  _result = result;
   if ([@"init" isEqualToString:call.method]) {
-    _callData = call;
-    if(_eventSink != nil){
+    if(_model == nil){
       [self initSdk];
     }
   }
   else if ([@"checkVerifyEnable" isEqualToString:call.method]) {
     [self checkVerifyEnable:call result:result];
   }
-  else  if ([@"startLogin" isEqualToString:call.method]) { /// 新增接口
+  else  if ([@"login" isEqualToString:call.method]) {
     if(_model == nil){
       NSDictionary *dict = @{
           @"code": @"500000",
@@ -115,14 +121,8 @@ bool bool_false = false;
     }
     [self loginWithModel: _model complete:^{}];
   }
-  else  if ([@"login" isEqualToString:call.method]) {
-    [self getLoginTokenFullVertical:call result:result];
-  }
   else  if ([@"preLogin" isEqualToString:call.method]) {
     [self getPreLogin:call result:result];
-  }
-  else if ([@"loginDialog" isEqualToString:call.method]) {
-    [self getLoginTokenAlertVertical:call result:result];
   }
   else if ([@"appleLogin" isEqualToString:call.method]) {
     [self handleAuthorizationAppleIDButtonPress:call result:result];
@@ -153,10 +153,10 @@ bool bool_false = false;
       _model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
     }
 
-    __weak typeof(self) weakSelf = self;
+    // __weak typeof(self) weakSelf = self;
     [[TXCommonHandler sharedInstance] setAuthSDKInfo:secret complete:^(NSDictionary * _Nonnull resultDic) {
       /// 打印日志
-      [weakSelf showResult:resultDic];
+      // [weakSelf showResult:resultDic];
       
       [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
@@ -165,9 +165,14 @@ bool bool_false = false;
               @"msg" : @"终端环境检查⽀持认证",
               @"data" : @(bool_true)
           };
-          self->_eventSink(dict);
+          self->_result(dict);
         } else {
-          [weakSelf showResult:resultDic];
+          NSDictionary *dict = @{
+              @"code": [NSString stringWithFormat: @"%@", [resultDic objectForKey:@"resultCode"]],
+              @"msg" : [resultDic objectForKey:@"msg"]?:@"",
+              @"data" : @(bool_false)
+          };
+          self->_result(dict);
         }
       }];
     }];
@@ -236,47 +241,9 @@ bool bool_false = false;
   }];
 }
 
-// 一键登录(全屏支持旋转)
-- (void)getLoginTokenFullAutorotate:(FlutterMethodCall*)call result:(FlutterResult)result {
-    TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    [self loginWithModel:model complete:^{}];
-}
-// 一键登录(弹窗支持旋转)
-- (void)getLoginTokenAlertAutorotate:(FlutterMethodCall*)call result:(FlutterResult)result {
-    TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    [self loginWithModel:model complete:^{}];
-}
-// 一键登录(竖屏全屏)
-- (void)getLoginTokenFullVertical:(FlutterMethodCall*)call result:(FlutterResult)result{
-  TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
-  model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-  [self loginWithModel: model complete:^{}];
-}
 // 一键登录预取号
 - (void)getPreLogin:(FlutterMethodCall*)call result:(FlutterResult)result{
-    TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    [self accelerateLogin:model call:call result:result complete:^{}];
-}
-// 一键登录(横屏全屏)
-- (void)getLoginTokenFullHorizontal:(FlutterMethodCall*)call result:(FlutterResult)result {
-    TXCustomModel *model = [PNSBuildModelUtils buildFullScreenModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
-    [self loginWithModel:model complete:^{ }];
-}
-// 一键登录(竖屏弹窗)
-- (void)getLoginTokenAlertVertical:(FlutterMethodCall*)call result:(FlutterResult)result {
-    TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    [self loginWithModel:model complete:^{}];
-}
-// 一键登录(横屏弹窗)
-- (void)getLoginTokenAlertHorizontal:(FlutterMethodCall*)call result:(FlutterResult)result {
-    TXCustomModel *model = [PNSBuildModelUtils buildAlertModel];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
-    [self loginWithModel:model complete:^{}];
+    [self accelerateLogin:_model call:call result:result complete:^{}];
 }
 
 /**
@@ -389,7 +356,7 @@ bool bool_false = false;
             //     desc = [NSString stringWithCString:[desc cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
             // }
         }
-        NSLog( @"打印日志---->>%@", desc );
+        // NSLog( @"打印日志---->>%@", desc );
     });
 }
 
@@ -528,7 +495,7 @@ bool bool_false = false;
 // 授权失败的回调
 - (void)authorizationController:(ASAuthorizationController *)controller didCompleteWithError:(NSError *)error API_AVAILABLE(ios(13.0)){
     // Handle error.
-    NSLog(@"Handle error：%@", error);
+    NSLog(@"苹果登录授权失败：%@", error);
     NSString *errorMsg = nil;
     switch (error.code) {
         case ASAuthorizationErrorCanceled:

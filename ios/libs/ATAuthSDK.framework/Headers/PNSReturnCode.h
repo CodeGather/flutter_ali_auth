@@ -20,7 +20,7 @@ static NSString * const PNSCodeSuccess = @"600000";
 static NSString * const PNSCodeGetOperatorInfoFailed = @"600004";
 /// 未检测到sim卡
 static NSString * const PNSCodeNoSIMCard = @"600007";
-/// 蜂窝网络未开启
+/// 蜂窝网络未开启或不稳定
 static NSString * const PNSCodeNoCellularNetwork = @"600008";
 /// 无法判运营商
 static NSString * const PNSCodeUnknownOperator = @"600009";
