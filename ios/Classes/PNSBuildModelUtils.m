@@ -704,12 +704,19 @@
                               inBundle: [NSBundle bundleForClass: [self class]]
          compatibleWithTraitCollection: nil];
     
-    // 登录按钮设置
-    model.loginBtnBgImgs = @[
-      login_btn_normal?:[UIImage imageNamed:@"button_click"],
-      login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
-      login_btn_press?:[UIImage imageNamed:@"button_click"]
-    ];
+    // default
+    UIImage *buttonClick = [UIImage imageNamed:@"button_click"];
+    UIImage *buttonUnclick = [UIImage imageNamed:@"button_unclick"];
+    
+    // fix '*** -[__NSPlaceholderArray initWithObjects:count:]: attempt to insert nil object from objects[0]'
+    if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (buttonClick != nil && buttonUnclick != nil)) {
+      // 登录按钮设置
+      model.loginBtnBgImgs = @[
+        login_btn_normal?:[UIImage imageNamed:@"button_click"],
+        login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
+        login_btn_press?:[UIImage imageNamed:@"button_click"]
+      ];
+    }
   }
 
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {

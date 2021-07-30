@@ -1,6 +1,6 @@
 name: ali_auth
 description: This is a plug-in for one click login in the alicloud number authentication service. Alibaba cloud is also used in the one click login function
-version: 0.1.4
+version: 0.1.5
 # authors: raohong07@163.com
 homepage: https://github.com/CodeGather/flutter_ali_auth
 

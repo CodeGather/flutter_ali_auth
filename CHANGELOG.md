@@ -1,5 +1,9 @@
 #  
 
+## 0.1.5
+
+* Fix the bug of no button image at IOS end
+
 ## 0.1.4
 
 * When adding an immersive layout scheme, customize the return close button and the processing of the protocol page
