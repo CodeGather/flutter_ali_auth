@@ -693,6 +693,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
 /// 参数dialogOffsetX dialogOffsetY 设置为-1 默认为居中
 /// 关于弹窗的梦层设置 android/app/src/main/res/value/style.xml authsdk_activity_dialog参数设置
 /// 当开启customPageBackgroundLyout 参数时 请确保layout 文件夹下有custom_page_background 名称布局文件，否则加载默认布局文件
+/// 'appPrivacyOne'、'appPrivacyTwo' 字段中的逗号拼接处请勿使用多余的空格，以免出现未知错误
 AliAuthModel getConfig() {
   return AliAuthModel.fromJson({
     'isDialog': false,
@@ -746,8 +747,8 @@ AliAuthModel getConfig() {
     'loadingImgPath': '',
     'logBtnOffsetX': 0,
     'logBtnLayoutGravity': 10,
-    'appPrivacyOne': '思预云用户协议, https://www.baidu.com',
-    'appPrivacyTwo': '用户隐私, https://www.baidu.com',
+    'appPrivacyOne': '思预云用户协议,https://www.baidu.com',
+    'appPrivacyTwo': '用户隐私,https://www.baidu.com',
     'appPrivacyColor': '#445588,#3971fe',
     'privacyOffsetY': 560,
     'privacyState': true,
@@ -788,6 +789,7 @@ AliAuthModel getConfig() {
 
 /// dialogBottom 为false时 默认水平垂直居中
 /// 如果需要修改弹窗的圆角背景可修改android/app/src/main/res/drawable/dialog_background_color.xml 文件
+/// 'appPrivacyOne'、'appPrivacyTwo' 字段中的逗号拼接处请勿使用多余的空格，以免出现未知错误
 AliAuthModel getDislogConfig() {
   final screenWidth =
       (window.physicalSize.width / window.devicePixelRatio * 0.8).floor();
@@ -835,8 +837,8 @@ AliAuthModel getDislogConfig() {
         'assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png',
     'logBtnOffsetY': logBtnOffset,
     'loadingImgPath': '',
-    'appPrivacyOne': '思预云用户协议, https://www.baidu.com',
-    'appPrivacyTwo': '用户隐私, https://www.baidu.com',
+    'appPrivacyOne': '思预云用户协议,https://www.baidu.com',
+    'appPrivacyTwo': '用户隐私,https://www.baidu.com',
     'appPrivacyColor': '#445588,#3971fe',
     'privacyState': false,
     'protocolGravity': 0,
