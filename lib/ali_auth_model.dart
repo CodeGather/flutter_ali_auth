@@ -649,7 +649,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'checkboxHidden': instance.checkboxHidden,
       'checkBoxWH': instance.checkBoxWH,
       'checkBoxImages': instance.checkBoxImages,
-      'changeBtnTitle': instance.changeBtnIsHidden,
+      'changeBtnTitle': instance.changeBtnTitle,
       'changeBtnTitleSize': instance.changeBtnTitleSize,
       'changeBtnTitleColor': instance.changeBtnTitleColor,
       'changeBtnIsHidden': instance.changeBtnIsHidden,
