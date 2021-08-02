@@ -1,5 +1,9 @@
 #  
 
+## 0.1.6
+
+* 修复changeBtnIsHidden改为changeBtnTitle
+
 ## 0.1.5
 
 * 修复IOS端无按钮图片报错BUG
