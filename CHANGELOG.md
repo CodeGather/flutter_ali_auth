@@ -3,6 +3,7 @@
 ## 0.1.5
 
 * Fix the bug of no button image at IOS end
+* Fix that the IOS side image does not display a bug
 
 ## 0.1.4
 

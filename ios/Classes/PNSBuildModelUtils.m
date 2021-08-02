@@ -298,9 +298,7 @@
   /// 返回按钮
   model.hideNavBackItem = [viewConfig boolValueForKey: @"navReturnHidden" defaultValue: NO];
   /// 动态读取assets文件夹下的资源
-  UIImage *navBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"navReturnImgPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  UIImage * navBackImage = [self changeUriPathToImage: viewConfig[@"navReturnImgPath"]];
   if(navBackImage != nil){
     model.navBackImage = navBackImage;
   }
@@ -312,9 +310,7 @@
   
   /// 协议页面导航设置
   model.privacyNavColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"] alpha: 1];
-  UIImage *privacyNavBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"webNavReturnImgPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  UIImage * privacyNavBackImage = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
   if(privacyNavBackImage != nil){
     model.privacyNavBackImage = privacyNavBackImage;
   }
@@ -323,9 +319,7 @@
   
   /// logo 设置
   model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
-  UIImage *image = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logoImgPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  UIImage * image = [self changeUriPathToImage: viewConfig[@"logoImgPath"]];
   if(image != nil){
     /// logo 默认水平居中
     model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -385,26 +379,26 @@
   
   if (logBtnCustomBackgroundImagePath.count == 3) {
     // login_btn_normal
-    UIImage *login_btn_normal = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[0]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage* login_btn_normal = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[0]];
     
     // login_btn_unable
-    UIImage *login_btn_unable = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[1]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage* login_btn_unable = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[1]];
     
     // login_btn_press
-    UIImage *login_btn_press = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[2]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage* login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
     
-    // 登录按钮设置
-    model.loginBtnBgImgs = @[
-      login_btn_normal?:[UIImage imageNamed:@"button_click"],
-      login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
-      login_btn_press?:[UIImage imageNamed:@"button_click"]
-    ];
+    UIImage *defaultClick = [UIImage imageNamed:@"button_click"];
+    
+    UIImage *defaultUnClick = [UIImage imageNamed:@"button_click"];
+    
+    if ((login_btn_normal != nil || defaultClick != nil) && (login_btn_unable != nil || defaultUnClick != nil) && (login_btn_press != nil || defaultClick != nil)) {
+      // 登录按钮设置
+      model.loginBtnBgImgs = @[
+        login_btn_normal?:[UIImage imageNamed:@"button_click"],
+        login_btn_unable?:[UIImage imageNamed:@"button_unclick"],
+        login_btn_press?:[UIImage imageNamed:@"button_click"]
+      ];
+    }
   }
   
   model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -443,25 +437,40 @@
   model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
   
   // 勾选统一按钮
-  model.checkBoxIsHidden = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  model.checkBoxIsHidden = checkStatus;
+  if (!checkStatus) {
+    NSArray *checkImagePath = [[viewConfig stringValueForKey: @"checkBoxImages" defaultValue: @","] componentsSeparatedByString:@","];
+    if (checkImagePath.count == 2) {
+      UIImage* unchecked = [self changeUriPathToImage: checkImagePath[0]];
+      UIImage* checked = [self changeUriPathToImage: checkImagePath[1]];
+      model.checkBoxImages = @[
+        unchecked,
+        checked
+      ];
+    }
+  }
   model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
   
   // 切换到其他标题
-  model.changeBtnIsHidden = [viewConfig boolValueForKey: @"checkBoxIsHidden" defaultValue: NO];
-  model.changeBtnTitle = [
-     [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"changeBtnTitle" defaultValue: @"切换到其他方式"]
-     attributes: @{
-       NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"changeBtnTitleColor" defaultValue: @"#ccc"] alpha: 1],
-       NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"changeBtnTitleSize" defaultValue: 18]]
-     }
-  ];
-  model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-    if (screenSize.height > screenSize.width) {
-      return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
-    } else {
-      return CGRectZero; //横屏时模拟隐藏该控件
-    }
-  };
+  BOOL changeBrnStatus = [viewConfig boolValueForKey: @"changeBtnIsHidden" defaultValue: NO];
+  model.changeBtnIsHidden = changeBrnStatus;
+  if (!changeBrnStatus) {
+    model.changeBtnTitle = [
+       [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"changeBtnTitle" defaultValue: @"切换到其他方式"]
+       attributes: @{
+         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"changeBtnTitleColor" defaultValue: @"#ccc"] alpha: 1],
+         NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"changeBtnTitleSize" defaultValue: 18]]
+       }
+    ];
+    model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      if (screenSize.height > screenSize.width) {
+        return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+      } else {
+        return CGRectZero; //横屏时模拟隐藏该控件
+      }
+    };
+  }
   
   model.prefersStatusBarHidden = YES;
   model.preferredStatusBarStyle = UIStatusBarStyleLightContent;
@@ -532,14 +541,14 @@
   
   /// 自定义按钮布局
   bool customView = [viewConfig boolValueForKey: @"isHiddenCustom" defaultValue: NO];
-  if (customView) {
+  if (!customView) {
     NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
     NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
     if(customArray != nil && customArray.count > 0){
       for (int i = 0 ; i < customArray.count; i++) {
         /// 动态生成imageView 并且加入到 imageView数组中以备使用
         UIImageView *itemView = [
-         self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+         self customView: customArray[i]
                 selector: selector
                   target: target
                    index: i
@@ -603,9 +612,8 @@
           }
   ];;
   model.alertCloseItemIsHidden = [viewConfig boolValueForKey: @"alertCloseItemIsHidden" defaultValue: NO];
-  UIImage *alertCloseImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"alertCloseImage"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  
+  UIImage * alertCloseImage = [self changeUriPathToImage: viewConfig[@"alertCloseImage"]];
   model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
   
   model.alertBlurViewColor = [self colorWithHexString: [viewConfig stringValueForKey: @"alertBlurViewColor" defaultValue: @"#000000"] alpha: 1];
@@ -616,9 +624,7 @@
     
   /// 协议页面导航设置
   model.privacyNavColor = [self colorWithHexString: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"] alpha: 1];
-  UIImage *privacyNavBackImage = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"webNavReturnImgPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  UIImage * privacyNavBackImage = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
   if(privacyNavBackImage != nil){
     model.privacyNavBackImage = privacyNavBackImage;
   }
@@ -627,9 +633,7 @@
   
   /// logo 设置
   model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
-  UIImage *image = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: viewConfig[@"logoImgPath"]]
-                            inBundle: [NSBundle bundleForClass: [self class]]
-       compatibleWithTraitCollection: nil];
+  UIImage * image = [self changeUriPathToImage: viewConfig[@"logoImgPath"]];
   if(image != nil){
     /// logo 默认水平居中
     model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -690,19 +694,13 @@
   
   if (logBtnCustomBackgroundImagePath.count == 3) {
     // login_btn_normal
-    UIImage *login_btn_normal = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[0]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage * login_btn_normal = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[0]];
     
     // login_btn_unable
-    UIImage *login_btn_unable = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[1]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage * login_btn_unable = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[1]];
     
     // login_btn_press
-    UIImage *login_btn_press = [UIImage imageNamed: [[self flutterVC] lookupKeyForAsset: logBtnCustomBackgroundImagePath[2]]
-                              inBundle: [NSBundle bundleForClass: [self class]]
-         compatibleWithTraitCollection: nil];
+    UIImage * login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
     
     // default
     UIImage *buttonClick = [UIImage imageNamed:@"button_click"];
@@ -749,11 +747,24 @@
   model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
   
   // 勾选统一按钮
-  model.checkBoxIsHidden = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  model.checkBoxIsHidden = checkStatus;
+  if (!checkStatus) {
+    NSArray *checkImagePath = [[viewConfig stringValueForKey: @"checkBoxImages" defaultValue: @","] componentsSeparatedByString:@","];
+    if (checkImagePath.count == 2) {
+      UIImage* unchecked = [self changeUriPathToImage: checkImagePath[0]];
+      UIImage* checked = [self changeUriPathToImage: checkImagePath[1]];
+      model.checkBoxImages = @[
+        unchecked,
+        checked
+      ];
+    }
+  }
+  
   model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
   
   // 切换到其他标题
-  model.changeBtnIsHidden = [viewConfig boolValueForKey: @"checkBoxIsHidden" defaultValue: NO];
+  model.changeBtnIsHidden = [viewConfig boolValueForKey: @"changeBtnIsHidden" defaultValue: NO];
   model.changeBtnTitle = [
      [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"changeBtnTitle" defaultValue: @"切换到其他方式"]
      attributes: @{
@@ -871,14 +882,14 @@
   /// 自定义按钮布局
   
   bool customView = [viewConfig boolValueForKey: @"isHiddenCustom" defaultValue: NO];
-  if (customView) {
+  if (!customView) {
     NSArray *customArray = [[viewConfig stringValueForKey: @"customThirdImgPaths" defaultValue: nil] componentsSeparatedByString:@","];
     NSMutableArray * customArrayView = [NSMutableArray array];//空数组，有意义
     if(customArray != nil && customArray.count > 0){
       for (int i = 0 ; i < customArray.count; i++) {
         /// 动态生成imageView 并且加入到 imageView数组中以备使用
         UIImageView *itemView = [
-         self customView: [[self flutterVC] lookupKeyForAsset: customArray[i]]
+         self customView: customArray[i]
                 selector: selector
                   target: target
                    index: i
@@ -943,10 +954,7 @@
                      target: (id) target
                       index: (int) index
 {
-  UIImage * image = [UIImage imageNamed: path
-             inBundle: [NSBundle bundleForClass: [self class]]
-              compatibleWithTraitCollection: nil
-   ];
+  UIImage * image = [self changeUriPathToImage: path];
   
   /// 自定义布局 图片不支持圆角，如需圆角请使用圆角图片
   UIImageView *imageView = [[UIImageView alloc]init];
@@ -967,13 +975,20 @@
 }
 
 #pragma mark  assets -> 转换成真实路径
-+ (UIImage *) changeUriPath:(NSString *) path{
++ (NSString *) changeUriToPath:(NSString *) key{
+  NSString* keyPath = [[self flutterVC] lookupKeyForAsset: key];
+  NSString* path = [[NSBundle mainBundle] pathForResource: keyPath ofType:nil];
+  return path;
+}
+
++ (UIImage *) changeUriPathToImage:(NSString *) key{
+  NSString* path = [self changeUriToPath: key];
   UIImage * image = [UIImage imageWithContentsOfFile: path];
   return image;
 }
 
 +(FlutterViewController *)flutterVC{
-  return (FlutterViewController *)[self getRootViewController];
+  return (FlutterViewController *)[self findCurrentViewController];
 }
 
 + (UIViewController *)getRootViewController {
