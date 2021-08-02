@@ -241,6 +241,9 @@ class AliAuthModel {
   /// 勾选框大小宽高等比 17*17 -> 17
   final int? checkBoxWH;
 
+  /// 复选框的图片用逗号拼接依次是【未选择，已选择】
+  final String? checkBoxImages;
+
   /// 切换标题
   final String? changeBtnTitle;
 
@@ -428,6 +431,7 @@ class AliAuthModel {
     this.privacyEnd,
     this.checkboxHidden,
     this.checkBoxWH,
+    this.checkBoxImages,
     this.changeBtnTitle,
     this.changeBtnTitleSize,
     this.changeBtnTitleColor,
@@ -537,6 +541,7 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['privacyEnd'] as String?,
     json['checkboxHidden'] as bool?,
     json['checkBoxWH'] as int?,
+    json['checkBoxImages'] as String?,
     json['changeBtnTitle'] as String?,
     json['changeBtnTitleSize'] as int?,
     json['changeBtnTitleColor'] as String?,
@@ -643,6 +648,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyEnd': instance.privacyEnd,
       'checkboxHidden': instance.checkboxHidden,
       'checkBoxWH': instance.checkBoxWH,
+      'checkBoxImages': instance.checkBoxImages,
       'changeBtnTitle': instance.changeBtnIsHidden,
       'changeBtnTitleSize': instance.changeBtnTitleSize,
       'changeBtnTitleColor': instance.changeBtnTitleColor,
@@ -759,6 +765,7 @@ AliAuthModel getConfig() {
     'privacyEnd': '思预云用户协议，隐私',
     'checkboxHidden': false,
     'checkBoxWH': 17,
+    'checkBoxImages': '',
     'changeBtnTitle': '切换到其他',
     'changeBtnTitleSize': 17,
     'changeBtnTitleColor': '#ff0000',
@@ -845,6 +852,7 @@ AliAuthModel getDislogConfig() {
     'privacyTextSize': 11,
     'privacyMargin': 20,
     'checkBoxWH': 17,
+    'checkBoxImages': '',
     'changeBtnTitle': '切换到其他',
     'changeBtnTitleSize': 18,
     'changeBtnTitleColor': '#ff0000',

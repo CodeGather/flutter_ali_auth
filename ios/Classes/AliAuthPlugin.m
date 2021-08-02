@@ -56,7 +56,6 @@ bool bool_false = false;
   FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:@"ali_auth" binaryMessenger: [registrar messenger]];
   FlutterEventChannel* chargingChannel = [FlutterEventChannel eventChannelWithName:@"ali_auth/event" binaryMessenger: [registrar messenger]];
   
-  
   [chargingChannel setStreamHandler: instance];
   [registrar addMethodCallDelegate:instance channel: channel];
   //为了让手机安装demo弹出使用网络权限弹出框
