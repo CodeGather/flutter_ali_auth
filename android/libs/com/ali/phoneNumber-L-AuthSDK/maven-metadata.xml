@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.ali</groupId>
+  <artifactId>phoneNumber-L-AuthSDK</artifactId>
+  <versioning>
+    <release>2.12.1</release>
+    <versions>
+      <version>2.12.1</version>
+    </versions>
+    <lastUpdated>20210813034132</lastUpdated>
+  </versioning>
+</metadata>
