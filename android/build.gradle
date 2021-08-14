@@ -12,10 +12,27 @@ buildscript {
     }
 }
 
+def getCurrentProjectDir() {
+    String result = ""
+    rootProject.allprojects { project ->
+        try {
+            if (project.properties.get("identityPath").toString() == ":ali_auth") {
+                result = project.properties.get("projectDir").toString()
+            }
+        }catch (e) {
+        }
+   }
+   return result
+}
+
 rootProject.allprojects {
+   def dir = getCurrentProjectDir()
     repositories {
         google()
         jcenter()
+        maven { // 添加这个指向本地的仓库目录
+            url "file://$dir/libs"
+        }
     }
 }
 
@@ -37,7 +54,11 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.alibaba:fastjson:1.2.61'
+    implementation "com.ali:phoneNumber-L-AuthSDK:2.12.1"
+    implementation "com.ali:phoneNumber-L-AuthSDK-logger:2.12.1"
+    implementation "com.ali:phoneNumber-L-AuthSDK-main:2.12.1"
+    implementation "com.ali:phoneNumber-L-AuthSDK-crashshield:2.12.1"
     // 更换加载方式
-    implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
+    //implementation fileTree(dir: 'libs', include: ['*.aar','*.jar'])
     // implementation project(":libs")
 }
