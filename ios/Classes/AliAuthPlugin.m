@@ -103,6 +103,13 @@ bool bool_false = false;
   if ([@"init" isEqualToString:call.method]) {
     if(_model == nil){
       [self initSdk];
+    } else {
+      NSDictionary *dict = @{
+          @"code": @"600024",
+          @"msg" : @"终端环境检查⽀持认证",
+          @"data" : @(bool_true)
+      };
+      self->_result(dict);
     }
   }
   else if ([@"checkVerifyEnable" isEqualToString:call.method]) {

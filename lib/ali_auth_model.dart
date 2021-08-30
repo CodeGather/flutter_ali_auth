@@ -241,9 +241,6 @@ class AliAuthModel {
   /// 勾选框大小宽高等比 17*17 -> 17
   final int? checkBoxWH;
 
-  /// 复选框的图片用逗号拼接依次是【未选择，已选择】
-  final String? checkBoxImages;
-
   /// 切换标题
   final String? changeBtnTitle;
 
@@ -431,7 +428,6 @@ class AliAuthModel {
     this.privacyEnd,
     this.checkboxHidden,
     this.checkBoxWH,
-    this.checkBoxImages,
     this.changeBtnTitle,
     this.changeBtnTitleSize,
     this.changeBtnTitleColor,
@@ -541,7 +537,6 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['privacyEnd'] as String?,
     json['checkboxHidden'] as bool?,
     json['checkBoxWH'] as int?,
-    json['checkBoxImages'] as String?,
     json['changeBtnTitle'] as String?,
     json['changeBtnTitleSize'] as int?,
     json['changeBtnTitleColor'] as String?,
@@ -648,7 +643,6 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyEnd': instance.privacyEnd,
       'checkboxHidden': instance.checkboxHidden,
       'checkBoxWH': instance.checkBoxWH,
-      'checkBoxImages': instance.checkBoxImages,
       'changeBtnTitle': instance.changeBtnTitle,
       'changeBtnTitleSize': instance.changeBtnTitleSize,
       'changeBtnTitleColor': instance.changeBtnTitleColor,
@@ -699,6 +693,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
 /// 参数dialogOffsetX dialogOffsetY 设置为-1 默认为居中
 /// 关于弹窗的梦层设置 android/app/src/main/res/value/style.xml authsdk_activity_dialog参数设置
 /// 当开启customPageBackgroundLyout 参数时 请确保layout 文件夹下有custom_page_background 名称布局文件，否则加载默认布局文件
+/// ios 当开启customPageBackgroundLyout时 navReturnImgPath navReturnImgWidth/navReturnImgHeight理论最大高度45左右参数为必须参数否则报错
 /// 'appPrivacyOne'、'appPrivacyTwo' 字段中的逗号拼接处请勿使用多余的空格，以免出现未知错误
 AliAuthModel getConfig() {
   return AliAuthModel.fromJson({
@@ -719,6 +714,8 @@ AliAuthModel getConfig() {
     'navReturnHidden': false,
     'navReturnImgWidth': 30,
     'navReturnImgHeight': 30,
+    'navReturnOffsetX': 15,
+    'navReturnOffsetY': 5,
     'navHidden': false,
     'webViewStatusBarColor': "#ffff00",
     'webNavColor': "#00ffff",
@@ -765,7 +762,6 @@ AliAuthModel getConfig() {
     'privacyEnd': '思预云用户协议，隐私',
     'checkboxHidden': false,
     'checkBoxWH': 17,
-    'checkBoxImages': '',
     'changeBtnTitle': '切换到其他',
     'changeBtnTitleSize': 17,
     'changeBtnTitleColor': '#ff0000',
@@ -852,7 +848,6 @@ AliAuthModel getDislogConfig() {
     'privacyTextSize': 11,
     'privacyMargin': 20,
     'checkBoxWH': 17,
-    'checkBoxImages': '',
     'changeBtnTitle': '切换到其他',
     'changeBtnTitleSize': 18,
     'changeBtnTitleColor': '#ff0000',

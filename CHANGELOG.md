@@ -1,5 +1,12 @@
 #  
 
+## 0.1.7
+
+* Fix IOS no picture path error
+* Fix IOS custom return button error
+* Remove the parameter checkboximages. If necessary, use uncheckedimgpath instead of checkedimgpath parameter
+* Update Android SDK to 2.12.1.4
+
 ## 0.1.6
 
 * fix changeBtnIsHidden -> changeBtnTitle

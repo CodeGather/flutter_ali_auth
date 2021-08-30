@@ -1,5 +1,13 @@
 #  
 
+## 0.1.7
+
+* 修复iOS没有图片路径报错
+* 修复iOS自定义返回按钮错误
+* 去除参数checkBoxImages 如需使用，请使用uncheckedImgPath，checkedImgPath参数代替
+* 更新android sdk 为2.12.1.4
+
+
 ## 0.1.6
 
 * 修复changeBtnIsHidden改为changeBtnTitle
