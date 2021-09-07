@@ -20,7 +20,10 @@ Pod::Spec.new do |s|
   s.static_framework = false
 
   # 解决移动crash
-  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
+  s.xcconfig = {
+    'OTHER_LDFLAGS' => '-ObjC',
+    'ENABLE_BITCODE' => 'NO'
+  }
   
   # 加载静态资源
   s.resources = ['Assets/*']
