@@ -57,3 +57,8 @@ However, when using or referring to the ideas or related contents of this plug-i
 - DEMO
   
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG7.jpeg" alt="android截图1" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG6.jpeg" alt="android截图2" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/WechatIMG5.jpeg" alt="android截图3" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4172.PNG" alt="ios截图1" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4173.PNG" alt="ios截图2" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4174.PNG" alt="ios截图3" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_0456.PNG" alt="ios截图4" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_0457.PNG" alt="ios截图5" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/IMG_4228.PNG" alt="ios截图6" width="100">
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/CodeGather/flutter_ali_auth.svg)](https://starchart.cc/CodeGather/flutter_ali_auth)
+
