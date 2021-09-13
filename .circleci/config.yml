@@ -3,7 +3,6 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/example
     docker:
       - image: cirrusci/flutter
     steps:
@@ -11,7 +10,9 @@ jobs:
       - run: ls
       - run: flutter doctor
       - run: flutter test
-      - run: flutter build apk --release
+      - run: 
+        command: flutter build apk --release
+        working_directory: example
       - store_artifacts:
           path: build/app/outputs/flutter-apk/app-release.apk
   
