@@ -7,7 +7,7 @@ jobs:
       - image: cirrusci/flutter
     steps:
       - checkout
-      - run: cd example
+      - run: cd example/
       - run: ls
       - run: flutter doctor
       - run: flutter test
