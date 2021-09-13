@@ -3,6 +3,7 @@
 
 # ali_auth
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b9520a40dc474e7f8f48c3c87f3b2aca)](https://app.codacy.com/gh/CodeGather/flutter_ali_auth?utm_source=github.com&utm_medium=referral&utm_content=CodeGather/flutter_ali_auth&utm_campaign=Badge_Grade_Settings)
 [![GitHub license](https://img.shields.io/github/license/CodeGather/flutter_ali_auth?style=social)](https://github.com/CodeGather/flutter_ali_auth/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/CodeGather/flutter_ali_auth?style=social)](https://github.com/CodeGather/flutter_ali_auth/issues)
 [![GitHub forks](https://img.shields.io/github/forks/CodeGather/flutter_ali_auth?style=social)](https://github.com/CodeGather/flutter_ali_auth/network)
