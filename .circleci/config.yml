@@ -3,7 +3,9 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: /example
+    machine:	# 以虚拟机的方式运行
+      enabled: true
+    working_directory: ~/example
     docker:
       - image: cirrusci/flutter
     steps:
