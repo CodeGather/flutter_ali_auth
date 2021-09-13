@@ -7,8 +7,9 @@ jobs:
       - image: cirrusci/flutter
     steps:
       - checkout
-      - run: cd example/
-      - run: ls
+      - run:
+          name: example
+          command: cd example
       - run: flutter doctor
       - run: flutter test
       - run: flutter build apk --release
