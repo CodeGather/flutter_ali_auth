@@ -3,13 +3,12 @@ version: 2.1
 
 jobs:
   build:
+    working_directory: /example
     docker:
       - image: cirrusci/flutter
     steps:
       - checkout
-      - run:
-          name: example
-          command: cd example
+      - run: ls
       - run: flutter doctor
       - run: flutter test
       - run: flutter build apk --release
