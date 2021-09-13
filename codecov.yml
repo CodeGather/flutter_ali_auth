@@ -1,3 +1,5 @@
+codecov:
+  token: b71f7796-ee0a-4f4b-8dd2-e6bbfb0961e8
 comment:
   layout: "reach, diff, flags, files"
   behavior: default
