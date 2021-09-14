@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/CodeGather/flutter_ali_auth/tree/master.svg?style=svg)](https://circleci.com/gh/CodeGather/flutter_ali_auth/tree/master)
+![Ali_auth workflow](https://github.com/CodeGather/flutter_ali_auth/actions/workflows/actions_analysis.yml/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8f5d7a0c1e5b4efebcd0502df53a61d0)](https://www.codacy.com/gh/CodeGather/flutter_ali_auth/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CodeGather/flutter_ali_auth&amp;utm_campaign=Badge_Grade)
 
 # ali_auth
