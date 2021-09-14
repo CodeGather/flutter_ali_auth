@@ -1,4 +1,4 @@
-name: Ali_auth Flutter Unit Tests
+name: Ali_auth Unit Tests
 on:
   push:
     branches:
