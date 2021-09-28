@@ -10,6 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface YTXRequest : NSObject
+/// 接口调用超时时间，注：目前内部限制最小超时时间为5s，小于5s则按5s设置
+@property (nonatomic, assign) NSTimeInterval timeout;
+/// 是否是蜂窝网络
+@property (nonatomic, assign) BOOL isReachableViaWWAN;
+@end
+
+@interface YTXVendorConfig : NSObject
+/// 当前供应商标识：中移互联（cm_zyhl），小沃联通（cu_xw），电信世纪龙（ct_sjl）
+@property (nonatomic, copy) NSString *vendorKey;
+/// 供应商 access id
+@property (nonatomic, copy) NSString *vendorAccessId;
+/// 供应商 access secret
+@property (nonatomic, copy) NSString *vendorAccessSecret;
+@end
+
 @interface YTXVendorService : NSObject
 
 /**
@@ -26,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  初始化或更新各个供应商的接口调用对象，根据各个供应商的配置信息
  *  @param  vendorConfigs 各个供应商配置信息
  */
-- (void)updateVendorHandlers:(NSArray *)vendorConfigs;
+- (void)updateVendorHandlers:(NSArray<YTXVendorConfig *> *)vendorConfigs;
 
 /**
  *  获取本机号码校验Token
@@ -34,8 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param  vendorConfig 当前供应商配置信息
  *  @param  complete 结果回调
  */
-- (void)getVerifyTokenWithRequest:(NSDictionary *)request
-                     vendorConfig:(NSDictionary *)vendorConfig
+- (void)getVerifyTokenWithRequest:(YTXRequest *)request
+                     vendorConfig:(YTXVendorConfig *)vendorConfig
                          complete:(void(^)(NSDictionary *response))complete;
 
 /**
@@ -44,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param  vendorConfig 当前供应商配置信息
  *  @param  complete 结果回调
  */
-- (void)getMaskNumberWithRequest:(NSDictionary *)request
-                    vendorConfig:(NSDictionary *)vendorConfig
+- (void)getMaskNumberWithRequest:(YTXRequest *)request
+                    vendorConfig:(YTXVendorConfig *)vendorConfig
                         complete:(void(^)(NSDictionary *response))complete;
 
 
@@ -56,11 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param  complete 结果回调
  *  @abstract  移动的获取登录Token不走这个回调，走弹起授权页的回调
  */
-- (void)getLoginTokenWithRequest:(NSDictionary *)request
-                    vendorConfig:(NSDictionary *)vendorConfig
+- (void)getLoginTokenWithRequest:(YTXRequest *)request
+                    vendorConfig:(YTXVendorConfig *)vendorConfig
                         complete:(void(^)(NSDictionary *response))complete;
 
-- (void)deleteCacheWithVendorConfigs:(NSArray *)vendorConfigs;
+- (void)deleteCacheWithVendorConfigs:(NSArray<YTXVendorConfig *> *)vendorConfigs;
 
 @end
 

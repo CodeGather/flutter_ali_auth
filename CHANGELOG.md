@@ -1,5 +1,11 @@
 #  
 
+## 0.1.8
+
+* Prompt for modifying initialization
+* Update Android SDK to 2.12.3
+* Update IOS SDK to 2.12.3.1
+
 ## 0.1.7
 
 * Fix IOS no picture path error

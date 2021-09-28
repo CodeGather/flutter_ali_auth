@@ -5,7 +5,6 @@
 //  Created by yangli on 12/03/2018.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 @interface TXCommonUtils : NSObject
 

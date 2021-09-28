@@ -5,8 +5,6 @@
 //  Created by yangli on 15/03/2018.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
 #import "TXCustomModel.h"
 #import "PNSReporter.h"
 

@@ -119,7 +119,7 @@ bool bool_false = false;
     if(_model == nil){
       NSDictionary *dict = @{
           @"code": @"500000",
-          @"msg" : @"请先初始化SDK",
+          @"msg" : @"请先调用init进行初始化SDK！",
           @"data" : @""
       };
       self->_eventSink(dict);
@@ -191,7 +191,7 @@ bool bool_false = false;
   } else {
     NSDictionary *dict = @{
         @"code": @"500000",
-        @"msg" : @"初始化失败！",
+        @"msg" : @"config配置信息出现问题，请检查阿里云控制台sk与包名是否一致",
         @"data" : @""
     };
     self->_eventSink(dict);

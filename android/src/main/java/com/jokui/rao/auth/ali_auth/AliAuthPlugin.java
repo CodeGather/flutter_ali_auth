@@ -207,7 +207,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         /// 判断必要参数
         if(!_call.hasArgument("config") || viewConfig == null || !_call.hasArgument("sk")){
             Log.d(TAG, ("检测config 配置信息"));
-            _events.error("500000", "The required parameter config or sk cannot be empty, please check the parameter configuration", null);
+            _events.error("500000", "config配置信息出现问题，请检查阿里云控制台sk与包名是否一致", null);
             return;
         }
 
@@ -316,8 +316,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     public void preLogin(MethodCall call, final MethodChannel.Result result) {
         int timeOut = 5000;
         if (call.hasArgument("timeOut")) {
-            Integer value = call.argument("timeOut");
-            timeOut = value;
+            timeOut = Integer.parseInt("" + call.argument("timeOut"));
         }
 
         mAlicomAuthHelper.accelerateLoginPage(timeOut, new PreLoginResultListener() {
@@ -1083,10 +1082,8 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
     /// 获取屏幕
     private void updateScreenSize(int authPageScreenOrientation) {
-        int screenHeightDp = AppUtils.px2dp(mContext, AppUtils.getPhoneHeightPixels(mContext));
-        int screenWidthDp = AppUtils.px2dp(mContext, AppUtils.getPhoneWidthPixels(mContext));
-        mScreenWidthDp = screenWidthDp;
-        mScreenHeightDp = screenHeightDp;
+        mScreenWidthDp = AppUtils.px2dp(mContext, AppUtils.getPhoneWidthPixels(mContext));
+        mScreenHeightDp = AppUtils.px2dp(mContext, AppUtils.getPhoneHeightPixels(mContext));
     }
 
 }

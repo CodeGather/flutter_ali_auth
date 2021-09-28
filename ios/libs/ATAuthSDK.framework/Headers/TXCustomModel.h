@@ -121,6 +121,14 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /** 状态栏主题风格，默认UIStatusBarStyleDefault */
 @property (nonatomic, assign) UIStatusBarStyle preferredStatusBarStyle;
 
+#pragma mark- 背景
+/** 授权页背景色 */
+@property (nonatomic, strong) UIColor *backgroundColor;
+/** 授权页背景图片 */
+@property (nonatomic, strong) UIImage *backgroundImage;
+/** 授权页背景图片view的 content mode，默认为 UIViewContentModeScaleAspectFill */
+@property (nonatomic, assign) UIViewContentMode backgroundImageContentMode;
+
 #pragma mark- logo图片
 /** logo图片设置 */
 @property (nonatomic, strong) UIImage *logoImage;

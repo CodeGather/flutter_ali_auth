@@ -19,8 +19,6 @@ FOUNDATION_EXPORT const unsigned char ATAuthSDKVersionString[];
 #import "TXCommonHandler.h"
 #import "TXCommonUtils.h"
 #import "PNSReturnCode.h"
-
 #import "TXCustomModel.h"
-
 #import "PNSReporter.h"
 

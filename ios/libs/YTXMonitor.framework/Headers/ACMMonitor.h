@@ -1,9 +1,3 @@
-//
-//  ACMMonitor.h
-//  Monitor
-//
-//  Created by Vienta on 2019/11/13.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -11,24 +5,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ACMMonitor : NSObject
 
-/**
- *  上传非实时埋点
- *  @param  obj 埋点内容
- *  @return 埋点存储结果
- */
-+ (BOOL)monitorRecord:(id)obj;
+- (instancetype)init NS_UNAVAILABLE;
+
+/// 埋点是否入库，默认入库
+@property (nonatomic, assign) BOOL enterDatabase;;
+
+/// 埋点是否允许上传，默认上传
+@property (nonatomic, assign) BOOL isAllowUpload;
 
 /**
- *  上传实时埋点
- *  @param  obj 埋点内容
- *  @return 埋点上传准备结果
+ *  非实时埋点入库
+ *  @param  obj 埋点具体内容
  */
-+ (BOOL)monitorRealtimeRecord:(id)obj;
+- (BOOL)monitor:(id)obj;
 
 /**
- *  开始手动上传，在设置uploadType为ACMMonitorUploadManual时生效
+ *  实时埋点入库
+ *  @param  obj 埋点的具体内容
  */
-+ (void)uploadMonitorByManual;
+- (BOOL)monitorRealtime:(id)obj;
+
+/**
+ *  手动触发埋点上传，只上传未上传过的埋点
+ */
+- (void)uploadMonitorByManual;
+
+/**
+ *  上传失败的埋点，一般放在重启应用后
+ */
+- (void)uploadFailedRecords;
 
 @end
 
