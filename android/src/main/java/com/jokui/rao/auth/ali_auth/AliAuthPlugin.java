@@ -402,7 +402,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         switch (tokenRet.getCode()){
             case "600000":
                 token = tokenRet.getToken();
-                mAlicomAuthHelper.quitLoginPage();
                 jsonObject.put("code", tokenRet.getCode());
                 jsonObject.put("msg", "获取token成功！");
                 jsonObject.put("data", token);
@@ -482,11 +481,17 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
                 jsonObject.put("data", tokenRet.getToken());
                 break;
         }
+
+        // 保证再出现loading时保持关闭
+        mAlicomAuthHelper.hideLoginLoading();
         jsonObject.put("code", tokenRet.getCode());
         if (_events != null) {
             _events.success(jsonObject);
         } else {
             _methodResult.success(jsonObject);
+        }
+        if (!tokenRet.getCode().equals("600001")) {
+            mAlicomAuthHelper.quitLoginPage();
         }
     }
 

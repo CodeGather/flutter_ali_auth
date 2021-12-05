@@ -1,5 +1,10 @@
 #  
 
+## 0.1.9
+
+* Prompt for modifying initialization
+* Update Android SDK to 2.12.3.4
+
 ## 0.1.8
 
 * Prompt for modifying initialization

@@ -12,6 +12,7 @@
         <activity
             android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
             android:exported="false"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme"
@@ -21,6 +22,7 @@
         <activity
             android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
             android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="behind" />
@@ -29,6 +31,7 @@
         <activity
             android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
             android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="behind" />
