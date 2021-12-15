@@ -148,6 +148,9 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
             case "setDebugMode":
                 setDebugMode(call,result);
                 break;
+            case "quitPage":
+                quitPage(call,result);
+                break;
             default:
                 throw new IllegalArgumentException("Unkown operation" + call.method);
 
@@ -341,6 +344,16 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
             }
         });
     }
+
+    // 获取登录token
+    public void quitPage(final MethodCall call, final MethodChannel.Result methodResult){
+        if (mAlicomAuthHelper != null) {
+            mAlicomAuthHelper.quitLoginPage();
+        } else {
+            _events.error("500001", "请先初始化插件", null);
+        }
+    }
+
     // 正常登录
     public void login(final MethodCall call, final MethodChannel.Result methodResult){
         getAuthListener();
