@@ -1,5 +1,9 @@
 #  
 
+## 0.2.0
+
+* Fix the problem that the page authorization page is closed when the Android end switches multiple boxes
+
 ## 0.1.9
 
 * Prompt for modifying initialization
