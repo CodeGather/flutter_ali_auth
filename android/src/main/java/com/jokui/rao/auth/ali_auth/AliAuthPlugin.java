@@ -503,7 +503,11 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         } else {
             _methodResult.success(jsonObject);
         }
-        if (!tokenRet.getCode().equals("600001") && !tokenRet.getCode().equals("700003")) {
+        if(tokenRet.getCode().equals("700002")) {
+            if(tokenRet.getToken() != null && tokenRet.getToken() == "true") {
+                mAlicomAuthHelper.quitLoginPage();
+            }
+        } else if (!tokenRet.getCode().equals("600001") && !tokenRet.getCode().equals("700003") && !tokenRet.getCode().equals("700004")) {
             mAlicomAuthHelper.quitLoginPage();
         }
     }
