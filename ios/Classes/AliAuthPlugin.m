@@ -133,6 +133,9 @@ bool bool_false = false;
   else if ([@"appleLogin" isEqualToString:call.method]) {
     [self handleAuthorizationAppleIDButtonPress:call result:result];
   }
+  else if ([@"quitPage" isEqualToString:call.method]) {
+    [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+  }
   else {
     result(FlutterMethodNotImplemented);
   }
@@ -311,8 +314,8 @@ bool bool_false = false;
                     });
                 } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                } else if ([PNSCodeCarrierChanged isEqualToString:code]) {
-                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                } else if ([PNSCodeCarrierChanged isEqualToString:code]) { // 切换运营商
+//                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                 } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                 }

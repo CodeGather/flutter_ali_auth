@@ -1,5 +1,11 @@
 #  
 
+## 0.2.1
+
+* Fix the bug that the Android click user agreement is that the authorization page is closed
+* Modify Android to enumeration
+* Fix the bug that the page is closed when IOS switches operators
+
 ## 0.2.0
 
 * Fix the problem that the page authorization page is closed when the Android end switches multiple boxes

@@ -61,6 +61,7 @@ import com.mobile.auth.gatewayauth.ui.AbstractPnsViewDelegate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.zip.Inflater;
 
 import static com.mobile.auth.gatewayauth.PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN;
@@ -411,99 +412,37 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", null);
+        jsonObject.put("code", tokenRet.getCode());
+        jsonObject.put("msg", "出现未知问题！");
 
-        switch (tokenRet.getCode()){
-            case "600000":
-                token = tokenRet.getToken();
-                jsonObject.put("code", tokenRet.getCode());
-                jsonObject.put("msg", "获取token成功！");
-                jsonObject.put("data", token);
-                break;
-            case "600001":
-                jsonObject.put("msg", "唤起授权页成功！");
-                break;
-            case "600002":
-                jsonObject.put("msg", "唤起授权⻚失败！建议切换到其他登录⽅式");
-                break;
-            case "600004":
-                jsonObject.put("msg", "获取运营商配置信息失败！创建⼯单联系⼯程师");
-                break;
-            case "600005":
-                jsonObject.put("msg", "⼿机终端不安全！切换到其他登录⽅式");
-                break;
-            case "600007":
-                jsonObject.put("msg", "未检测到sim卡！⽤户检查 SIM 卡后重试");
-                break;
-            case "600008":
-                jsonObject.put("msg", "蜂窝⽹络未开启！⽤户开启移动⽹络后重试");
-                break;
-            case "600009":
-                jsonObject.put("msg", "⽆法判断运营商! 创建⼯单联系⼯程师");
-                break;
-            case "600010":
-                jsonObject.put("msg", "未知异常创建！⼯单联系⼯程师");
-                break;
-            case "600011":
-                jsonObject.put("msg", "获取token失败！切换到其他登录⽅式");
-                break;
-            case "600012":
-                jsonObject.put("msg", "预取号失败！");
-                break;
-            case "600013":
-                jsonObject.put("msg", "运营商维护升级！该功能不可⽤创建⼯单联系⼯程师");
-                break;
-            case "600014":
-                jsonObject.put("msg", "运营商维护升级！该功能已达最⼤调⽤次创建⼯单联系⼯程师");
-                break;
-            case "600015":
-                jsonObject.put("msg", "接⼝超时！切换到其他登录⽅式");
-                break;
-            case "600017":
-                jsonObject.put("msg", "AppID、Appkey解析失败! 秘钥未设置或者设置错误，请先检查秘钥信息，如果⽆法解决问题创建⼯单联系⼯程师");
-                break;
-            case "600021":
-                jsonObject.put("msg", "点击登录时检测到运营商已切换！⽤户退出授权⻚，重新登录");
-                break;
-            case "600023":
-                jsonObject.put("msg", "加载⾃定义控件异常！检查⾃定义控件添加是否正确");
-                break;
-            case "600024":
-                jsonObject.put("msg", "终端环境检查⽀持认证");
-                break;
-            case "600025":
-                jsonObject.put("msg", "终端检测参数错误检查传⼊参数类型与范围是否正确");
-                break;
-            case "600026":
-                jsonObject.put("msg", "授权⻚已加载时不允许调⽤加速或预取号接⼝检查是否有授权⻚拉起后，去调⽤preLogin或者accelerateAuthPage的接⼝，该⾏为不允许");
-                break;
-            case "700000":
-                jsonObject.put("msg", "点击返回");
-                break;
-            case "700001":
-                jsonObject.put("msg", "用户切换其他登录方式");
-                break;
-            case "700002":
-                jsonObject.put("msg", "点击登录按钮");
-                break;
-            case "700003":
-                jsonObject.put("msg", "勾选协议选项");
-                jsonObject.put("data", tokenRet.getToken());
-                break;
-            default:
-                jsonObject.put("msg", tokenRet.getMsg());
-                jsonObject.put("data", tokenRet.getToken());
-                break;
+        if (Objects.requireNonNull(tokenRet).getCode() != null) {
+            jsonObject.put("msg", StatusAll.getName(tokenRet.getCode()));
+
+            switch (tokenRet.getCode()){
+                case "600000":
+                    token = tokenRet.getToken();
+                    jsonObject.put("data", token);
+                    break;
+                case "700003":
+                    jsonObject.put("data", tokenRet.getToken());
+                    break;
+                default:
+                    jsonObject.put("msg", tokenRet.getMsg());
+                    jsonObject.put("data", tokenRet.getToken());
+                    break;
+            }
         }
 
         // 保证再出现loading时保持关闭
         mAlicomAuthHelper.hideLoginLoading();
-        jsonObject.put("code", tokenRet.getCode());
         if (_events != null) {
             _events.success(jsonObject);
         } else {
             _methodResult.success(jsonObject);
         }
-        if (!tokenRet.getCode().equals("600001") && !tokenRet.getCode().equals("700003")) {
+
+        // 过滤 唤起
+        if (!tokenRet.getCode().equals("600001") && !tokenRet.getCode().equals("700003") && !tokenRet.getCode().equals("700004")) {
             mAlicomAuthHelper.quitLoginPage();
         }
     }
