@@ -12,6 +12,10 @@ void main() async {
   /// 在使用参数时isDialog，请参照默认配置进行所需修改，否则可能出现相关问题
   /// 两个配置文件分别是全屏以及弹窗的配置参数
   /// 详情请点击进入查看具体配置
+  /// 1、配置APP的签名安装于手机
+  /// 2、获取签名APK文件下载地址：https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/87870/cn_zh/1534313766610/AppSignGet.apk
+  /// 3、使用签名APP获取签名
+  /// 4、配置appid+秘钥，阿里云后台配置签名，注意签名要和APP配置的签名一致，否则无法使用
   final result;
   if (Platform.isAndroid) {
     result = await AliAuthPlugin.initSdk(

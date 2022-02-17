@@ -40,7 +40,10 @@
 | 700005    | 点击点击第三方按钮事件 |
 
 ## 步骤
-
+- 1、配置APP的签名安装于手机
+- 2、获取签名APK文件下载地址：[点击下载快速获取签名工具](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/87870/cn_zh/1534313766610/AppSignGet.apk)
+- 3、使用签名APP获取签名
+- 4、配置appid+秘钥，阿里云后台配置签名，注意签名要和APP配置的签名一致，否则无法使用
 - [帮助文档](https://help.aliyun.com/product/75010.html)
 - [前往添加号码认证方案-获取秘钥](https://dypns.console.aliyun.com/?spm=5176.12818093.favorites.ddypns.488716d0ttKe13#/)
 - 使用秘钥初始化环境 AliAuthPlugin.initSdk()
