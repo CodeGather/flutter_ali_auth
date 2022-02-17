@@ -16,7 +16,6 @@
 
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
         android:label="ali_auth_example"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/LaunchTheme"
