@@ -1,5 +1,8 @@
 #  
 
+## 0.2.2
+* Fix Android pop-up and full screen configuration bug
+
 ## 0.2.1
 
 * Fix the bug that the Android click user agreement is that the authorization page is closed

@@ -306,6 +306,7 @@
   if(navBackImage != nil){
     model.navBackImage = navBackImage;
   }
+  
   if (isCustomNavBack) {
     /// 自定义返回按钮
     model.navBackButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -472,6 +473,7 @@
       ];
     }
   }
+  model.checkBoxIsChecked = [viewConfig boolValueForKey: @"privacyState" defaultValue: NO];
   model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
   
   // 切换到其他标题
@@ -638,6 +640,19 @@
   UIImage * alertCloseImage = [self changeUriPathToImage: viewConfig[@"alertCloseImage"]];
   model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
   
+  model.alertCloseItemFrameBlock = ^CGRect(CGSize screenSize,CGSize superViewSize,CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+          //横屏时模拟隐藏该控件
+          return CGRectZero;
+        } else {
+          frame.origin.x = [viewConfig intValueForKey: @"alertCloseImageX" defaultValue: 5];
+          frame.origin.y = [viewConfig intValueForKey: @"alertCloseImageY" defaultValue: 5];
+          frame.size.width = [viewConfig intValueForKey: @"alertCloseImageW" defaultValue: 30];
+          frame.size.height = [viewConfig intValueForKey: @"alertCloseImageH" defaultValue: 30];
+          return frame;
+        }
+  };
+  
   model.alertBlurViewColor = [self getColor: [viewConfig stringValueForKey: @"alertBlurViewColor" defaultValue: @"#000000"]];
   model.alertBlurViewAlpha = [viewConfig floatValueForKey: @"alertBlurViewAlpha" defaultValue: 0.5];
   NSString *radiuString = [viewConfig stringValueForKey: @"alertCornerRadiusArray" defaultValue: @"10,10,10,10"];
@@ -781,7 +796,7 @@
       ];
     }
   }
-  
+  model.checkBoxIsChecked = [viewConfig boolValueForKey: @"privacyState" defaultValue: NO];
   model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxWH" defaultValue: 17.0];
   
   // 切换到其他标题

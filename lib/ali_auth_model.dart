@@ -355,6 +355,18 @@ class AliAuthModel {
   /// 关闭按钮的图片路径
   final String? alertCloseImage;
 
+  /// 关闭按钮的图片X坐标
+  final int? alertCloseImageX;
+
+  /// 关闭按钮的图片Y坐标
+  final int? alertCloseImageY;
+
+  /// 关闭按钮的图片宽度
+  final int? alertCloseImageW;
+
+  /// 关闭按钮的图片高度
+  final int? alertCloseImageH;
+
   /// 底部蒙层背景颜色，默认黑色
   final String? alertBlurViewColor;
 
@@ -420,12 +432,12 @@ class AliAuthModel {
     this.appPrivacyTwo,
     this.appPrivacyColor,
     this.privacyOffsetY,
-    this.privacyState,
     this.protocolGravity,
     this.privacyTextSize,
     this.privacyMargin,
     this.privacyBefore,
     this.privacyEnd,
+    this.privacyState,
     this.checkboxHidden,
     this.checkBoxWH,
     this.changeBtnTitle,
@@ -463,6 +475,10 @@ class AliAuthModel {
     this.alertTitleBarColor,
     this.alertCloseItemIsHidden,
     this.alertCloseImage,
+    this.alertCloseImageX,
+    this.alertCloseImageY,
+    this.alertCloseImageW,
+    this.alertCloseImageH,
     this.alertBlurViewColor,
     this.alertBlurViewAlpha,
     this.alertCornerRadiusArray,
@@ -529,13 +545,13 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['appPrivacyTwo'] as String?,
     json['appPrivacyColor'] as String?,
     json['privacyOffsetY'] as int?,
-    json['privacyState'] as bool?,
     json['protocolGravity'] as int?,
     json['privacyTextSize'] as int?,
     json['privacyMargin'] as int?,
     json['privacyBefore'] as String?,
     json['privacyEnd'] as String?,
     json['checkboxHidden'] as bool?,
+    json['privacyState'] as bool?,
     json['checkBoxWH'] as int?,
     json['changeBtnTitle'] as String?,
     json['changeBtnTitleSize'] as int?,
@@ -572,6 +588,10 @@ AliAuthModel _$AliAuthModelFromJson(Map<String, dynamic> json) {
     json['alertTitleBarColor'] as String?,
     json['alertCloseItemIsHidden'] as bool?,
     json['alertCloseImage'] as String?,
+    json['alertCloseImageX'] as int?,
+    json['alertCloseImageY'] as int?,
+    json['alertCloseImageW'] as int?,
+    json['alertCloseImageH'] as int?,
     json['alertBlurViewColor'] as String?,
     json['alertBlurViewAlpha'] as double?,
     json['alertCornerRadiusArray'] as String?,
@@ -678,6 +698,10 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'alertTitleBarColor': instance.alertTitleBarColor,
       'alertCloseItemIsHidden': instance.alertCloseItemIsHidden,
       'alertCloseImage': instance.alertCloseImage,
+      'alertCloseImageX': instance.alertCloseImageX,
+      'alertCloseImageY': instance.alertCloseImageY,
+      'alertCloseImageW': instance.alertCloseImageW,
+      'alertCloseImageH': instance.alertCloseImageH,
       'alertBlurViewColor': instance.alertBlurViewColor,
       'alertBlurViewAlpha': instance.alertBlurViewAlpha,
       'alertCornerRadiusArray': instance.alertCornerRadiusArray,
@@ -876,6 +900,10 @@ AliAuthModel getDislogConfig() {
     'alertTitleBarColor': '#ffffff',
     'alertCloseItemIsHidden': false,
     'alertCloseImage': 'assets/close.png',
+    'alertCloseImageX': 10,
+    'alertCloseImageY': 10,
+    'alertCloseImageW': 10,
+    'alertCloseImageH': 10,
     'alertBlurViewColor': '#000',
     'alertBlurViewAlpha': 0.7,
     'alertCornerRadiusArray': '10,10,10,10',

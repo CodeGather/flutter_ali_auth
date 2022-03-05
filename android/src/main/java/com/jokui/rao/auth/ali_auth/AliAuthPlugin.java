@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -88,6 +89,8 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     private MethodCall _call;
     private Result _methodResult;
     private boolean isInit = false;
+
+    private HashMap<String, Object> viewConfig;
 
     public AliAuthPlugin() {
     }
@@ -206,7 +209,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         if (isInit) return;
         isInit = true;
         /// 获取参数配置
-        final HashMap<String, Object> viewConfig = _call.argument("config");
+        viewConfig = _call.argument("config");
 
         /// 判断必要参数
         if(!_call.hasArgument("config") || viewConfig == null || !_call.hasArgument("sk")){
@@ -442,7 +445,15 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         }
 
         // 过滤 唤起
-        if (!tokenRet.getCode().equals("600001") && !tokenRet.getCode().equals("700003") && !tokenRet.getCode().equals("700004")) {
+        if ((
+                !tokenRet.getCode().equals("600001") &&
+                !tokenRet.getCode().equals("700002") &&
+                !tokenRet.getCode().equals("700003") &&
+                !tokenRet.getCode().equals("700004")
+            ) || (
+                tokenRet.getCode().equals("700002") && Boolean.parseBoolean(String.valueOf(viewConfig.get("logBtnToastHidden")))
+            )
+        ) {
             mAlicomAuthHelper.quitLoginPage();
         }
     }
@@ -494,9 +505,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
     }
 
     // 自定义UI
-    private void initDynamicView( MethodCall call ) {
-        HashMap<String, Object> viewConfig = call.argument("config");
-
+    private void initDynamicView() {
         assert viewConfig != null;
         if (!dataStatus( viewConfig, "isHiddenCustom")) {
             int getCustomXml = mContext.getResources().getIdentifier("custom_login", "layout", mContext.getPackageName());
@@ -554,8 +563,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 //    }
 
     // 自定义返回图标
-    private void initReturnView(MethodCall call ){
-        HashMap<String, Object> viewConfig = call.argument("config");
+    private void initReturnView(){
         if (dataStatus( viewConfig, "customNavReturnImageLayoutName")) {
             int getCustomXml = mContext.getResources().getIdentifier(String.valueOf(viewConfig.get("customNavReturnImageLayoutName")), "layout", mContext.getPackageName());
             if (getCustomXml == 0) {
@@ -579,9 +587,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
 
     // 自定义背景
-    private void initBackgroundView( MethodCall call ) {
-        HashMap<String, Object> viewConfig = call.argument("config");
-
+    private void initBackgroundView() {
         assert viewConfig != null;
         if(dataStatus( viewConfig, "customPageBackgroundLyout")){
             int getCustomXml = mContext.getResources().getIdentifier("custom_page_background", "layout", mContext.getPackageName());
@@ -601,14 +607,14 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
     /// ⼀键登录授权⻚⾯
     private void configLoginTokenPort(final MethodCall call, final MethodChannel.Result methodResult) {
-        configBuilder(call);
+        configBuilder();
 
-        initDynamicView(call);
+        initDynamicView();
 
         // 需要放在背景前面防止被遮挡
-        initReturnView(call);
+        initReturnView();
 
-        initBackgroundView(call);
+        initBackgroundView();
 
         /// 添加第三方登录按钮
         mAlicomAuthHelper.addAuthRegistViewConfig(
@@ -642,17 +648,16 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
     /// 弹窗授权⻚⾯
     private void configLoginTokenPortDialog(final MethodCall call, final MethodChannel.Result methodResult) {
-        configBuilder(call);
+        configBuilder();
 
-        initDynamicView(call);
+        initDynamicView();
     }
 
     // 公共配置
-    private void configBuilder(final MethodCall call){
+    private void configBuilder(){
         mAlicomAuthHelper.removeAuthRegisterXmlConfig();
         mAlicomAuthHelper.removeAuthRegisterViewConfig();
 
-        HashMap<String, Object> viewConfig = call.argument("config");
         AuthUIConfig.Builder config = new AuthUIConfig.Builder();
 
         int authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
@@ -661,33 +666,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         }
 
         config.setScreenOrientation(authPageOrientation);
-
-        int dialogWidth = (int) (mScreenWidthDp * 0.8f);
-        int dialogHeight = (int) (mScreenHeightDp * 0.65f);
-        /// 设置弹窗模式授权⻚宽度，单位dp，设置⼤于0即为弹窗模式
         assert viewConfig != null;
-        if(dataStatus( viewConfig, "dialogWidth")){
-            if((int) viewConfig.get("dialogWidth") > 0){
-                dialogWidth = (int) viewConfig.get("dialogWidth");
-                config.setDialogWidth(dialogWidth);
-            }
-        } else {
-            if(dataStatus( viewConfig, "isDialog")){
-                config.setDialogWidth(dialogWidth);
-            }
-        }
-
-        /// 设置弹窗模式授权⻚⾼度，单位dp，设置⼤于0即为弹窗模式
-        if(dataStatus( viewConfig, "dialogHeight")){
-            if((int) viewConfig.get("dialogHeight") > 0){
-                dialogHeight = (int) viewConfig.get("dialogHeight");
-                config.setDialogHeight(dialogHeight);
-            }
-        } else {
-            if(dataStatus( viewConfig, "isDialog")){
-                config.setDialogHeight(dialogHeight);
-            }
-        }
 
         /// statusBarColor 设置状态栏颜⾊（系统版本 5.0 以上可设置）
         if(dataStatus( viewConfig, "statusBarColor")){
@@ -898,10 +877,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         if(dataStatus( viewConfig, "privacyOffsetY")){
             config.setPrivacyOffsetY((int) viewConfig.get("privacyOffsetY"));
         }
-        /// 设置隐私条款是否默认勾选
-        if(dataStatus( viewConfig, "privacyState")){
-            config.setPrivacyState((boolean) viewConfig.get("privacyState"));
-        }
         /// 设置隐私条款⽂字对⻬⽅式，单位Gravity.xxx
         if(dataStatus( viewConfig, "protocolGravity")){
             config.setProtocolGravity((int) viewConfig.get("protocolGravity"));
@@ -925,6 +900,10 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         /// 设置复选框是否隐藏
         if(dataStatus( viewConfig, "checkboxHidden")){
             config.setCheckboxHidden((boolean) viewConfig.get("checkboxHidden"));
+        }
+        /// 设置隐私条款是否默认勾选
+        if(dataStatus( viewConfig, "privacyState")){
+            config.setPrivacyState((boolean) viewConfig.get("privacyState"));
         }
         /// 设置复选框未选中时图⽚
         if(dataStatus( viewConfig, "uncheckedImgPath")){
@@ -966,7 +945,13 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
         }
         /// 设置授权⻚背景图drawable资源的⽬录，不需要加后缀，⽐如图⽚在drawable中的存放⽬录是res/drawablexxhdpi/loading.png,则传⼊参数为"loading"，setPageBackgroundPath("loading")。
         if(dataStatus( viewConfig, "pageBackgroundPath")){
-            // config.setPageBackgroundPath(String.valueOf(viewConfig.get("pageBackgroundPath")));
+            String pageBackgroundPath = String.valueOf(viewConfig.get("pageBackgroundPath"));
+            int pageBackgroundPathId = mContext.getResources().getIdentifier(pageBackgroundPath,"drawable", mContext.getPackageName());
+            if (pageBackgroundPathId > 0 && !String.valueOf(pageBackgroundPathId).equals(pageBackgroundPath)) {
+                config.setPageBackgroundPath(pageBackgroundPath);
+            } else {
+                config.setPageBackgroundPath("dialog_page_background");
+            }
         }
 
         /// 设置切换按钮点是否可⻅
@@ -996,6 +981,25 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
         /// 是dislog的配置
         if(dataStatus( viewConfig, "isDialog")){
+            int dialogWidth = (int) (mScreenWidthDp * 0.8f);
+            int dialogHeight = (int) (mScreenHeightDp * 0.65f);
+            /// 设置弹窗模式授权⻚宽度，单位dp，设置⼤于0即为弹窗模式
+            /// 设置弹窗模式授权⻚宽度，单位dp，设置⼤于0即为弹窗模式
+            if(dataStatus( viewConfig, "dialogWidth")){
+                if(Integer.parseInt(String.valueOf(viewConfig.get("dialogWidth"))) > 0){
+                    dialogWidth = Integer.parseInt(String.valueOf(viewConfig.get("dialogWidth")));
+                }
+                config.setDialogWidth(dialogWidth);
+            }
+
+            /// 设置弹窗模式授权⻚⾼度，单位dp，设置⼤于0即为弹窗模式
+            if(dataStatus( viewConfig, "dialogHeight")){
+                if(Integer.parseInt(String.valueOf(viewConfig.get("dialogHeight"))) > 0){
+                    dialogHeight = Integer.parseInt(String.valueOf(viewConfig.get("dialogHeight")));
+                }
+                config.setDialogHeight(dialogHeight);
+            }
+
             /// 设置换按钮相对导航栏顶部的位移，单位 dp
             if(dataStatus( viewConfig, "dialogAlpha")){
                 config.setDialogAlpha(Float.parseFloat(String.valueOf((double) viewConfig.get("dialogAlpha"))));
