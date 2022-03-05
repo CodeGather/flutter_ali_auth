@@ -37,7 +37,14 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
     steps:
-    # Set up Flutter and add it to the path.
+    - name: Install Flutter
+      # You may pin to the exact commit or the version.
+      # uses: britannio/action-install-flutter@a486b7e3148e54a76390d849100b9dee819ff810
+      uses: britannio/action-install-flutter@v1.1
+      with:
+        # The channel/version of Flutter to be used e.g., beta or 2.0.0
+        version: stable
+      # Set up Flutter and add it to the path.
     - name: Clone Flutter repository with stable channel
       uses: actions/checkout@v2
       with:
