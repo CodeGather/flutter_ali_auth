@@ -86,6 +86,11 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 - (void)debugLoginUIWithController:(UIViewController *_Nonnull)controller model:(TXCustomModel *_Nullable)model complete:(void (^_Nullable)(NSDictionary * _Nonnull resultDic))complete;
 
 /**
+ *  授权页弹起后，修改checkbox按钮选中状态，当checkout按钮隐藏时，设置不生效
+ */
+- (void)setCheckboxIsChecked:(BOOL)isChecked;
+
+/**
  *  手动隐藏一键登录获取登录Token之后的等待动画，默认为自动隐藏，当设置 TXCustomModel 实例 autoHideLoginLoading = NO 时, 可调用该方法手动隐藏
  */
 - (void)hideLoginLoading;

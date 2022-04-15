@@ -1,5 +1,14 @@
 #  
 
+## 0.2.3
+
+* Update Android SDK to 2.12.4
+* Android SDK fixes the problem that the so file name is too long and crash occurs occasionally in the old version of the system
+* Android SDK optimization protocol button tick experience
+* Update IOS SDK to 2.12.4
+* IOS SDK open license page protocol animation attribute (privacyanimation)
+* The IOS SDK adds a user-defined protocol page to control privacyvciscustomized
+
 ## 0.2.2
 * Fix Android pop-up and full screen configuration bug
 

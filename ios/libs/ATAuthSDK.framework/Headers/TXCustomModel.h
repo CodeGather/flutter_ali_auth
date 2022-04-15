@@ -245,6 +245,10 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
  *  最终会根据设置进来的width对协议文本进行自适应，得到的size是协议控件的最终大小
  */
 @property (nonatomic, copy) PNSBuildFrameBlock privacyFrameBlock;
+/**
+ *  未同意协议时点击登录按钮，协议整体文案的动画效果，不设置或设置为nil默认没有动画，SDK内部会主动更改动画的一些属性（包括：removedOnCompletion = NO、fillMode = kCAFillModeRemoved 及 delegate）
+ */
+@property (nonatomic, strong, nullable) CAAnimation *privacyAnimation;
 /** 协议整体相对屏幕底部的Y轴距离，与其他有区别！！不能小于0 */
 @property (nonatomic, assign) CGFloat privacyBottomOffetY DEPRECATED_MSG_ATTRIBUTE("Please use privacyFrameBlock instead");
 /** 协议整体（包括checkBox）相对content view的左右边距，当协议整体宽度小于（content view宽度-2*左右边距）且居中模式，则左右边距设置无效，不能小于0 */

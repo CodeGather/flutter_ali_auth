@@ -1,5 +1,14 @@
 #  
 
+## 0.2.3
+
+* 更新android sdk 为2.12.4
+* Android sdk 修复so文件名过长在老版本系统偶现Crash的问题
+* Android sdk 优化协议按钮勾选体验
+* 更新ios sdk 为2.12.4
+* IOS sdk 开放授权页协议动画属性（privacyAnimation）
+* IOS sdk 新增 自定义协议页面控制 privacyVCIsCustomized
+
 ## 0.2.2
 
 * 修复Android弹窗和全屏的配置BUG

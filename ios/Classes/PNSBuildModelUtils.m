@@ -453,12 +453,38 @@
     ];
   }
   
+  /** 导航背景色*/
+  model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#FFFFFF"]];
+  /** 导航文字色 */
+  model.privacyNavTitleColor = [self getColor: [viewConfig stringValueForKey: @"webNavTextColor" defaultValue: @"#000000"]];
+  /** 字体大小  */
+  model.privacyNavTitleFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 12.0]];
+  /** 返回按钮  */
+  UIImage * webNavReturnImgPath = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
+  if (webNavReturnImgPath != nil) {
+    model.privacyNavBackImage = webNavReturnImgPath;
+  }
+  
   model.privacyAlignment = NSTextAlignmentCenter;
   model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
   model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
   model.privacyOperatorPreText = [viewConfig stringValueForKey: @"vendorPrivacyPrefix" defaultValue: @"《"];
   model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
+  
+  // 0.2.3 - 1.12.4新增
+  model.privacyVCIsCustomized = [viewConfig boolValueForKey: @"privacyVCIsCustomized" defaultValue: NO];
+  // 是否使用授权页协议动画
+  bool isPrivacyAnimation = [viewConfig boolValueForKey: @"isPrivacyAnimation" defaultValue: NO];
+  if (isPrivacyAnimation) {
+    CAKeyframeAnimation *privacyAnimation = [CAKeyframeAnimation animation];
+    privacyAnimation.keyPath = @"transform.translation.x";
+    privacyAnimation.values = @[@(0), @(-10), @(0)];
+    privacyAnimation.repeatCount = 2;
+    privacyAnimation.speed = 1;
+    model.privacyAnimation = privacyAnimation;
+  }
+  
   
   // 勾选统一按钮
   BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];

@@ -20,6 +20,47 @@
 
 ## 由于从0.0.6开始使用前端配置参数，所以修改的比较大，如果不想修改请勿进行升级，以免造成不必要的麻烦
 
+
+## 0.2.3 - 请将该部分放到app的清单文件中，具体参照demo设置
+```<!-- 重点关注！！！！！！！-->
+<!-- 全屏时使用主题 android:theme="@android:style/Theme.NoTitleBar.Fullscreen" -->
+<!-- 弹窗时使用主题 android:theme="@style/authsdk_activity_dialog" -->
+<!-- 如果不需要使用窗口模式，不要使用authsdk_activity_dialog主题，会出现异常动画-->
+<!-- 如果需要使用authsdk_activity_dialog主题，则screenOrientation一定不能指定明确的方向，
+比如portrait、sensorPortrait，在8.0的系统上不允许窗口模式指定orientation，会发生crash，需要指定为behind，
+然后在授权页的前一个页面指定具体的orientation-->
+
+<!--协议页面webview-->
+<activity
+    android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    tools:replace="android:theme"
+    android:exported="false"
+    android:launchMode="singleTop"
+    android:screenOrientation="behind"
+    android:theme="@style/authsdk_activity_dialog" />
+
+<!--联通电信授权页-->
+<activity
+    android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    tools:replace="android:configChanges"
+    android:exported="false"
+    android:launchMode="singleTop"
+    android:screenOrientation="behind"
+    android:theme="@style/authsdk_activity_dialog"/>
+
+<!--移动授权页-->
+<activity
+    android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"
+    android:configChanges="orientation|keyboardHidden|screenSize"
+    tools:replace="android:configChanges"
+    android:exported="false"
+    android:launchMode="singleTask"
+    android:screenOrientation="behind"
+    android:theme="@style/authsdk_activity_dialog" />
+```
+
 ## 相关支持
 
 |    平台  | 支持  |

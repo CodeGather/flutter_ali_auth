@@ -6,18 +6,17 @@
 
     <application
         android:usesCleartextTraffic="true"
-        tools:targetApi="m"
-    >
+        tools:targetApi="m">
 
         <!--协议页面webview-->
-        <activity
-            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            tools:replace="android:configChanges"
-            android:exported="false"
-            android:launchMode="singleTop"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="behind"  />
+<!--        <activity-->
+<!--            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"-->
+<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
+<!--            tools:replace="android:configChanges"-->
+<!--            android:exported="false"-->
+<!--            android:launchMode="singleTop"-->
+<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+<!--            android:screenOrientation="behind"  />-->
 
 <!--        &lt;!&ndash;联通电信授权页&ndash;&gt;-->
 <!--        &lt;!&ndash;重点关注！！！！！！！&ndash;&gt;-->
