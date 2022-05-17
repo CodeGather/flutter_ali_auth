@@ -1,0 +1,6 @@
+framework module ATAuthSDK {
+  umbrella header "ATAuthSDK.h"
+
+  export *
+  module * { export * }
+}
