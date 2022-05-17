@@ -3,7 +3,6 @@
     package="com.sean.rao.ali_auth_example">
    <application
         android:label="ali_auth_example"
-        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

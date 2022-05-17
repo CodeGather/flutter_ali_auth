@@ -51,7 +51,7 @@ android {
     buildTypes {
         release {
             debuggable false
-            minifyEnabled true
+            // minifyEnabled true
             proguardFile file('proguard-rules.pro')
             zipAlignEnabled false
             multiDexEnabled true
@@ -59,7 +59,7 @@ android {
         }
 
         debug {
-            minifyEnabled false
+            // minifyEnabled false
             zipAlignEnabled false
             multiDexEnabled true
         }
@@ -71,8 +71,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
 
     implementation "com.alibaba:fastjson:1.2.75"
-
-    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 
     implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
     implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
