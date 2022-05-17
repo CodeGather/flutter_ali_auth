@@ -63,16 +63,16 @@ However, when using or referring to the ideas or related contents of this plug-i
   
 ## DEMO
   
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_123128.jpg" width="100">  
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120625.jpg" width="100">    
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120629.jpg" width="100">    
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120634.jpg" width="100">    
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120649.jpg" width="100">   
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_123128.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120625.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120629.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120634.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120649.jpg" width="100"> 
 
 ## Reward
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_al.jpg" width="100">  
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="100">    
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_al.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="100">  
 
 ## Stargazers over time
 
