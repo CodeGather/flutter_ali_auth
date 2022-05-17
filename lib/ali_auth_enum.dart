@@ -14,22 +14,22 @@ enum ScaleType {
 }
 
 enum Gravity {
-  CENTER_HORIZONTAL,
-  LEFT,
-  RIGHT,
+  centerHorizntal,
+  left,
+  right
 }
 
 enum UIFAG {
-  SYSTEM_UI_FLAG_LOW_PROFILE,
-  SYSTEM_UI_FLAG_HIDE_NAVIGATION,
-  SYSTEM_UI_FLAG_FULLSCREEN,
-  SYSTEM_UI_FLAG_LAYOUT_STABLE,
-  SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION,
-  SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN,
-  SYSTEM_UI_FLAG_IMMERSIVE,
-  SYSTEM_UI_FLAG_IMMERSIVE_STICKY,
-  SYSTEM_UI_FLAG_LIGHT_STATUS_BAR,
-  SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+  systemUiFalgLowProfile,
+  systemUiFalgHideNavigation,
+  systemUiFalgFullscreen,
+  systemUiFalgLayoutStable,
+  systemUiFalgLayoutHideNavigtion,
+  systemUiFalgLayoutFullscreen,
+  systemUiFalgImmersive,
+  systemUiFalgImmersiveSticky,
+  systemUiFalgLightStatusBar,
+  systemUiFalgLightNavigationBar
 }
 
 enum PageType {
@@ -67,9 +67,9 @@ enum PageType {
 class EnumUtils {
   static int formatGravityValue(Gravity? status) {
     switch (status) {
-      case Gravity.CENTER_HORIZONTAL:
+      case Gravity.centerHorizntal:
         return 1;
-      case Gravity.LEFT:
+      case Gravity.left:
         return 3;
       default:
         return 4;
@@ -78,23 +78,23 @@ class EnumUtils {
 
   static int formatUiFagValue(UIFAG? status) {
     switch (status) {
-      case UIFAG.SYSTEM_UI_FLAG_LOW_PROFILE:
+      case UIFAG.systemUiFalgLowProfile:
         return 1;
-      case UIFAG.SYSTEM_UI_FLAG_HIDE_NAVIGATION:
+      case UIFAG.systemUiFalgHideNavigation:
         return 2;
-      case UIFAG.SYSTEM_UI_FLAG_FULLSCREEN:
+      case UIFAG.systemUiFalgFullscreen:
         return 4;
-      case UIFAG.SYSTEM_UI_FLAG_LAYOUT_STABLE:
+      case UIFAG.systemUiFalgLayoutStable:
         return 256;
-      case UIFAG.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION:
+      case UIFAG.systemUiFalgLayoutHideNavigtion:
         return 512;
-      case UIFAG.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN:
+      case UIFAG.systemUiFalgLayoutFullscreen:
         return 1024;
-      case UIFAG.SYSTEM_UI_FLAG_IMMERSIVE:
+      case UIFAG.systemUiFalgImmersive:
         return 2048;
-      case UIFAG.SYSTEM_UI_FLAG_IMMERSIVE_STICKY:
+      case UIFAG.systemUiFalgImmersiveSticky:
         return 4096;
-      case UIFAG.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR:
+      case UIFAG.systemUiFalgLightStatusBar:
         return 8192;
       default:
         return 16;

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'MyHomePage.dart';
-import 'MyRouterPage.dart';
+import 'my_home_page.dart';
+import 'my_router_page.dart';
 
 void main() {
   runApp(const MyApp());
