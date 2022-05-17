@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true" >
+        <domain includeSubdomains="true">enrichgw.10010.com</domain> <!-- 联通内部5G请求域名，开发者需要添加 -->
+        <domain includeSubdomains="true">onekey.cmpassport.com</domain>  <!-- 移动内部请求域名，开发者需要添加 -->
+        <domain includeSubdomains="true">140.205.57.248</domain> <!-- demo测试ip，开发者无需添加 -->
+        <domain includeSubdomains="true">gw.api.tbsandbox.com</domain> <!-- demo测试域名，开发者无需添加 -->
+        <domain includeSubdomains="true">m.aliyun.com</domain> <!-- demo测试域名，开发者无需添加 -->
+    </domain-config>
+</network-security-config>

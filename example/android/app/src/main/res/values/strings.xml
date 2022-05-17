@@ -1,0 +1,6 @@
+<resources>
+    <string name="switch_msg">切换到短信登录页面</string>
+    <string name="custom_title">自定义xml标题</string>
+    <string name="custom_slogan">通过布局文件实现自定义Slogan</string>
+    <string name="custom_toast">同意服务条款才可以登录</string>
+</resources>

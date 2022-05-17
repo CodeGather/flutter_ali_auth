@@ -1,45 +1,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jokui.rao.auth.ali_auth">
+    package="com.sean.rao.ali_auth">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
+    <!--  跳转原生调用flutter时页面的样式  -->
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="adjustResize"
+            android:usesCleartextTraffic="true"/>
 
-        <!--协议页面webview-->
-<!--        <activity-->
-<!--            android:name="com.mobile.auth.gatewayauth.activity.AuthWebVeiwActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            tools:replace="android:configChanges"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTop"-->
-<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
-<!--            android:screenOrientation="behind"  />-->
-
-<!--        &lt;!&ndash;联通电信授权页&ndash;&gt;-->
-<!--        &lt;!&ndash;重点关注！！！！！！！&ndash;&gt;-->
-<!--        &lt;!&ndash;如果不需要使用窗口模式，不要使用authsdk_activity_dialog主题，会出现异常动画&ndash;&gt;-->
-<!--        &lt;!&ndash;如果需要使用authsdk_activity_dialog主题，则screenOrientation一定不能指定明确的方向，-->
-<!--        比如portrait、sensorPortrait，在8.0的系统上不允许窗口模式指定orientation，会发生crash，需要指定为behind，-->
-<!--        然后在授权页的前一个页面指定具体的orientation&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTop"-->
-<!--            android:name="com.mobile.auth.gatewayauth.LoginAuthActivity"-->
-<!--            android:screenOrientation="behind"-->
-<!--            android:theme="@style/authsdk_activity_dialog"/>-->
-
-<!--        &lt;!&ndash;移动授权页&ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name="com.cmic.sso.sdk.activity.LoginAuthActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            tools:replace="android:configChanges"-->
-<!--            android:exported="false"-->
-<!--            android:launchMode="singleTask"-->
-<!--            android:screenOrientation="behind"-->
-<!--            android:theme="@style/authsdk_activity_dialog" />-->
+        <activity
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
+            android:name=".auth.CustomWebViewActivity"
+            android:screenOrientation="sensorPortrait">
+            <intent-filter>
+                <action android:name=".protocolWeb"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
