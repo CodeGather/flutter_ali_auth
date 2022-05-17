@@ -1,11 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:ali_auth/ali_auth.dart';
-
 import 'MyHomePage.dart';
 import 'MyRouterPage.dart';
 

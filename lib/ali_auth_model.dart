@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'ali_auth_enum.dart';
 
 /// 登录窗口配置
