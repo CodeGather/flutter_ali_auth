@@ -47,7 +47,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   BuildContext? mContext;
   Timer? countdownTimer;
 
@@ -55,8 +55,33 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
+    WidgetsBinding.instance!.addObserver(this);
     /// 执行相关登录
     login();
+  }
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed:// 应用程序可见，前台
+        break;
+      case AppLifecycleState.paused: // 应用程序不可见，后台
+        break;
+      case AppLifecycleState.detached:
+      // TODO: Handle this case.
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+    WidgetsBinding.instance!.removeObserver(this);
   }
 
   /// 相关登录

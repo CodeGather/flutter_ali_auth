@@ -1,5 +1,9 @@
 #  
 
+## 1.0.0.dev.1
+
+* Plug in refactoring
+
 ## 0.2.3
 
 * Update Android SDK to 2.12.4

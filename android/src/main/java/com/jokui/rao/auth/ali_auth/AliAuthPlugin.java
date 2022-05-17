@@ -57,6 +57,7 @@ import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.mobile.auth.gatewayauth.PreLoginResultListener;
 import com.mobile.auth.gatewayauth.ResultCode;
 import com.mobile.auth.gatewayauth.TokenResultListener;
+import com.mobile.auth.gatewayauth.manager.FeatureManager;
 import com.mobile.auth.gatewayauth.model.TokenRet;
 import com.mobile.auth.gatewayauth.ui.AbstractPnsViewDelegate;
 
@@ -66,6 +67,7 @@ import java.util.Objects;
 import java.util.zip.Inflater;
 
 import static com.mobile.auth.gatewayauth.PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN;
+import static com.mobile.auth.gatewayauth.manager.FeatureManager.FEATURE_KEY_CRASH;
 import static com.nirvana.tools.core.AppUtils.dp2px;
 
 /** AliAuthPlugin */
@@ -241,6 +243,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Met
 
         mAlicomAuthHelper.setAuthSDKInfo((String) _call.argument("sk"));
         // 设置是否开启debug模式
+        FeatureManager.getInstance().put(FEATURE_KEY_CRASH, false);
         mAlicomAuthHelper.getReporter().setLoggerEnable(dataStatus( viewConfig, "isDebug"));
 
         // 设置初始化界面的参数
