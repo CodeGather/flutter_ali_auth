@@ -159,6 +159,7 @@ class AliAuthModel {
   final int? logoOffsetY;
 
   /// 设置logo 控件相对底部的位移，单位dp
+  // ignore: non_constant_identifier_names
   final int? logoOffsetY_B;
 
   /// 设置logo图⽚缩放模式
@@ -190,6 +191,7 @@ class AliAuthModel {
   final int? sloganOffsetY;
 
   /// 设置slogan 相对底部的 位移，单位dp
+  // ignore: non_constant_identifier_names
   final int? sloganOffsetY_B;
 
   /// ------- 五、掩码栏 --------- ///
@@ -205,6 +207,7 @@ class AliAuthModel {
   final int? numFieldOffsetY;
 
   /// 设置号码栏控件相对底部的位移，单位 dp
+  // ignore: non_constant_identifier_names
   final int? numFieldOffsetY_B;
 
   /// 设置号码栏相对于默认位置的X轴偏移量，单位dp
@@ -246,6 +249,7 @@ class AliAuthModel {
   final int? logBtnOffsetY;
 
   /// 设置登录按钮相对底部的位移，单位 dp
+  // ignore: non_constant_identifier_names
   final int? logBtnOffsetY_B;
 
   /// 设置登录loading dialog 背景图⽚路径24
@@ -279,6 +283,7 @@ class AliAuthModel {
   final int? switchOffsetY;
 
   /// 设置换按钮相对底部的位移，单位 dp
+  // ignore: non_constant_identifier_names
   final int? switchOffsetY_B;
 
   /// ------- 八、自定义控件区 --------- ///
@@ -323,6 +328,7 @@ class AliAuthModel {
   final int? privacyOffsetY;
 
   /// 设置隐私条款相对底部的位移，单位dp
+  // ignore: non_constant_identifier_names
   final int? privacyOffsetY_B;
 
   /// 设置隐私条款是否默认勾选
@@ -458,15 +464,19 @@ class AliAuthModel {
       this.loadingImgPath,
       this.sloganOffsetY,
       this.logoOffsetY,
+      // ignore: non_constant_identifier_names
       this.logoOffsetY_B,
       this.logoScaleType,
       this.numFieldOffsetY,
+      // ignore: non_constant_identifier_names
       this.numFieldOffsetY_B,
       this.numberFieldOffsetX,
       this.numberLayoutGravity,
       this.switchOffsetY,
+      // ignore: non_constant_identifier_names
       this.switchOffsetY_B,
       this.logBtnOffsetY,
+      // ignore: non_constant_identifier_names
       this.logBtnOffsetY_B,
       this.logBtnWidth,
       this.logBtnHeight,
@@ -474,7 +484,9 @@ class AliAuthModel {
       this.logBtnMarginLeftAndRight,
       this.logBtnLayoutGravity,
       this.privacyOffsetY,
+      // ignore: non_constant_identifier_names
       this.privacyOffsetY_B,
+      // ignore: non_constant_identifier_names
       this.sloganOffsetY_B,
       this.checkBoxWidth,
       this.checkBoxHeight,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:ali_auth/ali_auth.dart';
 import 'package:ali_auth/ali_auth_enum.dart';
 import 'package:ali_auth/ali_auth_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -22,8 +23,10 @@ class MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     AliAuth.loginListen(onEvent: (onEvent) {
-      print(
-          "-------------------------------> ${onEvent} <---------------------------------");
+      if (kDebugMode) {
+        print(
+          "-------------------------------> $onEvent <---------------------------------");
+      }
 
       setState(() {
         status = onEvent.toString();
@@ -777,21 +780,27 @@ class MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () async {
                 final result = await AliAuth.login();
-                print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果${result}");
+                if (kDebugMode) {
+                  print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果$result");
+                }
               },
               child: const Text("开始全屏延迟登录"),
             ),
             ElevatedButton(
               onPressed: () async {
                 final result = await AliAuth.login();
-                print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果${result}");
+                if (kDebugMode) {
+                  print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果$result");
+                }
               },
               child: const Text("开始弹窗延迟登录"),
             ),
             ElevatedButton(
               onPressed: () async {
                 final result = await AliAuth.login();
-                print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果${result}");
+                if (kDebugMode) {
+                  print("同开始初始化延迟登录，初始化时决定页面类型 获取登录结果$result");
+                }
               },
               child: const Text("开始底部弹窗延迟登录"),
             ),
