@@ -25,7 +25,7 @@ class MyHomePageState extends State<MyHomePage> {
     AliAuth.loginListen(onEvent: (onEvent) {
       if (kDebugMode) {
         print(
-          "-------------------------------> $onEvent <---------------------------------");
+          "----------------> $onEvent <----------------");
       }
 
       setState(() {
@@ -66,7 +66,7 @@ class MyHomePageState extends State<MyHomePage> {
                     CustomThirdView.fromJson(configMap);
                 AliAuthModel config = AliAuthModel(
                     "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                    "",
+                    "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                     isDebug: true,
                     isDelay: false,
                     pageType: PageType.fullPort,
@@ -206,7 +206,7 @@ class MyHomePageState extends State<MyHomePage> {
                     CustomThirdView.fromJson(configMap);
                 AliAuthModel config = AliAuthModel(
                     "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                    "",
+                    "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                     isDebug: true,
                     isDelay: false,
                     pageType: PageType.customXml,
@@ -299,7 +299,7 @@ class MyHomePageState extends State<MyHomePage> {
 
                 AliAuthModel config = AliAuthModel(
                   "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                  "",
+                  "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                   isDebug: true,
                   isDelay: false,
                   pageType: PageType.dialogPort,
@@ -424,7 +424,7 @@ class MyHomePageState extends State<MyHomePage> {
 
                 AliAuthModel config = AliAuthModel(
                   "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                  "",
+                  "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                   isDebug: true,
                   isDelay: false,
                   pageType: PageType.dialogPort,
@@ -548,7 +548,7 @@ class MyHomePageState extends State<MyHomePage> {
 
                 AliAuthModel config = AliAuthModel(
                   "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                  "",
+                  "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                   isDebug: true,
                   isDelay: false,
                   pageType: PageType.dialogBottom,
@@ -658,7 +658,7 @@ class MyHomePageState extends State<MyHomePage> {
                     CustomThirdView.fromJson(configMap);
                 AliAuthModel config = AliAuthModel(
                     "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=",
-                    "",
+                    "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==",
                     isDebug: true,
                     isDelay: true,
                     pageType: PageType.fullPort,

@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NSDictionary (Utils)
-
 - (NSInteger)integerValueForKey:(NSString *)key defaultValue:(NSInteger)defaultValue;
 - (int)intValueForKey:(NSString *)key defaultValue:(int)defaultValue;
 - (long long)longlongValueForKey:(NSString *)key defaultValue:(long long)defaultValue;

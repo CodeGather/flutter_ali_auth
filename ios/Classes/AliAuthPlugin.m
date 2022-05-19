@@ -2,6 +2,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "AliAuthEnum.h"
+#import "MJExtension.h"
 #import <ATAuthSDK/ATAuthSDK.h>
 //#import "ProgressHUD.h"
 #import "PNSBuildModelUtils.h"
@@ -64,9 +66,11 @@ bool bool_false = false;
 
 #pragma mark - IOS 主动发送通知s让 flutter调用监听 eventChannel start
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
-  _eventSink = eventSink;
-  if(_model == nil){
-    [self initSdk];
+  if (_eventSink == nil) {
+    _eventSink = eventSink;
+    /** 返回初始化状态 */
+    NSString *version = [[TXCommonHandler sharedInstance] getVersion];
+    _eventSink([NSString stringWithFormat: @"插件启动监听成功, 当前SDK版本: %@", version]);
   }
   return nil;
 }
@@ -102,31 +106,29 @@ bool bool_false = false;
   _result = result;
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
       result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else if ([@"init" isEqualToString:call.method]) {
+  }
+  // 初始化SDK
+  else if ([@"initSdk" isEqualToString:call.method]) {
     if(_model == nil){
       [self initSdk];
     } else {
-      NSDictionary *dict = @{
-          @"code": @"600024",
-          @"msg" : @"终端环境检查⽀持认证",
-          @"data" : @(bool_true)
-      };
-      self->_result(dict);
+      if (![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
+        [self initSdk];
+      } else {
+        [self loginWithModel: self->_model complete:^{}];
+      }
     }
   }
-  else  if ([@"login" isEqualToString:call.method]) {
+  // 延时登录获取非延时登录
+  else if ([@"login" isEqualToString:call.method]) {
     if(_model == nil){
-      NSDictionary *dict = @{
-          @"code": @"500000",
-          @"msg" : @"请先调用init进行初始化SDK！",
-          @"data" : @""
-      };
-      self->_eventSink(dict);
+      NSDictionary *dict = @{ @"resultCode": @"500001" };
+      [self showResult: dict];
       return;
     }
     [self loginWithModel: _model complete:^{}];
   }
-  else if ([@"checkVerifyEnable" isEqualToString:call.method]) {
+  else if ([@"checkEnvAvailable" isEqualToString:call.method]) {
     [self checkVerifyEnable:call result:result];
   }
   else  if ([@"preLogin" isEqualToString:call.method]) {
@@ -146,60 +148,43 @@ bool bool_false = false;
 #pragma mark - 初始化SDK以及相关布局
 - (void)initSdk {
   NSDictionary *dic = _callData.arguments;
-  if ([dic isKindOfClass:[NSDictionary class]]) {
-    [self initSubviews];
-    NSString *secret = dic[@"sk"];
-    NSDictionary *config = dic[@"config"];
-    
-    /// 判断是否是弹窗模式
-    if([config boolValueForKey: @"isDialog" defaultValue: NO]){
-      _model = [PNSBuildModelUtils buildNewAlertModel: config
-                                             selector: @selector(btnClick:)
-                                               target: self];
-      _model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    } else {
-      _model = [PNSBuildModelUtils buildNewFullScreenModel: config
-                                                  selector: @selector(btnClick:)
-                                                    target: self];
-      _model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    }
-
-    // __weak typeof(self) weakSelf = self;
+  _model = [TXCustomModel mj_objectWithKeyValues: dic];
+  if ([[dic stringValueForKey: @"iosSk" defaultValue: @""] isEqualToString:@""]) {
+    NSDictionary *dict = @{ @"resultCode": @"500000" };
+    [self showResult: dict];
+  }
+  else {
+    NSString *secret = [dic stringValueForKey: @"iosSk" defaultValue: @""];
+    /** 不管是否延时登录都需要，先初始化model */
+    _model = [PNSBuildModelUtils buildModelWithStyle: dic target:self selector:@selector(btnClick:)];
+    //1. 初始化sdk，设置secret
     [[TXCommonHandler sharedInstance] setAuthSDKInfo:secret complete:^(NSDictionary * _Nonnull resultDic) {
-      /// 打印日志
-      // [weakSelf showResult:resultDic];
-      
-      [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
-        if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
-          NSDictionary *dict = @{
-              @"code": @"600024",
-              @"msg" : @"终端环境检查⽀持认证",
-              @"data" : @(bool_true)
-          };
-          self->_result(dict);
+      //2. 调用check接口检查及准备接口调用环境
+      [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable checkDic) {
+        if ([PNSCodeSuccess isEqualToString:[checkDic objectForKey:@"resultCode"]] == YES) {
+          [checkDic setValue:@(bool_true) forKey: @"token"];
+          [self showResult: checkDic];
+          //3. 调用取号接口，加速授权页的弹起
+          [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout: 5000 complete:^(NSDictionary * _Nonnull resultDic) {
+            //4. 预取号成功后判断是否延时登录，否则立即登录
+            if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
+              if (![dic boolValueForKey: @"isDelay" defaultValue: NO]) {
+                [self loginWithModel: self->_model complete:^{}];
+                [resultDic setValue:@"600012" forKey: @"resultCode"];
+                [resultDic setValue:@(bool_true) forKey: @"token"];
+              }
+            } else {
+              [resultDic setValue:@"600012" forKey: @"resultCode"];
+              [checkDic setValue:@(bool_false) forKey: @"token"];
+            }
+            [self showResult: resultDic];
+          }];
         } else {
-          NSDictionary *dict = @{
-              @"code": [NSString stringWithFormat: @"%@", [resultDic objectForKey:@"resultCode"]],
-              @"msg" : [resultDic objectForKey:@"msg"]?:@"",
-              @"data" : @(bool_false)
-          };
-          self->_result(dict);
+          [checkDic setValue:@(bool_false) forKey: @"token"];
+          [self showResult: checkDic];
         }
       }];
     }];
-    
-    //显示版本信息
-    NSLog(@"sdk version：%@；cm sdk version：5.7.1.beta；ct sdk version：3.6.2.1；cu sdk version：4.0.1 IR02B1030",
-      [[TXCommonHandler sharedInstance] getVersion]
-    );
-    
-  } else {
-    NSDictionary *dict = @{
-        @"code": @"500000",
-        @"msg" : @"config配置信息出现问题，请检查阿里云控制台sk与包名是否一致",
-        @"data" : @""
-    };
-    self->_eventSink(dict);
   }
 }
 
@@ -345,12 +330,13 @@ bool bool_false = false;
 }
 
 #pragma mark -  格式化数据utils返回数据
-- (void)showResult:(id __nullable)showResult  {
+- (void)showResult:(id __nullable)showResult {
   NSDictionary *dict = @{
       @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
-      @"msg" : [showResult objectForKey:@"msg"]?:@"",
-      @"data" : [showResult objectForKey:@"token"]?:@""
+      @"msg" : [AliAuthEnum initData][[showResult objectForKey:@"resultCode"]]?:@"",
+      @"data" : [showResult objectForKey: @"token"]?:@""
   };
+
   self->_eventSink(dict);
   [self showResultLog: showResult];
 }
