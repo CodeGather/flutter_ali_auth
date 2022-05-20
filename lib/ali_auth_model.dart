@@ -46,39 +46,6 @@ class AliAuthModel {
   // /// 设置授权⻚是否居于底部
   // final bool? dialogBottom;
   //
-  // /// ios 弹窗设置参数
-  // /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
-  // final bool? alertBarIsHidden;
-  //
-  // /// bar的背景色 默认颜色为白色 #FFFFFF
-  // final String? alertTitleBarColor;
-  //
-  // /// bar的关闭按钮
-  // final bool? alertCloseItemIsHidden;
-  //
-  // /// 关闭按钮的图片路径
-  // final String? alertCloseImage;
-  //
-  // /// 关闭按钮的图片X坐标
-  // final int? alertCloseImageX;
-  //
-  // /// 关闭按钮的图片Y坐标
-  // final int? alertCloseImageY;
-  //
-  // /// 关闭按钮的图片宽度
-  // final int? alertCloseImageW;
-  //
-  // /// 关闭按钮的图片高度
-  // final int? alertCloseImageH;
-  //
-  // /// 底部蒙层背景颜色，默认黑色
-  // final String? alertBlurViewColor;
-  //
-  // /// 底部蒙层背景透明度，默认0.5 0 ~ 1
-  // final double? alertBlurViewAlpha;
-  //
-  // /// 窗口圆角 顺序为左上，左下，右下，右上，需要填充4个值，不足4个值则无效，如果值<=0则为直角 */
-  // final String? alertCornerRadiusArray;
   /// ------- 一、状态栏 --------- ///
 
   /// statusBarColor 设置状态栏颜⾊（系统版本 5.0 以上可设置）
@@ -98,6 +65,9 @@ class AliAuthModel {
 
   /// ------- 二、导航栏 --------- ///
 
+  /// 设置默认导航栏是否隐藏
+  final bool? navHidden;
+
   /// 设置导航栏主题色
   final String? navColor;
 
@@ -116,9 +86,6 @@ class AliAuthModel {
 
   /// 设置导航栏返回按钮隐藏
   final bool? navReturnHidden;
-
-  /// 设置默认导航栏是否隐藏
-  final bool? navHidden;
 
   /// 设置导航栏返回按钮宽度
   final int? navReturnImgWidth;
@@ -390,6 +357,7 @@ class AliAuthModel {
   final bool? dialogBottom;
   final int? dialogOffsetX;
   final int? dialogOffsetY;
+  final List<int> ? dialogCornerRadiusArray;
   final double? dialogAlpha;
   final String? pageBackgroundPath;
 
@@ -420,6 +388,41 @@ class AliAuthModel {
 
   // 授权页面背景路径支持视频mp4，mov等、图片jpeg，jpg，png等、动图gif
   final String? backgroundPath;
+
+
+
+  /// /// ------- 十一、ios 弹窗设置参数 --------- ///
+  /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
+  final bool? alertBarIsHidden;
+
+  /// bar的背景色 默认颜色为白色 #FFFFFF
+  final String? alertTitleBarColor;
+
+  /// bar的关闭按钮
+  final bool? alertCloseItemIsHidden;
+
+  /// 关闭按钮的图片路径
+  final String? alertCloseImage;
+
+  /// 关闭按钮的图片X坐标
+  final int? alertCloseImageX;
+
+  /// 关闭按钮的图片Y坐标
+  final int? alertCloseImageY;
+
+  /// 关闭按钮的图片宽度
+  final int? alertCloseImageW;
+
+  /// 关闭按钮的图片高度
+  final int? alertCloseImageH;
+
+  /// 底部蒙层背景颜色，默认黑色
+  final String? alertBlurViewColor;
+
+  /// 底部蒙层背景透明度，默认0.5 0 ~ 1
+  final double? alertBlurViewAlpha;
+
+  final PNSPresentationDirection? presentDirection;
 
   const AliAuthModel(this.androidSk, this.iosSk,
       {this.isDebug = true,
@@ -513,6 +516,7 @@ class AliAuthModel {
       this.dialogBottom,
       this.dialogOffsetX,
       this.dialogOffsetY,
+      this.dialogCornerRadiusArray,
       this.pageBackgroundPath,
       this.pageBackgroundRadius,
       this.webViewStatusBarColor,
@@ -547,7 +551,18 @@ class AliAuthModel {
          * "https://img.zcool.cn/community/01dda35912d7a3a801216a3e3675b3.gif",
          */
       this.backgroundPath = "assets/background_image.jpeg",
-      this.bottomNavBarColor})
+      this.bottomNavBarColor,
+      this.alertBarIsHidden,
+      this.alertTitleBarColor,
+      this.alertCloseItemIsHidden,
+      this.alertCloseImage,
+      this.alertCloseImageX,
+      this.alertCloseImageY,
+      this.alertCloseImageW,
+      this.alertCloseImageH,
+      this.alertBlurViewColor,
+      this.alertBlurViewAlpha,
+      this.presentDirection})
       : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
@@ -628,6 +643,8 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'dialogBottom': instance.dialogBottom,
       'dialogOffsetX': instance.dialogOffsetX,
       'dialogOffsetY': instance.dialogOffsetY,
+      'dialogAlpha': instance.dialogAlpha,
+      'dialogCornerRadiusArray': instance.dialogCornerRadiusArray,
       'webViewStatusBarColor': instance.webViewStatusBarColor,
       'webNavColor': instance.webNavColor,
       'webNavTextColor': instance.webNavTextColor,
@@ -640,7 +657,6 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'activityIn': instance.activityIn,
       'screenOrientation': instance.screenOrientation,
       'logBtnToastHidden': instance.logBtnToastHidden,
-      'dialogAlpha': instance.dialogAlpha,
       'pageBackgroundPath': instance.pageBackgroundPath,
       'pageBackgroundRadius': instance.pageBackgroundRadius,
       'protocolOneName': instance.protocolOneName,
@@ -669,6 +685,17 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'isHiddenCustom': instance.isHiddenCustom,
       'customThirdView': instance.customThirdView?.toJson() ?? {},
       'bottomNavBarColor': instance.bottomNavBarColor,
+      'alertBarIsHidden': instance.alertBarIsHidden,
+      'alertTitleBarColor': instance.alertTitleBarColor,
+      'alertCloseItemIsHidden': instance.alertCloseItemIsHidden,
+      'alertCloseImage': instance.alertCloseImage,
+      'alertCloseImageX': instance.alertCloseImageX,
+      'alertCloseImageY': instance.alertCloseImageY,
+      'alertCloseImageW': instance.alertCloseImageW,
+      'alertCloseImageH': instance.alertCloseImageH,
+      'alertBlurViewColor': instance.alertBlurViewColor,
+      'alertBlurViewAlpha': instance.alertBlurViewAlpha,
+      'presentDirection': instance.presentDirection,
     };
 
 /// 初始配置&注意事项

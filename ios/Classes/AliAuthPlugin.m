@@ -62,6 +62,7 @@ bool bool_false = false;
   [registrar addMethodCallDelegate:instance channel: channel];
   //为了让手机安装demo弹出使用网络权限弹出框
   [[AliAuthPlugin alloc] httpAuthority];
+  
 }
 
 #pragma mark - IOS 主动发送通知s让 flutter调用监听 eventChannel start
@@ -148,7 +149,7 @@ bool bool_false = false;
 #pragma mark - 初始化SDK以及相关布局
 - (void)initSdk {
   NSDictionary *dic = _callData.arguments;
-  _model = [TXCustomModel mj_objectWithKeyValues: dic];
+  // _model = [TXCustomModel mj_objectWithKeyValues: dic];
   if ([[dic stringValueForKey: @"iosSk" defaultValue: @""] isEqualToString:@""]) {
     NSDictionary *dict = @{ @"resultCode": @"500000" };
     [self showResult: dict];
@@ -277,7 +278,7 @@ bool bool_false = false;
   float timeout = 5.0; //self.tf_timeout.text.floatValue;
   __weak typeof(self) weakSelf = self;
   UIViewController *_vc = [self findCurrentViewController];
-    
+  
   //1. 调用check接口检查及准备接口调用环境
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
@@ -548,6 +549,9 @@ bool bool_false = false;
 #pragma mark  ======在view上添加UIViewController========
 - (UIViewController *)findCurrentViewController{
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
+  
+//  UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
+//  [window addGestureRecognizer:singleTap];
     UIViewController *topViewController = [window rootViewController];
     while (true) {
         if (topViewController.presentedViewController) {
@@ -561,7 +565,12 @@ bool bool_false = false;
             break;
         }
     }
+  
     return topViewController;
+}
+
+- (void) clickAllScreen:(UITapGestureRecognizer *) recognizer {
+  NSLog(@"点击事件屏蔽");
 }
 
 @end

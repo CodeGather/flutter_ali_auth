@@ -80,6 +80,9 @@
 | 700004    | 点击协议富⽂本⽂字事件 |
 | 700005    | 点击点击第三方按钮事件 |
 
+#https://www.jianshu.com/p/88d45977d482
+#https://github.com/flutter/flutter/issues/35784
+
 ## 步骤
 - 1、配置APP的签名安装于手机
 - 2、获取签名APK文件下载地址：[点击下载快速获取签名工具](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/87870/cn_zh/1534313766610/AppSignGet.apk)

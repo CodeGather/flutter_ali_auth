@@ -32,6 +32,13 @@ enum UIFAG {
   systemUiFalgLightNavigationBar
 }
 
+enum PNSPresentationDirection{
+  presentationDirectionBottom,
+  presentationDirectionRight,
+  presentationDirectionTop,
+  presentationDirectionLeft,
+}
+
 enum PageType {
   ///全屏（竖屏）
   fullPort,
