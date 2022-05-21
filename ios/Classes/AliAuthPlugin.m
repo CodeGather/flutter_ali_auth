@@ -110,20 +110,24 @@ bool bool_false = false;
   }
   // 初始化SDK
   else if ([@"initSdk" isEqualToString:call.method]) {
-    if(_model == nil){
-      [self initSdk];
+    if (_eventSink == nil) {
+      result(@{ @"code": @"500001", @"msg": @"请先对插件进行监听！" });
     } else {
-      if (![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
+      if(_model == nil){
         [self initSdk];
       } else {
-        [self loginWithModel: self->_model complete:^{}];
+        if (![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
+          [self initSdk];
+        } else {
+          [self loginWithModel: self->_model complete:^{}];
+        }
       }
     }
   }
   // 延时登录获取非延时登录
   else if ([@"login" isEqualToString:call.method]) {
     if(_model == nil){
-      NSDictionary *dict = @{ @"resultCode": @"500001" };
+      NSDictionary *dict = @{ @"resultCode": @"500003" };
       [self showResult: dict];
       return;
     }

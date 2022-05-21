@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'my_home_page.dart';
 import 'my_router_page.dart';
 
@@ -26,6 +27,31 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    configLoading();
+  }
+
+
+  void configLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..loadingStyle = EasyLoadingStyle.dark
+      ..indicatorSize = 45.0
+      ..radius = 10.0
+      ..progressColor = Colors.yellow
+      ..backgroundColor = Colors.green
+      ..indicatorColor = Colors.yellow
+      ..textColor = Colors.yellow
+      ..maskColor = Colors.blue.withOpacity(0.5)
+      ..userInteractions = true
+      ..dismissOnTap = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: getDefaultRouter(),
@@ -33,6 +59,7 @@ class _MyAppState extends State<MyApp> {
         '/homePage': (BuildContext context) => const MyHomePage(),
         '/routerPage': (BuildContext context) => const MyRouterPage(),
       },
+      builder: EasyLoading.init(),
     );
   }
 }

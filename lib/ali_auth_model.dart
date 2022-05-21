@@ -261,6 +261,8 @@ class AliAuthModel {
   /// 是否隐藏第三方布局
   final bool? isHiddenCustom;
 
+  // final bool? isCheckboxCustomViewClick;
+
   /// 第三方图标相关参数只对iOS有效，android 请使用布局文件实现
   /// 第三方图标按钮居中布局
   /// 第三方布局图片路径

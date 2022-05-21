@@ -75,7 +75,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         break;
       case "initSdk":
         if (_events == null) {
-          result.error("500000", "请先对插件进行监听！", null);
+          result.success("500001", "请先对插件进行监听！", null);
         } else {
           boolean isDelay = (boolean) call.argument("isDelay");
           if (oneKeyLoginPublic == null || !isDelay) {
@@ -90,7 +90,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         if (oneKeyLoginPublic != null) {
           oneKeyLoginPublic.startLogin((int) call.argument("timeout"));
         } else {
-          result.success("该接口为延时登录接口，请先初始化后再次调用该接口！");
+          result.success("500002", "该接口为延时登录接口，请先初始化后再次调用该接口！", null);
         }
         break;
       case "checkEnvAvailable":

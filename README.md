@@ -68,6 +68,10 @@ However, when using or referring to the ideas or related contents of this plug-i
 
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="222">  
 
+## QQ Group chat
+
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_qq.jpg" width="200">
+
 ## Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/CodeGather/flutter_ali_auth.svg)](https://starchart.cc/CodeGather/flutter_ali_auth)

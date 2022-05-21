@@ -114,6 +114,10 @@
 
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="222">  
 
+## QQ交流群
+
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_qq.jpg" width="200">  
+
 ## 关注趋势
 
 [![Stargazers over time](https://starchart.cc/CodeGather/flutter_ali_auth.svg)](https://starchart.cc/CodeGather/flutter_ali_auth)
