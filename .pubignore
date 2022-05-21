@@ -30,6 +30,7 @@
 .pub/
 */build/
 */pods/
+/document/
 /screenshot/
 
 # Web related
