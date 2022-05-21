@@ -112,11 +112,11 @@
 
 ## 如果你觉得不错欢迎打赏
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="222">  
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="222">  
 
 ## QQ交流群
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/paly_qq.jpg" width="200">  
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_qq.jpg" width="200">  
 
 ## 关注趋势
 
