@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -100,18 +101,22 @@ public class UtilTool {
     if (!btnPathImage.contains(",")) {
       return stateListDrawable;
     }
-    List<String> btnPathList = Arrays.asList(btnPathImage.split(","));
-    // 正常状态下的Drawable
-    BitmapDrawable drawable_p = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(0)));
-    // 按下和获取焦点是的Drawable
-    BitmapDrawable drawable_n = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(1)));
-    // 被禁用时的Drawable
-    BitmapDrawable drawable_b = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(2)));
+    try{
+      List<String> btnPathList = Arrays.asList(btnPathImage.split(","));
+      // 正常状态下的Drawable
+      BitmapDrawable drawable_p = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(0)));
+      // 按下和获取焦点是的Drawable
+      BitmapDrawable drawable_n = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(1)));
+      // 被禁用时的Drawable
+      BitmapDrawable drawable_b = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(2)));
 
-    stateListDrawable.addState(new int[]{android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
-    stateListDrawable.addState(new int[]{android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_p);
-    stateListDrawable.addState(new int[]{-android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_b);
-    stateListDrawable.addState(new int[]{-android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
+      stateListDrawable.addState(new int[]{android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
+      stateListDrawable.addState(new int[]{android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_p);
+      stateListDrawable.addState(new int[]{-android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_b);
+      stateListDrawable.addState(new int[]{-android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     return stateListDrawable;
   }
 
@@ -121,7 +126,7 @@ public class UtilTool {
    * @param path
    * @return
    */
-  public static BitmapDrawable getBitmapToBitmapDrawable(Context mContext, String path) {
+  public static BitmapDrawable getBitmapToBitmapDrawable(Context mContext, String path) throws IOException {
     // 正常状态下的Drawable
     return new BitmapDrawable(mContext.getResources(), getPathToBitmap(mContext, path));
   }
@@ -132,15 +137,10 @@ public class UtilTool {
    * @param path
    * @return
    */
-  public static Bitmap getPathToBitmap(Context mContext, String path) {
-    Bitmap bitmap = null;
+  public static Bitmap getPathToBitmap(Context mContext, String path) throws IOException {
     AssetManager assetManager = mContext.getAssets();
-    try {
-      InputStream fileDescriptor = assetManager.open(path);
-      bitmap = BitmapFactory.decodeStream(fileDescriptor);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    InputStream fileDescriptor = assetManager.open(path);
+    Bitmap bitmap = BitmapFactory.decodeStream(fileDescriptor);
     return bitmap;
   }
 

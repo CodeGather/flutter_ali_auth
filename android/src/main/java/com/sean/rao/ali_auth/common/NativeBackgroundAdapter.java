@@ -38,18 +38,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mobile.auth.gatewayauth.LoginAuthActivity;
+import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
+import com.mobile.auth.gatewayauth.model.TokenRet;
 import com.sean.rao.ali_auth.common.CacheManage;
 import com.sean.rao.ali_auth.common.GifAnimationDrawable;
+import com.sean.rao.ali_auth.utils.AppUtils;
+import com.sean.rao.ali_auth.utils.UtilTool;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.util.concurrent.ExecutorService;
+
+import io.flutter.plugin.common.EventChannel;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -69,11 +77,15 @@ public class NativeBackgroundAdapter {
     private ExecutorService mExecutorService;
     private String key, path;
     private JSONObject jsonObject;
+    private PhoneNumberAuthHelper authHelper;
+    private EventChannel.EventSink eventSink;
 
     public NativeBackgroundAdapter(CacheManage cacheManage, ExecutorService executorService, final Context context,
-                                   String key, JSONObject jsonObject) {
+                                   String key, JSONObject jsonObject, EventChannel.EventSink _eventSink, PhoneNumberAuthHelper authHelper) {
         this.key = key;
         this.jsonObject = jsonObject;
+        this.authHelper = authHelper;
+        this.eventSink = _eventSink;
         this.path = jsonObject.getString("backgroundPath");
         mCacheManage = cacheManage;
         mExecutorService = executorService;
@@ -120,7 +132,7 @@ public class NativeBackgroundAdapter {
         } else if ("gifPath".equals(key)) {
             final ImageView imageView = new ImageView(frameLayout.getContext());
             LayoutParams params = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
-            imageView.setScaleType(ScaleType.FIT_CENTER);
+            imageView.setScaleType(ScaleType.CENTER_CROP);
             if (!TextUtils.isEmpty(backgroundColor)) {
                 imageView.setBackgroundColor(Color.parseColor(backgroundColor));
             }
@@ -168,7 +180,7 @@ public class NativeBackgroundAdapter {
         }
 
         // 构建关闭按钮
-//        createImageButton(frameLayout, path);
+        createImageButton(frameLayout, path);
     }
 
     /**
@@ -521,20 +533,40 @@ public class NativeBackgroundAdapter {
      * @param path
      * @return
      */
-    protected static void createImageButton(final FrameLayout frameLayout, final String path){
-        LinearLayout linearLayout = new LinearLayout(frameLayout.getContext());
-        linearLayout.setFitsSystemWindows(true);
-        LayoutParams linearLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-        ImageButton imageButton = new ImageButton(frameLayout.getContext());
-        imageButton.setPadding(0, 0, 0, 0);
-        imageButton.setBackgroundColor(Color.TRANSPARENT);
-        imageButton.setScaleType(ScaleType.FIT_CENTER);
-        imageButton.setImageDrawable(toDrawable(path, frameLayout.getContext()));
-        LayoutParams buttonParams = new LayoutParams(550, 250);
-        imageButton.setOnClickListener(v -> System.out.println("点击关闭按钮"));
-        linearLayout.addView(imageButton, buttonParams);
+    protected void createImageButton(final FrameLayout frameLayout, final String path){
+        JSONObject customRetureBtn = jsonObject.getJSONObject("customReturnBtn");
+        if (customRetureBtn != null) {
+            try{
+                LinearLayout linearLayout = new LinearLayout(frameLayout.getContext());
+                /// 是否留出状态栏的高度
+                // linearLayout.setFitsSystemWindows(false);
+                LayoutParams linearLayoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT);
+                ImageButton imageButton = new ImageButton(frameLayout.getContext());
+                imageButton.setPadding(0, 0, 0, 0);
+                imageButton.setBackgroundColor(Color.TRANSPARENT);
+                imageButton.setScaleType(ScaleType.values()[customRetureBtn.getIntValue("imgScaleType")]);
+                imageButton.setImageDrawable(UtilTool.getBitmapToBitmapDrawable(frameLayout.getContext(), UtilTool.flutterToPath(customRetureBtn.getString("imgPath"))));
+                LayoutParams buttonParams = new LayoutParams(
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("width")),
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("height"))
+                );
+                buttonParams.setMargins(
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("left")),
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("top")),
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("right")),
+                        AppUtils.dp2px(frameLayout.getContext(), customRetureBtn.getIntValue("bottom"))
+                );
+                imageButton.setOnClickListener(v -> {
+                    eventSink.success(UtilTool.resultFormatData("700000", null, null));
+                    authHelper.quitLoginPage();
+                });
 
-        frameLayout.addView(linearLayout, linearLayoutParams);
+                linearLayout.addView(imageButton, buttonParams);
+                frameLayout.addView(linearLayout, linearLayoutParams);
+            } catch (IOException e) {
+                eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+            }
+        }
     }
 
     protected static Drawable toDrawable(String imgUrl, Context context) {

@@ -13,6 +13,7 @@ package com.sean.rao.ali_auth.utils;
  * @Version: 1.0
  */
 public enum StatusAll {
+  Status500000("文件获取错误！", "500000"),
   Status600000("获取token成功！", "600000"),
   Status600001("唤起授权页成功！", "600001"),
   Status600002("唤起授权⻚失败！建议切换到其他登录⽅式", "600002"),

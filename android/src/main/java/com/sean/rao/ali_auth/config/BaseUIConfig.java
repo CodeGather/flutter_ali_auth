@@ -30,6 +30,7 @@ import com.sean.rao.ali_auth.common.Constant;
 import com.sean.rao.ali_auth.utils.AppUtils;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,12 +127,16 @@ public abstract class BaseUIConfig {
                     /// 按钮控件
                     ImageButton itemButton = new ImageButton(mActivity);
                     /// 需要转化路径
-                    itemButton.setBackground(
-                            UtilTool.getBitmapToBitmapDrawable(
-                                    mContext,
-                                    UtilTool.flutterToPath(String.valueOf(customThirdViewItem.get(i)))
-                            )
-                    );
+                    try {
+                        itemButton.setBackground(
+                                UtilTool.getBitmapToBitmapDrawable(
+                                        mContext,
+                                        UtilTool.flutterToPath(String.valueOf(customThirdViewItem.get(i)))
+                                )
+                        );
+                    } catch (IOException e) {
+                        eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+                    }
                     ViewGroup.LayoutParams buttonLayoutParams = new ViewGroup.LayoutParams(
                             AppUtils.dp2px(mContext, customThirdView.getFloatValue("itemWidth") > 0 ? customThirdView.getFloatValue("itemWidth") : 60),
                             AppUtils.dp2px(mContext, customThirdView.getFloatValue("itemHeight") > 0 ? customThirdView.getFloatValue("itemHeight") : 60)
@@ -181,6 +186,9 @@ public abstract class BaseUIConfig {
         }
     }
 
+    /**
+     * 删除自定义布局参数，防止内存溢出
+     */
     void clearCustomConfig(){
         mAuthHelper.removeAuthRegisterXmlConfig();
         mAuthHelper.removeAuthRegisterViewConfig();

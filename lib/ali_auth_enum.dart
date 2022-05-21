@@ -179,3 +179,55 @@ Map<String, dynamic> _$CustomThirdViewToJson(CustomThirdView instance) =>
       'viewItemName': instance.viewItemName,
       'viewItemPath': instance.viewItemPath,
     };
+
+
+///  自定义布局实体
+class CustomView {
+  final int? top;
+  final int? right;
+  final int? bottom;
+  final int? left;
+  final int? width;
+  final int? height;
+  final String? imgPath;
+  final ScaleType ?imgScaleType;
+  CustomView(
+      this.top,
+      this.right,
+      this.bottom,
+      this.left,
+      this.width,
+      this.height,
+      this.imgPath,
+      this.imgScaleType);
+
+  factory CustomView.fromJson(Map<String, dynamic> srcJson) =>
+      _$CustomViewFromJson(srcJson);
+  Map<String, dynamic> toJson() => _$CustomViewToJson(this);
+}
+
+/// 自定义布局json转实体
+CustomView _$CustomViewFromJson(Map<String, dynamic> json) {
+  return CustomView(
+      json['top'],
+      json['right'],
+      json['bottom'],
+      json['left'],
+      json['width'],
+      json['height'],
+      json['imgPath'],
+      json['imgScaleType']);
+}
+
+/// 自定义布局实体转json
+Map<String, dynamic> _$CustomViewToJson(CustomView instance) =>
+    <String, dynamic>{
+      'top': instance.top ?? 0,
+      'right': instance.right ?? 0,
+      'bottom': instance.bottom ?? 0,
+      'left': instance.left ?? 0,
+      'width': instance.width,
+      'height': instance.height,
+      'imgPath': instance.imgPath,
+      'imgScaleType': (instance.imgScaleType ?? ScaleType.centerCrop).index,
+    };

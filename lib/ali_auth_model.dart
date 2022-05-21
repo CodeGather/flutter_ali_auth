@@ -93,6 +93,9 @@ class AliAuthModel {
   /// 设置导航栏返回按钮隐藏高度
   final int? navReturnImgHeight;
 
+  /// 自定义返回按钮参数
+  final CustomView ?customReturnBtn;
+
   /// 设置导航栏返回按钮缩放模式
   final ScaleType? navReturnScaleType;
 
@@ -440,6 +443,7 @@ class AliAuthModel {
       this.navReturnImgPath,
       this.navReturnImgWidth,
       this.navReturnImgHeight,
+      this.customReturnBtn,
       this.navReturnHidden,
       this.navReturnScaleType,
       this.navHidden,
@@ -588,6 +592,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'navReturnImgPath': instance.navReturnImgPath,
       'navReturnImgWidth': instance.navReturnImgWidth,
       'navReturnImgHeight': instance.navReturnImgHeight,
+      'customReturnBtn': instance.customReturnBtn?.toJson() ?? {},
       'navReturnHidden': instance.navReturnHidden,
       'navReturnScaleType': instance.navReturnScaleType?.index ?? 0,
       'navHidden': instance.navHidden,
@@ -713,127 +718,3 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
 /// dialogBottom 为false时 默认水平垂直居中
 /// 如果需要修改弹窗的圆角背景可修改android/app/src/main/res/drawable/dialog_background_color.xml 文件
 /// 'appPrivacyOne'、'appPrivacyTwo' 字段中的逗号拼接处请勿使用多余的空格，以免出现未知错误
-
-/**
- *
- * 全屏默认配置
-this.isDebug = true,
-this.isDelay=false,
-this.pageType=PageType.fullPort,
-this.privacyOffsetX,
-this.statusBarColor = "#026ED2",
-this.bottomNavColor = "#FFFFFF",
-this.isLightColor = false,
-this.isStatusBarHidden = false,
-this.statusBarUIFlag = UIFAG.SYSTEM_UI_FLAG_FULLSCREEN,
-this.navColor = "#026ED2",
-this.navText = "阿里云一键登录插件演示",
-this.navTextColor = "#ffffff",
-this.navReturnImgPath = "assets/return_btn.png",
-this.navReturnImgWidth = 30,
-this.navReturnImgHeight = 30,
-this.navReturnHidden = false,
-this.navReturnScaleType = ScaleType.center,
-this.navHidden = false,
-this.logoImgPath = "assets/logo.png",
-this.logoHidden = false,
-this.numberColor = "#ffffff",
-this.numberSize = 28,
-this.switchAccHidden = false,
-this.switchAccTextColor = "#FDFDFD",
-this.logBtnText = "一键登录",
-this.logBtnTextSize = 16,
-this.logBtnTextColor = "#FFF000",
-this.protocolOneName = "《通达理》",
-this.protocolOneURL = "https://tunderly.com",
-this.protocolTwoName = "《思预云》",
-this.protocolTwoURL = "https://jokui.com",
-this.protocolThreeName = "《思预云APP》",
-this.protocolThreeURL = "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
-this.protocolCustomColor = "#F3F3F3",
-this.protocolColor = "#dddddd",
-this.protocolLayoutGravity = Gravity.CENTER_HORIZONTAL,
-this.sloganTextColor = "#ffffff",
-this.sloganText = "欢迎使用21克的爱情制作的一键登录插件",
-this.logBtnBackgroundPath = "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
-this.loadingImgPath = "authsdk_waiting_icon",
-this.sloganOffsetY = -1,
-this.logoOffsetY = -1,
-this.logoOffsetY_B = -1,
-this.logoScaleType = ScaleType.fitXy,
-this.numFieldOffsetY = -1,
-this.numFieldOffsetY_B = -1,
-this.numberFieldOffsetX = 0,
-this.numberLayoutGravity = Gravity.CENTER_HORIZONTAL,
-this.switchOffsetY = -1,
-this.switchOffsetY_B = -1,
-this.logBtnOffsetY = -1,
-this.logBtnOffsetY_B = -1,
-this.logBtnWidth = -1,
-this.logBtnHeight = 51,
-this.logBtnOffsetX = 0,
-this.logBtnMarginLeftAndRight = 28,
-this.logBtnLayoutGravity = Gravity.CENTER_HORIZONTAL,
-this.privacyOffsetY = -1,
-this.privacyOffsetY_B = 28,
-this.sloganOffsetY_B = -1,
-this.checkBoxWidth = 18,
-this.checkBoxHeight = 18,
-this.checkboxHidden = false,
-this.navTextSize = 18,
-this.logoWidth = 90,
-this.logoHeight = 90,
-this.switchAccTextSize = 16,
-this.switchAccText = "切换到其他方式",
-this.sloganTextSize = 16,
-this.sloganHidden = false,
-this.uncheckedImgPath = "assets/btn_unchecked.png",
-this.checkedImgPath = "assets/btn_checked.png",
-this.privacyState = false,
-this.protocolGravity = Gravity.CENTER_HORIZONTAL,
-this.privacyTextSize = 12,
-this.privacyMargin = 28,
-this.privacyBefore = "",
-this.privacyEnd = "",
-this.vendorPrivacyPrefix = "",
-this.vendorPrivacySuffix = "",
-this.dialogWidth = -1,
-this.dialogHeight = -1,
-this.dialogBottom = false,
-this.dialogOffsetX = 0,
-this.dialogOffsetY = 0,
-this.pageBackgroundPath = "assets/background_image.jpeg",
-this.webViewStatusBarColor = "#026ED2",
-this.webNavColor = "#FF00FF",
-this.webNavTextColor = "#F0F0F8",
-this.webNavTextSize = -1,
-this.webNavReturnImgPath = "assets/background_image.jpeg",
-this.webSupportedJavascript = true,
-this.authPageActIn = "in_activity",
-this.activityOut = "out_activity",
-this.authPageActOut = "in_activity",
-this.activityIn = "out_activity",
-this.screenOrientation = -1,
-this.logBtnToastHidden = false,
-this.dialogAlpha = 1.0,
-this.privacyOperatorIndex = 0,
-this.privacyConectTexts,
-this.protocolAction,
-this.packageName,
-this.loadingBackgroundPath,
-this.isHiddenLoading,
-
-this.isHiddenCustom,
-this.customThirdView,
-/**
- * "assets/background_gif.gif"
- * "assets/background_gif1.gif"
- * "assets/background_gif2.gif"
- * "assets/background_image.jpeg"
- * "assets/background_video.mp4"
- *
- * "https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-7/20187232061776607.gif"
- * "https://img.zcool.cn/community/01dda35912d7a3a801216a3e3675b3.gif",
-    */
-    this.backgroundPath="assets/background_image.jpeg"
- */

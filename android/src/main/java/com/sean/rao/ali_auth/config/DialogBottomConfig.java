@@ -22,6 +22,8 @@ import com.mobile.auth.gatewayauth.ui.AbstractPnsViewDelegate;
 import com.sean.rao.ali_auth.utils.AppUtils;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
+import java.io.IOException;
+
 import io.flutter.plugin.common.EventChannel;
 
 public class DialogBottomConfig extends BaseUIConfig {
@@ -48,9 +50,13 @@ public class DialogBottomConfig extends BaseUIConfig {
                 .build());
 
         if (jsonObject.containsKey("pageBackgroundPath") && !jsonObject.getString("pageBackgroundPath").isEmpty()) {
-            RoundedBitmapDrawable pageBackgroundDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), UtilTool.getPathToBitmap(mContext, jsonObject.getString("pageBackgroundPath")));
-            pageBackgroundDrawable.setCornerRadius(AppUtils.dp2px(mContext, jsonObject.getIntValue("pageBackgroundRadius")));
-            autoConfig.setPageBackgroundDrawable(pageBackgroundDrawable);
+            try {
+                RoundedBitmapDrawable pageBackgroundDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), UtilTool.getPathToBitmap(mContext, jsonObject.getString("pageBackgroundPath")));
+                pageBackgroundDrawable.setCornerRadius(AppUtils.dp2px(mContext, jsonObject.getIntValue("pageBackgroundRadius")));
+                autoConfig.setPageBackgroundDrawable(pageBackgroundDrawable);
+            } catch (IOException e) {
+                eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+            }
         }
 
         mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
