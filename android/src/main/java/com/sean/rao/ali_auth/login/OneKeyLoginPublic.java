@@ -208,6 +208,13 @@ public class OneKeyLoginPublic {
         mPhoneNumberAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
     }
 
+    /**
+     * 退出授权页面
+     */
+    public void quitPage(){
+        mPhoneNumberAuthHelper.quitLoginPage();
+    }
+
 
     /**
      * 处理参数，对参数进行处理包含color、Path

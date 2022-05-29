@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:ali_auth/ali_auth.dart';
@@ -5,7 +6,6 @@ import 'package:ali_auth/ali_auth_enum.dart';
 import 'package:ali_auth/ali_auth_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -58,8 +58,8 @@ class MyHomePageState extends State<MyHomePage> {
       customThirdView =
       CustomThirdView.fromJson(configMap);
 
-      androidSk = "HGaIEvjq1t0waKqBPRy8UFDXO7jF7IeNdWBhvjWhSeIIqT4RK0e+lBFHdGWo9Q0LiqipWgfmj7VMZAtoPvTwPw4GuYzFMHTUK8VbKb6p1Oc59SbnwWOkJSonv7m3iTD9ntJz5WuffuEeXojLBDPSJXqkKyyxVml/hVpPmA1dMgKptxHjZlTNbaQsCJ2sB//8oRX5yE1SRN/jZqVsj3tjRuY/XSsbLSAxrxLq+n/w9pfeBcslpB9yeV8qbs0hpfsB2ogcfd3GFBNNpFsp7PL+Sb3pzyxfZmpm5Jdt7Gnhx+8aluiY8xRIr3Uh1/pN67dakhKc/VuBEaU=";
-      iosSk = "UQMRU+tpS+779aBH0J2NDB9fRpC6QAPy7sEcsxE46QF5wqB8BPxkNNqxpu2e5zJaUeyTMiyCBRSuBQevnLgKGIHNQVD6mjxde1EN8wlE7bOyjzPL6ZFQuVevQ7VnEQ8xzv5DA/9AbLZwnf2VK3PyLHGFLbAxr8qUaPDlDrW73BbkhWb+n9qLyKOlFTFQiZEOHW2MrwNM9g8SpQdi8NlabJ5eMkl5eB1PTSu7IrWpVZLmvlKIIRB1s8iEbt9C+pDVnmbxMKP6QR1PS1GG75I0jg==";
+      androidSk = "rt7nM6GmyXmmGtPMlFM7LFnUayakjqor6UpM+6IzxMeYdpGeE3C7NHGQbacjgeeAyIA45DWm2EITQZVq2cg9bTouiIgMc9KOPY3VnqKADTYijp78gj58d7oNQCzCMD6G4XwCkdWhBFXQw5kC3pJ9iGcVzWtGptZDgzCRDqG/vW+2KAHTlTYOvcWiRwyVM1Iaxr1m2Gz0CySqVkQaWa3vIw9BCMZKcr5ywmGykXgnA5rcPNLi7TcSBrV4mYD5m8IYCUez/QeLoOgY3VUCuInxhkLOKglQ/qdQRby2a/eRCgf/k0xC+XHGiw==";
+      iosSk = "m/IntllldpvZtYI9FPbHqRJUF2wlr/8q5FLj2jxX+ePrn32dI4vlPLXdghiu6Rpw1L7rJMbVHuLYyzwWGii+eB19JLDCZCkbcwNgnR/HSCTanbEqYEYEpypFghJDAyE7G9ERfe/gIojJKEdKIPhU9bJs1MIsSPo6RafJuWN6MyxzN9Ch4moqIlQSQLySLqGzc4NARSRP55oZbGR+rXf/NDqlbKaAvpsiphQEZ3vuGWDY+kuvi7OqULQ5T3edtgtcnT+C9YSx3f8=";
 
       dialogWidth =
       (window.physicalSize.width / window.devicePixelRatio * 0.8)
@@ -163,8 +163,17 @@ class MyHomePageState extends State<MyHomePage> {
               },
               child: const Text("开始延迟登录"),
             ),
+            /// 苹果专用，安卓调用报错
+            Platform.isIOS ? ElevatedButton(
+              onPressed: () async {
+                await AliAuth.appleLogin;
+              },
+              child: const Text("开始Apple登录"),
+            ) : Container(),
             ElevatedButton(
               onPressed: () async {
+                /// 传值实例
+                /// await AliAuth.openPage("routerPage?{id:123}");
                 await AliAuth.openPage("routerPage");
               },
               child: const Text("打开跳转页面"),
@@ -603,6 +612,23 @@ class MyHomePageState extends State<MyHomePage> {
   }
   /// 弹窗
   AliAuthModel getDialogConfig({bool isDelay = false}) {
+    Map<String, dynamic> configMap = {
+      "width": -1,
+      "height": -1,
+      "top": unit * 3 + 80,
+      "space": 20,
+      "size": 14,
+      'itemWidth': 40,
+      'itemHeight': 40,
+      "viewItemName": ["支付宝", "淘宝", "微博"],
+      "viewItemPath": [
+        "assets/alipay.png",
+        "assets/taobao.png",
+        "assets/sina.png"
+      ]
+    };
+    customThirdView =
+        CustomThirdView.fromJson(configMap);
     return AliAuthModel(
       androidSk,
       iosSk,
@@ -625,7 +651,8 @@ class MyHomePageState extends State<MyHomePage> {
       navReturnHidden: false,
       navReturnScaleType: ScaleType.center,
       navHidden: false,
-      switchAccHidden: true,
+      switchAccHidden: false,
+      switchOffsetY: unit * 3 + 50,
       switchAccTextColor: "#FDFDFD",
       switchAccTextSize: 16,
       switchAccText: "切换到其他方式",
@@ -649,35 +676,27 @@ class MyHomePageState extends State<MyHomePage> {
       logBtnBackgroundPath:
       "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
-      sloganOffsetY: unit * 4,
-      sloganOffsetY_B: -1,
+      sloganOffsetY: unit + 20,
       sloganTextSize: 11,
       sloganHidden: false,
       logoWidth: 42,
       logoHeight: 42,
       logoImgPath: "assets/logo.png",
       logoHidden: false,
-      logoOffsetY: unit,
-      logoOffsetY_B: -1,
+      logoOffsetY: 0,
       logoScaleType: ScaleType.fitXy,
       numberColor: "#000fff",
       numberSize: 17,
-      numFieldOffsetY: unit * 3,
-      numFieldOffsetY_B: -1,
+      numFieldOffsetY: unit * 2,
       numberFieldOffsetX: 0,
       numberLayoutGravity: Gravity.centerHorizntal,
-      switchOffsetY: -1,
-      switchOffsetY_B: -1,
-      logBtnOffsetY: unit * 5,
-      logBtnOffsetY_B: -1,
+      logBtnOffsetY: unit * 3,
       logBtnWidth: dialogWidth - 30,
       logBtnHeight: logBtnHeight,
       logBtnOffsetX: 0,
       logBtnMarginLeftAndRight: 15,
       logBtnLayoutGravity: Gravity.centerHorizntal,
       logBtnToastHidden: false,
-      privacyOffsetY: -1,
-      privacyOffsetY_B: 28,
       checkBoxWidth: 15,
       checkBoxHeight: 15,
       checkboxHidden: false,
@@ -709,7 +728,6 @@ class MyHomePageState extends State<MyHomePage> {
       dialogAlpha: 0.4,
       bottomNavBarColor: "#FFFFFF",
       privacyOperatorIndex: 2,
-      customThirdView: customThirdView,
       alertBarIsHidden: false,
       alertTitleBarColor: "#FDFDFD",
       alertCloseItemIsHidden: false,
@@ -720,6 +738,7 @@ class MyHomePageState extends State<MyHomePage> {
       alertCloseImageH: 45,
       alertBlurViewColor: "#DCDCDC",
       alertBlurViewAlpha: 0.4,
+      customThirdView: customThirdView,
     );
   }
   /// 自定义协议弹窗

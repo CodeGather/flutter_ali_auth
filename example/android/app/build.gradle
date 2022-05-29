@@ -35,7 +35,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.sean.rao.ali_auth_example"
+        applicationId "com.sean.rao.aliAuth"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion

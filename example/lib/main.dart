@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'my_home_page.dart';
@@ -19,7 +20,10 @@ class _MyAppState extends State<MyApp> {
   Widget getDefaultRouter() {
     //还记得我们上边的routerPage嘛， 这个东西就是我们传进来的字符串，我们可以根据这个字符串来决定加载那个flutter页面
     String router = window.defaultRouteName;
-    if (router == 'routerPage') {
+    if (kDebugMode) {
+      print("获取到路由数据--------$router");
+    }
+    if (router.contains('routerPage')) {
       return const MyRouterPage();
     } else {
       return const MyHomePage();
@@ -35,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   }
 
 
+  /// 弹窗插件初始化
   void configLoading() {
     EasyLoading.instance
       ..displayDuration = const Duration(milliseconds: 2000)

@@ -38,7 +38,6 @@
   /// 页面类型
   /// _model = [TXCustomModel mj_objectWithKeyValues: dic];
   PNSBuildModelStyle style = [dict intValueForKey: @"pageType" defaultValue: 0];
-  NSString *button1Title = @"";
   switch (style) {
       case PNSBuildModelStylePortrait:
           model = [self buildFullScreenPortraitModel:dict
@@ -46,7 +45,7 @@
                                                            selector:selector];
           break;
       case PNSBuildModelStyleLandscape:
-          model = [self buildFullScreenLandscapeModel:button1Title
+          model = [self buildFullScreenLandscapeModel:dict
                                                               target:target
                                                             selector:selector];
           break;
@@ -64,7 +63,7 @@
                                                      selector:selector];
           break;
       case PNSBuildModelStyleAlertLandscape:
-          model = [self buildAlertLandscapeMode:button1Title
+          model = [self buildAlertLandscapeMode:dict
                                                         target:target
                                                       selector:selector];
           break;
@@ -77,12 +76,12 @@
 //                                                         selector2:selector2];
 //            break;
       case PNSBuildModelStyleSheetPortrait:
-          model = [self buildSheetPortraitModel:button1Title
+          model = [self buildSheetPortraitModel:dict
                                                         target:target
                                                       selector:selector];
           break;
       case PNSDIYAlertPortraitFade:
-          model = [self buildAlertFadeModel:button1Title
+          model = [self buildAlertFadeModel:dict
                                                     target:target
                                                   selector:selector];
           break;
@@ -95,7 +94,7 @@
 //                                                      selector2:selector2];
 //            break;
       case PNSDIYAlertPortraitDropDown:
-          model = [self buildAlertDropDownModel:button1Title
+          model = [self buildAlertDropDownModel:dict
                                                         target:target
                                                       selector:selector];
           break;
@@ -116,12 +115,12 @@
 //                                                selector2:selector2];
 //            break;
       case PNSBuildModelStyleVideoBackground:
-          model = [self buildVideoBackgroundModel:button1Title
+          model = [self buildVideoBackgroundModel:dict
                                                           target:target
                                                         selector:selector];
           break;
       case PNSBuildModelStyleGifBackground:
-          model = [self buildGifBackgroundModel:button1Title
+          model = [self buildGifBackgroundModel:dict
                                                         target:target
                                                       selector:selector];
           break;
@@ -476,7 +475,7 @@
   return model;
 }
 
-+ (TXCustomModel *)buildFullScreenLandscapeModel:(NSString *)button1Title
++ (TXCustomModel *)buildFullScreenLandscapeModel:(NSDictionary *)dict
                                                          target:(id)target
                                                        selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -536,7 +535,7 @@
     return model;
 }
 
-+ (TXCustomModel *)buildFullScreenAutorotateModel:(NSString *)button1Title
++ (TXCustomModel *)buildFullScreenAutorotateModel:(NSDictionary *)dict
                                                           target:(id)target
                                                         selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -914,6 +913,17 @@
           [superCustomView addSubview: customArrayView[i]];
         }
         
+        
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [btn setTitle:@"触屏拍摄" forState:UIControlStateNormal];
+////        UIImage *img = [self changeUriPathToImage: customArray[0]];
+////        [btn setImage:img forState:UIControlStateNormal];//button的填充图片
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        btn.imageEdgeInsets = UIEdgeInsetsMake(- (btn.frame.size.height - btn.titleLabel.frame.size.height- btn.titleLabel.frame.origin.y),(btn.frame.size.width -btn.titleLabel.frame.size.width)/2.0f -btn.imageView.frame.size.width, 0, 0);
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(btn.frame.size.height-btn.imageView.frame.size.height-btn.imageView.frame.origin.y, -btn.imageView.frame.size.width, 0, 0);
+//        [superCustomView addSubview: btn];
+//        btn.frame = CGRectMake( 10, 50, 300, 200 );
+        
 //        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
 //        [superCustomView addGestureRecognizer:singleTap];
       };
@@ -937,12 +947,13 @@
       ) {
         NSUInteger count = customArrayView.count;
         NSInteger contentWidth = contentViewFrame.size.width;
-        for (int i = 0; i < count; i++) {
-          UIImageView *itemView = (UIImageView *)customArrayView[i];
-          NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-          NSInteger Y = offsetY > 50 ? CGRectGetMaxY(navFrame) + offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
-          itemView.frame = CGRectMake( X, Y, width, height );
-        }
+//        for (int i = 0; i < count; i++) {
+//          UIImageView *itemView = (UIImageView *)customArrayView[i];
+//          NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+//          NSInteger Y = CGRectGetMaxY(titleBarFrame) + 10 + offsetY;
+//          itemView.frame = CGRectMake( X, Y, width, height );
+//        }
+        
       };
     }
   }
@@ -965,7 +976,7 @@
 + (void) clickAllScreen:(UITapGestureRecognizer *) recognizer {
   NSLog(@"点击事件屏蔽");
 }
-+ (TXCustomModel *)buildAlertLandscapeMode:(NSString *)button1Title
++ (TXCustomModel *)buildAlertLandscapeMode:(NSDictionary *)dict
                                                    target:(id)target
                                                  selector:(SEL)selector{
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -1025,7 +1036,7 @@
     return model;
 }
 
-+ (TXCustomModel *)buildAlertAutorotateMode:(NSString *)button1Title
++ (TXCustomModel *)buildAlertAutorotateMode:(NSDictionary *)dict
                                                     target:(id)target
                                                   selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -1134,7 +1145,7 @@
 
 #pragma mark - 底部弹窗
 
-+ (TXCustomModel *)buildSheetPortraitModel:(NSString *)button1Title
++ (TXCustomModel *)buildSheetPortraitModel:(NSDictionary *)dict
                                                    target:(id)target
                                                  selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -1205,11 +1216,11 @@
 }
 
 #pragma mark - DIY 动画
-+ (TXCustomModel *)buildAlertFadeModel:(NSString *)button1Title
++ (TXCustomModel *)buildAlertFadeModel:(NSDictionary *)dict
                                                target:(id)target
                                              selector:(SEL)selector {
     
-    TXCustomModel *model = [self buildAlertPortraitMode:button1Title
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
                                                                 target:target
                                                               selector:selector];
     
@@ -1231,11 +1242,11 @@
     return model;
 }
 
-+ (TXCustomModel *)buildAlertBounceModel:(NSString *)button1Title
++ (TXCustomModel *)buildAlertBounceModel:(NSDictionary *)dict
                                                  target:(id)target
                                                selector:(SEL)selector {
     
-    TXCustomModel *model = [self buildAlertPortraitMode:button1Title
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
                                                                 target:target
                                                               selector:selector];
     
@@ -1257,11 +1268,11 @@
     return model;
 }
 
-+ (TXCustomModel *)buildAlertDropDownModel:(NSString *)button1Title
++ (TXCustomModel *)buildAlertDropDownModel:(NSDictionary *)dict
                                                    target:(id)target
                                                  selector:(SEL)selector {
     
-    TXCustomModel *model = [self buildAlertPortraitMode:button1Title
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
                                                                 target:target
                                                               selector:selector];
     
@@ -1338,7 +1349,7 @@
 }
 
 #pragma mark - other
-+ (TXCustomModel *)buildVideoBackgroundModel:(NSString *)button1Title
++ (TXCustomModel *)buildVideoBackgroundModel:(NSDictionary *)dict
                                                      target:(id)target
                                                    selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];
@@ -1380,7 +1391,7 @@
     return model;
 }
 
-+ (TXCustomModel *)buildGifBackgroundModel:(NSString *)button1Title
++ (TXCustomModel *)buildGifBackgroundModel:(NSDictionary *)dict
                                                    target:(id)target
                                                  selector:(SEL)selector {
     TXCustomModel *model = [[TXCustomModel alloc] init];

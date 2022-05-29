@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
-
 import 'ali_auth_model.dart';
 
 /// 阿里云一键登录类
@@ -47,10 +46,20 @@ class AliAuth {
     return await _channel.invokeMethod('login', {"timeout": timeout});
   }
 
+  /// 强制关闭一键登录授权页面
+  static Future<void> quitPage() async {
+    return await _channel.invokeMethod('quitPage');
+  }
+
   /// pageRoute
   static Future<void> openPage(String? pageRoute) async {
     return await _channel
         .invokeMethod('openPage', {'pageRoute': pageRoute ?? 'main_page'});
+  }
+
+  /// 苹果登录iOS专用
+  static Future<dynamic> get appleLogin async {
+    return await _channel.invokeMethod('appleLogin');
   }
 
   /// 数据监听

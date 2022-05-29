@@ -1,5 +1,4 @@
 #import "AliAuthPlugin.h"
-
 #import <UIKit/UIKit.h>
 
 #import "AliAuthEnum.h"
@@ -19,34 +18,13 @@ bool bool_false = false;
 // 打印长度比较大的字符串
 //#define NSLog(format,...) printf("%s",[[NSString stringWithFormat:(format), ##__VA_ARGS__] UTF8String])
 
-@interface AliAuthPlugin()<FlutterStreamHandler>
-
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIImageView *img_logo;
-@property (nonatomic, strong) UILabel *label_slogan;
-@property (nonatomic, strong) UITextField *tf_phoneNumber;
-@property (nonatomic, strong) UITextField *tf_timeout;
-/// 号码认证
-@property (nonatomic, strong) UIButton *btn_verifyToken;
-/// 一键登录
-@property (nonatomic, strong) UIButton *btn_login;
-/// 一键登录全屏，且支持旋转
-@property (nonatomic, strong) UIButton *btn_login_full;
-/// 已将登陆弹窗，且支持旋转
-@property (nonatomic, strong) UIButton *btn_login_alert;
-/// 一键登陆全屏竖屏，不支持旋转
-@property (nonatomic, strong) UIButton *btn_login_full_vertical;
-/// 一键登陆全屏横屏，不支持旋转
-@property (nonatomic, strong) UIButton *btn_login_full_horizontal;
-/// 一键登陆弹窗竖屏，不支持旋转
-@property (nonatomic, strong) UIButton *btn_login_alert_vertical;
-/// 一键登陆弹窗横屏，不支持旋转
-@property (nonatomic, strong) UIButton *btn_login_alert_horizontal;
-@property (nonatomic, strong) UITextView *tv_result;
-
+/// 添加ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding 取消
+/// authorizationController.delegate = self; authorizationController.presentationContextProvider = self; 警告信息
+@interface AliAuthPlugin()<UIApplicationDelegate, FlutterStreamHandler, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding>
+@property (nonatomic, strong) UINavigationController *navigationController;
 @end
 
-@implementation AliAuthPlugin {
+@implementation AliAuthPlugin{
   FlutterEventSink _eventSink;
   FlutterResult _result;
   FlutterMethodCall * _callData;
@@ -139,11 +117,23 @@ bool bool_false = false;
   else  if ([@"preLogin" isEqualToString:call.method]) {
     [self getPreLogin:call result:result];
   }
+  else if ([@"quitPage" isEqualToString:call.method]) {
+    [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+  }
   else if ([@"appleLogin" isEqualToString:call.method]) {
     [self handleAuthorizationAppleIDButtonPress:call result:result];
   }
-  else if ([@"quitPage" isEqualToString:call.method]) {
-    [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+  else if ([@"openPage" isEqualToString:call.method]) {
+    // 1.初始化flutter控制器，并指定路由 “home”，flutter中根据该路由标识显示对应的界面
+    FlutterViewController* flutterViewController = [
+      [FlutterViewController alloc] initWithProject:nil
+      initialRoute:[call.arguments stringValueForKey: @"pageRoute" defaultValue: @"/"]
+      nibName:nil
+      bundle:nil
+    ];
+    // 2. 跳转
+    flutterViewController.modalPresentationStyle = UIModalPresentationFullScreen;
+    [[self findCurrentViewController] presentViewController:flutterViewController animated: YES completion:nil];
   }
   else {
     result(FlutterMethodNotImplemented);
@@ -255,7 +245,7 @@ bool bool_false = false;
 */
 #pragma mark - action 一键登录预取号
 - (void)accelerateLogin:(TXCustomModel *)model call:(FlutterMethodCall*)call result:(FlutterResult)result complete:(void (^)(void))completion {
-    float timeout = 5.0; //self.tf_timeout.text.floatValue;
+    float timeout = 5.0; // self.tf_timeout.text.floatValue;
     __weak typeof(self) weakSelf = self;
     
     //1. 调用check接口检查及准备接口调用环境
@@ -317,23 +307,6 @@ bool bool_false = false;
     }];
 }
 
-#pragma mark - UI
-- (void)initSubviews {
-    [self.scrollView addSubview:self.img_logo];
-    [self.scrollView addSubview:self.label_slogan];
-    [self.scrollView addSubview:self.tf_phoneNumber];
-    [self.scrollView addSubview:self.tf_timeout];
-    [self.scrollView addSubview:self.btn_verifyToken];
-    [self.scrollView addSubview:self.btn_login];
-    [self.scrollView addSubview:self.btn_login_full];
-    [self.scrollView addSubview:self.btn_login_alert];
-    [self.scrollView addSubview:self.btn_login_full_vertical];
-    [self.scrollView addSubview:self.btn_login_full_horizontal];
-    [self.scrollView addSubview:self.btn_login_alert_vertical];
-    [self.scrollView addSubview:self.btn_login_alert_horizontal];
-    [self.scrollView addSubview:self.tv_result];
-}
-
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult {
   NSDictionary *dict = @{
@@ -381,7 +354,8 @@ bool bool_false = false;
         authorizationController.presentationContextProvider = self;
         // 在控制器初始化期间启动授权流
         [authorizationController performRequests];
-    }else{
+    }
+    else{
         // 处理不支持系统版本
         NSLog(@"该系统版本不可用Apple登录");
         NSDictionary *resultData = @{
@@ -409,7 +383,7 @@ bool bool_false = false;
     NSLog(@"授权完成---开始返回数据");
     if ([authorization.credential isKindOfClass:[ASAuthorizationAppleIDCredential class]]) {
         // 用户登录使用ASAuthorizationAppleIDCredential
-        ASAuthorizationAppleIDCredential *appleIDCredential = authorization.credential;
+        ASAuthorizationAppleIDCredential *appleIDCredential = (ASAuthorizationAppleIDCredential *)authorization.credential;
         NSString *user = appleIDCredential.user;
         // 使用过授权的，可能获取不到以下三个参数
         NSString *familyName = appleIDCredential.fullName.familyName;
@@ -453,7 +427,7 @@ bool bool_false = false;
         // 这个获取的是iCloud记录的账号密码，需要输入框支持iOS 12 记录账号密码的新特性，如果不支持，可以忽略
         // Sign in using an existing iCloud Keychain credential.
         // 用户登录使用现有的密码凭证
-        ASPasswordCredential *passwordCredential = authorization.credential;
+        ASPasswordCredential *passwordCredential = (ASPasswordCredential*)authorization.credential;
         // 密码凭证对象的用户标识 用户的唯一标识
         NSString *user = passwordCredential.user;
         // 密码凭证对象的密码

@@ -1,20 +1,14 @@
-package com.sean.rao.ali_auth_example;
+package com.sean.rao.aliAuth;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
 
 /**
  * @ProjectName: NumberAuthSDK_Standard_Android

@@ -8,6 +8,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mobile.auth.gatewayauth.AuthRegisterViewConfig;
 import com.mobile.auth.gatewayauth.AuthUIConfig;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.utils.AppUtils;
@@ -35,6 +36,21 @@ public class DialogPortConfig extends BaseUIConfig {
             authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
         }
         updateScreenSize(authPageOrientation);
+
+        mAuthHelper.addAuthRegistViewConfig("switch_msg", new AuthRegisterViewConfig.Builder()
+                .setView(initSwitchView(420))
+                .setRootViewId(AuthRegisterViewConfig.RootViewId.ROOT_VIEW_ID_BODY)
+//                .setCustomInterface(new CustomInterface() {
+//                    @Override
+//                    public void onClick(Context context) {
+//                      JSONObject jsonObj = new JSONObject();
+//                      jsonObj.put("code", "7000001");
+//                      jsonObj.put("data", "");
+//                      jsonObj.put("msg", "切换到短信登录方式");
+//                      eventSink.success(jsonObj);
+//                    }
+//                })
+                .build());
 
         if (jsonObject.containsKey("pageBackgroundPath") && !jsonObject.getString("pageBackgroundPath").isEmpty()) {
             try {

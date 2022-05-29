@@ -18,7 +18,7 @@ class MyRouterState extends State<MyRouterPage> {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: const Text('我是被跳转页面'),
+        child: const Text('通过原生控制flutter的跳转'),
       ),
     );
   }

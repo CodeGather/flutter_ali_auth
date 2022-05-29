@@ -96,6 +96,9 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       case "checkEnvAvailable":
         oneKeyLoginPublic.checkEnvAvailable(2);
         break;
+      case "quitPage":
+        oneKeyLoginPublic.quitPage();
+        break;
       case "openPage":
         if (flutterEngine == null) {
           flutterEngine = new FlutterEngine(mContext);

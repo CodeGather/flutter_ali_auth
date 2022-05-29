@@ -1,4 +1,4 @@
-package com.sean.rao.ali_auth_example;
+package com.sean.rao.aliAuth;
 
 import io.flutter.embedding.android.FlutterActivity;
 
