@@ -21,9 +21,15 @@ This is a one click login plug-in for alicloud number authentication service
 As other functions of the project use alicloud services, Alibaba cloud is also used in the one click login function, which is conducive to better maintenance in the later stage.
 This plug-in is free, open source and highly customized. If you have any problems in use, you are welcome to give feedback. If you feel that this plug-in is not good enough, you can provide your valuable opinions,
 If you want to customize in your own project, please modify the clone of this plug-in locally. However, you are welcome to release other versions of plug-ins after modifying through this plug-in,
-However, when using or referring to the ideas or related contents of this plug-in, < H3 > < b > please indicate the source and link to this plug-in. Thank you for your cooperation. </b></h3>
+However, when using or referring to the ideas or related contents of this plug-in,   
+ 
+# Please indicate the source and link to this plug-in. Thank you for your cooperation.  
 
-## Since the front-end configuration parameters are used from 0.0.6, the modifications are relatively large. If you do not want to modify them, do not upgrade them to avoid unnecessary trouble
+
+## In order to solve most of the problems and repair a large number of bugs, the refactored version is used from 1.0.0. The API may be adjusted during use. I hope all partners can update the new version and continue to maintain it later.    
+ 
+
+## Refactoring version 1.0.0 - focus!!!!!!! Please put this part in the manifest file of the app. Please refer to the demo settings for details
 
 ## Related support
 
