@@ -27,6 +27,8 @@
         </activity>
 
         <!--   自定义协议页面    -->
+        <!--    ali_auth/example/android/app/src/main/res/layout/activity_custom_web.xml   -->
+        <!--    ali_auth/example/android/app/src/main/res/drawable/icon_close.png   -->
         <activity
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
             android:name="com.sean.rao.aliAuth.CustomWebViewActivity"
