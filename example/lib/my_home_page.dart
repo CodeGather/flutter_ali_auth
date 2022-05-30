@@ -20,17 +20,22 @@ class MyHomePageState extends State<MyHomePage> {
   String status = "初始化中...";
 
   late CustomThirdView customThirdView;
+
   /// Android 密钥
   late String androidSk;
+
   /// iOS 密钥
   late String iosSk;
 
   /// 弹窗宽度
   late int dialogWidth;
+
   /// 弹窗高度
   late int dialogHeight;
+
   /// 比例
   late int unit;
+
   /// 按钮高度
   late int logBtnHeight;
 
@@ -55,28 +60,26 @@ class MyHomePageState extends State<MyHomePage> {
           "assets/sina.png"
         ]
       };
-      customThirdView =
-      CustomThirdView.fromJson(configMap);
+      customThirdView = CustomThirdView.fromJson(configMap);
 
-      androidSk = "rt7nM6GmyXmmGtPMlFM7LFnUayakjqor6UpM+6IzxMeYdpGeE3C7NHGQbacjgeeAyIA45DWm2EITQZVq2cg9bTouiIgMc9KOPY3VnqKADTYijp78gj58d7oNQCzCMD6G4XwCkdWhBFXQw5kC3pJ9iGcVzWtGptZDgzCRDqG/vW+2KAHTlTYOvcWiRwyVM1Iaxr1m2Gz0CySqVkQaWa3vIw9BCMZKcr5ywmGykXgnA5rcPNLi7TcSBrV4mYD5m8IYCUez/QeLoOgY3VUCuInxhkLOKglQ/qdQRby2a/eRCgf/k0xC+XHGiw==";
-      iosSk = "m/IntllldpvZtYI9FPbHqRJUF2wlr/8q5FLj2jxX+ePrn32dI4vlPLXdghiu6Rpw1L7rJMbVHuLYyzwWGii+eB19JLDCZCkbcwNgnR/HSCTanbEqYEYEpypFghJDAyE7G9ERfe/gIojJKEdKIPhU9bJs1MIsSPo6RafJuWN6MyxzN9Ch4moqIlQSQLySLqGzc4NARSRP55oZbGR+rXf/NDqlbKaAvpsiphQEZ3vuGWDY+kuvi7OqULQ5T3edtgtcnT+C9YSx3f8=";
+      androidSk =
+          "rt7nM6GmyXmmGtPMlFM7LFnUayakjqor6UpM+6IzxMeYdpGeE3C7NHGQbacjgeeAyIA45DWm2EITQZVq2cg9bTouiIgMc9KOPY3VnqKADTYijp78gj58d7oNQCzCMD6G4XwCkdWhBFXQw5kC3pJ9iGcVzWtGptZDgzCRDqG/vW+2KAHTlTYOvcWiRwyVM1Iaxr1m2Gz0CySqVkQaWa3vIw9BCMZKcr5ywmGykXgnA5rcPNLi7TcSBrV4mYD5m8IYCUez/QeLoOgY3VUCuInxhkLOKglQ/qdQRby2a/eRCgf/k0xC+XHGiw==";
+      iosSk =
+          "m/IntllldpvZtYI9FPbHqRJUF2wlr/8q5FLj2jxX+ePrn32dI4vlPLXdghiu6Rpw1L7rJMbVHuLYyzwWGii+eB19JLDCZCkbcwNgnR/HSCTanbEqYEYEpypFghJDAyE7G9ERfe/gIojJKEdKIPhU9bJs1MIsSPo6RafJuWN6MyxzN9Ch4moqIlQSQLySLqGzc4NARSRP55oZbGR+rXf/NDqlbKaAvpsiphQEZ3vuGWDY+kuvi7OqULQ5T3edtgtcnT+C9YSx3f8=";
 
       dialogWidth =
-      (window.physicalSize.width / window.devicePixelRatio * 0.8)
-          .floor();
-      dialogHeight = (window.physicalSize.height /
-          window.devicePixelRatio *
-          0.65)
-          .floor() -
-          50;
+          (window.physicalSize.width / window.devicePixelRatio * 0.8).floor();
+      dialogHeight =
+          (window.physicalSize.height / window.devicePixelRatio * 0.65)
+                  .floor() -
+              50;
       unit = dialogHeight ~/ 10;
       logBtnHeight = (unit * 1.1).floor();
     });
 
     AliAuth.loginListen(onEvent: (onEvent) {
       if (kDebugMode) {
-        print(
-          "----------------> $onEvent <----------------");
+        print("----------------> $onEvent <----------------");
       }
 
       // EasyLoading.show(status: onEvent['msg'] ?? "", maskType: EasyLoadingMaskType.black);
@@ -163,13 +166,16 @@ class MyHomePageState extends State<MyHomePage> {
               },
               child: const Text("开始延迟登录"),
             ),
+
             /// 苹果专用，安卓调用报错
-            Platform.isIOS ? ElevatedButton(
-              onPressed: () async {
-                await AliAuth.appleLogin;
-              },
-              child: const Text("开始Apple登录"),
-            ) : Container(),
+            Platform.isIOS
+                ? ElevatedButton(
+                    onPressed: () async {
+                      await AliAuth.appleLogin;
+                    },
+                    child: const Text("开始Apple登录"),
+                  )
+                : Container(),
             ElevatedButton(
               onPressed: () async {
                 /// 传值实例
@@ -222,14 +228,14 @@ class MyHomePageState extends State<MyHomePage> {
       protocolTwoURL: "https://jokui.com",
       protocolThreeName: "《思预云APP》",
       protocolThreeURL:
-      "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+          "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
       protocolCustomColor: "#F0F0F0",
       protocolColor: "#00FF00",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#ffffff",
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
-      "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+          "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
       logoOffsetY: 20,
       logoOffsetY_B: -1,
@@ -303,24 +309,22 @@ class MyHomePageState extends State<MyHomePage> {
 
   /// 全屏视频背景
   AliAuthModel getFullPortVideoConfig({bool isDelay = false}) {
-      /// 开启Gif、Video背景时建议隐藏nav
-      /// navHidden(true)
-      /// logoHidden(true)
-      /// sloganHidden(true)
-      /// webViewStatusBarColor(Color.TRANSPARENT)
-      /// statusBarColor(Color.TRANSPARENT)
-      /// statusBarUIFlag(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-      Map<String, dynamic> configMap = {
+    /// 开启Gif、Video背景时建议隐藏nav
+    /// navHidden(true)
+    /// logoHidden(true)
+    /// sloganHidden(true)
+    /// webViewStatusBarColor(Color.TRANSPARENT)
+    /// statusBarColor(Color.TRANSPARENT)
+    /// statusBarUIFlag(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    Map<String, dynamic> configMap = {
       'top': 20,
       'left': 20,
       'width': 40,
       'height': 40,
       'imgPath': "assets/return_btn_filll.png"
-      };
-      CustomView customReturnBtn = CustomView.fromJson(configMap);
-      return AliAuthModel(
-        androidSk,
-        iosSk,
+    };
+    CustomView customReturnBtn = CustomView.fromJson(configMap);
+    return AliAuthModel(androidSk, iosSk,
         isDebug: true,
         isDelay: false,
         pageType: PageType.customMOV,
@@ -344,12 +348,12 @@ class MyHomePageState extends State<MyHomePage> {
         protocolTwoURL: "https://jokui.com",
         protocolThreeName: "《思预云APP》",
         protocolThreeURL:
-        "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
         protocolCustomColor: "#F3F3F3",
         protocolColor: "#dddddd",
         protocolLayoutGravity: Gravity.centerHorizntal,
         logBtnBackgroundPath:
-        "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+            "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         loadingImgPath: "authsdk_waiting_icon",
         numFieldOffsetY: unit * 10,
         numberLayoutGravity: Gravity.centerHorizntal,
@@ -413,9 +417,9 @@ class MyHomePageState extends State<MyHomePage> {
          */
         backgroundPath: "assets/background_video.mp4",
         customThirdView: customThirdView,
-        customReturnBtn: customReturnBtn
-      );
+        customReturnBtn: customReturnBtn);
   }
+
   /// 自定义Gif
   AliAuthModel getFullPortGifConfig({bool isDelay = false}) {
     /// 开启Gif、Video背景时建议隐藏nav
@@ -433,9 +437,7 @@ class MyHomePageState extends State<MyHomePage> {
       'imgPath': "assets/return_btn_filll.png"
     };
     CustomView customReturnBtn = CustomView.fromJson(configMap);
-    return AliAuthModel(
-        androidSk,
-        iosSk,
+    return AliAuthModel(androidSk, iosSk,
         isDebug: true,
         isDelay: false,
         pageType: PageType.customGif,
@@ -459,12 +461,12 @@ class MyHomePageState extends State<MyHomePage> {
         protocolTwoURL: "https://jokui.com",
         protocolThreeName: "《思预云APP》",
         protocolThreeURL:
-        "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
         protocolCustomColor: "#F3F3F3",
         protocolColor: "#dddddd",
         protocolLayoutGravity: Gravity.centerHorizntal,
         logBtnBackgroundPath:
-        "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+            "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         loadingImgPath: "authsdk_waiting_icon",
         numFieldOffsetY: unit * 10,
         numberLayoutGravity: Gravity.centerHorizntal,
@@ -528,14 +530,12 @@ class MyHomePageState extends State<MyHomePage> {
          */
         backgroundPath: "assets/background_gif.gif",
         customThirdView: customThirdView,
-        customReturnBtn: customReturnBtn
-    );
+        customReturnBtn: customReturnBtn);
   }
+
   /// 自定义
   AliAuthModel getFullPortCustomConfig({bool isDelay = false}) {
-    return AliAuthModel(
-        androidSk,
-        iosSk,
+    return AliAuthModel(androidSk, iosSk,
         isDebug: true,
         isDelay: false,
         pageType: PageType.customXml,
@@ -564,7 +564,7 @@ class MyHomePageState extends State<MyHomePage> {
         protocolTwoURL: "https://jokui.com",
         protocolThreeName: "《思预云APP》",
         protocolThreeURL:
-        "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
         protocolCustomColor: "#F3F3F3",
         protocolColor: "#dddddd",
         protocolLayoutGravity: Gravity.centerHorizntal,
@@ -610,6 +610,7 @@ class MyHomePageState extends State<MyHomePage> {
         backgroundPath: "assets/background_image.jpeg",
         customThirdView: customThirdView);
   }
+
   /// 弹窗
   AliAuthModel getDialogConfig({bool isDelay = false}) {
     Map<String, dynamic> configMap = {
@@ -627,8 +628,7 @@ class MyHomePageState extends State<MyHomePage> {
         "assets/sina.png"
       ]
     };
-    customThirdView =
-        CustomThirdView.fromJson(configMap);
+    customThirdView = CustomThirdView.fromJson(configMap);
     return AliAuthModel(
       androidSk,
       iosSk,
@@ -667,14 +667,14 @@ class MyHomePageState extends State<MyHomePage> {
       protocolTwoURL: "https://jokui.com",
       protocolThreeName: "《思预云APP》",
       protocolThreeURL:
-      "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+          "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
       protocolCustomColor: "#F3F3F3",
       protocolColor: "#dddddd",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#f0ff0d",
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
-      "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+          "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
       sloganOffsetY: unit + 20,
       sloganTextSize: 11,
@@ -711,7 +711,7 @@ class MyHomePageState extends State<MyHomePage> {
       dialogWidth: dialogWidth,
       dialogHeight: dialogHeight,
       dialogBottom: false,
-      dialogCornerRadiusArray: [10,10,10,10],
+      dialogCornerRadiusArray: [10, 10, 10, 10],
       pageBackgroundPath: "assets/background_image.jpeg",
       pageBackgroundRadius: 10,
       webViewStatusBarColor: "#026ED2",
@@ -741,6 +741,7 @@ class MyHomePageState extends State<MyHomePage> {
       customThirdView: customThirdView,
     );
   }
+
   /// 自定义协议弹窗
   AliAuthModel getDialogWebConfig({bool isDelay = false}) {
     return AliAuthModel(
@@ -782,14 +783,14 @@ class MyHomePageState extends State<MyHomePage> {
       protocolTwoURL: "https://jokui.com",
       protocolThreeName: "《思预云APP》",
       protocolThreeURL:
-      "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+          "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
       protocolCustomColor: "#F3F3F3",
       protocolColor: "#dddddd",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#ffffff",
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
-      "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+          "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
       sloganOffsetY: unit * 4,
       sloganOffsetY_B: -1,
@@ -854,6 +855,7 @@ class MyHomePageState extends State<MyHomePage> {
       packageName: "com.sean.rao.ali_auth_example",
     );
   }
+
   /// 底部弹窗登录
   AliAuthModel getDialogButtomConfig({bool isDelay = false}) {
     return AliAuthModel(
@@ -891,14 +893,14 @@ class MyHomePageState extends State<MyHomePage> {
       protocolTwoURL: "https://jokui.com",
       protocolThreeName: "《思预云APP》",
       protocolThreeURL:
-      "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+          "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
       protocolCustomColor: "#F3F3F3",
       protocolColor: "#dddddd",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#ffffff",
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
-      "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+          "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
       sloganOffsetY: unit * 4,
       sloganTextSize: 11,
@@ -947,10 +949,8 @@ class MyHomePageState extends State<MyHomePage> {
 
   /// 延时登录公共初始化方法
   /// 延迟登录初始化只能初始化一次，多次无效
-  Future<void> initSdkVoid ({PageType pageType=PageType.fullPort}) async {
-    AliAuthModel config = AliAuthModel(
-        androidSk,
-        iosSk,
+  Future<void> initSdkVoid({PageType pageType = PageType.fullPort}) async {
+    AliAuthModel config = AliAuthModel(androidSk, iosSk,
         isDebug: true,
         isDelay: true,
         pageType: pageType,
@@ -984,14 +984,14 @@ class MyHomePageState extends State<MyHomePage> {
         protocolTwoURL: "https://jokui.com",
         protocolThreeName: "《思预云APP》",
         protocolThreeURL:
-        "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
         protocolCustomColor: "#F3F3F3",
         protocolColor: "#dddddd",
         protocolLayoutGravity: Gravity.centerHorizntal,
         sloganTextColor: "#ffffff",
         sloganText: "欢迎使用AliAuth一键登录插件",
         logBtnBackgroundPath:
-        "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+            "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         loadingImgPath: "authsdk_waiting_icon",
         sloganOffsetY: -1,
         logoOffsetY: -1,

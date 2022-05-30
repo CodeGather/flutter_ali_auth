@@ -13,11 +13,7 @@ enum ScaleType {
   centerInside,
 }
 
-enum Gravity {
-  centerHorizntal,
-  left,
-  right
-}
+enum Gravity { centerHorizntal, left, right }
 
 enum UIFAG {
   systemUiFalgLowProfile,
@@ -32,7 +28,7 @@ enum UIFAG {
   systemUiFalgLightNavigationBar
 }
 
-enum PNSPresentationDirection{
+enum PNSPresentationDirection {
   presentationDirectionBottom,
   presentationDirectionRight,
   presentationDirectionTop,
@@ -180,7 +176,6 @@ Map<String, dynamic> _$CustomThirdViewToJson(CustomThirdView instance) =>
       'viewItemPath': instance.viewItemPath,
     };
 
-
 ///  自定义布局实体
 class CustomView {
   final int? top;
@@ -190,16 +185,9 @@ class CustomView {
   final int? width;
   final int? height;
   final String? imgPath;
-  final ScaleType ?imgScaleType;
-  CustomView(
-      this.top,
-      this.right,
-      this.bottom,
-      this.left,
-      this.width,
-      this.height,
-      this.imgPath,
-      this.imgScaleType);
+  final ScaleType? imgScaleType;
+  CustomView(this.top, this.right, this.bottom, this.left, this.width,
+      this.height, this.imgPath, this.imgScaleType);
 
   factory CustomView.fromJson(Map<String, dynamic> srcJson) =>
       _$CustomViewFromJson(srcJson);
@@ -208,15 +196,8 @@ class CustomView {
 
 /// 自定义布局json转实体
 CustomView _$CustomViewFromJson(Map<String, dynamic> json) {
-  return CustomView(
-      json['top'],
-      json['right'],
-      json['bottom'],
-      json['left'],
-      json['width'],
-      json['height'],
-      json['imgPath'],
-      json['imgScaleType']);
+  return CustomView(json['top'], json['right'], json['bottom'], json['left'],
+      json['width'], json['height'], json['imgPath'], json['imgScaleType']);
 }
 
 /// 自定义布局实体转json

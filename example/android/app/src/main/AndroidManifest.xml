@@ -28,10 +28,11 @@
 
         <!--   自定义协议页面    -->
         <activity
-           android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
-           android:name="com.sean.rao.aliAuth.CustomWebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
+            android:name="com.sean.rao.aliAuth.CustomWebViewActivity"
             android:theme="@style/AppTheme"
-           android:screenOrientation="sensorPortrait">
+            android:exported="true"
+            android:screenOrientation="sensorPortrait">
            <intent-filter>
                <action android:name="com.sean.rao.ali_auth_example.protocolWeb"/>
                <category android:name="android.intent.category.DEFAULT"/>

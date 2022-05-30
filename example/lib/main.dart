@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> {
     configLoading();
   }
 
-
   /// 弹窗插件初始化
   void configLoading() {
     EasyLoading.instance

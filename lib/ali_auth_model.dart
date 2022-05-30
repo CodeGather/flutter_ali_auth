@@ -94,7 +94,7 @@ class AliAuthModel {
   final int? navReturnImgHeight;
 
   /// 自定义返回按钮参数
-  final CustomView ?customReturnBtn;
+  final CustomView? customReturnBtn;
 
   /// 设置导航栏返回按钮缩放模式
   final ScaleType? navReturnScaleType;
@@ -362,7 +362,7 @@ class AliAuthModel {
   final bool? dialogBottom;
   final int? dialogOffsetX;
   final int? dialogOffsetY;
-  final List<int> ? dialogCornerRadiusArray;
+  final List<int>? dialogCornerRadiusArray;
   final double? dialogAlpha;
   final String? pageBackgroundPath;
 
@@ -393,8 +393,6 @@ class AliAuthModel {
 
   // 授权页面背景路径支持视频mp4，mov等、图片jpeg，jpg，png等、动图gif
   final String? backgroundPath;
-
-
 
   /// /// ------- 十一、ios 弹窗设置参数 --------- ///
   /// 是否隐藏bar bar 为true 时 alertCloseItemIsHidden 也为true
