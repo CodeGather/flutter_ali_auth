@@ -19,3 +19,4 @@
     ```ali_auth/example/android/app/src/main/res/layout/activity_custom_web.xml```    
     1.4 拷贝资源文件    
     ```ali_auth/example/android/app/src/main/res/drawable/icon_close.png```   
+    1.5 修改CustomWebViewActivity.java 将R 资源引入
