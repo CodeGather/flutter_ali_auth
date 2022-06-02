@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hjq.toast.ToastUtils;
 import com.mobile.auth.gatewayauth.AuthUIConfig;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.common.Constant;
@@ -145,6 +146,11 @@ public abstract class BaseUIConfig {
 
                     /// 第三方按钮的点击事件
                     itemButton.setOnClickListener(v -> {
+                        boolean checkedStatus = true;
+                        // 判断是否隐藏toast
+                        if (!jsonObject.getBooleanValue("logBtnToastHidden") && !checkedStatus) {
+                            ToastUtils.show("请勾选协议");
+                        }
                         eventSink.success(UtilTool.resultFormatData("600019", null, finalI));
                     });
                     itemLinearLayout.addView(itemButton);

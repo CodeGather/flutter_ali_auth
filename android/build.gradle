@@ -78,7 +78,7 @@ dependencies {
     implementation(name: "main-${mainVersion}-release", ext:'aar')
 
     // toast 弹窗库 https://github.com/getActivity/ToastUtils
-    // implementation 'com.github.getActivity:ToastUtils:10.3'
+    implementation 'com.github.getActivity:ToastUtils:10.3'
 
     // uc的crash收集库，客户可自行选择是否需要集成
     // implementation 'com.ucweb.wpk:crashsdk:3.2.2.2'

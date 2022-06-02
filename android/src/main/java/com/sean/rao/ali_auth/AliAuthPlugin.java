@@ -6,6 +6,11 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import com.hjq.toast.CustomToast;
+import com.hjq.toast.ToastStrategy;
+import com.hjq.toast.ToastUtils;
+import com.hjq.toast.config.IToast;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -128,21 +133,21 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       _events = eventSink;
       // init();
       // implementation 'com.github.getActivity:ToastUtils:10.3'
-//      ToastUtils.init(mActivity.getApplication(), new ToastStrategy() {
-//        @Override
-//        public IToast createToast(Application application) {
-//          IToast toast = super.createToast(application);
-//            CustomToast customToast = ((CustomToast) toast);
+      ToastUtils.init(mActivity.getApplication(), new ToastStrategy() {
+        @Override
+        public IToast createToast(Application application) {
+          IToast toast = super.createToast(application);
+          CustomToast customToast = ((CustomToast) toast);
           // 设置 Toast 动画效果
           //customToast.setAnimationsId(R.anim.xxx);
           // 设置短 Toast 的显示时长（默认是 2000 毫秒）
-//          toast.setShortDuration(1000);
-//            // 设置长 Toast 的显示时长（默认是 3500 毫秒）
-//          toast.setLongDuration(5000);
-//          toast.setMargin(toast.getHorizontalMargin(), 10);
-//          return toast;
-//        }
-//      });
+          customToast.setShortDuration(1000);
+            // 设置长 Toast 的显示时长（默认是 3500 毫秒）
+          customToast.setLongDuration(5000);
+          toast.setMargin(toast.getHorizontalMargin(), 10);
+          return toast;
+        }
+      });
     }
   }
   @Override
