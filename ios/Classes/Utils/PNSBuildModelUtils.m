@@ -947,12 +947,12 @@
       ) {
         NSUInteger count = customArrayView.count;
         NSInteger contentWidth = contentViewFrame.size.width;
-//        for (int i = 0; i < count; i++) {
-//          UIImageView *itemView = (UIImageView *)customArrayView[i];
-//          NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-//          NSInteger Y = CGRectGetMaxY(titleBarFrame) + 10 + offsetY;
-//          itemView.frame = CGRectMake( X, Y, width, height );
-//        }
+        for (int i = 0; i < count; i++) {
+          UIImageView *itemView = (UIImageView *)customArrayView[i];
+          NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
+          NSInteger Y = CGRectGetMaxY(titleBarFrame) + 10 + offsetY;
+          itemView.frame = CGRectMake( X, Y, width, height );
+        }
         
       };
     }

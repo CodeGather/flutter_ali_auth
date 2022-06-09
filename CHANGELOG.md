@@ -1,6 +1,12 @@
 #  
 
-## 1.0.0.dev.1
+## 1.0.1
+
+* Update Android SDK to 2.12.6.3
+* Update IOS SDK to 2.12.6
+* Fixed the problem of errors reported by some IOS users. Repeated introduction led to issues84
+
+## 1.0.0
 
 * Plug in refactoring
 
