@@ -1,5 +1,9 @@
 #  
 
+## 1.0.2
+* Update the Android download source to Alibaba cloud
+* Update IOS repeated dependency
+
 ## 1.0.1
 
 * Update Android SDK to 2.12.6.3
