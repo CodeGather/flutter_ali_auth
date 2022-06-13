@@ -9,7 +9,7 @@ buildscript {
 //        jcenter()
         // JitPack 远程仓库：https://jitpack.io
         maven { url 'https://jitpack.io' }
-        maven { url 'http://download.flutter.io' }
+        maven { url 'http://download.flutter.io' allowInsecureProtocol true}
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
     }
@@ -26,7 +26,7 @@ rootProject.allprojects {
 //        jcenter()
         // JitPack 远程仓库：https://jitpack.io
         maven { url 'https://jitpack.io' }
-        maven { url 'http://download.flutter.io' }
+        maven { url 'http://download.flutter.io' allowInsecureProtocol true}
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/google' }
 
