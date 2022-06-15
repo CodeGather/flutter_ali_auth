@@ -16,6 +16,8 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'SDWebImage'
+  s.dependency 'MJExtension'
+  s.dependency 'MBProgressHUD'
 
   s.vendored_frameworks = 'libs/ATAuthSDK.framework', 'libs/YTXMonitor.framework', 'libs/YTXOperators.framework'
   s.static_framework = false
