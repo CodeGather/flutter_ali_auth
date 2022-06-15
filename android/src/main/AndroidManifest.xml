@@ -17,15 +17,5 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize"
             android:usesCleartextTraffic="true"/>
-
-        <activity
-            android:configChanges="orientation|keyboardHidden|screenSize|uiMode|fontScale"
-            android:name=".auth.CustomWebViewActivity"
-            android:screenOrientation="sensorPortrait">
-            <intent-filter>
-                <action android:name=".protocolWeb"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
     </application>
 </manifest>
