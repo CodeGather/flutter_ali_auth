@@ -63,6 +63,7 @@ public class OneKeyLoginPublic {
 //            if (sdkAvailable) {
 //                oneKeyLogin();
 //            }
+            oneKeyLogin();
         }
     }
 
