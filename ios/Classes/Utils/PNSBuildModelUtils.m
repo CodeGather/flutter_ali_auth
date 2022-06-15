@@ -181,7 +181,7 @@
   bool isHiddenNavBack = [viewConfig boolValueForKey: @"navReturnHidden" defaultValue: NO];
   model.hideNavBackItem = isHiddenNavBack;
   /// 动态读取assets文件夹下的资源
-  UIImage * navBackImage = [self changeUriPathToImage: viewConfig[@"navReturnImgPath"]];
+  UIImage * navBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"navReturnImgPath" defaultValue: nil]];
   if(navBackImage != nil){
     model.navBackImage = navBackImage;
   }
@@ -212,7 +212,7 @@
   
   /// 协议页面导航设置
   model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"]];
-  UIImage * privacyNavBackImage = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
+  UIImage * privacyNavBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
   if(privacyNavBackImage != nil){
     model.privacyNavBackImage = privacyNavBackImage;
   }
@@ -221,7 +221,7 @@
   
   /// logo 设置
   model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
-  UIImage * image = [self changeUriPathToImage: viewConfig[@"logoImgPath"]];
+  UIImage * image = [self changeUriPathToImage: [viewConfig stringValueForKey: @"logoImgPath" defaultValue: nil]];
   if(image != nil){
     /// logo 默认水平居中
     model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -240,7 +240,7 @@
     [NSAttributedString alloc]
     initWithString: [viewConfig stringValueForKey: @"sloganText" defaultValue: @"一键登录欢迎语"]
         attributes: @{
-         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555"] alpha: 1],
+         NSForegroundColorAttributeName: [self getColor: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555555"]],
          NSFontAttributeName: [
             UIFont systemFontOfSize: [viewConfig floatValueForKey: @"sloganTextSize" defaultValue: 19]
          ]
@@ -338,7 +338,7 @@
   /** 字体大小  */
   model.privacyNavTitleFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 12.0]];
   /** 返回按钮  */
-  UIImage * webNavReturnImgPath = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
+  UIImage * webNavReturnImgPath = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
   if (webNavReturnImgPath != nil) {
     model.privacyNavBackImage = webNavReturnImgPath;
   }
@@ -370,7 +370,7 @@
     model.changeBtnTitle = [
        [NSAttributedString alloc] initWithString: [viewConfig stringValueForKey: @"switchAccText" defaultValue: @"切换到其他方式"]
        attributes: @{
-         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"switchAccTextColor" defaultValue: @"#ccc"] alpha: 1],
+         NSForegroundColorAttributeName: [self getColor: [viewConfig stringValueForKey: @"switchAccTextColor" defaultValue: @"#555555"]],
          NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"switchAccTextSize" defaultValue: 18]]
        }
     ];
@@ -642,7 +642,7 @@
   ];;
   model.alertCloseItemIsHidden = [viewConfig boolValueForKey: @"alertCloseItemIsHidden" defaultValue: NO];
   
-  UIImage * alertCloseImage = [self changeUriPathToImage: viewConfig[@"alertCloseImage"]];
+  UIImage * alertCloseImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"alertCloseImage" defaultValue: nil]];
   model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
   
   model.alertCloseItemFrameBlock = ^CGRect(CGSize screenSize,CGSize superViewSize,CGRect frame) {
@@ -665,7 +665,7 @@
       
   /// 协议页面导航设置
   model.privacyNavColor =  [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000000"]];
-  UIImage * privacyNavBackImage = [self changeUriPathToImage: viewConfig[@"webNavReturnImgPath"]];
+  UIImage * privacyNavBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
   if(privacyNavBackImage != nil){
     model.privacyNavBackImage = privacyNavBackImage;
   }
@@ -674,7 +674,7 @@
   
   /// logo 设置 START
   model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
-  UIImage * image = [self changeUriPathToImage: viewConfig[@"logoImgPath"]];
+  UIImage * image = [self changeUriPathToImage: [viewConfig stringValueForKey: @"logoImgPath" defaultValue: nil]];
   if(image != nil){
     /// logo 默认水平居中
     model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
@@ -694,7 +694,7 @@
     [NSAttributedString alloc]
     initWithString: [viewConfig stringValueForKey: @"sloganText" defaultValue: @"一键登录欢迎语"]
         attributes: @{
-         NSForegroundColorAttributeName: [self colorWithHexString: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555"] alpha: 1],
+         NSForegroundColorAttributeName: [self getColor: [viewConfig stringValueForKey: @"sloganTextColor" defaultValue: @"#555555"]],
          NSFontAttributeName: [
             UIFont systemFontOfSize: [viewConfig floatValueForKey: @"sloganTextSize" defaultValue: 19]
          ]
@@ -773,8 +773,8 @@
   NSArray *privacyColors = [[viewConfig stringValueForKey: @"appPrivacyColor" defaultValue: nil] componentsSeparatedByString:@","];
   if(privacyColors != nil && privacyColors.count > 1){
     model.privacyColors = @[
-      [self colorWithHexString: privacyColors[0] alpha: 1],
-      [self colorWithHexString: privacyColors[1] alpha: 1]
+      [self getColor: privacyColors[0]],
+      [self getColor: privacyColors[1]]
     ];
   }
   
@@ -1494,6 +1494,7 @@
 +(UIColor *)colorWithHexString:(NSString *)hexColor alpha:(float)opacity{
     NSString * cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
 
+  
     // String should be 6 or 8 characters
     if ([cString length] < 6) return [UIColor blackColor];
 
@@ -1534,7 +1535,11 @@
 
 #pragma mark  ======获取flutterVc========
 +(FlutterViewController *)flutterVC{
-  return (FlutterViewController *)[self findCurrentViewController];
+  UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+  if ([viewController isKindOfClass: [FlutterViewController class]]) {
+    return (FlutterViewController *)viewController;
+  }
+  return nil;
 }
 + (UIViewController *)getRootViewController {
     UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
@@ -1568,6 +1573,8 @@
 
 #pragma mark  assets -> 真实路径转成UIImage
 + (UIImage *) changeUriPathToImage:(NSString *) key{
+  if (key == nil || [key isEqual: @""]) return nil;
+  NSLog(@"路径为：%@", key);
   NSString* path = [self changeUriToPath: key];
   UIImage * image = [UIImage imageWithContentsOfFile: path];
   return image;
