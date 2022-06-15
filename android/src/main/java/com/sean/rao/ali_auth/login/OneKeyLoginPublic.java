@@ -16,6 +16,7 @@ import com.mobile.auth.gatewayauth.ResultCode;
 import com.mobile.auth.gatewayauth.TokenResultListener;
 import com.mobile.auth.gatewayauth.model.TokenRet;
 import com.sean.rao.ali_auth.common.Constant;
+import com.sean.rao.ali_auth.common.OnListener;
 import com.sean.rao.ali_auth.config.BaseUIConfig;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
@@ -49,22 +50,32 @@ public class OneKeyLoginPublic {
         config = getFormatConfig(jsonObject);
 
         // 初始化SDK
-        sdkInit();
+        sdkInit(new OnListener() {
+            @Override
+            public void CallBack(Boolean status) {
+
+            }
+        });
         mUIConfig = BaseUIConfig.init(jsonObject.getIntValue("pageType"), mActivity, _eventSink, jsonObject, config, mPhoneNumberAuthHelper);
         if (jsonObject.getBooleanValue("isDelay")) {
         } else {
-            oneKeyLogin();
+            // 非延时的情况下需要判断是否给予登录
+//            if (sdkAvailable) {
+//                oneKeyLogin();
+//            }
         }
     }
 
     /**
      * 初始化SDK
      */
-    private void sdkInit() {
+    private void sdkInit(OnListener onListener) {
         mTokenResultListener = new TokenResultListener() {
             @Override
             public void onTokenSuccess(String s) {
+                sdkAvailable = true;
                 try {
+                    onListener.CallBack(sdkAvailable);
                     Log.i(TAG, "checkEnvAvailable：" + s);
                     TokenRet tokenRet = TokenRet.fromJson(s);
                     if (ResultCode.CODE_ERROR_ENV_CHECK_SUCCESS.equals(tokenRet.getCode())) {
@@ -88,6 +99,8 @@ public class OneKeyLoginPublic {
             @Override
             public void onTokenFailed(String s) {
                 sdkAvailable = false;
+                onListener.CallBack(sdkAvailable);
+                mPhoneNumberAuthHelper.hideLoginLoading();
                 Log.e(TAG, "获取token失败：" + s);
                 try {
                     TokenRet tokenRet = TokenRet.fromJson(s);
@@ -127,7 +140,7 @@ public class OneKeyLoginPublic {
         mPhoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(mActivity.getApplicationContext(), mTokenResultListener);
         mPhoneNumberAuthHelper.checkEnvAvailable(2);
         mUIConfig.configAuthPage();
-        getLoginToken(5000);
+        mPhoneNumberAuthHelper.getLoginToken(mContext, 5000);
     }
 
     /**
