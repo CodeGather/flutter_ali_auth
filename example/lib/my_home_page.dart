@@ -16,7 +16,7 @@ class MyHomePage extends StatefulWidget {
   }
 }
 
-class MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
   String status = "初始化中...";
 
   late CustomThirdView customThirdView;
@@ -42,6 +42,8 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
+    _ambiguate(WidgetsBinding.instance)?.addObserver(this);
 
     /// 初始化第三方按钮数据
     setState(() {
@@ -87,6 +89,32 @@ class MyHomePageState extends State<MyHomePage> {
         status = onEvent.toString();
       });
     });
+  }
+
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    switch (state) {
+      case AppLifecycleState.inactive: // TODO: 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed:  // TODO: 应用程序可见，前台
+        break;
+      case AppLifecycleState.paused:   // TODO: 应用程序不可见，后台
+        /// 由于弹窗方式来回后台的切换导致弹窗背景透明度消失
+        /// AliAuth.quitPage();
+        break;
+      case AppLifecycleState.detached: // TODO: Handle this case.
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _ambiguate(WidgetsBinding.instance)?.removeObserver(this);
+
+    super.dispose();
   }
 
   @override
@@ -1067,4 +1095,13 @@ class MyHomePageState extends State<MyHomePage> {
         customThirdView: customThirdView);
     await AliAuth.initSdk(config);
   }
+
+
+
+  /// This allows a value of type T or T? to be treated as a value of type T?.
+  ///
+  /// We use this so that APIs that have become non-nullable can still be used
+  /// with `!` and `?` on the stable branch.
+  /// TODO(ianh): Remove this once we roll stable in late 2021.
+  T? _ambiguate<T>(T? value) => value;
 }

@@ -2,6 +2,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'ali_auth_model.dart';
 
+export 'ali_auth_enum.dart';
+export 'ali_auth_model.dart';
+
 /// 阿里云一键登录类
 /// 原来的全屏登录和dialog 统一有配置参数isDislog来控制
 class AliAuth {

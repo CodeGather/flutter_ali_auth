@@ -4,7 +4,7 @@
 #import "AliAuthEnum.h"
 #import "MJExtension.h"
 #import <ATAuthSDK/ATAuthSDK.h>
-//#import "ProgressHUD.h"
+#import "MBProgressHUD.h"
 #import "PNSBuildModelUtils.h"
 #import "NSDictionary+Utils.h"
 #import <AuthenticationServices/AuthenticationServices.h>
@@ -43,13 +43,15 @@ bool bool_false = false;
   
 }
 
-#pragma mark - IOS 主动发送通知s让 flutter调用监听 eventChannel start
+#pragma mark - IOS 主动发送通知让 flutter调用监听 eventChannel start
 - (FlutterError*)onListenWithArguments:(id)arguments eventSink:(FlutterEventSink)eventSink {
   if (_eventSink == nil) {
     _eventSink = eventSink;
     /** 返回初始化状态 */
     NSString *version = [[TXCommonHandler sharedInstance] getVersion];
-    _eventSink([NSString stringWithFormat: @"插件启动监听成功, 当前SDK版本: %@", version]);
+    
+    NSDictionary *dict = @{ @"resultCode": @"500004", @"msg": version };
+    [self showResultMsg: dict msg:version];
   }
   return nil;
 }
@@ -96,8 +98,8 @@ bool bool_false = false;
       } else {
         if (![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
           [self initSdk];
-        } else {
-          [self loginWithModel: self->_model complete:^{}];
+//        } else {
+//          [self loginWithModel: self->_model complete:^{}];
         }
       }
     }
@@ -267,40 +269,53 @@ bool bool_false = false;
     }];
 }
 
+
 #pragma mark - action 一键登录公共方法
 - (void)loginWithModel:(TXCustomModel *)model  complete:(void (^)(void))completion {
   float timeout = 5.0; //self.tf_timeout.text.floatValue;
   __weak typeof(self) weakSelf = self;
   UIViewController *_vc = [self findCurrentViewController];
-  
   //1. 调用check接口检查及准备接口调用环境
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-            [weakSelf showResult:resultDic];
-            return;
+          [weakSelf showResult:resultDic];
+          return;
         }
         
         //2. 调用取号接口，加速授权页的弹起
         [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
-            if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-                [weakSelf showResult:resultDic];
-                return ;
-            }
-            
+          if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
+            [weakSelf showResult:resultDic];
+            return;
+          }
+          
             //3. 调用获取登录Token接口，可以立马弹起授权页
             [[TXCommonHandler sharedInstance] getLoginTokenWithTimeout:timeout controller:_vc model:model complete:^(NSDictionary * _Nonnull resultDic) {
-                NSString *code = [resultDic objectForKey:@"resultCode"];
-                if ([PNSCodeSuccess isEqualToString:code]) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                    });
-                } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
-                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                } else if ([PNSCodeCarrierChanged isEqualToString:code]) { // 切换运营商
+              NSString *code = [resultDic objectForKey:@"resultCode"];
+//              UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
+//
+//              UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _vc.view.bounds.size.width, _vc.view.bounds.size.height)];
+              //将手势添加到需要相应的view中去
+              [[weakSelf findCurrentViewController].view hitTest:CGPointMake(_vc.view.bounds.size.width, _vc.view.bounds.size.height) withEvent:nil];
+//              [[weakSelf findCurrentViewController].view addSubview:headerView];
+              
+              // 关闭loading
+              // [MBProgressHUD hideHUDForView:_vc.view animated:YES];
+              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code]) {
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
+                  });
+              } else if ([PNSCodeSuccess isEqualToString:code]) {
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                  });
+              } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
+                [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+              } else if ([PNSCodeCarrierChanged isEqualToString:code]) { // 切换运营商
 //                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
-                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                }
+              } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
+                [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+              }
               [weakSelf showResult:resultDic];
             }];
         }];
@@ -312,6 +327,19 @@ bool bool_false = false;
   NSDictionary *dict = @{
       @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
       @"msg" : [AliAuthEnum initData][[showResult objectForKey:@"resultCode"]]?:@"",
+      @"data" : [showResult objectForKey: @"token"]?:@""
+  };
+
+  self->_eventSink(dict);
+  [self showResultLog: showResult];
+}
+
+#pragma mark -  格式化数据utils返回数据
+- (void)showResultMsg:(id __nullable)showResult msg: (NSString*)msg {
+  NSString *resultMsg = [NSString stringWithFormat: [AliAuthEnum initData][[showResult objectForKey:@"resultCode"]], msg]?:@"";
+  NSDictionary *dict = @{
+      @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
+      @"msg" : resultMsg,
       @"data" : [showResult objectForKey: @"token"]?:@""
   };
 

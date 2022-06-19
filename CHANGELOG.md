@@ -1,5 +1,8 @@
 #  
 
+## 1.0.3
+* Fix IOS dependency
+
 ## 1.0.2
 * Update the Android download source to Alibaba cloud
 * Update IOS repeated dependency

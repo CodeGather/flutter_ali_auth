@@ -50,19 +50,11 @@ public class OneKeyLoginPublic {
         config = getFormatConfig(jsonObject);
 
         // 初始化SDK
-        sdkInit(new OnListener() {
-            @Override
-            public void CallBack(Boolean status) {
-
-            }
-        });
+        sdkInit();
         mUIConfig = BaseUIConfig.init(jsonObject.getIntValue("pageType"), mActivity, _eventSink, jsonObject, config, mPhoneNumberAuthHelper);
         if (jsonObject.getBooleanValue("isDelay")) {
         } else {
             // 非延时的情况下需要判断是否给予登录
-//            if (sdkAvailable) {
-//                oneKeyLogin();
-//            }
             oneKeyLogin();
         }
     }
@@ -70,13 +62,12 @@ public class OneKeyLoginPublic {
     /**
      * 初始化SDK
      */
-    private void sdkInit(OnListener onListener) {
+    private void sdkInit() {
         mTokenResultListener = new TokenResultListener() {
             @Override
             public void onTokenSuccess(String s) {
                 sdkAvailable = true;
                 try {
-                    onListener.CallBack(sdkAvailable);
                     Log.i(TAG, "checkEnvAvailable：" + s);
                     TokenRet tokenRet = TokenRet.fromJson(s);
                     if (ResultCode.CODE_ERROR_ENV_CHECK_SUCCESS.equals(tokenRet.getCode())) {
@@ -100,7 +91,6 @@ public class OneKeyLoginPublic {
             @Override
             public void onTokenFailed(String s) {
                 sdkAvailable = false;
-                onListener.CallBack(sdkAvailable);
                 mPhoneNumberAuthHelper.hideLoginLoading();
                 Log.e(TAG, "获取token失败：" + s);
                 try {
