@@ -26,6 +26,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 import com.sean.rao.ali_auth.login.OneKeyLoginPublic;
+import com.sean.rao.ali_auth.utils.UtilTool;
 
 /** AliAuthPlugin */
 public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, ActivityAware, MethodCallHandler, EventChannel.StreamHandler {
@@ -95,7 +96,8 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         if (oneKeyLoginPublic != null) {
           oneKeyLoginPublic.startLogin((int) call.argument("timeout"));
         } else {
-          result.error("500002", "该接口为延时登录接口，请先初始化后再次调用该接口！", null);
+          // result.error("500002", "该接口为延时登录接口，请先初始化后再次调用该接口！", null);
+          _events.success(UtilTool.resultFormatData("500003", null, ""));
         }
         break;
       case "checkEnvAvailable":

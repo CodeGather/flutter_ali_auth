@@ -166,7 +166,7 @@
   TXCustomModel *model = [[TXCustomModel alloc] init];
   /// 导航设置
   model.navIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
-  model.navColor = [self getColor: [viewConfig stringValueForKey: @"navColor" defaultValue: @"0x3971fe"]];
+  model.navColor = [self getColor: [viewConfig stringValueForKey: @"navColor" defaultValue: @"#3971fe"]];
 
   model.navTitle = [
     [NSAttributedString alloc]
