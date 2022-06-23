@@ -631,7 +631,7 @@
                                                 selector:(SEL)selector {
   TXCustomModel *model = [[TXCustomModel alloc] init];
   model.alertBarIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
-  model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"navTextColor" defaultValue: @"0x3971fe"]];
+  model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"navTextColor" defaultValue: @"#3971fe"]];
   model.alertTitle = [
     [NSAttributedString alloc]
       initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]

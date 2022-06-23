@@ -2,8 +2,6 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:ali_auth/ali_auth.dart';
-import 'package:ali_auth/ali_auth_enum.dart';
-import 'package:ali_auth/ali_auth_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
