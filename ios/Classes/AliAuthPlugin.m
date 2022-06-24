@@ -301,7 +301,8 @@ bool bool_false = false;
               
               // 关闭loading
               // [MBProgressHUD hideHUDForView:_vc.view animated:YES];
-              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code]) {
+              // 当存在isHiddenLoading时需要执行loading
+              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && ![self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES]) {
                   dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
                   });
@@ -324,6 +325,13 @@ bool bool_false = false;
 
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult {
+  // 当存在isHiddenLoading时需要执行关闭
+  if (![self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES]) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [MBProgressHUD hideHUDForView: [self findCurrentViewController].view animated:YES];
+    });
+  }
+  
   NSDictionary *dict = @{
       @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
       @"msg" : [AliAuthEnum initData][[showResult objectForKey:@"resultCode"]]?:@"",
