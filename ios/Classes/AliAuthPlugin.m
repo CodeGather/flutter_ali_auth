@@ -222,7 +222,7 @@ bool bool_false = false;
 
 #pragma mark - action 选中第三方按钮时回调
 - (void)btnClick: (UIGestureRecognizer *) sender {
-  UIView *view = (UIView *)sender.view;
+  UIButton *view = (UIButton *)sender;
   NSInteger index = view.tag;
   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {
     NSDictionary *dict = @{

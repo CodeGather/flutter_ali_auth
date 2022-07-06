@@ -8,6 +8,7 @@
 
 #import "NSDictionary+Utils.h"
 
+#import "CustomButton.h"
 #import "MJExtension.h"
 #import "AliAuthEnum.h"
 #import "PNSBuildModelUtils.h"
@@ -181,10 +182,8 @@
   bool isHiddenNavBack = [viewConfig boolValueForKey: @"navReturnHidden" defaultValue: NO];
   model.hideNavBackItem = isHiddenNavBack;
   /// 动态读取assets文件夹下的资源
-  UIImage * navBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"navReturnImgPath" defaultValue: nil]];
-  if(navBackImage != nil){
-    model.navBackImage = navBackImage;
-  }
+  UIImage * navBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
+  model.navBackImage = navBackImage?:[UIImage imageNamed:@"icon_close_light"];
   
   if (!isHiddenNavBack) {
     /// 自定义返回按钮
@@ -376,7 +375,12 @@
     ];
     model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {
-        return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+        return CGRectMake(
+          10,
+          [viewConfig floatValueForKey: @"switchOffsetY" defaultValue: frame.origin.y],
+          superViewSize.width - 20,
+          30
+        );
       } else {
         return CGRectZero; //横屏时模拟隐藏该控件
       }
@@ -413,16 +417,25 @@
   if (customThirdView != nil) {
     NSMutableArray * customArrayView = [NSMutableArray array]; /// 空数组，有意义
     NSArray * customArray = [customThirdView arrayValueForKey: @"viewItemPath" defaultValue: nil]; //空数组，有意义
+    NSArray * customNameArray = [customThirdView arrayValueForKey: @"viewItemName" defaultValue: nil]; //空数组，有意义
     if(customArray != nil && customArray.count > 0){
+      /// 第三方图标按钮的相关参数
+      int width = [customThirdView intValueForKey: @"itemWidth" defaultValue: 70];
+      int height = [customThirdView intValueForKey: @"itemHeight" defaultValue: 70];
+      int offsetY = [customThirdView intValueForKey: @"top" defaultValue: 20];
+      int space = [customThirdView intValueForKey: @"space" defaultValue: 30];
+      NSString *color = [viewConfig stringValueForKey: @"color" defaultValue: @"#3C4E5F"];
+      
       for (int i = 0 ; i < customArray.count; i++) {
-        /// 动态生成imageView 并且加入到 imageView数组中以备使用
-        UIImageView *itemView = [
-         self customView: customArray[i]
-                selector: selector
-                  target: target
-                   index: i
-         ];
-        [customArrayView addObject: itemView];
+        CustomButton *button = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [button setTag: i];
+        [button setTitle: customNameArray[i] forState:UIControlStateNormal];
+        [button setTitleColor: [self getColor: color] forState:UIControlStateNormal];
+        [button setBackgroundImage:[self changeUriPathToImage: customArray[i]] forState:UIControlStateNormal];
+        [button addTarget:target action: selector forControlEvents:UIControlEventTouchUpInside];
+    
+        [customArrayView addObject: button];
       }
       /// 添加第三方图标
       model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
@@ -430,11 +443,6 @@
           [superCustomView addSubview: customArrayView[i]];
         }
       };
-      /// 第三方图标按钮的相关参数
-      int width = [viewConfig intValueForKey: @"itemWidth" defaultValue: 70];
-      int height = [viewConfig intValueForKey: @"itemHeight" defaultValue: 70];
-      int offsetY = [customThirdView intValueForKey: @"top" defaultValue: 20];
-      int space = [customThirdView intValueForKey: @"space" defaultValue: 30];
       
       model.customViewLayoutBlock = ^(
         CGSize screenSize,       /// 全屏参数
@@ -451,10 +459,10 @@
         NSUInteger count = customArrayView.count;
         NSInteger contentWidth = screenSize.width;
         for (int i = 0 ; i < count; i++) {
-          UIImageView *itemView = (UIImageView *)customArrayView[i];
+          UIButton *itemView = (UIButton *)customArrayView[i];
           NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
           NSInteger Y = offsetY > 50 ? CGRectGetMaxY(navFrame) + offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
-          itemView.frame = CGRectMake( X, Y, width, height );
+          itemView.frame = CGRectMake( X, Y, itemView.frame.size.width, itemView.frame.size.height );
         }
       };
     }
@@ -895,16 +903,25 @@
   if (customThirdView != nil) {
     NSMutableArray * customArrayView = [NSMutableArray array]; /// 空数组，有意义
     NSArray * customArray = [customThirdView arrayValueForKey: @"viewItemPath" defaultValue: nil]; //空数组，有意义
+    NSArray * customNameArray = [customThirdView arrayValueForKey: @"viewItemName" defaultValue: nil]; //空数组，有意义
     if(customArray != nil && customArray.count > 0){
+      /// 第三方图标按钮的相关参数
+      int width = [customThirdView intValueForKey: @"itemWidth" defaultValue: 50];
+      int height = [customThirdView intValueForKey: @"itemHeight" defaultValue: 50];
+      int offsetY = [customThirdView intValueForKey: @"top" defaultValue: 20];
+      int space = [customThirdView intValueForKey: @"space" defaultValue: 30];
+      NSString* color = [customThirdView stringValueForKey: @"color" defaultValue: @"#3c4E5F"];
       for (int i = 0 ; i < customArray.count; i++) {
         /// 动态生成imageView 并且加入到 imageView数组中以备使用
-        UIImageView *itemView = [
-         self customView: customArray[i]
-                selector: selector
-                  target: target
-                   index: i
-         ];
-        [customArrayView addObject: itemView];
+        CustomButton *button = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [button setTag: i];
+        [button setTitle: customNameArray[i] forState:UIControlStateNormal];
+        [button setTitleColor: [self getColor: color] forState:UIControlStateNormal];
+        [button setBackgroundImage:[self changeUriPathToImage: customArray[i]] forState:UIControlStateNormal];
+        [button addTarget:target action: selector forControlEvents:UIControlEventTouchUpInside];
+    
+        [customArrayView addObject: button];
       }
       
       /// 添加第三方图标
@@ -927,11 +944,6 @@
 //        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
 //        [superCustomView addGestureRecognizer:singleTap];
       };
-      /// 第三方图标按钮的相关参数
-      int width = [viewConfig intValueForKey: @"itemWidth" defaultValue: 50];
-      int height = [viewConfig intValueForKey: @"itemHeight" defaultValue: 50];
-      int offsetY = [customThirdView intValueForKey: @"top" defaultValue: 20];
-      int space = [customThirdView intValueForKey: @"space" defaultValue: 30];
       
       model.customViewLayoutBlock = ^(
         CGSize screenSize,       /// 全屏参数
@@ -948,7 +960,7 @@
         NSUInteger count = customArrayView.count;
         NSInteger contentWidth = contentViewFrame.size.width;
         for (int i = 0; i < count; i++) {
-          UIImageView *itemView = (UIImageView *)customArrayView[i];
+          UIButton *itemView = (UIButton *)customArrayView[i];
           NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
           NSInteger Y = CGRectGetMaxY(titleBarFrame) + 10 + offsetY;
           itemView.frame = CGRectMake( X, Y, width, height );
@@ -1445,6 +1457,7 @@
   UIImageView *imageView = [[UIImageView alloc]init];
   imageView.image = image;
   imageView.tag = index;
+  imageView.frame = CGRectMake( 0, 0, 50, 50 );
   /// 设置控件背景颜色
   /// imageView.backgroundColor = [UIColor orangeColor];
   imageView.clipsToBounds = YES;
