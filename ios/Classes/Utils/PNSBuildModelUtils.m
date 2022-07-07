@@ -461,8 +461,7 @@
         for (int i = 0 ; i < count; i++) {
           UIButton *itemView = (UIButton *)customArrayView[i];
           NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-          NSInteger Y = offsetY > 50 ? CGRectGetMaxY(navFrame) + offsetY : CGRectGetMaxY(changeBtnFrame) + offsetY;
-          itemView.frame = CGRectMake( X, Y, itemView.frame.size.width, itemView.frame.size.height );
+          itemView.frame = CGRectMake( X, offsetY, itemView.frame.size.width, itemView.frame.size.height );
         }
       };
     }
@@ -962,8 +961,7 @@
         for (int i = 0; i < count; i++) {
           UIButton *itemView = (UIButton *)customArrayView[i];
           NSInteger X = (contentWidth - (width * count + space * (count - 1))) / 2 + (space + width) * i; /// 两端评分
-          NSInteger Y = CGRectGetMaxY(titleBarFrame) + 10 + offsetY;
-          itemView.frame = CGRectMake( X, Y, width, height );
+          itemView.frame = CGRectMake( X, offsetY, width, height );
         }
         
       };

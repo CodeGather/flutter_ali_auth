@@ -84,12 +84,10 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
           result.error("500001", "请先对插件进行监听！", null);
         } else {
           boolean isDelay = (boolean) call.argument("isDelay");
+          /// 判断是否初始化过或者是否是同步登录，如果是将进行再次初始化
           if (oneKeyLoginPublic == null || !isDelay) {
             oneKeyLoginPublic = new OneKeyLoginPublic(mActivity, _events, call.arguments);
-          } else {
-            oneKeyLoginPublic.getLoginToken(5000);
           }
-          result.success("初始化插件成功！");
         }
         break;
       case "login":

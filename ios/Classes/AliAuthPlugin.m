@@ -93,14 +93,8 @@ bool bool_false = false;
     if (_eventSink == nil) {
       result(@{ @"code": @"500001", @"msg": @"请先对插件进行监听！" });
     } else {
-      if(_model == nil){
+      if (_model == nil || ![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
         [self initSdk];
-      } else {
-        if (![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
-          [self initSdk];
-//        } else {
-//          [self loginWithModel: self->_model complete:^{}];
-        }
       }
     }
   }
