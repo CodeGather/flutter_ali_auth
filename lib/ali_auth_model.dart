@@ -348,7 +348,7 @@ class AliAuthModel {
   /// 设置运营商协议后缀符号，只能设置⼀个字符，且只能设置<>()《》【】『』[]（）中的⼀个
   final String? vendorPrivacySuffix;
 
-  /// 设置checkbox未勾选时，点击登录按钮toast是否隐藏
+  /// 设置checkbox未勾选时，点击登录按钮toast是否隐藏 (android 独有)
   final bool? logBtnToastHidden;
 
   /// 设置底部虚拟按键背景⾊（系统版本 5.0 以上可设置）
