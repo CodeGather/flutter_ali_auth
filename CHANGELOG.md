@@ -1,5 +1,14 @@
 #  
 
+## 1.0.4
+
+* Fix the problem of clicking the desktop icon to restart after Android background
+* Fix the problem of SDK version parameters returned from IOS and Android initial initialization
+* Fix the inconsistency between IOS third-party layout buttons and Android effects
+* The logbtntoasthidden parameter is unique to Android and has no effect on IOS
+* Fix the problem that the authorization page is called directly when the plug-in initialization is updated again under the condition of delayed login
+* New IOS third-party layout to add text
+
 ## 1.0.3
 * Fix IOS dependency
 
