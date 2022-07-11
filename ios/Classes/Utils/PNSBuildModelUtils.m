@@ -1549,8 +1549,9 @@
   UIViewController * viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
   if ([viewController isKindOfClass: [FlutterViewController class]]) {
     return (FlutterViewController *)viewController;
+  } else {
+    return (FlutterViewController *)[self findCurrentViewController];
   }
-  return nil;
 }
 + (UIViewController *)getRootViewController {
     UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
