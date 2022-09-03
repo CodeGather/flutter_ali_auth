@@ -153,22 +153,14 @@ bool bool_false = false;
       //2. 调用check接口检查及准备接口调用环境
       [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable checkDic) {
         if ([PNSCodeSuccess isEqualToString:[checkDic objectForKey:@"resultCode"]] == YES) {
-          [checkDic setValue:@(bool_true) forKey: @"token"];
-          [self showResult: checkDic];
           //3. 调用取号接口，加速授权页的弹起
           [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout: 5000 complete:^(NSDictionary * _Nonnull resultDic) {
             //4. 预取号成功后判断是否延时登录，否则立即登录
             if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
               if (![dic boolValueForKey: @"isDelay" defaultValue: NO]) {
                 [self loginWithModel: self->_model complete:^{}];
-                [resultDic setValue:@"600012" forKey: @"resultCode"];
-                [resultDic setValue:@(bool_true) forKey: @"token"];
               }
-            } else {
-              [resultDic setValue:@"600012" forKey: @"resultCode"];
-              [checkDic setValue:@(bool_false) forKey: @"token"];
             }
-            [self showResult: resultDic];
           }];
         } else {
           [checkDic setValue:@(bool_false) forKey: @"token"];

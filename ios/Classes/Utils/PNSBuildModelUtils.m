@@ -348,6 +348,17 @@
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
   model.privacyOperatorPreText = [viewConfig stringValueForKey: @"vendorPrivacyPrefix" defaultValue: @"《"];
   model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
+  
+  /// 协议水平垂直设置
+  model.privacyFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if ([viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1] > -1) {
+      frame.origin.y = [viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1];
+    }
+    if ([viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1] > -1) {
+      frame.origin.x = [viewConfig floatValueForKey: @"privacyOffsetX" defaultValue: -1];
+    }
+    return frame;
+  };
   // 0.2.3 - 1.12.4新增
   model.privacyVCIsCustomized = [viewConfig boolValueForKey: @"privacyVCIsCustomized" defaultValue: NO];
   // 是否使用授权页协议动画
@@ -791,6 +802,16 @@
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
   model.privacyOperatorPreText = [viewConfig stringValueForKey: @"vendorPrivacyPrefix" defaultValue: @"《"];
   model.privacyOperatorSufText = [viewConfig stringValueForKey: @"vendorPrivacySuffix" defaultValue: @"》"];
+  /// 协议水平垂直设置
+  model.privacyFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    if ([viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1] > -1) {
+      frame.origin.y = [viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1];
+    }
+    if ([viewConfig floatValueForKey: @"privacyOffsetY" defaultValue: -1] > -1) {
+      frame.origin.x = [viewConfig floatValueForKey: @"privacyOffsetX" defaultValue: -1];
+    }
+    return frame;
+  };
   
   // 勾选统一按钮
   BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];

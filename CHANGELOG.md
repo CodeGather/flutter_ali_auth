@@ -2,6 +2,15 @@
 
 ## 1.0.4
 
+* Update Android SDK to 2.12.9
+* Update IOS SDK to 2.12.9
+* Fix IOS protocol coordinate problem
+* Optimize IOS initialization return and remove useless return
+* Add (the video that demonstrates the background restart of the app includes getting normal when the network is disconnected) demo
+* The second pop-up interface will be added in the next version
+
+## 1.0.4
+
 * Fix the problem of clicking the desktop icon to restart after Android background
 * Fix the problem of SDK version parameters returned from IOS and Android initial initialization
 * Fix the inconsistency between IOS third-party layout buttons and Android effects

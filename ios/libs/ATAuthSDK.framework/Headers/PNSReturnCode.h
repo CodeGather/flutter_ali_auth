@@ -65,4 +65,40 @@ static NSString * const PNSCodeLoginControllerClickProtocol = @"700004";
 /*************** 号码认证授权页相关返回码 FINISH ***************/
 
 
+/*************** 活体认证相关返回码 START ***************/
+
+/// 点击一键登录拉起授权页二次弹窗
+static NSString * const PNSCodeLoginClickPrivacyAlertView = @"700006";
+/// 隐私协议二次弹窗关闭
+static NSString * const PNSCodeLoginPrivacyAlertViewClose = @"700007";
+/// 隐私协议二次弹窗点击确认并继续
+static NSString * const PNSCodeLoginPrivacyAlertViewClickContinue = @"700008";
+/// 点击隐私协议二次弹窗上的协议富文本文字
+static NSString * const PNSCodeLoginPrivacyAlertViewPrivacyContentClick = @"700009";
+
+/*************** 活体认证相关返回码 FINISH ***************/
+
+/*************** 活体认证相关返回码 START ***************/
+
+/// 接口请求失败
+static NSString * const PNSCodeFailed = @"600030";
+/// 网络错误
+static NSString * const PNSCodeErrorNetwork = @"600031";
+/// 客户端设备时间错误
+static NSString * const PNSCodeErrorClientTimestamp = @"600032";
+/// 功能不可用，需要到控制台开通对应功能
+static NSString * const PNSCodeFeatureInvalid = @"600033";
+/// 不合法的SDK密钥
+static NSString * const PNSCodeSDKInfoInvalid = @"600034";
+/// 状态繁忙
+static NSString * const PNSCodeStatusBusy = @"600035";
+/// 业务停机
+static NSString * const PNSCodeOutOfSerivce = @"600036";
+/// 活体认证页面准备启动
+static NSString * const PNSCodeLiftBodyVerifyReadyStating = @"700005";
+/// 用户主动取消操作UI事件，用户取消操作
+static NSString * const PNSCodeErrorUserCancel = @"700000";
+
+/*************** 活体认证相关返回码 FINISH ***************/
+
 #endif /* PNSReturnCode_h */

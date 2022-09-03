@@ -427,6 +427,36 @@ class AliAuthModel {
 
   final PNSPresentationDirection? presentDirection;
 
+  // this.privacyAlertAlignment = 17;
+  // this.privacyAlertWidth = 160;
+  // this.privacyAlertHeight = 90;
+  // this.privacyAlertOffsetX = 0;
+  // this.privacyAlertOffsetY = 0;
+  // this.privacyAlertEntryAnimation = null;
+  // this.privacyAlertExitAnimation = null;
+  // this.privacyAlertBackgroundColor = Color.parseColor("#FFFFFF");
+  // this.privacyAlertTitleBackgroundColor = -1;
+  // this.privacyAlertAlpha = 1.0F;
+  // this.privacyAlertMaskAlpha = 0.3F;
+  // this.privacyAlertTitleTextSize = this.makeTextSizeSpec(18, 1073741824);
+  // this.privacyAlertTitleColor = -16777216;
+  // this.privacyAlertTitleAlignment = 17;
+  // this.privacyAlertContentTextSize = this.makeTextSizeSpec(16, 1073741824);
+  // this.privacyAlertContentColor = 0;
+  // this.privacyAlertContentBaseColor = 0;
+  // this.privacyAlertContentBackgroundColor = -1;
+  // this.privacyAlertContentAlignment = 3;
+  // this.privacyAlertBtnBackgroundImgPath = null;
+  // this.privacyAlertBtnBackgroundImgDrawable = null;
+  // this.privacyAlertBtnTextColor = -16777216;
+  // this.privacyAlertBtnTextSize = this.makeTextSizeSpec(18, 1073741824);
+  // this.privacyAlertBtnHeigth = 60;
+  // this.privacyAlertCloseBtnShow = true;
+  // this.privacyAlertMaskIsNeedShow = true;
+  // this.privacyAlertCloseScaleType = ScaleType.CENTER;
+  // this.privacyAlertCloseImgWidth = 30;
+  // this.privacyAlertCloseImgHeight = 30;
+
   const AliAuthModel(this.androidSk, this.iosSk,
       {this.isDebug = true,
       this.isDelay = false,
