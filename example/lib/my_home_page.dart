@@ -45,23 +45,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
 
     /// 初始化第三方按钮数据
     setState(() {
-      Map<String, dynamic> configMap = {
-        "width": -1,
-        "height": -1,
-        "top": 400,
-        "space": 20,
-        "size": 20,
-        'itemWidth': 50,
-        'itemHeight': 50,
-        "viewItemName": ["支付宝", "淘宝", "微博"],
-        "viewItemPath": [
-          "assets/alipay.png",
-          "assets/taobao.png",
-          "assets/sina.png"
-        ]
-      };
-      customThirdView = CustomThirdView.fromJson(configMap);
-
       androidSk =
           "rt7nM6GmyXmmGtPMlFM7LFnUayakjqor6UpM+6IzxMeYdpGeE3C7NHGQbacjgeeAyIA45DWm2EITQZVq2cg9bTouiIgMc9KOPY3VnqKADTYijp78gj58d7oNQCzCMD6G4XwCkdWhBFXQw5kC3pJ9iGcVzWtGptZDgzCRDqG/vW+2KAHTlTYOvcWiRwyVM1Iaxr1m2Gz0CySqVkQaWa3vIw9BCMZKcr5ywmGykXgnA5rcPNLi7TcSBrV4mYD5m8IYCUez/QeLoOgY3VUCuInxhkLOKglQ/qdQRby2a/eRCgf/k0xC+XHGiw==";
       iosSk =
@@ -75,6 +58,23 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
               50;
       unit = dialogHeight ~/ 10;
       logBtnHeight = (unit * 1.1).floor();
+
+      Map<String, dynamic> configMap = {
+        "width": -1,
+        "height": -1,
+        "top": unit * 10 + 80,
+        "space": 20,
+        "size": 20,
+        'itemWidth': 50,
+        'itemHeight': 50,
+        "viewItemName": ["支付宝", "淘宝", "微博"],
+        "viewItemPath": [
+          "assets/alipay.png",
+          "assets/taobao.png",
+          "assets/sina.png"
+        ]
+      };
+      customThirdView = CustomThirdView.fromJson(configMap);
     });
 
     AliAuth.loginListen(onEvent: (onEvent) {
@@ -238,12 +238,9 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       navReturnHidden: false,
       navReturnScaleType: ScaleType.center,
       navHidden: false,
+      logoOffsetY: unit * 2,
       logoImgPath: "assets/logo.png",
       logoHidden: false,
-      numberColor: "#ffffff",
-      numberSize: 28,
-      switchAccHidden: false,
-      switchAccTextColor: "#FDFDFD",
       logBtnText: "一键登录",
       logBtnTextSize: 16,
       logBtnTextColor: "#FFF000",
@@ -258,18 +255,20 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       protocolColor: "#00FF00",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#ffffff",
+      sloganOffsetY: unit * 5,
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
           "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
-      logoOffsetY: 20,
       logoOffsetY_B: -1,
+      numberColor: "#ffffff",
+      numberSize: 28,
       logoScaleType: ScaleType.fitXy,
+      numFieldOffsetY: unit * 7,
       numFieldOffsetY_B: -1,
       numberFieldOffsetX: 0,
       numberLayoutGravity: Gravity.centerHorizntal,
-      switchOffsetY: -1,
-      switchOffsetY_B: -1,
+      logBtnOffsetY: unit * 8,
       logBtnOffsetY_B: -1,
       logBtnHeight: 51,
       logBtnOffsetX: 0,
@@ -286,6 +285,10 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       logoHeight: 90,
       switchAccTextSize: 16,
       switchAccText: "切换到其他方式",
+      switchOffsetY: unit * 9 + 20,
+      switchOffsetY_B: -1,
+      switchAccHidden: false,
+      switchAccTextColor: "#FDFDFD",
       sloganTextSize: 16,
       sloganHidden: false,
       uncheckedImgPath: "assets/btn_unchecked.png",
@@ -380,13 +383,13 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         logBtnBackgroundPath:
             "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         loadingImgPath: "authsdk_waiting_icon",
-        numFieldOffsetY: unit * 10,
+        numFieldOffsetY: unit * 8,
         numberLayoutGravity: Gravity.centerHorizntal,
         switchOffsetY: -1,
         switchOffsetY_B: -1,
-        logBtnOffsetY: unit * 11,
+        logBtnOffsetY: unit * 10,
         logBtnOffsetY_B: -1,
-        logBtnWidth: -1,
+        logBtnWidth: 300,
         logBtnHeight: 51,
         logBtnOffsetX: 0,
         logBtnMarginLeftAndRight: 28,
@@ -493,13 +496,12 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         logBtnBackgroundPath:
             "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         loadingImgPath: "authsdk_waiting_icon",
-        numFieldOffsetY: unit * 10,
+        numFieldOffsetY: unit * 8,
         numberLayoutGravity: Gravity.centerHorizntal,
         switchOffsetY: -1,
         switchOffsetY_B: -1,
-        logBtnOffsetY: unit * 11,
+        logBtnOffsetY: unit * 10,
         logBtnOffsetY_B: -1,
-        logBtnWidth: -1,
         logBtnHeight: 51,
         logBtnOffsetX: 0,
         logBtnMarginLeftAndRight: 28,
@@ -568,11 +570,13 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         statusBarColor: "#026ED2",
         bottomNavColor: "#FFFFFF",
         isLightColor: true,
-        navHidden: true,
+        navHidden: false,
         logoHidden: true,
         sloganHidden: true,
         numberColor: "#ffffff",
         numberSize: 28,
+        logBtnBackgroundPath:
+        "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
         logBtnText: "一键登录",
         logBtnTextSize: 16,
         logBtnTextColor: "#FFF000",
@@ -639,10 +643,11 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
 
   /// 弹窗
   AliAuthModel getDialogConfig({bool isDelay = false}) {
+    // top相对于switchOffsetY的位置即按钮下方多少间距
     Map<String, dynamic> configMap = {
       "width": -1,
       "height": -1,
-      "top": unit * 3 + 80,
+      "top": unit * 3 + 130,
       "space": 20,
       "size": 14,
       'itemWidth': 40,
@@ -654,7 +659,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         "assets/sina.png"
       ]
     };
-    customThirdView = CustomThirdView.fromJson(configMap);
     return AliAuthModel(
       androidSk,
       iosSk,
@@ -764,7 +768,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       alertCloseImageH: 45,
       alertBlurViewColor: "#DCDCDC",
       alertBlurViewAlpha: 0.4,
-      customThirdView: customThirdView,
+      customThirdView: CustomThirdView.fromJson(configMap),
     );
   }
 
@@ -774,8 +778,8 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       androidSk,
       iosSk,
       isDebug: true,
-      isDelay: false,
-      pageType: PageType.dialogPort,
+      isDelay: isDelay,
+      pageType: PageType.fullPort,
       statusBarColor: "#026ED2",
       bottomNavColor: "#FFFFFF",
       isLightColor: false,
@@ -783,71 +787,68 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       statusBarUIFlag: UIFAG.systemUiFalgFullscreen,
       navColor: "#026ED2",
       navText: "一键登录插件演示",
-      navTextSize: 10,
       navTextColor: "#ffffff",
-      navReturnImgPath: "assets/icon_close.png",
-      navReturnImgWidth: 20,
-      navReturnImgHeight: 20,
+      navReturnImgPath: "assets/return_btn.png",
+      navReturnImgWidth: 30,
+      navReturnImgHeight: 30,
       navReturnHidden: false,
       navReturnScaleType: ScaleType.center,
       navHidden: false,
-      numberColor: "#ffffff",
-      numberSize: 17,
-      switchAccHidden: true,
-      switchAccTextColor: "#FDFDFD",
-      switchAccTextSize: 16,
-      switchAccText: "切换到其他方式",
+      logoOffsetY: unit * 2,
+      logoImgPath: "assets/logo.png",
+      logoHidden: false,
       logBtnText: "一键登录",
       logBtnTextSize: 16,
       logBtnTextColor: "#FFF000",
-      uncheckedImgPath: "assets/btn_unchecked.png",
-      checkedImgPath: "assets/btn_checked.png",
       protocolOneName: "《通达理》",
       protocolOneURL: "https://tunderly.com",
       protocolTwoName: "《思预云》",
       protocolTwoURL: "https://jokui.com",
       protocolThreeName: "《思预云APP》",
       protocolThreeURL:
-          "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
-      protocolCustomColor: "#F3F3F3",
-      protocolColor: "#dddddd",
+      "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
+      protocolCustomColor: "#F0F0F0",
+      protocolColor: "#00FF00",
       protocolLayoutGravity: Gravity.centerHorizntal,
       sloganTextColor: "#ffffff",
+      sloganOffsetY: unit * 5,
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
-          "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
+      "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
-      sloganOffsetY: unit * 4,
-      sloganOffsetY_B: -1,
-      sloganTextSize: 11,
-      sloganHidden: false,
-      logoWidth: 42,
-      logoHeight: 42,
-      logoImgPath: "assets/logo.png",
-      logoHidden: false,
-      logoOffsetY: unit,
       logoOffsetY_B: -1,
+      numberColor: "#ffffff",
+      numberSize: 28,
       logoScaleType: ScaleType.fitXy,
-      numFieldOffsetY: unit * 3,
+      numFieldOffsetY: unit * 7,
       numFieldOffsetY_B: -1,
       numberFieldOffsetX: 0,
       numberLayoutGravity: Gravity.centerHorizntal,
-      switchOffsetY: -1,
-      switchOffsetY_B: -1,
-      logBtnOffsetY: unit * 5,
+      logBtnOffsetY: unit * 8,
       logBtnOffsetY_B: -1,
-      logBtnWidth: dialogWidth - 30,
-      logBtnHeight: logBtnHeight,
+      logBtnHeight: 51,
       logBtnOffsetX: 0,
-      logBtnMarginLeftAndRight: 15,
+      logBtnMarginLeftAndRight: 28,
       logBtnLayoutGravity: Gravity.centerHorizntal,
-      logBtnToastHidden: false,
       privacyOffsetX: -1,
       privacyOffsetY: -1,
       privacyOffsetY_B: 28,
-      checkBoxWidth: 15,
-      checkBoxHeight: 15,
+      checkBoxWidth: 18,
+      checkBoxHeight: 18,
       checkboxHidden: false,
+      navTextSize: 18,
+      logoWidth: 90,
+      logoHeight: 90,
+      switchAccTextSize: 16,
+      switchAccText: "切换到其他方式",
+      switchOffsetY: unit * 9 + 20,
+      switchOffsetY_B: -1,
+      switchAccHidden: false,
+      switchAccTextColor: "#FDFDFD",
+      sloganTextSize: 16,
+      sloganHidden: false,
+      uncheckedImgPath: "assets/btn_unchecked.png",
+      checkedImgPath: "assets/btn_checked.png",
       privacyState: false,
       protocolGravity: Gravity.centerHorizntal,
       privacyTextSize: 12,
@@ -856,26 +857,37 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       privacyEnd: "",
       vendorPrivacyPrefix: "",
       vendorPrivacySuffix: "",
-      dialogWidth: dialogWidth,
-      dialogHeight: dialogHeight,
+      dialogWidth: -1,
+      dialogHeight: -1,
       dialogBottom: false,
       dialogOffsetX: 0,
       dialogOffsetY: 0,
       pageBackgroundPath: "assets/background_image.jpeg",
-      pageBackgroundRadius: 10,
       webViewStatusBarColor: "#026ED2",
-      webNavColor: "#FFFFFF",
+      webNavColor: "#FF00FF",
       webNavTextColor: "#F0F0F8",
       webNavTextSize: -1,
-      webNavReturnImgPath: "assets/return_btn.png",
+      webNavReturnImgPath: "assets/background_image.jpeg",
       webSupportedJavascript: true,
       authPageActIn: "in_activity",
       activityOut: "out_activity",
       authPageActOut: "in_activity",
       activityIn: "out_activity",
       screenOrientation: -1,
-      dialogAlpha: 0.4,
-      bottomNavBarColor: "#FFFFFF",
+      logBtnToastHidden: false,
+      dialogAlpha: 1.0,
+      /**
+       * "assets/background_gif.gif"
+       * "assets/background_gif1.gif"
+       * "assets/background_gif2.gif"
+       * "assets/background_image.jpeg"
+       * "assets/background_video.mp4"
+       *
+       * "https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-7/20187232061776607.gif"
+       * "https://img.zcool.cn/community/01dda35912d7a3a801216a3e3675b3.gif",
+       */
+      backgroundPath: "assets/background_image.jpeg",
+      customThirdView: customThirdView,
       privacyOperatorIndex: 2,
       protocolAction: "com.sean.rao.ali_auth_example.protocolWeb",
       packageName: "com.sean.rao.ali_auth_example",
@@ -884,6 +896,21 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
 
   /// 底部弹窗登录
   AliAuthModel getDialogButtomConfig({bool isDelay = false}) {
+    Map<String, dynamic> configMap = {
+      "width": -1,
+      "height": -1,
+      "top": unit * 4 + 60,
+      "space": 20,
+      "size": 15,
+      'itemWidth': 40,
+      'itemHeight': 40,
+      "viewItemName": ["支付宝", "淘宝", "微博"],
+      "viewItemPath": [
+        "assets/alipay.png",
+        "assets/taobao.png",
+        "assets/sina.png"
+      ]
+    };
     return AliAuthModel(
       androidSk,
       iosSk,
@@ -895,7 +922,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       navColor: "#026ED2",
       navText: "一键登录插件演示",
       navTextSize: 10,
-      navTextColor: "#ffffff",
+      navTextColor: "#ff00ff",
       navReturnImgPath: "assets/icon_close.png",
       navReturnImgWidth: 20,
       navReturnImgHeight: 20,
@@ -928,7 +955,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       logBtnBackgroundPath:
           "assets/login_btn_normal.png,assets/login_btn_unable.png,assets/login_btn_press.png",
       loadingImgPath: "authsdk_waiting_icon",
-      sloganOffsetY: unit * 4,
+      sloganOffsetY: unit + 70,
       sloganTextSize: 11,
       sloganHidden: false,
       logoWidth: 42,
@@ -942,7 +969,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       numFieldOffsetY_B: -1,
       numberFieldOffsetX: 0,
       numberLayoutGravity: Gravity.centerHorizntal,
-      logBtnOffsetY: unit * 5,
+      logBtnOffsetY: unit * 4,
       logBtnHeight: logBtnHeight,
       logBtnOffsetX: 0,
       logBtnMarginLeftAndRight: 15,
@@ -970,6 +997,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       activityIn: "out_activity",
       dialogAlpha: 0.4,
       bottomNavBarColor: "#000000",
+      customThirdView: CustomThirdView.fromJson(configMap),
     );
   }
 

@@ -255,12 +255,30 @@ bool bool_false = false;
     }];
 }
 
+// 跳转Flutter混合原生view界面
+-(void)handleSingleTap:(UITapGestureRecognizer *)sender{    //获得参数
+  NSLog(@"%@", @"我被点击了");
+}
 
 #pragma mark - action 一键登录公共方法
 - (void)loginWithModel:(TXCustomModel *)model  complete:(void (^)(void))completion {
   float timeout = 5.0; //self.tf_timeout.text.floatValue;
   __weak typeof(self) weakSelf = self;
+  
+//  UIWindow *window = [[UIApplication sharedApplication].delegate window];
+//  UIViewController * _vc = [[ViewController alloc] init];
+//  window.rootViewController = _vc;
+  
   UIViewController *_vc = [self findCurrentViewController];
+  
+//  UIButton *pushFlutterNativePageButton = [UIButton buttonWithType:UIButtonTypeSystem];
+//  pushFlutterNativePageButton.frame = CGRectMake(100, 300, 300, 100);
+//  [pushFlutterNativePageButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//  [pushFlutterNativePageButton setTitle:@"跳转到Flutter混合原生view界面" forState:UIControlStateNormal];
+//  [pushFlutterNativePageButton addTarget:self action:@selector(pushFlutterNativePage) forControlEvents:UIControlEventTouchUpInside];
+//  [_vc.view addSubview:pushFlutterNativePageButton];
+  
+  
   //1. 调用check接口检查及准备接口调用环境
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
         if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
@@ -550,6 +568,8 @@ bool bool_false = false;
 - (UIViewController *)findCurrentViewController{
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
   
+//    UIViewController * vc = [[ViewController alloc] init];
+//    window.rootViewController = vc;
 //  UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
 //  [window addGestureRecognizer:singleTap];
     UIViewController *topViewController = [window rootViewController];
@@ -565,7 +585,6 @@ bool bool_false = false;
             break;
         }
     }
-  
     return topViewController;
 }
 

@@ -57,13 +57,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: getDefaultRouter(),
-      routes: <String, WidgetBuilder>{
-        '/homePage': (BuildContext context) => const MyHomePage(),
-        '/routerPage': (BuildContext context) => const MyRouterPage(),
-      },
-      builder: EasyLoading.init(),
+    return  WillPopScope(
+        onWillPop: () {
+        // 退出APP方法一
+        EasyLoading.show(
+            status: '您确定要退出思预云吗?',
+        );
+        return Future.value(false);
+      },// look here!
+      child: MaterialApp(
+        home: getDefaultRouter(),
+        routes: <String, WidgetBuilder>{
+          '/homePage': (BuildContext context) => const MyHomePage(),
+          '/routerPage': (BuildContext context) => const MyRouterPage(),
+        },
+        builder: EasyLoading.init(),
+      ),
     );
   }
 }
