@@ -82,6 +82,12 @@ public class CustomAssetsConfig extends BaseUIConfig {
             })
             .build());
 
+        //添加自定义切换其他登录方式
+        mAuthHelper.addAuthRegistViewConfig("switch_msg", new AuthRegisterViewConfig.Builder()
+                .setView(initSwitchView(420))
+                .setRootViewId(AuthRegisterViewConfig.RootViewId.ROOT_VIEW_ID_BODY)
+                .build());
+
         mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
     }
 }

@@ -1,5 +1,19 @@
 #  
 
+## 1.0.6
+* Update plug-in secondary authentication parameters (android completed)
+* Fix the parameter configuration problem of iOS pop-up window and bottom pop-up window
+* Upgrade Android compileSdkVersion to 33
+* Add an Android return button to return to the desktop
+
+## 1.0.5
+* Update the android sdk to 2.12.9
+* Update the ios sdk to 2.12.9
+* Fix iOS protocol coordinates
+* Optimize iOS initialization return and eliminate useless return
+* Add (the video demonstrating the background restart of the APP includes getting normal when the network is disconnected) demo
+* The second pop-up interface will be added in the next version
+
 ## 1.0.4
 
 * Update Android SDK to 2.12.9

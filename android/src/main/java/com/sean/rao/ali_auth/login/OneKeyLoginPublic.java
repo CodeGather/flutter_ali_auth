@@ -15,8 +15,6 @@ import com.mobile.auth.gatewayauth.PreLoginResultListener;
 import com.mobile.auth.gatewayauth.ResultCode;
 import com.mobile.auth.gatewayauth.TokenResultListener;
 import com.mobile.auth.gatewayauth.model.TokenRet;
-import com.sean.rao.ali_auth.common.Constant;
-import com.sean.rao.ali_auth.common.OnListener;
 import com.sean.rao.ali_auth.config.BaseUIConfig;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
@@ -227,13 +225,10 @@ public class OneKeyLoginPublic {
      */
     private JSONObject formatParmas(Object parmas){
         JSONObject formatData = JSONObject.parseObject(JSONObject.toJSONString(parmas));
-        Iterator iter = formatData.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
+        for (Map.Entry<String, Object> entry : formatData.entrySet()) {
             // System.out.println(entry.getKey() + "----" + entry.getValue());
             // 判断是否使眼色代码
-            if ((String.valueOf(entry.getKey()).contains("color") || String.valueOf(entry.getKey()).contains("Color")) && String.valueOf(entry.getValue()).contains("#"))
-            {
+            if ((String.valueOf(entry.getKey()).contains("color") || String.valueOf(entry.getKey()).contains("Color")) && String.valueOf(entry.getValue()).contains("#")) {
                 formatData.put(String.valueOf(entry.getKey()), Color.parseColor(formatData.getString(entry.getKey().toString())));
             }
             // 判断是否时路径字段
@@ -242,8 +237,7 @@ public class OneKeyLoginPublic {
                     !String.valueOf(entry.getKey()).contains("logBtnBackgroundPath") &&
                             (String.valueOf(entry.getKey()).contains("path") || String.valueOf(entry.getKey()).contains("Path")) &&
                             !formatData.getString(entry.getKey().toString()).isEmpty() &&
-                            !formatData.getString(entry.getKey().toString()).contains("http"))
-            {
+                            !formatData.getString(entry.getKey().toString()).contains("http")) {
                 formatData.put(String.valueOf(entry.getKey()), UtilTool.flutterToPath(formatData.getString(entry.getKey().toString())));
             }
         }

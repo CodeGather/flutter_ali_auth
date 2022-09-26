@@ -1,5 +1,12 @@
 #  
 
+## 1.0.6
+
+* 更新插件二次认证参数（android 已完毕）
+* 修复iOS弹窗、底部弹窗参数配置问题
+* 升级Android compileSdkVersion 为 33
+* 新增Android 返回按钮返回桌面的处理方案
+
 ## 1.0.5
 
 * 更新android sdk 为2.12.9

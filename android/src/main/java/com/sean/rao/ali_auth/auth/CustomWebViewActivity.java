@@ -1,5 +1,6 @@
 package com.sean.rao.ali_auth.auth;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class CustomWebViewActivity extends Activity {
         mWebView.loadUrl(mUrl);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         WebSettings wvSettings = mWebView.getSettings();
         // 是否阻止网络图像

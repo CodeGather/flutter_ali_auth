@@ -427,35 +427,120 @@ class AliAuthModel {
 
   final PNSPresentationDirection? presentDirection;
 
-  // this.privacyAlertAlignment = 17;
-  // this.privacyAlertWidth = 160;
-  // this.privacyAlertHeight = 90;
-  // this.privacyAlertOffsetX = 0;
-  // this.privacyAlertOffsetY = 0;
-  // this.privacyAlertEntryAnimation = null;
-  // this.privacyAlertExitAnimation = null;
-  // this.privacyAlertBackgroundColor = Color.parseColor("#FFFFFF");
-  // this.privacyAlertTitleBackgroundColor = -1;
-  // this.privacyAlertAlpha = 1.0F;
-  // this.privacyAlertMaskAlpha = 0.3F;
-  // this.privacyAlertTitleTextSize = this.makeTextSizeSpec(18, 1073741824);
-  // this.privacyAlertTitleColor = -16777216;
-  // this.privacyAlertTitleAlignment = 17;
-  // this.privacyAlertContentTextSize = this.makeTextSizeSpec(16, 1073741824);
-  // this.privacyAlertContentColor = 0;
-  // this.privacyAlertContentBaseColor = 0;
-  // this.privacyAlertContentBackgroundColor = -1;
-  // this.privacyAlertContentAlignment = 3;
-  // this.privacyAlertBtnBackgroundImgPath = null;
-  // this.privacyAlertBtnBackgroundImgDrawable = null;
-  // this.privacyAlertBtnTextColor = -16777216;
-  // this.privacyAlertBtnTextSize = this.makeTextSizeSpec(18, 1073741824);
-  // this.privacyAlertBtnHeigth = 60;
-  // this.privacyAlertCloseBtnShow = true;
-  // this.privacyAlertMaskIsNeedShow = true;
-  // this.privacyAlertCloseScaleType = ScaleType.CENTER;
-  // this.privacyAlertCloseImgWidth = 30;
-  // this.privacyAlertCloseImgHeight = 30;
+  /// /// ------- 十二、二次弹窗设置 --------- ///
+  /// 设置二次隐私协议弹窗是否需要显示。false（默认值）
+  final bool privacyAlertIsNeedShow;
+
+  /// 设置二次隐私协议弹窗点击按钮是否需要执行登录 true（默认值）
+  final bool privacyAlertIsNeedAutoLogin;
+
+  /// 设置二次隐私协议弹窗背景蒙层是否显示。true（默认值）
+  final bool privacyAlertMaskIsNeedShow;
+
+  /// 设置二次隐私协议弹窗蒙层透明度。默认值0.3
+  final double privacyAlertMaskAlpha;
+
+  /// 设置二次隐私协议弹窗透明度。默认值1.0。
+  final double privacyAlertAlpha;
+
+  /// 设置二次隐私协议弹窗背景色（同意并继续按钮区域）。
+  final String ?privacyAlertBackgroundColor;
+
+  /// 设置二次隐私协议弹窗显示自定义动画。
+  final String ?privacyAlertEntryAnimation;
+
+  /// 设置二次隐私协议弹窗隐藏自定义动画。
+  final String ?privacyAlertExitAnimation;
+
+  /// 设置二次隐私协议弹窗的四个圆角值。说明 顺序为左上、右上、右下、左下，需要填充4个值，不足4个值则无效，如果值小于等于0则为直角。
+  final List<int>? privacyAlertCornerRadiusArray;
+
+  /// 设置屏幕居中、居上、居下、居左、居右，默认居中显示。
+  final Gravity? privacyAlertAlignment;
+
+  /// 设置弹窗宽度。
+  final int ?privacyAlertWidth;
+
+  /// 设置弹窗高度。
+  final int ?privacyAlertHeight;
+
+  /// 设置弹窗水平偏移量。（单位：dp）
+  final int ?privacyAlertOffsetX;
+
+  /// 设置弹窗竖直偏移量。（单位：dp）
+  final int ?privacyAlertOffsetY;
+
+  /// 设置二次隐私协议弹窗标题背景颜色。
+  final String ?privacyAlertTitleBackgroundColor;
+
+  /// 设置二次隐私协议弹窗标题支持居中、居左，默认居中显示。
+  final Gravity? privacyAlertTitleAlignment;
+
+  /// 设置标题文字水平偏移量。（单位：dp）
+  final int ?privacyAlertTitleOffsetX;
+
+  /// 设置标题文字竖直偏移量。（单位：dp）
+  final int ?privacyAlertTitleOffsetY;
+
+  /// 设置标题文字大小，默认值18 sp。
+  final int privacyAlertTitleTextSize;
+
+  /// 设置标题文字颜色。
+  final String ?privacyAlertTitleColor;
+
+  /// 设置协议内容背景颜色。
+  final String ?privacyAlertContentBackgroundColor;
+
+  /// 设置服务协议文字大小，默认值16 sp。
+  final int ?privacyAlertContentTextSize;
+
+  /// 设置二次隐私协议弹窗协议文案支持居中、居左，默认居左显示。
+  final Gravity? privacyAlertContentAlignment;
+
+  /// 设置服务协议文字颜色。
+  final String ?privacyAlertContentColor;
+
+  /// 设置服务协议非协议文字颜色。
+  final String ?privacyAlertContentBaseColor;
+
+  /// 设置服务协议左右两侧间距。
+  final int ?privacyAlertContentHorizontalMargin;
+
+  /// 设置服务协议上下间距。
+  final int ?privacyAlertContentVerticalMargin;
+
+  /// 设置按钮背景图片路径。
+  final String ?privacyAlertBtnBackgroundImgPath;
+
+  /// 设置按钮文字颜色。
+  final String ?privacyAlertBtnTextColor;
+
+  /// 设置按钮文字大小，默认值18 sp。
+  final int ?privacyAlertBtnTextSize;
+
+  /// 设置按钮宽度。（单位：dp）
+  final int ?privacyAlertBtnWidth;
+
+  /// 设置按钮高度。（单位：dp）
+  final int ?privacyAlertBtnHeigth;
+
+  /// 设置右上角的关闭按钮。true（默认值）：显示关闭按钮。
+  final bool ?privacyAlertCloseBtnShow;
+
+  /// 关闭按钮图片路径。
+  final String ?privacyAlertCloseImagPath;
+
+  /// 关闭按钮缩放类型。
+  final ScaleType ?privacyAlertCloseScaleType;
+
+  /// 关闭按钮宽度。（单位：dp）
+  final int ?privacyAlertCloseImgWidth;
+
+  /// 关闭按钮高度。（单位：dp）
+  final int ?privacyAlertCloseImgHeight;
+
+  /// 设置二次隐私协议弹窗点击背景蒙层是否关闭弹窗。true（默认值）：表示关闭
+  final bool tapPrivacyAlertMaskCloseAlert;
 
   const AliAuthModel(this.androidSk, this.iosSk,
       {this.isDebug = true,
@@ -596,7 +681,47 @@ class AliAuthModel {
       this.alertCloseImageH,
       this.alertBlurViewColor,
       this.alertBlurViewAlpha,
-      this.presentDirection})
+      this.presentDirection,
+
+      this.privacyAlertIsNeedShow=false,
+      this.privacyAlertIsNeedAutoLogin=true,
+      this.privacyAlertMaskIsNeedShow=true,
+      this.privacyAlertMaskAlpha=0.3,
+      this.privacyAlertAlpha=0.2,
+      this.privacyAlertBackgroundColor,
+      this.privacyAlertEntryAnimation,
+      this.privacyAlertExitAnimation,
+      this.privacyAlertCornerRadiusArray,
+      this.privacyAlertAlignment,
+      this.privacyAlertWidth,
+      this.privacyAlertHeight,
+      this.privacyAlertOffsetX,
+      this.privacyAlertOffsetY,
+      this.privacyAlertTitleBackgroundColor,
+      this.privacyAlertTitleAlignment,
+      this.privacyAlertTitleOffsetX,
+      this.privacyAlertTitleOffsetY,
+      this.privacyAlertTitleTextSize=18,
+      this.privacyAlertTitleColor,
+      this.privacyAlertContentBackgroundColor,
+      this.privacyAlertContentTextSize=16,
+      this.privacyAlertContentAlignment,
+      this.privacyAlertContentColor,
+      this.privacyAlertContentBaseColor,
+      this.privacyAlertContentHorizontalMargin,
+      this.privacyAlertContentVerticalMargin,
+      this.privacyAlertBtnBackgroundImgPath,
+      this.privacyAlertBtnTextColor,
+      this.privacyAlertBtnTextSize=18,
+      this.privacyAlertBtnWidth,
+      this.privacyAlertBtnHeigth,
+      this.privacyAlertCloseBtnShow,
+      this.privacyAlertCloseImagPath,
+      this.privacyAlertCloseScaleType,
+      this.privacyAlertCloseImgWidth,
+      this.privacyAlertCloseImgHeight,
+      this.tapPrivacyAlertMaskCloseAlert=true,
+      })
       : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
@@ -706,7 +831,8 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'protocolCustomColor': instance.protocolCustomColor,
       'protocolAction': instance.protocolAction,
       'privacyState': instance.privacyState,
-      'protocolGravity': EnumUtils.formatGravityValue(instance.protocolGravity),
+      'protocolGravity':
+          EnumUtils.formatGravityValue(instance.protocolGravity),
       'privacyOffsetY': instance.privacyOffsetY,
       'privacyOffsetY_B': instance.privacyOffsetY_B,
       'privacyTextSize': instance.privacyTextSize,
@@ -731,6 +857,48 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'alertBlurViewColor': instance.alertBlurViewColor,
       'alertBlurViewAlpha': instance.alertBlurViewAlpha,
       'presentDirection': instance.presentDirection,
+
+      'privacyAlertIsNeedShow': instance.privacyAlertIsNeedShow,
+      'privacyAlertIsNeedAutoLogin': instance.privacyAlertIsNeedAutoLogin,
+      'privacyAlertMaskIsNeedShow': instance.privacyAlertMaskIsNeedShow,
+      'privacyAlertMaskAlpha': instance.privacyAlertMaskAlpha,
+      'privacyAlertAlpha': instance.privacyAlertAlpha,
+      'privacyAlertBackgroundColor': instance.privacyAlertBackgroundColor,
+      'privacyAlertEntryAnimation': instance.privacyAlertEntryAnimation,
+      'privacyAlertExitAnimation': instance.privacyAlertExitAnimation,
+      'privacyAlertCornerRadiusArray': instance.privacyAlertCornerRadiusArray,
+      'privacyAlertAlignment':
+          EnumUtils.formatGravityValue(instance.privacyAlertAlignment),
+      'privacyAlertWidth': instance.privacyAlertWidth,
+      'privacyAlertHeight': instance.privacyAlertHeight,
+      'privacyAlertOffsetX': instance.privacyAlertOffsetX,
+      'privacyAlertOffsetY': instance.privacyAlertOffsetY,
+      'privacyAlertTitleBackgroundColor': instance.privacyAlertTitleBackgroundColor,
+      'privacyAlertTitleAlignment':
+          EnumUtils.formatGravityValue(instance.privacyAlertTitleAlignment),
+      'privacyAlertTitleOffsetX': instance.privacyAlertTitleOffsetX,
+      'privacyAlertTitleOffsetY': instance.privacyAlertTitleOffsetY,
+      'privacyAlertTitleTextSize': instance.privacyAlertTitleTextSize,
+      'privacyAlertTitleColor': instance.privacyAlertTitleColor,
+      'privacyAlertContentBackgroundColor': instance.privacyAlertContentBackgroundColor,
+      'privacyAlertContentTextSize': instance.privacyAlertContentTextSize,
+      'privacyAlertContentAlignment':
+          EnumUtils.formatGravityValue(instance.privacyAlertContentAlignment),
+      'privacyAlertContentColor': instance.privacyAlertContentColor,
+      'privacyAlertContentBaseColor': instance.privacyAlertContentBaseColor,
+      'privacyAlertContentHorizontalMargin': instance.privacyAlertContentHorizontalMargin,
+      'privacyAlertContentVerticalMargin': instance.privacyAlertContentVerticalMargin,
+      'privacyAlertBtnBackgroundImgPath': instance.privacyAlertBtnBackgroundImgPath,
+      'privacyAlertBtnTextColor': instance.privacyAlertBtnTextColor,
+      'privacyAlertBtnTextSize': instance.privacyAlertBtnTextSize,
+      'privacyAlertBtnWidth': instance.privacyAlertBtnWidth,
+      'privacyAlertBtnHeigth': instance.privacyAlertBtnHeigth,
+      'privacyAlertCloseBtnShow': instance.privacyAlertCloseBtnShow,
+      'privacyAlertCloseImagPath': instance.privacyAlertCloseImagPath,
+      'privacyAlertCloseScaleType': instance.privacyAlertCloseScaleType?.index ?? 0,
+      'privacyAlertCloseImgWidth': instance.privacyAlertCloseImgWidth,
+      'privacyAlertCloseImgHeight': instance.privacyAlertCloseImgHeight,
+      'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
     };
 
 /// 初始配置&注意事项

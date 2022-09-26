@@ -34,7 +34,7 @@ public class CacheManage {
         this.context = context;
         final File dir = new File(context.getCacheDir(), CACHE_FILE_DIR);
         if (dir.exists()) {
-            mFilePathCache = new ConcurrentHashMap();
+            mFilePathCache = new ConcurrentHashMap<String, String>();
             File[] listFiles = dir.listFiles();
             if (null != listFiles && listFiles.length > 0) {
                 for (File file : listFiles) {
@@ -64,8 +64,7 @@ public class CacheManage {
         } catch (Exception e) {
             key = url;
         }
-        File file = new File(dir, key + ext);
-        return file;
+        return new File(dir, key + ext);
     }
 
     /**
