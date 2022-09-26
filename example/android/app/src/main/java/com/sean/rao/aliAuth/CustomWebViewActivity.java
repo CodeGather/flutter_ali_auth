@@ -77,7 +77,7 @@ public class CustomWebViewActivity extends Activity {
         wvSettings.setAllowFileAccess(true);
         wvSettings.setDatabaseEnabled(true);
         //缓存相关
-        wvSettings.setAppCacheEnabled(true);
+        // wvSettings.setAppCacheEnabled(true);
         wvSettings.setDomStorageEnabled(true);
         wvSettings.setDatabaseEnabled(true);
     }

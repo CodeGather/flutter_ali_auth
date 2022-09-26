@@ -192,18 +192,20 @@ public class NativeBackgroundAdapter {
      */
     public static Bitmap getAssetVideoCoverBitmap(AssetManager assetManager, String videoPath) {
         Bitmap bitmap = null;
-
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
             AssetFileDescriptor afd = assetManager.openFd(videoPath);
-            retriever.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),
-                afd.getLength());
+            retriever.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             //获得第一帧图片
             bitmap = retriever.getFrameAtTime();
-        } catch (IllegalArgumentException | IOException e) {
-            Log.e("NativeBackgroundAdapter", "getAssetVideoBitmap:" + e.getMessage());
-        } finally {
-            retriever.release();
+            try {
+                retriever.release();
+            } catch (RuntimeException ex) {
+                ex.printStackTrace();
+            }
+        } catch (IllegalArgumentException | IOException ex) {
+            ex.printStackTrace();
+            Log.e("NativeBackgroundAdapter", "getAssetVideoBitmap:" + ex.getMessage());
         }
         return bitmap;
     }
@@ -218,9 +220,8 @@ public class NativeBackgroundAdapter {
             @Override
             public void run() {
                 try {
-                    InputStream inputStream = context.getAssets().open(
-                        path);
-//                    InputStream inputStream = DownloadFile.getImageToInputStream(path);
+                    InputStream inputStream = context.getAssets().open(path);
+                    // InputStream inputStream = DownloadFile.getImageToInputStream(path);
                     Movie gif = Movie.decodeStream(inputStream);
                     final Bitmap firstFrame = Bitmap.createBitmap(gif.width(), gif.height(), Bitmap.Config.ARGB_8888);
                     Canvas canvas = new Canvas(firstFrame);
@@ -271,12 +272,10 @@ public class NativeBackgroundAdapter {
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
             }
-
             @Override
             public void onActivityStarted(Activity activity) {
 
             }
-
             @Override
             public void onActivityResumed(Activity activity) {
                 if (activity instanceof LoginAuthActivity) {
@@ -285,7 +284,6 @@ public class NativeBackgroundAdapter {
                     }
                 }
             }
-
             @Override
             public void onActivityPaused(Activity activity) {
                 if (activity instanceof LoginAuthActivity) {
@@ -294,16 +292,13 @@ public class NativeBackgroundAdapter {
                     }
                 }
             }
-
             @Override
             public void onActivityStopped(Activity activity) {
             }
-
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
             }
-
             @Override
             public void onActivityDestroyed(Activity activity) {
                 if (activity instanceof LoginAuthActivity) {
@@ -368,13 +363,11 @@ public class NativeBackgroundAdapter {
                     Surface mSurface = new Surface(surface);
                     mediaPlayer[0].setSurface(mSurface);
                 }
-
                 @Override
                 public void onSurfaceTextureSizeChanged(@NonNull SurfaceTexture surface, int width,
                                                         int height) {
 
                 }
-
                 @Override
                 public boolean onSurfaceTextureDestroyed(@NonNull SurfaceTexture surface) {
                     if (mediaPlayer[0] != null && mediaPlayer[0].isPlaying()) {
@@ -382,13 +375,12 @@ public class NativeBackgroundAdapter {
                     }
                     return false;
                 }
-
                 @Override
                 public void onSurfaceTextureUpdated(@NonNull SurfaceTexture surface) {
 
                 }
             });
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }
