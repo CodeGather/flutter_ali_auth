@@ -334,7 +334,7 @@
     model.privacyNavBackImage = webNavReturnImgPath;
   }
   
-  model.privacyAlignment = NSTextAlignmentCenter;
+  model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];;
   model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
   model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
@@ -787,7 +787,7 @@
     ];
   }
   
-  model.privacyAlignment = NSTextAlignmentCenter;
+  model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];
   model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
   model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
@@ -1387,7 +1387,7 @@
       ];
     }
     
-    model.privacyAlignment = NSTextAlignmentCenter;
+    model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];;
     model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
     model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
     model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];
@@ -1787,7 +1787,7 @@
     model.privacyNavBackImage = webNavReturnImgPath;
   }
   
-  model.privacyAlignment = NSTextAlignmentCenter;
+  model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];;
   model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
   model.privacyPreText = [viewConfig stringValueForKey: @"privacyBefore" defaultValue: @"点击一键登录并登录表示您已阅读并同意"];
   model.privacySufText = [viewConfig stringValueForKey: @"privacyEnd" defaultValue: @"思预云用户协议，隐私"];

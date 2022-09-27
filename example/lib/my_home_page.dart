@@ -1076,7 +1076,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
           "https://a.app.qq.com/o/simple.jsp?pkgname=com.civiccloud.master&fromcase=40002",
       protocolCustomColor: "#F3F3F3",
       protocolColor: "#dddddd",
-      protocolLayoutGravity: Gravity.centerHorizntal,
+      protocolLayoutGravity: Gravity.left,
       sloganTextColor: "#ffffff",
       sloganText: "欢迎使用AliAuth一键登录插件",
       logBtnBackgroundPath:
@@ -1124,6 +1124,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       activityIn: "out_activity",
       dialogAlpha: 0.4,
       bottomNavBarColor: "#000000",
+      backgroundPath: "assets/background_image.jpeg",
       customThirdView: CustomThirdView.fromJson(configMap),
     );
   }

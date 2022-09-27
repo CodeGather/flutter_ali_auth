@@ -1,5 +1,8 @@
 #  
 
+## 1.0.7
+* Fix iOS protocol problems
+
 ## 1.0.6
 * Update plug-in secondary authentication parameters (android completed)
 * Fix the parameter configuration problem of iOS pop-up window and bottom pop-up window

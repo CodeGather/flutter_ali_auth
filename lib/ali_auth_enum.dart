@@ -1,3 +1,5 @@
+import 'dart:io';
+
 /// 本机号码校验,一键登录
 enum SdkType { auth, login }
 
@@ -73,12 +75,21 @@ class EnumUtils {
       case Gravity.centerHorizntal:
         return 1;
       case Gravity.left:
-        return 3;
+        if (Platform.isAndroid) {
+          return 3;
+        } else {
+          return 0;
+        }
+      case Gravity.right:
+        if (Platform.isAndroid) {
+          return 5;
+        } else {
+          return 2;
+        }
       default:
         return 4;
     }
   }
-
   static int formatUiFagValue(UIFAG? status) {
     switch (status) {
       case UIFAG.systemUiFalgLowProfile:
