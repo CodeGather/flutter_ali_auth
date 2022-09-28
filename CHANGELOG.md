@@ -2,6 +2,9 @@
 
 ## 1.0.7
 * Fix iOS protocol problems
+* Adding pause, resume, and remove events for listening
+* Add whether multiple listeners are required according to conditions
+* Fix the coordinate problem of switching other titles in iOS
 
 ## 1.0.6
 * Update plug-in secondary authentication parameters (android completed)

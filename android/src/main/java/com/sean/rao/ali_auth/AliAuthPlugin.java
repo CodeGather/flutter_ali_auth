@@ -28,6 +28,8 @@ import io.flutter.plugin.common.MethodChannel.Result;
 import com.sean.rao.ali_auth.login.OneKeyLoginPublic;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /** AliAuthPlugin */
 public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, ActivityAware, MethodCallHandler, EventChannel.StreamHandler {
   private static final String TAG = "ali_auth 一键登录插件";
@@ -60,7 +62,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
     // 原生通讯
     EventChannel eventChannel = new EventChannel(flutterPluginBinding.getBinaryMessenger(), EVENT_CHANNEL);
     eventChannel.setStreamHandler(this);
-
 //    // Activity
 //    flutterView.getLookupKeyForAsset("images/ic_launcher.png");
 //    // Fragment
@@ -150,6 +151,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       });
     }
   }
+
   @Override
   public void onCancel(Object o) {
     if( _events != null){
@@ -180,6 +182,9 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
 
   @Override
   public void onDetachedFromActivity() {
-
+    if( _events != null){
+      _events.endOfStream();
+    }
+    mActivity = null;
   }
 }

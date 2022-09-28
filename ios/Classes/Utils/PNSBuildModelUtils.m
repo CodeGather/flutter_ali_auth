@@ -831,7 +831,7 @@
   ];
   model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
     if (screenSize.height > screenSize.width) {
-      return CGRectMake(10, frame.origin.y + [viewConfig floatValueForKey: @"switchOffsetY" defaultValue: 18], superViewSize.width - 20, 30);
+      return CGRectMake(10, [viewConfig floatValueForKey: @"switchOffsetY" defaultValue: 18], superViewSize.width - 20, 30);
     } else {
       return CGRectZero; //横屏时模拟隐藏该控件
     }
@@ -863,51 +863,6 @@
   };
   
   //授权页默认控件布局调整
-  //model.alertTitleBarFrameBlock =
-  //model.alertTitleFrameBlock =
-  //model.alertCloseItemFrameBlock =
-  model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-      if ([self isHorizontal:screenSize]) {
-          return CGRectZero; //横屏时模拟隐藏该控件
-      } else {
-          frame.origin.y = 10;
-          return frame;
-      }
-  };
-  model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-      if ([self isHorizontal:screenSize]) {
-          return CGRectZero; //横屏时模拟隐藏该控件
-      } else {
-          frame.origin.y = 110;
-          return frame;
-      }
-  };
-  model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-      if ([self isHorizontal:screenSize]) {
-          frame.origin.y = 20;
-          frame.origin.x = (superViewSize.width * 0.5 - frame.size.width) * 0.5 + 18.0;
-      } else {
-          frame.origin.y = 140;
-      }
-      return frame;
-  };
-  model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-      if ([self isHorizontal:screenSize]) {
-          frame.origin.y = 60;
-          frame.size.width = superViewSize.width * 0.5; //登录按钮最小宽度是其父视图的一半，再小就不生效了
-      } else {
-          frame.origin.y = 180;
-      }
-      return frame;
-  };
-  model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-      if ([self isHorizontal:screenSize]) {
-          return CGRectZero; //横屏时模拟隐藏该控件
-      } else {
-          return CGRectMake(10, 240, superViewSize.width - 20, 30);
-      }
-  };
-   
   
   /// 自定义第三方按钮布局 START
   NSDictionary *customThirdView = [viewConfig dictValueForKey: @"customThirdView" defaultValue: nil];
@@ -1294,7 +1249,7 @@
     ];
     model.changeBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
       if (screenSize.height > screenSize.width) {
-        return CGRectMake(10, frame.origin.y, superViewSize.width - 20, 30);
+        return CGRectMake(10, [viewConfig floatValueForKey: @"switchOffsetY" defaultValue: frame.origin.y], superViewSize.width - 20, 30);
       } else {
         return CGRectZero; //横屏时模拟隐藏该控件
       }

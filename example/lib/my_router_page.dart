@@ -1,3 +1,4 @@
+import 'package:ali_auth_example/my_home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyRouterPage extends StatefulWidget {
@@ -18,7 +19,21 @@ class MyRouterState extends State<MyRouterPage> {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: const Text('通过原生控制flutter的跳转'),
+        child: Column(
+          children: [
+            const Text('通过原生控制flutter的跳转'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_){
+                      return new MyHomePage();
+                    })
+                );
+              },
+              child: const Text("跳转页面"),
+            ),
+          ],
+        ),
       ),
     );
   }

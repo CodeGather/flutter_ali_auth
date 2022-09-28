@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'ali_auth_model.dart';
 
@@ -16,6 +17,9 @@ class AliAuth {
 
   /// 监听器
   static Stream<dynamic>? _onListener;
+
+  //为了控制Stream 暂停。恢复。取消监听 新建
+  static StreamSubscription ?streamSubscription;
 
   /// 初始化监听
   static Stream<dynamic>? onChange({bool type = true}) {
@@ -67,8 +71,35 @@ class AliAuth {
 
   /// 数据监听
   static loginListen(
-      {bool type = true, required Function onEvent, Function? onError}) async {
-    onChange(type: type)!.listen(onEvent as void Function(dynamic)?,
+      {bool type = true, required Function onEvent, Function? onError, isOnlyOne = true}) async {
+    /// 默认为初始化单监听
+    if (isOnlyOne && streamSubscription != null) {
+      /// 原来监听被移除
+      dispose();
+    }
+    streamSubscription = onChange(type: type)!.listen(onEvent as void Function(dynamic)?,
         onError: onError, onDone: null, cancelOnError: null);
+  }
+
+  /// 暂停
+  static pause () {
+    if (streamSubscription != null) {
+      streamSubscription!.pause();
+    }
+  }
+
+  /// 恢复
+  static resume () {
+    if (streamSubscription != null) {
+      streamSubscription!.resume();
+    }
+  }
+
+  /// 销毁监听
+  static dispose () {
+    if (streamSubscription != null) {
+      streamSubscription!.cancel();
+      streamSubscription = null;
+    }
   }
 }

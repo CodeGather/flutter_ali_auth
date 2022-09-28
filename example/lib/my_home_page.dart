@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:ali_auth/ali_auth.dart';
+import 'package:ali_auth_example/my_router_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -111,7 +112,10 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
   void dispose() {
     // TODO: implement dispose
     _ambiguate(WidgetsBinding.instance)?.removeObserver(this);
-
+    if (kDebugMode) {
+      print('MyHomePage页面被销毁');
+    }
+    AliAuth.dispose();
     super.dispose();
   }
 
@@ -198,7 +202,52 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
               },
               child: const Text("开始延迟登录"),
             ),
-
+            ElevatedButton(
+              onPressed: () {
+                // 使用pushReplacementNamed 为了触发dispose
+                // Navigator.of(context).pushReplacementNamed(
+                //   "/routerPage"
+                // );
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_){
+                      return new MyRouterPage();
+                    })
+                );
+              },
+              child: const Text("跳转页面"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                /// 通过isOnlyListen
+                AliAuth.loginListen(
+                  onEvent: (onEvent) {
+                    if (kDebugMode) {
+                      print("----------------> $onEvent <----------------");
+                    }
+                    setState(() {
+                      status = onEvent.toString();
+                    });
+                  },
+                  isOnlyOne: false,
+                );
+              },
+              child: const Text("添加多个监听"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                AliAuth.loginListen(
+                  onEvent: (onEvent) {
+                    if (kDebugMode) {
+                      print("----------------> $onEvent <----------------");
+                    }
+                    setState(() {
+                      status = onEvent.toString();
+                    });
+                  },
+                );
+              },
+              child: const Text("只能添加一个监听"),
+            ),
             /// 苹果专用，安卓调用报错
             Platform.isIOS
                 ? ElevatedButton(
@@ -605,8 +654,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         logoHidden: true,
         numberColor: "#ffffff",
         numberSize: 28,
-        switchAccHidden: true,
-        switchAccTextColor: "#FDFDFD",
         logBtnText: "一键登录",
         logBtnTextSize: 16,
         logBtnTextColor: "#FFF000",
@@ -625,8 +672,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         loadingImgPath: "authsdk_waiting_icon",
         numFieldOffsetY: unit * 8,
         numberLayoutGravity: Gravity.centerHorizntal,
-        switchOffsetY: -1,
-        switchOffsetY_B: -1,
         logBtnOffsetY: unit * 10,
         logBtnOffsetY_B: -1,
         logBtnHeight: 51,
@@ -640,6 +685,9 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
         checkBoxHeight: 18,
         checkboxHidden: false,
         navTextSize: 18,
+        switchAccHidden: false,
+        switchOffsetY: unit * 10 + 60,
+        switchAccTextColor: "#FDFDFD",
         switchAccTextSize: 16,
         switchAccText: "切换到其他方式",
         sloganHidden: true,
@@ -1026,7 +1074,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
     Map<String, dynamic> configMap = {
       "width": -1,
       "height": -1,
-      "top": unit * 4 + 60,
+      "top": unit * 4 + 90,
       "space": 20,
       "size": 15,
       'itemWidth': 40,
@@ -1058,7 +1106,8 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       navHidden: false,
       numberColor: "#ffffff",
       numberSize: 17,
-      switchAccHidden: true,
+      switchAccHidden: false,
+      switchOffsetY: unit * 4 + 60,
       switchAccTextColor: "#FDFDFD",
       switchAccTextSize: 16,
       switchAccText: "切换到其他方式",
