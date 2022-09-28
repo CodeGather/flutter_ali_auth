@@ -26,7 +26,7 @@ class MyRouterState extends State<MyRouterPage> {
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_){
-                      return new MyHomePage();
+                      return const MyHomePage();
                     })
                 );
               },

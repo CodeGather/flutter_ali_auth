@@ -210,7 +210,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
                 // );
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (_){
-                      return new MyRouterPage();
+                      return const MyRouterPage();
                     })
                 );
               },
