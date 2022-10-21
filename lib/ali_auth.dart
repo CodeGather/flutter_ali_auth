@@ -63,6 +63,10 @@ class AliAuth {
         .invokeMethod('openPage', {'pageRoute': pageRoute ?? 'main_page'});
   }
 
+  static Future<dynamic> get checkCellularDataEnable async {
+    return await _channel.invokeMethod('checkCellularDataEnable');
+  }
+
   /// 苹果登录iOS专用
   static Future<dynamic> get appleLogin async {
     return await _channel.invokeMethod('appleLogin');

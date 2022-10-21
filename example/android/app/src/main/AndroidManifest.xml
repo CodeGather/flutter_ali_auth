@@ -58,7 +58,7 @@
            android:exported="false"
            android:launchMode="singleTop"
            android:screenOrientation="behind"
-           android:theme="@style/authsdk_activity_dialog" />
+           android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
        <!--联通电信授权页-->
        <activity
@@ -68,7 +68,7 @@
            android:exported="false"
            android:launchMode="singleTop"
            android:screenOrientation="behind"
-           android:theme="@style/authsdk_activity_dialog"/>
+           android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
        <!--移动授权页-->
        <activity
@@ -78,7 +78,7 @@
            android:exported="false"
            android:launchMode="singleTask"
            android:screenOrientation="behind"
-           android:theme="@style/authsdk_activity_dialog" />
+           android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
        <!--适配华为（huawei）刘海屏-->
        <meta-data

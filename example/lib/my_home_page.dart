@@ -203,6 +203,15 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
               child: const Text("开始延迟登录"),
             ),
             ElevatedButton(
+              onPressed: () async {
+                final cellularStatus = await AliAuth.checkCellularDataEnable;
+                setState(() {
+                  status = "当前蜂窝网络开启状态：$cellularStatus";
+                });
+              },
+              child: const Text("检测是否开启蜂窝网络"),
+            ),
+            ElevatedButton(
               onPressed: () {
                 // 使用pushReplacementNamed 为了触发dispose
                 // Navigator.of(context).pushReplacementNamed(
@@ -352,21 +361,21 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver{
       protocolGravity: Gravity.centerHorizntal,
       privacyTextSize: 12,
       privacyMargin: 28,
-      privacyBefore: "",
+      privacyBefore: "已阅读并同意",
       privacyEnd: "",
-      vendorPrivacyPrefix: "",
-      vendorPrivacySuffix: "",
+      vendorPrivacyPrefix: "《",
+      vendorPrivacySuffix: "》",
       dialogWidth: -1,
       dialogHeight: -1,
       dialogBottom: false,
       dialogOffsetX: 0,
       dialogOffsetY: 0,
       pageBackgroundPath: "assets/background_image.jpeg",
-      webViewStatusBarColor: "#026ED2",
-      webNavColor: "#FF00FF",
-      webNavTextColor: "#F0F0F8",
-      webNavTextSize: -1,
-      webNavReturnImgPath: "assets/background_image.jpeg",
+      webViewStatusBarColor: "",
+      webNavColor: "",
+      webNavTextColor: "",
+      webNavTextSize: 20,
+      webNavReturnImgPath: "assets/return_btn.png",
       webSupportedJavascript: true,
       authPageActIn: "in_activity",
       activityOut: "out_activity",

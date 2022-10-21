@@ -110,6 +110,9 @@ bool bool_false = false;
   else if ([@"checkEnvAvailable" isEqualToString:call.method]) {
     [self checkVerifyEnable:call result:result];
   }
+  else if ([@"checkCellularDataEnable" isEqualToString:call.method]) {
+    [self checkCellularDataEnable:call result:result];
+  }
   else  if ([@"preLogin" isEqualToString:call.method]) {
     [self getPreLogin:call result:result];
   }
@@ -205,6 +208,21 @@ bool bool_false = false;
     self->_eventSink(dict);
   }];
 }
+
+/** 检测是否开启蜂窝网络 */
+- (void)checkCellularDataEnable:(FlutterMethodCall*)call result:(FlutterResult)result {
+  NSDictionary *dict = @{
+    @"code": @"1",
+    @"msg" : @"蜂窝网络检测",
+    @"data" : @(bool_false)
+  };
+  bool status = [TXCommonUtils checkDeviceCellularDataEnable];
+  if (status) {
+    [dict setValue: @(bool_true) forKey: @"data"];
+  }
+  result(dict);
+}
+
 
 #pragma mark - action 选中第三方按钮时回调
 - (void)btnClick: (UIGestureRecognizer *) sender {

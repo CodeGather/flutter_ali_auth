@@ -1,5 +1,8 @@
 #  
 
+## 1.0.8
+* Check whether the function checkCellular DataEnable is enabled for the new cellular network
+
 ## 1.0.7
 * Fix iOS protocol problems
 * Adding pause, resume, and remove events for listening

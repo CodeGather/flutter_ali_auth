@@ -3,10 +3,18 @@ package com.sean.rao.ali_auth;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hjq.toast.CustomToast;
 import com.hjq.toast.ToastStrategy;
 import com.hjq.toast.ToastUtils;
@@ -49,6 +57,8 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
 
   private static final String METHOD_CHANNEL = "ali_auth";
   private static final String EVENT_CHANNEL = "ali_auth/event";
+
+  private ConnectivityManager.NetworkCallback callback;
 
   /**
    * 延时登录
@@ -101,6 +111,9 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         break;
       case "checkEnvAvailable":
         oneKeyLoginPublic.checkEnvAvailable(2);
+        break;
+      case "checkCellularDataEnable":
+        isNetEnabled(mContext, result);
         break;
       case "quitPage":
         oneKeyLoginPublic.quitPage();
@@ -186,5 +199,95 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       _events.endOfStream();
     }
     mActivity = null;
+  }
+
+  /**
+   * 判断移动网络是否开启
+   *
+   * @param context
+   * @return
+   */
+  public void isNetEnabled(Context context, @NonNull Result result) {
+    JSONObject resultObject = new JSONObject();
+    resultObject.put("code", 0);
+    resultObject.put("msg", "未检测到网络！");
+    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//      callback = new ConnectivityManager.NetworkCallback() {
+//        // 可用网络接入
+//        public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
+//          // 一般在此处获取网络类型然后判断网络类型，就知道时哪个网络可以用connected
+//          System.out.println(network);
+//          System.out.println(networkCapabilities);
+//        }
+//        // 网络断开
+//        public void onLost(Network network) {
+//          System.out.println(network);
+//          // 如果通过ConnectivityManager#getActiveNetwork()返回null，表示当前已经没有其他可用网络了。
+//        }
+//      };
+//      registerNetworkCallback(context);
+
+      Network network =cm.getActiveNetwork();
+      if(network!=null){
+        NetworkCapabilities nc=cm.getNetworkCapabilities(network);
+        if(nc!=null){
+          resultObject.put("code", 1);
+          if(nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)){ // WIFI
+            resultObject.put("msg", "WIFI网络已开启");
+          }else if(nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)){ // 移动数据
+            resultObject.put("msg", "蜂窝网络已开启");
+          }
+        }
+      }
+    } else {
+      NetworkInfo mWiFiNetworkInfo = cm.getActiveNetworkInfo();
+      if (mWiFiNetworkInfo != null) {
+        resultObject.put("code", 1);
+        if (mWiFiNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI) { // WIFI
+          resultObject.put("msg", "WIFI网络已开启");
+        } else if (mWiFiNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE) { // 移动数据
+          resultObject.put("msg", "蜂窝网络已开启");
+        }
+      }
+    }
+    result.success(resultObject);
+  }
+
+
+  // 注册回调
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  private void registerNetworkCallback(Context context) {
+    ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkRequest.Builder builder = new NetworkRequest.Builder();
+    builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+    builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+    cm.registerNetworkCallback(builder.build(), callback);
+  }
+
+
+
+  // 注销回调
+  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+  private void unregisterNetworkCallback(Context context) {
+    ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    cm.unregisterNetworkCallback(callback);
+  }
+
+  /**
+   * 判断移动网络是否连接成功
+   *
+   * @param context
+   * @return
+   */
+  public boolean isNetContected(Context context) {
+    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo info = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+    if (cm != null && info != null && info.isConnected()) {
+      Log.i(TAG, "移动网络连接成功");
+      return true;
+    }
+    Log.i(TAG, "移动网络连接失败");
+    return false;
   }
 }

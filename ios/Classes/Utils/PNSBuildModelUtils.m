@@ -280,7 +280,8 @@
     UIImage* login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
     UIImage *defaultClick = [UIImage imageNamed:@"button_click"];
     UIImage *defaultUnClick = [UIImage imageNamed:@"button_unclick"];
-    if ((login_btn_normal != nil || defaultClick != nil) && (login_btn_unable != nil || defaultUnClick != nil) && (login_btn_press != nil || defaultClick != nil)) {
+      // fix '*** -[__NSPlaceholderArray initWithObjects:count:]: attempt to insert nil object from objects[0]'
+    if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && defaultUnClick != nil)) {
       // 登录按钮设置
       model.loginBtnBgImgs = @[
         login_btn_normal?:defaultClick,
@@ -753,13 +754,13 @@
     UIImage * login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
     // default
     UIImage *defaultClick = [UIImage imageNamed:@"button_click"];
-    UIImage *buttonUnclick = [UIImage imageNamed:@"button_unclick"];
+    UIImage *defaultUnclick = [UIImage imageNamed:@"button_unclick"];
     // fix '*** -[__NSPlaceholderArray initWithObjects:count:]: attempt to insert nil object from objects[0]'
-    if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && buttonUnclick != nil)) {
+    if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && defaultUnclick != nil)) {
       // 登录按钮设置
       model.loginBtnBgImgs = @[
         login_btn_normal?:defaultClick,
-        login_btn_unable?:buttonUnclick,
+        login_btn_unable?:defaultUnclick,
         login_btn_press?:defaultClick
       ];
     }
@@ -1214,13 +1215,13 @@
       UIImage * login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
       // default
       UIImage *defaultClick = [UIImage imageNamed:@"button_click"];
-      UIImage *buttonUnclick = [UIImage imageNamed:@"button_unclick"];
+      UIImage *defaultUnclick = [UIImage imageNamed:@"button_unclick"];
       // fix '*** -[__NSPlaceholderArray initWithObjects:count:]: attempt to insert nil object from objects[0]'
-      if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && buttonUnclick != nil)) {
+      if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && defaultUnclick != nil)) {
         // 登录按钮设置
         model.loginBtnBgImgs = @[
           login_btn_normal?:defaultClick,
-          login_btn_unable?:buttonUnclick,
+          login_btn_unable?:defaultUnclick,
           login_btn_press?:defaultClick
         ];
       }
@@ -1606,7 +1607,8 @@
     UIImage* login_btn_press = [self changeUriPathToImage: logBtnCustomBackgroundImagePath[2]];
     UIImage *defaultClick = [UIImage imageNamed:@"button_click"];
     UIImage *defaultUnClick = [UIImage imageNamed:@"button_unclick"];
-    if ((login_btn_normal != nil || defaultClick != nil) && (login_btn_unable != nil || defaultUnClick != nil) && (login_btn_press != nil || defaultClick != nil)) {
+    // fix '*** -[__NSPlaceholderArray initWithObjects:count:]: attempt to insert nil object from objects[0]'
+    if ((login_btn_normal != nil && login_btn_unable != nil && login_btn_press != nil) || (defaultClick != nil && defaultUnclick != nil)) {
       // 登录按钮设置
       model.loginBtnBgImgs = @[
         login_btn_normal?:defaultClick,
