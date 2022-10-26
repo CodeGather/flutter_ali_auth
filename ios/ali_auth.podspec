@@ -19,6 +19,8 @@ Pod::Spec.new do |s|
   s.dependency 'MJExtension'
   s.dependency 'MBProgressHUD'
 
+  s.frameworks = 'Network'
+
   s.vendored_frameworks = 'libs/ATAuthSDK.framework', 'libs/YTXMonitor.framework', 'libs/YTXOperators.framework'
   s.static_framework = false
 
