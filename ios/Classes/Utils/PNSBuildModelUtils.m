@@ -306,22 +306,27 @@
   //model.autoHideLoginLoading = NO;
   
   /// 协议设置 START
-  model.privacyOne = @[
-    [viewConfig stringValueForKey: @"protocolOneName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: nil]
-  ];
-  model.privacyTwo = @[
-    [viewConfig stringValueForKey: @"protocolTwoName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolTwoURL" defaultValue: nil]
-  ];
-  model.privacyThree = @[
-    [viewConfig stringValueForKey: @"protocolThreeName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolThreeURL" defaultValue: nil]
-  ];
-  model.privacyColors = @[
-    [self getColor: [viewConfig stringValueForKey: @"protocolColor" defaultValue: @"#F00F00"]],
-    [self getColor: [viewConfig stringValueForKey: @"protocolCustomColor" defaultValue: @"#FDFDFD"]]
-  ];
+  NSString *protocolOneURL = [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: nil];
+  if (protocolOneURL != nil) {
+    model.privacyOne = @[
+      [viewConfig stringValueForKey: @"protocolOneName" defaultValue: @"协议1"],
+      protocolOneURL
+    ];
+  }
+  NSString *protocolTwoURL = [viewConfig stringValueForKey: @"protocolTwoURL" defaultValue: nil];
+  if (protocolTwoURL != nil) {
+    model.privacyTwo = @[
+      [viewConfig stringValueForKey: @"protocolTwoName" defaultValue: @"协议2"],
+      protocolTwoURL
+    ];
+  }
+  NSString *protocolThreeURL = [viewConfig stringValueForKey: @"protocolThreeURL" defaultValue: nil];
+  if (protocolThreeURL != nil) {
+    model.privacyThree = @[
+      [viewConfig stringValueForKey: @"protocolThreeName" defaultValue: @"协议3"],
+      protocolThreeURL
+    ];
+  }
   
   /** 导航背景色*/
   model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#FFFFFF"]];
