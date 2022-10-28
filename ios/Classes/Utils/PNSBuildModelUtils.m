@@ -643,7 +643,7 @@
                                                 selector:(SEL)selector {
   TXCustomModel *model = [[TXCustomModel alloc] init];
   model.alertBarIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
-  model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"navTextColor" defaultValue: @"#3971fe"]];
+  model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"alertTitleBarColor" defaultValue: @"#3971fe"]];
   model.alertTitle = [
     [NSAttributedString alloc]
       initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]
@@ -777,9 +777,18 @@
       return frame;
   };
   /// 登录按钮 END
-  
-  model.privacyOne = [[viewConfig stringValueForKey: @"appPrivacyOne" defaultValue: nil] componentsSeparatedByString:@","];
-  model.privacyTwo = [[viewConfig stringValueForKey: @"appPrivacyTwo" defaultValue: nil] componentsSeparatedByString:@","];
+  model.privacyOne = @[
+    [viewConfig stringValueForKey: @"protocolOneName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: @""]
+  ];
+  model.privacyTwo = @[
+    [viewConfig stringValueForKey: @"protocolTwoName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolTwoURL" defaultValue: @""]
+  ];
+  model.privacyThree = @[
+    [viewConfig stringValueForKey: @"protocolThreeName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolThreeURL" defaultValue: @""]
+  ];
   NSArray *privacyColors = [[viewConfig stringValueForKey: @"appPrivacyColor" defaultValue: nil] componentsSeparatedByString:@","];
   if(privacyColors != nil && privacyColors.count > 1){
     model.privacyColors = @[
@@ -1132,7 +1141,7 @@
     model.alertCornerRadiusArray = @[@10, @0, @0, @10];
     
     model.alertBarIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
-    model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"navTextColor" defaultValue: @"#3971fe"]];
+    model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"alertTitleBarColor" defaultValue: @"#3971fe"]];
     model.alertTitle = [
       [NSAttributedString alloc]
         initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]
@@ -1716,16 +1725,16 @@
   /// 8、第三方 END
   /// 9、协议 START
   model.privacyOne = @[
-    [viewConfig stringValueForKey: @"protocolOneName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: nil]
+    [viewConfig stringValueForKey: @"protocolOneName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: @""]
   ];
   model.privacyTwo = @[
-    [viewConfig stringValueForKey: @"protocolTwoName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolTwoURL" defaultValue: nil]
+    [viewConfig stringValueForKey: @"protocolTwoName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolTwoURL" defaultValue: @""]
   ];
   model.privacyThree = @[
-    [viewConfig stringValueForKey: @"protocolThreeName" defaultValue: nil],
-    [viewConfig stringValueForKey: @"protocolThreeURL" defaultValue: nil]
+    [viewConfig stringValueForKey: @"protocolThreeName" defaultValue: @""],
+    [viewConfig stringValueForKey: @"protocolThreeURL" defaultValue: @""]
   ];
   model.privacyColors = @[
     [self getColor: [viewConfig stringValueForKey: @"protocolColor" defaultValue: @"#F00F00"]],
