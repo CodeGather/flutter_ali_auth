@@ -166,8 +166,9 @@ bool bool_false = false;
             }
           }];
         } else {
-          [checkDic setValue:@(bool_false) forKey: @"token"];
-          [self showResult: checkDic];
+          NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:checkDic];
+          [result setValue:@(bool_false) forKey: @"token"];
+          [self showResult: result];
         }
       }];
     }];
@@ -211,15 +212,12 @@ bool bool_false = false;
 
 /** 检测是否开启蜂窝网络 */
 - (void)checkCellularDataEnable:(FlutterMethodCall*)call result:(FlutterResult)result {
+  bool status = [TXCommonUtils checkDeviceCellularDataEnable];
   NSDictionary *dict = @{
     @"code": @"1",
     @"msg" : @"蜂窝网络检测",
-    @"data" : @(bool_false)
+    @"data" : @(status)
   };
-  bool status = [TXCommonUtils checkDeviceCellularDataEnable];
-  if (status) {
-    [dict setValue: @(bool_true) forKey: @"data"];
-  }
   result(dict);
 }
 
