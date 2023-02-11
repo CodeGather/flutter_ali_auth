@@ -17,6 +17,8 @@ class AliAuthModel {
   /// 页面类型 必须
   final PageType? pageType;
 
+  /// 获取到token后，是否自动关闭一键登录页，默认true自动关闭
+  final bool? autoQuitPage;
   // /// 8. ⻚⾯相关函数
   //
   // /// 设置授权⻚进场动画
@@ -546,6 +548,7 @@ class AliAuthModel {
       {this.isDebug = true,
       this.isDelay = false,
       this.pageType = PageType.fullPort,
+      this.autoQuitPage= true,
       this.privacyOffsetX,
       this.statusBarColor,
       this.bottomNavColor,
@@ -736,6 +739,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'isDebug': instance.isDebug,
       'isDelay': instance.isDelay,
       'pageType': instance.pageType?.index ?? 0,
+      'autoQuitPage': instance.autoQuitPage ?? true,
       'statusBarColor': instance.statusBarColor,
       'bottomNavColor': instance.bottomNavColor,
       'isLightColor': instance.isLightColor,

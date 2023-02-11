@@ -77,8 +77,10 @@ public class OneKeyLoginPublic {
 
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i("TAG", "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.quitLoginPage();
-                        mPhoneNumberAuthHelper.setAuthListener(null);
+                        if (jsonObject.getBooleanValue("autoQuitPage")) {
+                            mPhoneNumberAuthHelper.quitLoginPage();
+                            mPhoneNumberAuthHelper.setAuthListener(null);
+                        }
                     }
                     eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), null, tokenRet.getToken()));
                 } catch (Exception e) {
@@ -173,8 +175,10 @@ public class OneKeyLoginPublic {
                     eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), tokenRet.getMsg(), tokenRet.getToken()));
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i(TAG, "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.quitLoginPage();
-                        mPhoneNumberAuthHelper.setAuthListener(null);
+                        if (jsonObject.getBooleanValue("autoQuitPage")) {
+                            mPhoneNumberAuthHelper.quitLoginPage();
+                            mPhoneNumberAuthHelper.setAuthListener(null);
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
