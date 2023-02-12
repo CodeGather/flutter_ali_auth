@@ -74,7 +74,7 @@ android {
 dependencies {
     implementation "androidx.appcompat:appcompat:1.3.0"
 
-    implementation "com.alibaba:fastjson:1.2.83"
+    implementation "com.alibaba:fastjson:2.0.23"
 
     implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
     implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')

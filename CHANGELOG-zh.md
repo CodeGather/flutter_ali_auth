@@ -1,8 +1,9 @@
 #  
 
 ## 1.0.9
-* 新增蜂窝网络是否开启功能 checkCellularDataEnable
-* 修复iOS _NSPlaceholderArray initWithObjects:count
+* 更新android sdk 为2.12.11.2
+* 更新ios sdk 为2.12.11
+* 升级fastjson修复漏洞
 
 ## 1.0.8
 * 新增蜂窝网络是否开启功能 checkCellularDataEnable
