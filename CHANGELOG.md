@@ -1,5 +1,9 @@
 #  
 
+## 1.0.9
+* Check whether the function checkCellular DataEnable is enabled for the new cellular network
+* fix _NSPlaceholderArray initWithObjects:count
+
 ## 1.0.8
 * Check whether the function checkCellular DataEnable is enabled for the new cellular network
 * fix _NSPlaceholderArray initWithObjects:count

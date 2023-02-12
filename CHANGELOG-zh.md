@@ -1,5 +1,9 @@
 #  
 
+## 1.0.9
+* 新增蜂窝网络是否开启功能 checkCellularDataEnable
+* 修复iOS _NSPlaceholderArray initWithObjects:count
+
 ## 1.0.8
 * 新增蜂窝网络是否开启功能 checkCellularDataEnable
 * 修复iOS _NSPlaceholderArray initWithObjects:count

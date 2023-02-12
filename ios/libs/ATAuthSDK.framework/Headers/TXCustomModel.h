@@ -79,6 +79,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) BOOL navIsHidden;
 /**授权页push到其他页面后，导航栏是否隐藏，默认NO*/
 @property (nonatomic, assign) BOOL navIsHiddenAfterLoginVCDisappear;
+/**是否需要中断返回,如果设置为YES，则点击左上角返回按钮的时候默认页面不消失，同时透出状态码700010，需要自己调用TXCommonHandler cancelLoginVCAnimated方法隐藏页面，默认为NO*/
+@property (nonatomic, assign) BOOL suspendDisMissVC;
 /** 导航栏主题色 */
 @property (nonatomic, strong) UIColor *navColor;
 /** 导航栏标题，内容、字体、大小、颜色 */
@@ -334,7 +336,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /** 二次隐私协议弹窗协议文案支持居中、居左、居右设置，默认居左 */
 @property (nonatomic, assign) NSTextAlignment privacyAlertContentAlignment;
 /** 二次隐私协议弹窗按钮按钮背景图片 ,默认高度50.0pt，@[激活状态的图片,高亮状态的图片] */
-@property (nonatomic, strong) NSArray<UIImage *> *privacyAlertBtnBackgroundImages;
+@property (nonatomic, copy) NSArray<UIImage *> *privacyAlertBtnBackgroundImages;
 /** 二次隐私协议弹窗按钮文字颜色，默认黑色, @[激活状态的颜色,高亮状态的颜色] */
 @property (nonatomic, copy) NSArray<UIColor *> *privacyAlertButtonTextColors;
 /** 二次隐私协议弹窗按钮文字大小，最小10，默认18*/

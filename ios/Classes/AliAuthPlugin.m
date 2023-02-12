@@ -327,9 +327,14 @@ bool bool_false = false;
                     [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
                   });
               } else if ([PNSCodeSuccess isEqualToString:code]) {
+                  // if ([self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES]) {
+                     // dispatch_async(dispatch_get_main_queue(), ^{
+                       // [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                      //});
+                  //}
                   dispatch_async(dispatch_get_main_queue(), ^{
                       [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                  });
+                    });
               } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
                 [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
               } else if ([PNSCodeCarrierChanged isEqualToString:code]) { // 切换运营商
