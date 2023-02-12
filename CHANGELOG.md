@@ -1,8 +1,9 @@
 #  
 
 ## 1.0.9
-* Check whether the function checkCellular DataEnable is enabled for the new cellular network
-* fix _NSPlaceholderArray initWithObjects:count
+* Update Android sdk to 2.12.11.2
+* Update ios sdk to 2.12.11
+* Upgrade fastjson to fix the vulnerability
 
 ## 1.0.8
 * Check whether the function checkCellular DataEnable is enabled for the new cellular network
