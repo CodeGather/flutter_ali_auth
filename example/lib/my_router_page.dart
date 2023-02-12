@@ -24,11 +24,9 @@ class MyRouterState extends State<MyRouterPage> {
             const Text('通过原生控制flutter的跳转'),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_){
-                      return const MyHomePage();
-                    })
-                );
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                  return const MyHomePage();
+                }));
               },
               child: const Text("跳转页面"),
             ),

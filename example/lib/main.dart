@@ -57,14 +57,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return  WillPopScope(
-        onWillPop: () {
+    return WillPopScope(
+      onWillPop: () {
         // 退出APP方法一
         EasyLoading.show(
-            status: '您确定要退出思预云吗?',
+          status: '您确定要退出思预云吗?',
         );
         return Future.value(false);
-      },// look here!
+      }, // look here!
       child: MaterialApp(
         home: getDefaultRouter(),
         routes: <String, WidgetBuilder>{

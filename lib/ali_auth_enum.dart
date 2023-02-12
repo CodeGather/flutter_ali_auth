@@ -90,6 +90,7 @@ class EnumUtils {
         return 4;
     }
   }
+
   static int formatUiFagValue(UIFAG? status) {
     switch (status) {
       case UIFAG.systemUiFalgLowProfile:

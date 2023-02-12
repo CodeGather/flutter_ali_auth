@@ -18,7 +18,7 @@ class AliAuth {
   static Stream<dynamic>? _onListener;
 
   //为了控制Stream 暂停。恢复。取消监听 新建
-  static StreamSubscription ?streamSubscription;
+  static StreamSubscription? streamSubscription;
 
   /// 初始化监听
   static Stream<dynamic>? onChange({bool type = true}) {
@@ -74,32 +74,38 @@ class AliAuth {
 
   /// 数据监听
   static loginListen(
-      {bool type = true, required Function onEvent, Function? onError, isOnlyOne = true}) async {
+      {bool type = true,
+      required Function onEvent,
+      Function? onError,
+      isOnlyOne = true}) async {
     /// 默认为初始化单监听
     if (isOnlyOne && streamSubscription != null) {
       /// 原来监听被移除
       dispose();
     }
-    streamSubscription = onChange(type: type)!.listen(onEvent as void Function(dynamic)?,
-        onError: onError, onDone: null, cancelOnError: null);
+    streamSubscription = onChange(type: type)!.listen(
+        onEvent as void Function(dynamic)?,
+        onError: onError,
+        onDone: null,
+        cancelOnError: null);
   }
 
   /// 暂停
-  static pause () {
+  static pause() {
     if (streamSubscription != null) {
       streamSubscription!.pause();
     }
   }
 
   /// 恢复
-  static resume () {
+  static resume() {
     if (streamSubscription != null) {
       streamSubscription!.resume();
     }
   }
 
   /// 销毁监听
-  static dispose () {
+  static dispose() {
     if (streamSubscription != null) {
       streamSubscription!.cancel();
       streamSubscription = null;

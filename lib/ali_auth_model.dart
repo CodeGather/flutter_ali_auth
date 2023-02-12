@@ -444,13 +444,13 @@ class AliAuthModel {
   final double privacyAlertAlpha;
 
   /// 设置二次隐私协议弹窗背景色（同意并继续按钮区域）。
-  final String ?privacyAlertBackgroundColor;
+  final String? privacyAlertBackgroundColor;
 
   /// 设置二次隐私协议弹窗显示自定义动画。
-  final String ?privacyAlertEntryAnimation;
+  final String? privacyAlertEntryAnimation;
 
   /// 设置二次隐私协议弹窗隐藏自定义动画。
-  final String ?privacyAlertExitAnimation;
+  final String? privacyAlertExitAnimation;
 
   /// 设置二次隐私协议弹窗的四个圆角值。说明 顺序为左上、右上、右下、左下，需要填充4个值，不足4个值则无效，如果值小于等于0则为直角。
   final List<int>? privacyAlertCornerRadiusArray;
@@ -459,207 +459,209 @@ class AliAuthModel {
   final Gravity? privacyAlertAlignment;
 
   /// 设置弹窗宽度。
-  final int ?privacyAlertWidth;
+  final int? privacyAlertWidth;
 
   /// 设置弹窗高度。
-  final int ?privacyAlertHeight;
+  final int? privacyAlertHeight;
 
   /// 设置弹窗水平偏移量。（单位：dp）
-  final int ?privacyAlertOffsetX;
+  final int? privacyAlertOffsetX;
 
   /// 设置弹窗竖直偏移量。（单位：dp）
-  final int ?privacyAlertOffsetY;
+  final int? privacyAlertOffsetY;
 
   /// 设置二次隐私协议弹窗标题背景颜色。
-  final String ?privacyAlertTitleBackgroundColor;
+  final String? privacyAlertTitleBackgroundColor;
 
   /// 设置二次隐私协议弹窗标题支持居中、居左，默认居中显示。
   final Gravity? privacyAlertTitleAlignment;
 
   /// 设置标题文字水平偏移量。（单位：dp）
-  final int ?privacyAlertTitleOffsetX;
+  final int? privacyAlertTitleOffsetX;
 
   /// 设置标题文字竖直偏移量。（单位：dp）
-  final int ?privacyAlertTitleOffsetY;
+  final int? privacyAlertTitleOffsetY;
 
   /// 设置标题文字大小，默认值18 sp。
   final int privacyAlertTitleTextSize;
 
   /// 设置标题文字颜色。
-  final String ?privacyAlertTitleColor;
+  final String? privacyAlertTitleColor;
 
   /// 设置协议内容背景颜色。
-  final String ?privacyAlertContentBackgroundColor;
+  final String? privacyAlertContentBackgroundColor;
 
   /// 设置服务协议文字大小，默认值16 sp。
-  final int ?privacyAlertContentTextSize;
+  final int? privacyAlertContentTextSize;
 
   /// 设置二次隐私协议弹窗协议文案支持居中、居左，默认居左显示。
   final Gravity? privacyAlertContentAlignment;
 
   /// 设置服务协议文字颜色。
-  final String ?privacyAlertContentColor;
+  final String? privacyAlertContentColor;
 
   /// 设置服务协议非协议文字颜色。
-  final String ?privacyAlertContentBaseColor;
+  final String? privacyAlertContentBaseColor;
 
   /// 设置服务协议左右两侧间距。
-  final int ?privacyAlertContentHorizontalMargin;
+  final int? privacyAlertContentHorizontalMargin;
 
   /// 设置服务协议上下间距。
-  final int ?privacyAlertContentVerticalMargin;
+  final int? privacyAlertContentVerticalMargin;
 
   /// 设置按钮背景图片路径。
-  final String ?privacyAlertBtnBackgroundImgPath;
+  final String? privacyAlertBtnBackgroundImgPath;
 
   /// 设置按钮文字颜色。
-  final String ?privacyAlertBtnTextColor;
+  final String? privacyAlertBtnTextColor;
 
   /// 设置按钮文字大小，默认值18 sp。
-  final int ?privacyAlertBtnTextSize;
+  final int? privacyAlertBtnTextSize;
 
   /// 设置按钮宽度。（单位：dp）
-  final int ?privacyAlertBtnWidth;
+  final int? privacyAlertBtnWidth;
 
   /// 设置按钮高度。（单位：dp）
-  final int ?privacyAlertBtnHeigth;
+  final int? privacyAlertBtnHeigth;
 
   /// 设置右上角的关闭按钮。true（默认值）：显示关闭按钮。
-  final bool ?privacyAlertCloseBtnShow;
+  final bool? privacyAlertCloseBtnShow;
 
   /// 关闭按钮图片路径。
-  final String ?privacyAlertCloseImagPath;
+  final String? privacyAlertCloseImagPath;
 
   /// 关闭按钮缩放类型。
-  final ScaleType ?privacyAlertCloseScaleType;
+  final ScaleType? privacyAlertCloseScaleType;
 
   /// 关闭按钮宽度。（单位：dp）
-  final int ?privacyAlertCloseImgWidth;
+  final int? privacyAlertCloseImgWidth;
 
   /// 关闭按钮高度。（单位：dp）
-  final int ?privacyAlertCloseImgHeight;
+  final int? privacyAlertCloseImgHeight;
 
   /// 设置二次隐私协议弹窗点击背景蒙层是否关闭弹窗。true（默认值）：表示关闭
   final bool tapPrivacyAlertMaskCloseAlert;
 
-  const AliAuthModel(this.androidSk, this.iosSk,
-      {this.isDebug = true,
-      this.isDelay = false,
-      this.pageType = PageType.fullPort,
-      this.privacyOffsetX,
-      this.statusBarColor,
-      this.bottomNavColor,
-      this.isLightColor,
-      this.isStatusBarHidden,
-      this.statusBarUIFlag,
-      this.navColor,
-      this.navText,
-      this.navTextColor,
-      this.navReturnImgPath,
-      this.navReturnImgWidth,
-      this.navReturnImgHeight,
-      this.customReturnBtn,
-      this.navReturnHidden,
-      this.navReturnScaleType,
-      this.navHidden,
-      this.logoImgPath,
-      this.logoHidden,
-      this.numberColor,
-      this.numberSize,
-      this.switchAccHidden,
-      this.switchAccTextColor,
-      this.logBtnText,
-      this.logBtnTextSize,
-      this.logBtnTextColor,
-      this.protocolOneName,
-      this.protocolOneURL,
-      this.protocolTwoName,
-      this.protocolTwoURL,
-      this.protocolThreeName,
-      this.protocolThreeURL,
-      this.protocolCustomColor,
-      this.protocolColor,
-      this.protocolLayoutGravity,
-      this.sloganTextColor,
-      this.sloganText,
-      this.logBtnBackgroundPath,
-      this.loadingImgPath,
-      this.sloganOffsetY,
-      this.logoOffsetY,
-      // ignore: non_constant_identifier_names
-      this.logoOffsetY_B,
-      this.logoScaleType,
-      this.numFieldOffsetY,
-      // ignore: non_constant_identifier_names
-      this.numFieldOffsetY_B,
-      this.numberFieldOffsetX,
-      this.numberLayoutGravity,
-      this.switchOffsetY,
-      // ignore: non_constant_identifier_names
-      this.switchOffsetY_B,
-      this.logBtnOffsetY,
-      // ignore: non_constant_identifier_names
-      this.logBtnOffsetY_B,
-      this.logBtnWidth,
-      this.logBtnHeight,
-      this.logBtnOffsetX,
-      this.logBtnMarginLeftAndRight,
-      this.logBtnLayoutGravity,
-      this.privacyOffsetY,
-      // ignore: non_constant_identifier_names
-      this.privacyOffsetY_B,
-      // ignore: non_constant_identifier_names
-      this.sloganOffsetY_B,
-      this.checkBoxWidth,
-      this.checkBoxHeight,
-      this.checkboxHidden,
-      this.navTextSize,
-      this.logoWidth,
-      this.logoHeight,
-      this.switchAccTextSize,
-      this.switchAccText,
-      this.sloganTextSize,
-      this.sloganHidden,
-      this.uncheckedImgPath,
-      this.checkedImgPath,
-      this.privacyState,
-      this.protocolGravity,
-      this.privacyTextSize,
-      this.privacyMargin,
-      this.privacyBefore,
-      this.privacyEnd,
-      this.vendorPrivacyPrefix,
-      this.vendorPrivacySuffix,
-      this.dialogWidth,
-      this.dialogHeight,
-      this.dialogBottom,
-      this.dialogOffsetX,
-      this.dialogOffsetY,
-      this.dialogCornerRadiusArray,
-      this.pageBackgroundPath,
-      this.pageBackgroundRadius,
-      this.webViewStatusBarColor,
-      this.webNavColor,
-      this.webNavTextColor,
-      this.webNavTextSize,
-      this.webNavReturnImgPath,
-      this.webSupportedJavascript,
-      this.authPageActIn,
-      this.activityOut,
-      this.authPageActOut,
-      this.activityIn,
-      this.screenOrientation,
-      this.logBtnToastHidden,
-      this.dialogAlpha,
-      this.privacyOperatorIndex,
-      this.privacyConectTexts,
-      this.protocolAction,
-      this.packageName,
-      this.loadingBackgroundPath,
-      this.isHiddenLoading,
-      this.isHiddenCustom,
-      this.customThirdView,
-      /**
+  const AliAuthModel(
+    this.androidSk,
+    this.iosSk, {
+    this.isDebug = true,
+    this.isDelay = false,
+    this.pageType = PageType.fullPort,
+    this.privacyOffsetX,
+    this.statusBarColor,
+    this.bottomNavColor,
+    this.isLightColor,
+    this.isStatusBarHidden,
+    this.statusBarUIFlag,
+    this.navColor,
+    this.navText,
+    this.navTextColor,
+    this.navReturnImgPath,
+    this.navReturnImgWidth,
+    this.navReturnImgHeight,
+    this.customReturnBtn,
+    this.navReturnHidden,
+    this.navReturnScaleType,
+    this.navHidden,
+    this.logoImgPath,
+    this.logoHidden,
+    this.numberColor,
+    this.numberSize,
+    this.switchAccHidden,
+    this.switchAccTextColor,
+    this.logBtnText,
+    this.logBtnTextSize,
+    this.logBtnTextColor,
+    this.protocolOneName,
+    this.protocolOneURL,
+    this.protocolTwoName,
+    this.protocolTwoURL,
+    this.protocolThreeName,
+    this.protocolThreeURL,
+    this.protocolCustomColor,
+    this.protocolColor,
+    this.protocolLayoutGravity,
+    this.sloganTextColor,
+    this.sloganText,
+    this.logBtnBackgroundPath,
+    this.loadingImgPath,
+    this.sloganOffsetY,
+    this.logoOffsetY,
+    // ignore: non_constant_identifier_names
+    this.logoOffsetY_B,
+    this.logoScaleType,
+    this.numFieldOffsetY,
+    // ignore: non_constant_identifier_names
+    this.numFieldOffsetY_B,
+    this.numberFieldOffsetX,
+    this.numberLayoutGravity,
+    this.switchOffsetY,
+    // ignore: non_constant_identifier_names
+    this.switchOffsetY_B,
+    this.logBtnOffsetY,
+    // ignore: non_constant_identifier_names
+    this.logBtnOffsetY_B,
+    this.logBtnWidth,
+    this.logBtnHeight,
+    this.logBtnOffsetX,
+    this.logBtnMarginLeftAndRight,
+    this.logBtnLayoutGravity,
+    this.privacyOffsetY,
+    // ignore: non_constant_identifier_names
+    this.privacyOffsetY_B,
+    // ignore: non_constant_identifier_names
+    this.sloganOffsetY_B,
+    this.checkBoxWidth,
+    this.checkBoxHeight,
+    this.checkboxHidden,
+    this.navTextSize,
+    this.logoWidth,
+    this.logoHeight,
+    this.switchAccTextSize,
+    this.switchAccText,
+    this.sloganTextSize,
+    this.sloganHidden,
+    this.uncheckedImgPath,
+    this.checkedImgPath,
+    this.privacyState,
+    this.protocolGravity,
+    this.privacyTextSize,
+    this.privacyMargin,
+    this.privacyBefore,
+    this.privacyEnd,
+    this.vendorPrivacyPrefix,
+    this.vendorPrivacySuffix,
+    this.dialogWidth,
+    this.dialogHeight,
+    this.dialogBottom,
+    this.dialogOffsetX,
+    this.dialogOffsetY,
+    this.dialogCornerRadiusArray,
+    this.pageBackgroundPath,
+    this.pageBackgroundRadius,
+    this.webViewStatusBarColor,
+    this.webNavColor,
+    this.webNavTextColor,
+    this.webNavTextSize,
+    this.webNavReturnImgPath,
+    this.webSupportedJavascript,
+    this.authPageActIn,
+    this.activityOut,
+    this.authPageActOut,
+    this.activityIn,
+    this.screenOrientation,
+    this.logBtnToastHidden,
+    this.dialogAlpha,
+    this.privacyOperatorIndex,
+    this.privacyConectTexts,
+    this.protocolAction,
+    this.packageName,
+    this.loadingBackgroundPath,
+    this.isHiddenLoading,
+    this.isHiddenCustom,
+    this.customThirdView,
+    /**
          * "assets/background_gif.gif"
          * "assets/background_gif1.gif"
          * "assets/background_gif2.gif"
@@ -669,60 +671,58 @@ class AliAuthModel {
          * "https://upfile.asqql.com/2009pasdfasdfic2009s305985-ts/2018-7/20187232061776607.gif"
          * "https://img.zcool.cn/community/01dda35912d7a3a801216a3e3675b3.gif",
          */
-      this.backgroundPath = "assets/background_image.jpeg",
-      this.bottomNavBarColor,
-      this.alertBarIsHidden,
-      this.alertTitleBarColor,
-      this.alertCloseItemIsHidden,
-      this.alertCloseImage,
-      this.alertCloseImageX,
-      this.alertCloseImageY,
-      this.alertCloseImageW,
-      this.alertCloseImageH,
-      this.alertBlurViewColor,
-      this.alertBlurViewAlpha,
-      this.presentDirection,
-
-      this.privacyAlertIsNeedShow=false,
-      this.privacyAlertIsNeedAutoLogin=true,
-      this.privacyAlertMaskIsNeedShow=true,
-      this.privacyAlertMaskAlpha=0.3,
-      this.privacyAlertAlpha=0.2,
-      this.privacyAlertBackgroundColor,
-      this.privacyAlertEntryAnimation,
-      this.privacyAlertExitAnimation,
-      this.privacyAlertCornerRadiusArray,
-      this.privacyAlertAlignment,
-      this.privacyAlertWidth,
-      this.privacyAlertHeight,
-      this.privacyAlertOffsetX,
-      this.privacyAlertOffsetY,
-      this.privacyAlertTitleBackgroundColor,
-      this.privacyAlertTitleAlignment,
-      this.privacyAlertTitleOffsetX,
-      this.privacyAlertTitleOffsetY,
-      this.privacyAlertTitleTextSize=18,
-      this.privacyAlertTitleColor,
-      this.privacyAlertContentBackgroundColor,
-      this.privacyAlertContentTextSize=16,
-      this.privacyAlertContentAlignment,
-      this.privacyAlertContentColor,
-      this.privacyAlertContentBaseColor,
-      this.privacyAlertContentHorizontalMargin,
-      this.privacyAlertContentVerticalMargin,
-      this.privacyAlertBtnBackgroundImgPath,
-      this.privacyAlertBtnTextColor,
-      this.privacyAlertBtnTextSize=18,
-      this.privacyAlertBtnWidth,
-      this.privacyAlertBtnHeigth,
-      this.privacyAlertCloseBtnShow,
-      this.privacyAlertCloseImagPath,
-      this.privacyAlertCloseScaleType,
-      this.privacyAlertCloseImgWidth,
-      this.privacyAlertCloseImgHeight,
-      this.tapPrivacyAlertMaskCloseAlert=true,
-      })
-      : assert(androidSk != null || iosSk != null),
+    this.backgroundPath = "assets/background_image.jpeg",
+    this.bottomNavBarColor,
+    this.alertBarIsHidden,
+    this.alertTitleBarColor,
+    this.alertCloseItemIsHidden,
+    this.alertCloseImage,
+    this.alertCloseImageX,
+    this.alertCloseImageY,
+    this.alertCloseImageW,
+    this.alertCloseImageH,
+    this.alertBlurViewColor,
+    this.alertBlurViewAlpha,
+    this.presentDirection,
+    this.privacyAlertIsNeedShow = false,
+    this.privacyAlertIsNeedAutoLogin = true,
+    this.privacyAlertMaskIsNeedShow = true,
+    this.privacyAlertMaskAlpha = 0.3,
+    this.privacyAlertAlpha = 0.2,
+    this.privacyAlertBackgroundColor,
+    this.privacyAlertEntryAnimation,
+    this.privacyAlertExitAnimation,
+    this.privacyAlertCornerRadiusArray,
+    this.privacyAlertAlignment,
+    this.privacyAlertWidth,
+    this.privacyAlertHeight,
+    this.privacyAlertOffsetX,
+    this.privacyAlertOffsetY,
+    this.privacyAlertTitleBackgroundColor,
+    this.privacyAlertTitleAlignment,
+    this.privacyAlertTitleOffsetX,
+    this.privacyAlertTitleOffsetY,
+    this.privacyAlertTitleTextSize = 18,
+    this.privacyAlertTitleColor,
+    this.privacyAlertContentBackgroundColor,
+    this.privacyAlertContentTextSize = 16,
+    this.privacyAlertContentAlignment,
+    this.privacyAlertContentColor,
+    this.privacyAlertContentBaseColor,
+    this.privacyAlertContentHorizontalMargin,
+    this.privacyAlertContentVerticalMargin,
+    this.privacyAlertBtnBackgroundImgPath,
+    this.privacyAlertBtnTextColor,
+    this.privacyAlertBtnTextSize = 18,
+    this.privacyAlertBtnWidth,
+    this.privacyAlertBtnHeigth,
+    this.privacyAlertCloseBtnShow,
+    this.privacyAlertCloseImagPath,
+    this.privacyAlertCloseScaleType,
+    this.privacyAlertCloseImgWidth,
+    this.privacyAlertCloseImgHeight,
+    this.tapPrivacyAlertMaskCloseAlert = true,
+  })  : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
 
@@ -831,8 +831,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'protocolCustomColor': instance.protocolCustomColor,
       'protocolAction': instance.protocolAction,
       'privacyState': instance.privacyState,
-      'protocolGravity':
-          EnumUtils.formatGravityValue(instance.protocolGravity),
+      'protocolGravity': EnumUtils.formatGravityValue(instance.protocolGravity),
       'privacyOffsetY': instance.privacyOffsetY,
       'privacyOffsetY_B': instance.privacyOffsetY_B,
       'privacyTextSize': instance.privacyTextSize,
@@ -857,7 +856,6 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'alertBlurViewColor': instance.alertBlurViewColor,
       'alertBlurViewAlpha': instance.alertBlurViewAlpha,
       'presentDirection': instance.presentDirection,
-
       'privacyAlertIsNeedShow': instance.privacyAlertIsNeedShow,
       'privacyAlertIsNeedAutoLogin': instance.privacyAlertIsNeedAutoLogin,
       'privacyAlertMaskIsNeedShow': instance.privacyAlertMaskIsNeedShow,
@@ -873,29 +871,35 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyAlertHeight': instance.privacyAlertHeight,
       'privacyAlertOffsetX': instance.privacyAlertOffsetX,
       'privacyAlertOffsetY': instance.privacyAlertOffsetY,
-      'privacyAlertTitleBackgroundColor': instance.privacyAlertTitleBackgroundColor,
+      'privacyAlertTitleBackgroundColor':
+          instance.privacyAlertTitleBackgroundColor,
       'privacyAlertTitleAlignment':
           EnumUtils.formatGravityValue(instance.privacyAlertTitleAlignment),
       'privacyAlertTitleOffsetX': instance.privacyAlertTitleOffsetX,
       'privacyAlertTitleOffsetY': instance.privacyAlertTitleOffsetY,
       'privacyAlertTitleTextSize': instance.privacyAlertTitleTextSize,
       'privacyAlertTitleColor': instance.privacyAlertTitleColor,
-      'privacyAlertContentBackgroundColor': instance.privacyAlertContentBackgroundColor,
+      'privacyAlertContentBackgroundColor':
+          instance.privacyAlertContentBackgroundColor,
       'privacyAlertContentTextSize': instance.privacyAlertContentTextSize,
       'privacyAlertContentAlignment':
           EnumUtils.formatGravityValue(instance.privacyAlertContentAlignment),
       'privacyAlertContentColor': instance.privacyAlertContentColor,
       'privacyAlertContentBaseColor': instance.privacyAlertContentBaseColor,
-      'privacyAlertContentHorizontalMargin': instance.privacyAlertContentHorizontalMargin,
-      'privacyAlertContentVerticalMargin': instance.privacyAlertContentVerticalMargin,
-      'privacyAlertBtnBackgroundImgPath': instance.privacyAlertBtnBackgroundImgPath,
+      'privacyAlertContentHorizontalMargin':
+          instance.privacyAlertContentHorizontalMargin,
+      'privacyAlertContentVerticalMargin':
+          instance.privacyAlertContentVerticalMargin,
+      'privacyAlertBtnBackgroundImgPath':
+          instance.privacyAlertBtnBackgroundImgPath,
       'privacyAlertBtnTextColor': instance.privacyAlertBtnTextColor,
       'privacyAlertBtnTextSize': instance.privacyAlertBtnTextSize,
       'privacyAlertBtnWidth': instance.privacyAlertBtnWidth,
       'privacyAlertBtnHeigth': instance.privacyAlertBtnHeigth,
       'privacyAlertCloseBtnShow': instance.privacyAlertCloseBtnShow,
       'privacyAlertCloseImagPath': instance.privacyAlertCloseImagPath,
-      'privacyAlertCloseScaleType': instance.privacyAlertCloseScaleType?.index ?? 0,
+      'privacyAlertCloseScaleType':
+          instance.privacyAlertCloseScaleType?.index ?? 0,
       'privacyAlertCloseImgWidth': instance.privacyAlertCloseImgWidth,
       'privacyAlertCloseImgHeight': instance.privacyAlertCloseImgHeight,
       'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
