@@ -17,7 +17,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import static android.os.FileUtils.copy;
-import static com.alibaba.fastjson.JSONPatch.OperationType.copy;
 
 /**
  * @ProjectName: android
