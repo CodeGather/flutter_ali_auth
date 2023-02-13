@@ -903,6 +903,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyAlertCloseImgWidth': instance.privacyAlertCloseImgWidth,
       'privacyAlertCloseImgHeight': instance.privacyAlertCloseImgHeight,
       'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
+      'isHiddenLoading': instance.isHiddenLoading,
     };
 
 /// 初始配置&注意事项
