@@ -3,6 +3,7 @@ package com.sean.rao.ali_auth;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -10,15 +11,19 @@ import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Build;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hjq.toast.CustomToast;
 import com.hjq.toast.ToastStrategy;
-import com.hjq.toast.ToastUtils;
+import com.hjq.toast.Toaster;
 import com.hjq.toast.config.IToast;
+import com.hjq.toast.config.IToastStyle;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -91,10 +96,53 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         result.success("当前Android信息：" + android.os.Build.VERSION.RELEASE);
         break;
       case "initSdk":
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(call.arguments));
+        if (!jsonObject.getBooleanValue("isHideToast")) {
+          Toaster.init(mActivity.getApplication(), new ToastStrategy(){
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public IToast createToast(IToastStyle<?> style) {
+              IToast toast = super.createToast(style);
+              CustomToast customToast = ((CustomToast) toast);
+              // 设置 Toast 动画效果
+              //customToast.setAnimationsId(R.anim.xxx);
+              // 设置短 Toast 的显示时长（默认是 2000 毫秒）
+              customToast.setShortDuration(jsonObject.getIntValue("toastDelay") * 1000);
+              if (UtilTool.dataStatus(jsonObject, "toastPositionMode")) {
+                String mode = jsonObject.getString("toastPositionMode");
+                switch (mode){
+                  case "top":
+                    customToast.setGravity(Gravity.TOP, 0, jsonObject.getIntValue("marginTop") + 10);
+                    break;
+                  case "bottom":
+                    customToast.setGravity(Gravity.BOTTOM, 0, jsonObject.getIntValue("marginBottom") + 10);
+                    break;
+                  default:
+                    customToast.setGravity(Gravity.CENTER, 0, 0);
+                    break;
+                }
+              }
+              View view = customToast.getView();
+              // 设置背景颜色
+              view.setBackgroundColor(Color.parseColor(jsonObject.getString("toastBackground")));
+              // 设置内边剧
+              view.setPadding(
+                      jsonObject.getIntValue("toastPadding"),
+                      jsonObject.getIntValue("toastPadding"),
+                      jsonObject.getIntValue("toastPadding"),
+                      jsonObject.getIntValue("toastPadding")
+              );
+              // 重置view样式
+              customToast.setView(view);
+              return toast;
+            }
+          });
+        }
+
         if (_events == null) {
           result.error("500001", "请先对插件进行监听！", null);
         } else {
-          boolean isDelay = (boolean) call.argument("isDelay");
+          boolean isDelay = jsonObject.getBoolean("isDelay");
           /// 判断是否初始化过或者是否是同步登录，如果是将进行再次初始化
           if (oneKeyLoginPublic == null || !isDelay) {
             oneKeyLoginPublic = new OneKeyLoginPublic(mActivity, _events, call.arguments);
@@ -145,23 +193,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
     eventSink.success(UtilTool.resultFormatData("500004", String.format("插件启动监听成功, 当前SDK版本: %s", version), ""));
     if( _events == null ){
       _events = eventSink;
-      // init();
-      // implementation 'com.github.getActivity:ToastUtils:10.3'
-      ToastUtils.init(mActivity.getApplication(), new ToastStrategy() {
-        @Override
-        public IToast createToast(Application application) {
-          IToast toast = super.createToast(application);
-          CustomToast customToast = ((CustomToast) toast);
-          // 设置 Toast 动画效果
-          //customToast.setAnimationsId(R.anim.xxx);
-          // 设置短 Toast 的显示时长（默认是 2000 毫秒）
-          customToast.setShortDuration(1000);
-            // 设置长 Toast 的显示时长（默认是 3500 毫秒）
-          customToast.setLongDuration(5000);
-          toast.setMargin(toast.getHorizontalMargin(), 10);
-          return toast;
-        }
-      });
     }
   }
 

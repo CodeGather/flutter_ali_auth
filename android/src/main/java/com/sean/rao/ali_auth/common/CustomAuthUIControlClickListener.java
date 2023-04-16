@@ -27,7 +27,7 @@ import io.flutter.plugin.common.EventChannel;
  * @UpdateRemark: 更新说明
  * @Version: 1.0
  */
-public class CustomAuthUIControlClickListener implements AuthUIControlClickListener {
+public class CustomAuthUIControlClickListener extends LoginParams implements AuthUIControlClickListener {
   private final String TAG = "CustomAuth: ";
   public PhoneNumberAuthHelper mAuthHelper;
   public AuthUIConfig.Builder autoConfig;
@@ -64,6 +64,7 @@ public class CustomAuthUIControlClickListener implements AuthUIControlClickListe
         break;
       //checkbox状态改变触发此回调
       case ResultCode.CODE_ERROR_USER_CHECKBOX:
+        isChecked = jsonDataObj.getBooleanValue("isChecked");
         Log.e(TAG, "checkbox状态变为" + jsonDataObj.getBooleanValue("isChecked"));
         break;
       //点击协议栏触发此回调

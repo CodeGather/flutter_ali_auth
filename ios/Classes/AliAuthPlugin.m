@@ -7,6 +7,7 @@
 #import "MBProgressHUD.h"
 #import "PNSBuildModelUtils.h"
 #import "NSDictionary+Utils.h"
+#import "UIColor+Hex.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 
 #define TX_SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
@@ -29,6 +30,8 @@ bool bool_false = false;
   FlutterResult _result;
   FlutterMethodCall * _callData;
   TXCustomModel * _model;
+  Boolean _isChecked;
+  Boolean _isHideToast;
 }
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   AliAuthPlugin* instance = [[AliAuthPlugin alloc] init];
@@ -90,6 +93,7 @@ bool bool_false = false;
   }
   // 初始化SDK
   else if ([@"initSdk" isEqualToString:call.method]) {
+    _isHideToast = [call.arguments boolValueForKey: @"isHideToast" defaultValue: NO];
     if (_eventSink == nil) {
       result(@{ @"code": @"500001", @"msg": @"请先对插件进行监听！" });
     } else {
@@ -105,6 +109,7 @@ bool bool_false = false;
       [self showResult: dict];
       return;
     }
+    self->_isChecked = NO;
     [self loginWithModel: _model complete:^{}];
   }
   else if ([@"checkEnvAvailable" isEqualToString:call.method]) {
@@ -226,14 +231,18 @@ bool bool_false = false;
 - (void)btnClick: (UIGestureRecognizer *) sender {
   UIButton *view = (UIButton *)sender;
   NSInteger index = view.tag;
-  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {
-    NSDictionary *dict = @{
-      @"code": @"700005",
-      @"msg" : @"点击第三方登录按钮",
-      @"data" : [NSNumber numberWithInteger: index]
-    };
-    self->_eventSink(dict);
-  }];
+  NSDictionary *dict = @{
+    @"code": @"700005",
+    @"msg" : @"点击第三方登录按钮",
+    @"data" : [NSNumber numberWithInteger: index]
+  };
+  self->_eventSink(dict);
+  if (!self->_isChecked && !self->_isHideToast) {
+    NSDictionary *dic = self -> _callData.arguments;
+    [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
+  } else {
+    [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {}];
+  }
 }
 
 // 一键登录预取号
@@ -294,6 +303,8 @@ bool bool_false = false;
 //  [pushFlutterNativePageButton addTarget:self action:@selector(pushFlutterNativePage) forControlEvents:UIControlEventTouchUpInside];
 //  [_vc.view addSubview:pushFlutterNativePageButton];
   
+  // 每次登录时都设置没有登录状态
+  self->_isChecked = false;
   
   //1. 调用check接口检查及准备接口调用环境
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
@@ -310,6 +321,8 @@ bool bool_false = false;
           }
           
             //3. 调用获取登录Token接口，可以立马弹起授权页
+            // 关闭loading
+            [MBProgressHUD hideHUDForView:_vc.view animated:YES];
             [[TXCommonHandler sharedInstance] getLoginTokenWithTimeout:timeout controller:_vc model:model complete:^(NSDictionary * _Nonnull resultDic) {
               NSString *code = [resultDic objectForKey:@"resultCode"];
 //              UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
@@ -319,33 +332,72 @@ bool bool_false = false;
               [[weakSelf findCurrentViewController].view hitTest:CGPointMake(_vc.view.bounds.size.width, _vc.view.bounds.size.height) withEvent:nil];
 //              [[weakSelf findCurrentViewController].view addSubview:headerView];
               
-              // 关闭loading
-              // [MBProgressHUD hideHUDForView:_vc.view animated:YES];
               // 当存在isHiddenLoading时需要执行loading
-              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && ![self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES]) {
+              bool isHiddenLoading = [self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES];
+              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenLoading) {
                   dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
                   });
               } else if ([PNSCodeSuccess isEqualToString:code]) {
-                  // if ([self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES]) {
-                     // dispatch_async(dispatch_get_main_queue(), ^{
-                       // [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                      //});
-                  //}
+                bool autoQuitPage = [self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES];
+                // 登录成功后是否自动关闭页面
+                if (autoQuitPage) {
                   dispatch_async(dispatch_get_main_queue(), ^{
-                      [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-                    });
-              } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) {
+                    [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                  });
+                }
+              } else if ([PNSCodeLoginControllerClickChangeBtn isEqualToString:code]) {
+                if (!self->_isChecked && !self-> _isHideToast) {
+                  NSDictionary *dic = self -> _callData.arguments;
+                  [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
+                  return;
+                } else {
+                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
+                }
+              } else if ([PNSCodeLoginControllerClickCheckBoxBtn isEqualToString:code]) { // 点击同意协议
+                self->_isChecked = [[resultDic objectForKey:@"isChecked"] boolValue];
+              } else if ([PNSCodeLoginControllerClickCancel isEqualToString:code]) { // 取消
                 [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
               } else if ([PNSCodeCarrierChanged isEqualToString:code]) { // 切换运营商
-//                  [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
-              } else if ([PNSCodeLoginControllerClickChangeBtn isEqual: code]){
                 [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
               }
               [weakSelf showResult:resultDic];
             }];
         }];
     }];
+}
+
+#pragma mark -  toast
+- (void)showToast:(NSString*) message {
+  NSDictionary *dic = _callData.arguments;
+  UIView *view = [self findCurrentViewController].view;
+  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: view animated:YES];
+  // Set the text mode to show only text.
+  hud.mode = MBProgressHUDModeText;
+  hud.label.text = NSLocalizedString(message, @"温馨提示");
+  // 内边剧
+  hud.margin = [dic floatValueForKey: @"toastPadding" defaultValue: 10];
+  // 文本颜色
+  hud.contentColor = [UIColor colorWithHex: [dic stringValueForKey: @"toastColor" defaultValue: @"#FFFFFF"] defaultValue: @"#FFFFFF"];
+  // 弹窗背景
+  hud.bezelView.color = [UIColor colorWithHex: [dic stringValueForKey: @"toastBackground" defaultValue: @"#000000"] defaultValue: @"#000000"];
+  // 弹窗背景样式
+  hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+  
+  CGFloat offSetY = view.bounds.size.height / 2;
+  NSString* toastPosition = [dic stringValueForKey: @"toastPositionMode" defaultValue: @"bottom"];
+  if ([toastPosition  isEqual: @"top"]) {
+    CGFloat top = [dic floatValueForKey: @"toastMarginTop" defaultValue: 30.f];
+    offSetY = - offSetY + view.window.safeAreaInsets.top + top;
+  } else if ([toastPosition  isEqual: @"bottom"]) {
+    CGFloat bottom = [dic floatValueForKey: @"toastMarginBottom" defaultValue: 30.f];
+    offSetY = offSetY - view.window.safeAreaInsets.bottom - bottom;
+  } else if ([toastPosition  isEqual: @"center"]) {
+    offSetY = 0;
+  }
+  // 设置上下的位置
+  hud.offset = CGPointMake(0.f, offSetY);
+  [hud hideAnimated:YES afterDelay: [dic floatValueForKey: @"toastDelay" defaultValue: 3]];
 }
 
 #pragma mark -  格式化数据utils返回数据

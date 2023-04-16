@@ -15,6 +15,7 @@ import com.mobile.auth.gatewayauth.PreLoginResultListener;
 import com.mobile.auth.gatewayauth.ResultCode;
 import com.mobile.auth.gatewayauth.TokenResultListener;
 import com.mobile.auth.gatewayauth.model.TokenRet;
+import com.sean.rao.ali_auth.common.LoginParams;
 import com.sean.rao.ali_auth.config.BaseUIConfig;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
@@ -26,7 +27,7 @@ import io.flutter.plugin.common.EventChannel;
 /**
  * 进app直接登录的场景
  */
-public class OneKeyLoginPublic {
+public class OneKeyLoginPublic extends LoginParams {
     private static final String TAG = OneKeyLoginPublic.class.getSimpleName();
 
     public PhoneNumberAuthHelper mPhoneNumberAuthHelper;
@@ -77,8 +78,10 @@ public class OneKeyLoginPublic {
 
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i("TAG", "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.quitLoginPage();
                         mPhoneNumberAuthHelper.setAuthListener(null);
+                        if (jsonObject.getBooleanValue("autoQuitPage")) {
+                            mPhoneNumberAuthHelper.quitLoginPage();
+                        }
                     }
                     eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), null, tokenRet.getToken()));
                 } catch (Exception e) {
@@ -173,8 +176,10 @@ public class OneKeyLoginPublic {
                     eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), tokenRet.getMsg(), tokenRet.getToken()));
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i(TAG, "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.quitLoginPage();
                         mPhoneNumberAuthHelper.setAuthListener(null);
+                        if (jsonObject.getBooleanValue("autoQuitPage")) {
+                            mPhoneNumberAuthHelper.quitLoginPage();
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -191,8 +196,11 @@ public class OneKeyLoginPublic {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mPhoneNumberAuthHelper.quitLoginPage();
+                // 失败时也不关闭
                 mPhoneNumberAuthHelper.setAuthListener(null);
+                if (jsonObject.getBooleanValue("autoQuitPage")) {
+                    mPhoneNumberAuthHelper.quitLoginPage();
+                }
             }
         };
         mPhoneNumberAuthHelper.setAuthListener(mTokenResultListener);

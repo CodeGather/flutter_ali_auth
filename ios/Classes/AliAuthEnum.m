@@ -49,6 +49,13 @@ static NSDictionary * StatusAll = nil;
   }
   return StatusAll;
 }
+
+#pragma mark --枚举，消息提示框的位置
+typedef NS_ENUM(NSInteger, MBProgressHUBPosition) {
+    MBProgressHUBPositionTop,            //头部
+    MBProgressHUBPositionCenter,         //中心
+    MBProgressHUBPositionBottom          //底部
+};
 @end
 
 

@@ -1,5 +1,19 @@
 #  
 
+## 1.1.0
+* 更新ios sdk 为2.12.12
+* 新增autoQuitPage字段
+* 新增isHideToast字段
+* 新增toastText字段
+* 新增toastBackground字段
+* 新增toastColor字段
+* 新增toastPadding字段
+* 新增toastMarginTop字段
+* 新增toastMarginBottom字段
+* 新增toastPositionMode字段
+* 新增toastDelay字段
+* 新增第三方按钮需要同意协议功能
+
 ## 1.0.9
 * 更新android sdk 为2.12.11.2
 * 更新ios sdk 为2.12.11

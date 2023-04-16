@@ -542,6 +542,29 @@ class AliAuthModel {
   /// 设置二次隐私协议弹窗点击背景蒙层是否关闭弹窗。true（默认值）：表示关闭
   final bool tapPrivacyAlertMaskCloseAlert;
 
+  /// 成功获取token后是否自动关闭授权页面
+  final bool? autoQuitPage;
+
+  /// /// ------- 十三、toast设置 --------- ///
+  /// 为勾选用户协议时的提示文字
+  final bool ?isHideToast;
+  /// 为勾选用户协议时的提示文字
+  final String ?toastText;
+  /// toast的背景色
+  final String ?toastBackground;
+  /// 文字颜色
+  final String ?toastColor;
+  /// toast的padding
+  final int ?toastPadding;
+  /// 只有设置mode为top时才起作用，距离顶部的距离
+  final int ?toastMarginTop;
+  /// 只有设置mode为bottom时才起作用，距离低部的距离
+  final int ?toastMarginBottom;
+  /// toast的显示位置可用值 top、center、bottom
+  final String ?toastPositionMode;
+  /// 关闭的时长 默认3s
+  final int ?toastDelay;
+
   const AliAuthModel(
     this.androidSk,
     this.iosSk, {
@@ -722,6 +745,16 @@ class AliAuthModel {
     this.privacyAlertCloseImgWidth,
     this.privacyAlertCloseImgHeight,
     this.tapPrivacyAlertMaskCloseAlert = true,
+    this.autoQuitPage=true,
+    this.isHideToast=false,
+    this.toastText='请先阅读用户协议',
+    this.toastBackground='#FF000000',
+    this.toastColor='#FFFFFFFF',
+    this.toastPadding=9,
+    this.toastMarginTop=0,
+    this.toastMarginBottom=0,
+    this.toastPositionMode='bottom',
+    this.toastDelay=3,
   })  : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
@@ -904,6 +937,16 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyAlertCloseImgHeight': instance.privacyAlertCloseImgHeight,
       'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
       'isHiddenLoading': instance.isHiddenLoading,
+      'autoQuitPage': instance.autoQuitPage ?? true,
+      'isHideToast': instance.isHideToast,
+      'toastText': instance.toastText,
+      'toastBackground': instance.toastBackground,
+      'toastColor': instance.toastColor,
+      'toastPadding': instance.toastPadding,
+      'toastMarginTop': instance.toastMarginTop,
+      'toastMarginBottom': instance.toastMarginBottom,
+      'toastPositionMode': instance.toastPositionMode,
+      'toastDelay': instance.toastDelay,
     };
 
 /// 初始配置&注意事项

@@ -1,5 +1,18 @@
 #  
 
+## 1.1.0
+* Update ios sdk to 2.12.12
+* Add autoQuitPage
+* Add isHideToast
+* Add toastText
+* Add toastBackground
+* Add toastColor
+* Add toastPadding
+* Add toastMarginTop
+* Add toastMarginBottom
+* Add toastPositionMode
+* Add toastDelay
+
 ## 1.0.9
 * Update Android sdk to 2.12.11.2
 * Update ios sdk to 2.12.11

@@ -4,40 +4,33 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hjq.toast.ToastUtils;
+import com.hjq.toast.Toaster;
 import com.mobile.auth.gatewayauth.AuthUIConfig;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.common.Constant;
 
+import com.sean.rao.ali_auth.common.LoginParams;
 import com.sean.rao.ali_auth.utils.AppUtils;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.flutter.plugin.common.EventChannel;
 
-public abstract class BaseUIConfig {
+public abstract class BaseUIConfig extends LoginParams {
     public Activity mActivity;
     public Context mContext;
     public PhoneNumberAuthHelper mAuthHelper;
@@ -48,6 +41,7 @@ public abstract class BaseUIConfig {
     public JSONObject jsonObject;
 
     public static BaseUIConfig init(int type, Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
+        isChecked = false;
         switch (type) {
             case Constant.FULL_PORT:
                 return new FullPortConfig(activity, _eventSink, jsonObject, config, authHelper);
@@ -146,18 +140,21 @@ public abstract class BaseUIConfig {
 
                     /// 第三方按钮的点击事件
                     itemButton.setOnClickListener(v -> {
-                        boolean checkedStatus = true;
                         // 判断是否隐藏toast
-                        if (!jsonObject.getBooleanValue("logBtnToastHidden") && !checkedStatus) {
-                            ToastUtils.show("请勾选协议");
-                        }
                         eventSink.success(UtilTool.resultFormatData("600019", null, finalI));
+                        if (!jsonObject.getBooleanValue("isHideToast") && !isChecked) {
+                            Toaster.show(jsonObject.getString("toastText"));
+                            return;
+                        }
+                        if (jsonObject.getBooleanValue("autoQuitPage")) {
+                            mAuthHelper.quitLoginPage();
+                        }
                     });
                     itemLinearLayout.addView(itemButton);
 
 
                     Object itemName = customThirdViewName.get(i);
-                    if (!customThirdViewName.isEmpty() && itemName != null && !String.valueOf(itemName).isEmpty()) {
+                    if (itemName != null && !String.valueOf(itemName).isEmpty()) {
                         // 按钮下文字控件
                         TextView textView = new TextView(mContext);
                         textView.setText(String.valueOf(itemName));
