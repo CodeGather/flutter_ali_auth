@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'ali_auth_model.dart';
+import 'ali_auth_platform_interface.dart';
+import 'ali_auth_web.dart';
 
 export 'ali_auth_enum.dart';
 export 'ali_auth_model.dart';
@@ -8,34 +10,19 @@ export 'ali_auth_model.dart';
 /// 阿里云一键登录类
 /// 原来的全屏登录和dialog 统一有配置参数isDislog来控制
 class AliAuth {
-  /// 声明回调通道
-  static const MethodChannel _channel = MethodChannel("ali_auth");
-
-  /// 声明监听回调通道
-  static const EventChannel _eventChannel = EventChannel("ali_auth/event");
-
-  /// 监听器
-  static Stream<dynamic>? _onListener;
-
-  //为了控制Stream 暂停。恢复。取消监听 新建
-  static StreamSubscription? streamSubscription;
-
   /// 初始化监听
   static Stream<dynamic>? onChange({bool type = true}) {
-    _onListener ??= _eventChannel.receiveBroadcastStream(type);
-    return _onListener;
+    return AliAuthPlatform.instance.onChange(type: type);
   }
 
   /// 获取设备版本信息
   static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
+    return AliAuthPlatform.instance.getPlatformVersion();
   }
 
   /// 获取SDK版本号
   static Future<String?> get sdkVersion async {
-    final String? version = await _channel.invokeMethod('getSdkVersion');
-    return version;
+    return AliAuthPlatform.instance.getSdkVersion();
   }
 
   /// 初始化SDK sk 必须
@@ -43,33 +30,31 @@ class AliAuth {
   /// debug 是否开启调试模式 非必须 默认true 开启
   /// 使用一键登录传入 SERVICE_TYPE_LOGIN 2  使用号码校验传入 SERVICE_TYPE_AUTH  1 默认值 2
   static Future<dynamic> initSdk(AliAuthModel? config) async {
-    config ??= const AliAuthModel("", "");
-    return await _channel.invokeMethod("initSdk", config.toJson());
+    return AliAuthPlatform.instance.initSdk(config);
   }
 
   /// 一键登录
   static Future<dynamic> login({int timeout = 5000}) async {
-    return await _channel.invokeMethod('login', {"timeout": timeout});
+    return AliAuthPlatform.instance.login(timeout: timeout);
   }
 
   /// 强制关闭一键登录授权页面
   static Future<void> quitPage() async {
-    return await _channel.invokeMethod('quitPage');
+    return AliAuthPlatform.instance.quitPage();
   }
 
   /// pageRoute
   static Future<void> openPage(String? pageRoute) async {
-    return await _channel
-        .invokeMethod('openPage', {'pageRoute': pageRoute ?? 'main_page'});
+    return AliAuthPlatform.instance.openPage(pageRoute);
   }
 
   static Future<dynamic> get checkCellularDataEnable async {
-    return await _channel.invokeMethod('checkCellularDataEnable');
+    return AliAuthPlatform.instance.checkCellularDataEnable;
   }
 
   /// 苹果登录iOS专用
   static Future<dynamic> get appleLogin async {
-    return await _channel.invokeMethod('appleLogin');
+    return AliAuthPlatform.instance.appleLogin;
   }
 
   /// 数据监听
@@ -78,37 +63,52 @@ class AliAuth {
       required Function onEvent,
       Function? onError,
       isOnlyOne = true}) async {
-    /// 默认为初始化单监听
-    if (isOnlyOne && streamSubscription != null) {
-      /// 原来监听被移除
-      dispose();
-    }
-    streamSubscription = onChange(type: type)!.listen(
-        onEvent as void Function(dynamic)?,
+    return AliAuthPlatform.instance.loginListen(
+        type:type,
+        onEvent: onEvent,
         onError: onError,
-        onDone: null,
-        cancelOnError: null);
+        isOnlyOne: isOnlyOne);
   }
 
   /// 暂停
   static pause() {
-    if (streamSubscription != null) {
-      streamSubscription!.pause();
-    }
+    return AliAuthPlatform.instance.pause();
   }
 
   /// 恢复
   static resume() {
-    if (streamSubscription != null) {
-      streamSubscription!.resume();
-    }
+    return AliAuthPlatform.instance.resume();
   }
 
   /// 销毁监听
   static dispose() {
-    if (streamSubscription != null) {
-      streamSubscription!.cancel();
-      streamSubscription = null;
-    }
+    return AliAuthPlatform.instance.dispose();
+  }
+
+  /// WEB专用接口
+  static Future<void> checkAuthAvailable(
+      String accessToken,
+      String jwtToken,
+  {
+    required Function(dynamic) success,
+    required Function(dynamic) error
+  }
+    ) async {
+    await AliAuthPluginWeb().checkAuthAvailable(
+        accessToken,
+        jwtToken,
+        success,
+        error
+    );
+  }
+
+  /// WEB专用接口
+  static Future<void> getVerifyToken(
+  {required Function(dynamic) success,
+    required Function(dynamic) error}) async {
+    await AliAuthPluginWeb().getVerifyToken(
+        success,
+        error
+    );
   }
 }
