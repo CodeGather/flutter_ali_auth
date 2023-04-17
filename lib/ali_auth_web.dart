@@ -1,3 +1,7 @@
+// In order to *not* need this ignore, consider extracting the "web" version
+// of your plugin as a separate package, instead of inlining it in the same
+// package as the core of your plugin.
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html show window;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
@@ -7,7 +11,7 @@ import 'ali_auth_platform_interface.dart';
 class AliAuthPluginWeb extends AliAuthPlatform {
   /// Constructs a AliAuthWeb
   AliAuthPluginWeb();
-  AliAuthPluginWebApi aliAuthPluginWebApi = AliAuthPluginWebApi();
+  AliAuthPluginWebPhone aliAuthPluginWebPhone = AliAuthPluginWebPhone();
 
   static void registerWith(Registrar registrar) {
     AliAuthPlatform.instance = AliAuthPluginWeb();
@@ -23,19 +27,19 @@ class AliAuthPluginWeb extends AliAuthPlatform {
   /// 获取SDK版本号
   @override
   Future<String?> getSdkVersion() async {
-    return await aliAuthPluginWebApi.getVersion();
+    return await aliAuthPluginWebPhone.getVersion();
   }
 
   /// 网络类型检查接口
   @override
   Future<String?> getConnection() async {
-    return await aliAuthPluginWebApi.getConnection();
+    return await aliAuthPluginWebPhone.getConnection();
   }
 
   /// 设置SDK是否开启日志。开启后会在控制台打印更多内容便于排查问题。
   @override
   Future<void> setLoggerEnable(bool isEnable) async {
-    return await aliAuthPluginWebApi.setLoggerEnable(isEnable);
+    return await aliAuthPluginWebPhone.setLoggerEnable(isEnable);
   }
 
   /// 身份鉴权
@@ -46,7 +50,7 @@ class AliAuthPluginWeb extends AliAuthPlatform {
       Function(dynamic) success,
       Function(dynamic) error
   ) async {
-    aliAuthPluginWebApi.checkAuthAvailable(
+    aliAuthPluginWebPhone.checkAuthAvailable(
         accessToken,
         jwtToken,
         success,
@@ -60,7 +64,7 @@ class AliAuthPluginWeb extends AliAuthPlatform {
       Function(dynamic) success,
       Function(dynamic) error
       ) async {
-    aliAuthPluginWebApi.getVerifyToken(
+    aliAuthPluginWebPhone.getVerifyToken(
         success,
         error
     );
