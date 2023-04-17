@@ -547,23 +547,31 @@ class AliAuthModel {
 
   /// /// ------- 十三、toast设置 --------- ///
   /// 为勾选用户协议时的提示文字
-  final bool ?isHideToast;
+  final bool? isHideToast;
+
   /// 为勾选用户协议时的提示文字
-  final String ?toastText;
+  final String? toastText;
+
   /// toast的背景色
-  final String ?toastBackground;
+  final String? toastBackground;
+
   /// 文字颜色
-  final String ?toastColor;
+  final String? toastColor;
+
   /// toast的padding
-  final int ?toastPadding;
+  final int? toastPadding;
+
   /// 只有设置mode为top时才起作用，距离顶部的距离
-  final int ?toastMarginTop;
+  final int? toastMarginTop;
+
   /// 只有设置mode为bottom时才起作用，距离低部的距离
-  final int ?toastMarginBottom;
+  final int? toastMarginBottom;
+
   /// toast的显示位置可用值 top、center、bottom
-  final String ?toastPositionMode;
+  final String? toastPositionMode;
+
   /// 关闭的时长 默认3s
-  final int ?toastDelay;
+  final int? toastDelay;
 
   const AliAuthModel(
     this.androidSk,
@@ -745,16 +753,16 @@ class AliAuthModel {
     this.privacyAlertCloseImgWidth,
     this.privacyAlertCloseImgHeight,
     this.tapPrivacyAlertMaskCloseAlert = true,
-    this.autoQuitPage=true,
-    this.isHideToast=false,
-    this.toastText='请先阅读用户协议',
-    this.toastBackground='#FF000000',
-    this.toastColor='#FFFFFFFF',
-    this.toastPadding=9,
-    this.toastMarginTop=0,
-    this.toastMarginBottom=0,
-    this.toastPositionMode='bottom',
-    this.toastDelay=3,
+    this.autoQuitPage = true,
+    this.isHideToast = false,
+    this.toastText = '请先阅读用户协议',
+    this.toastBackground = '#FF000000',
+    this.toastColor = '#FFFFFFFF',
+    this.toastPadding = 9,
+    this.toastMarginTop = 0,
+    this.toastMarginBottom = 0,
+    this.toastPositionMode = 'bottom',
+    this.toastDelay = 3,
   })  : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);

@@ -15,14 +15,17 @@ class MethodChannelAliAuth extends AliAuthPlatform {
   /// 声明监听回调通道
   @visibleForTesting
   final EventChannel eventChannel = const EventChannel("ali_auth/event");
+
   /// 监听器
   static Stream<dynamic>? onListener;
+
   /// 为了控制Stream 暂停。恢复。取消监听 新建
   static StreamSubscription? streamSubscription;
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
@@ -83,9 +86,9 @@ class MethodChannelAliAuth extends AliAuthPlatform {
   @override
   loginListen(
       {bool type = true,
-        required Function onEvent,
-        Function? onError,
-        isOnlyOne = true}) async {
+      required Function onEvent,
+      Function? onError,
+      isOnlyOne = true}) async {
     /// 默认为初始化单监听
     if (isOnlyOne && streamSubscription != null) {
       /// 原来监听被移除

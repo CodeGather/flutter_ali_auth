@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,8 @@ class _MyAppState extends State<MyApp> {
     if (kDebugMode) {
       print("获取到路由数据--------$router");
     }
-    if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.android) {
+    if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.android) {
       if (router.contains('routerPage')) {
         return const MyRouterPage();
       } else {

@@ -1,9 +1,4 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:ali_auth/ali_auth.dart';
-import 'package:ali_auth/ali_auth_web.dart';
-import 'package:ali_auth_example/my_router_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +12,8 @@ class MyHomePageWeb extends StatefulWidget {
   }
 }
 
-class MyHomePageWebState extends State<MyHomePageWeb> with WidgetsBindingObserver {
+class MyHomePageWebState extends State<MyHomePageWeb>
+    with WidgetsBindingObserver {
   String _platformVersion = 'Unknown';
 
   @override
@@ -34,24 +30,24 @@ class MyHomePageWebState extends State<MyHomePageWeb> with WidgetsBindingObserve
     // We also handle the message potentially returning null.
     try {
       platformVersion = await AliAuth.sdkVersion ?? 'Unknown platform version';
-      AliAuth.checkAuthAvailable(
-        "123",
-        "1234",
-        success: (status) {
-          print(status);
-          AliAuth.getVerifyToken(
-            success: (status) {
-              print(status);
-            },
-            error: (status) {
-              print(status);
-            }
-          );
-        },
-        error: (status) {
+      AliAuth.checkAuthAvailable("123", "1234", success: (status) {
+        if (kDebugMode) {
           print(status);
         }
-      );
+        AliAuth.getVerifyToken(success: (status) {
+          if (kDebugMode) {
+            print(status);
+          }
+        }, error: (status) {
+          if (kDebugMode) {
+            print(status);
+          }
+        });
+      }, error: (status) {
+        if (kDebugMode) {
+          print(status);
+        }
+      });
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -79,8 +75,7 @@ class MyHomePageWebState extends State<MyHomePageWeb> with WidgetsBindingObserve
             children: [
               Text("当前SDK版本：$_platformVersion"),
               ElevatedButton(
-                onPressed: () async {
-                },
+                onPressed: () async {},
                 child: const Text("开始全屏Video登录"),
               ),
             ],

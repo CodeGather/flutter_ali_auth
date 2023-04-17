@@ -63,10 +63,7 @@ class AliAuth {
       Function? onError,
       isOnlyOne = true}) async {
     return AliAuthPlatform.instance.loginListen(
-        type:type,
-        onEvent: onEvent,
-        onError: onError,
-        isOnlyOne: isOnlyOne);
+        type: type, onEvent: onEvent, onError: onError, isOnlyOne: isOnlyOne);
   }
 
   /// 暂停
@@ -85,29 +82,17 @@ class AliAuth {
   }
 
   /// WEB专用接口
-  static Future<void> checkAuthAvailable(
-      String accessToken,
-      String jwtToken,
-  {
-    required Function(dynamic) success,
-    required Function(dynamic) error
-  }
-    ) async {
-    await AliAuthPluginApi().checkAuthAvailable(
-        accessToken,
-        jwtToken,
-        success,
-        error
-    );
+  static Future<void> checkAuthAvailable(String accessToken, String jwtToken,
+      {required Function(dynamic) success,
+      required Function(dynamic) error}) async {
+    await AliAuthPluginApi()
+        .checkAuthAvailable(accessToken, jwtToken, success, error);
   }
 
   /// WEB专用接口
   static Future<void> getVerifyToken(
-  {required Function(dynamic) success,
-    required Function(dynamic) error}) async {
-    await AliAuthPluginApi().getVerifyToken(
-        success,
-        error
-    );
+      {required Function(dynamic) success,
+      required Function(dynamic) error}) async {
+    await AliAuthPluginApi().getVerifyToken(success, error);
   }
 }

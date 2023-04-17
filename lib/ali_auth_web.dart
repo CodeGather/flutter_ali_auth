@@ -1,7 +1,3 @@
-// In order to *not* need this ignore, consider extracting the "web" version
-// of your plugin as a separate package, instead of inlining it in the same
-// package as the core of your plugin.
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html show window;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
@@ -44,29 +40,16 @@ class AliAuthPluginApi extends AliAuthPlatform {
 
   /// 身份鉴权
   @override
-  Future<void> checkAuthAvailable(
-      String accessToken,
-      String jwtToken,
-      Function(dynamic) success,
-      Function(dynamic) error
-  ) async {
+  Future<void> checkAuthAvailable(String accessToken, String jwtToken,
+      Function(dynamic) success, Function(dynamic) error) async {
     aliAuthPluginWebApi.checkAuthAvailable(
-        accessToken,
-        jwtToken,
-        success,
-        error
-    );
+        accessToken, jwtToken, success, error);
   }
 
   /// 获取本机号码校验Token
   @override
   Future<void> getVerifyToken(
-      Function(dynamic) success,
-      Function(dynamic) error
-      ) async {
-    aliAuthPluginWebApi.getVerifyToken(
-        success,
-        error
-    );
+      Function(dynamic) success, Function(dynamic) error) async {
+    aliAuthPluginWebApi.getVerifyToken(success, error);
   }
 }

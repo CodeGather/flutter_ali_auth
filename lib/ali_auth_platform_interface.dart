@@ -68,37 +68,31 @@ abstract class AliAuthPlatform extends PlatformInterface {
     throw UnimplementedError('login() has not been implemented.');
   }
 
-  loginListen({bool type = true,
-    required Function onEvent,
-    Function? onError,
-    isOnlyOne = true}) {
+  loginListen(
+      {bool type = true,
+      required Function onEvent,
+      Function? onError,
+      isOnlyOne = true}) {
     throw UnimplementedError('loginListen() has not been implemented.');
   }
 
-  Future<String?> getConnection(){
+  Future<String?> getConnection() {
     throw UnimplementedError('getSdkVersion() has not been implemented.');
   }
 
-  Future<void> setLoggerEnable(bool isEnable){
+  Future<void> setLoggerEnable(bool isEnable) {
     throw UnimplementedError('getSdkVersion() has not been implemented.');
   }
-
 
   /// 调用之前先去用户服务端获取accessToken和jwtToken
-  Future<void> checkAuthAvailable(
-      String accessToken,
-      String jwtToken,
-      Function(dynamic) success,
-      Function(dynamic) error
-      ) async {
+  Future<void> checkAuthAvailable(String accessToken, String jwtToken,
+      Function(dynamic) success, Function(dynamic) error) async {
     throw UnimplementedError('getSdkVersion() has not been implemented.');
   }
 
   /// 身份鉴权成功后才可调用获取Token接口。
   Future<void> getVerifyToken(
-      Function(dynamic) success,
-      Function(dynamic) error
-      ) async {
+      Function(dynamic) success, Function(dynamic) error) async {
     throw UnimplementedError('getSdkVersion() has not been implemented.');
   }
 }
