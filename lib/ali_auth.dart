@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'ali_auth_model.dart';
 import 'ali_auth_platform_interface.dart';
 import 'ali_auth_web.dart';
@@ -94,7 +93,7 @@ class AliAuth {
     required Function(dynamic) error
   }
     ) async {
-    await AliAuthPluginWeb().checkAuthAvailable(
+    await AliAuthPluginApi().checkAuthAvailable(
         accessToken,
         jwtToken,
         success,
@@ -106,7 +105,7 @@ class AliAuth {
   static Future<void> getVerifyToken(
   {required Function(dynamic) success,
     required Function(dynamic) error}) async {
-    await AliAuthPluginWeb().getVerifyToken(
+    await AliAuthPluginApi().getVerifyToken(
         success,
         error
     );

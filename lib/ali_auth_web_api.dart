@@ -33,7 +33,7 @@ class Params {
   });
 }
 
-class AliAuthPluginWebPhone {
+class AliAuthPluginWebApi {
   /// 网络类型检查接口
   Future<String?> getConnection() async {
     return await PhoneNumberServer().getConnection();

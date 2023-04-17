@@ -8,13 +8,13 @@ import 'ali_auth_web_api.dart';
 import 'ali_auth_platform_interface.dart';
 
 /// A web implementation of the AliAuthPlatform of the AliAuth plugin.
-class AliAuthPluginWeb extends AliAuthPlatform {
+class AliAuthPluginApi extends AliAuthPlatform {
   /// Constructs a AliAuthWeb
-  AliAuthPluginWeb();
-  AliAuthPluginWebPhone aliAuthPluginWebPhone = AliAuthPluginWebPhone();
+  AliAuthPluginApi();
+  AliAuthPluginWebApi aliAuthPluginWebApi = AliAuthPluginWebApi();
 
   static void registerWith(Registrar registrar) {
-    AliAuthPlatform.instance = AliAuthPluginWeb();
+    AliAuthPlatform.instance = AliAuthPluginApi();
   }
 
   /// Returns a [String] containing the version of the platform.
@@ -27,19 +27,19 @@ class AliAuthPluginWeb extends AliAuthPlatform {
   /// 获取SDK版本号
   @override
   Future<String?> getSdkVersion() async {
-    return await aliAuthPluginWebPhone.getVersion();
+    return await aliAuthPluginWebApi.getVersion();
   }
 
   /// 网络类型检查接口
   @override
   Future<String?> getConnection() async {
-    return await aliAuthPluginWebPhone.getConnection();
+    return await aliAuthPluginWebApi.getConnection();
   }
 
   /// 设置SDK是否开启日志。开启后会在控制台打印更多内容便于排查问题。
   @override
   Future<void> setLoggerEnable(bool isEnable) async {
-    return await aliAuthPluginWebPhone.setLoggerEnable(isEnable);
+    return await aliAuthPluginWebApi.setLoggerEnable(isEnable);
   }
 
   /// 身份鉴权
@@ -50,7 +50,7 @@ class AliAuthPluginWeb extends AliAuthPlatform {
       Function(dynamic) success,
       Function(dynamic) error
   ) async {
-    aliAuthPluginWebPhone.checkAuthAvailable(
+    aliAuthPluginWebApi.checkAuthAvailable(
         accessToken,
         jwtToken,
         success,
@@ -64,7 +64,7 @@ class AliAuthPluginWeb extends AliAuthPlatform {
       Function(dynamic) success,
       Function(dynamic) error
       ) async {
-    aliAuthPluginWebPhone.getVerifyToken(
+    aliAuthPluginWebApi.getVerifyToken(
         success,
         error
     );
