@@ -263,10 +263,11 @@ public class OneKeyLoginPublic extends LoginParams {
         AuthUIConfig.Builder config = JSON.parseObject(JSONObject.toJSONString(jsonObject), AuthUIConfig.Builder.class);
 
         // 设置按钮的背景
+        // 20230518 修正错误 setLoadingBackgroundPath -> setLogBtnBackgroundPath
         if (jsonObject.getString("logBtnBackgroundPath") != null && jsonObject.getString("logBtnBackgroundPath").contains(",")) {
             config.setLogBtnBackgroundDrawable(UtilTool.getStateListDrawable(mContext, jsonObject.getString("logBtnBackgroundPath")));
         } else {
-            config.setLoadingBackgroundPath(UtilTool.flutterToPath(jsonObject.getString("logBtnBackgroundPath")));
+            config.setLogBtnBackgroundPath(UtilTool.flutterToPath(jsonObject.getString("logBtnBackgroundPath")));
         }
         /**
          *  authPageActIn = var1;

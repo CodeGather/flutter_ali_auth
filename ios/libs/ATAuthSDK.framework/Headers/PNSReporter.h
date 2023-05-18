@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, PNSLoggerLevel) {
 - (void)setConsolePrintLoggerEnable:(BOOL)enable;
 
 /**
- *  设置日志及埋点上传开关，但不会对通过 setupUploader: 接口实现的自定义上传方法起作用
+ *  设置埋点上传开关，但不会对通过 setupUploader: 接口实现的自定义上传方法起作用
  *  @param  enable 开关设置BOOL值，默认为YES
  */
 - (void)setUploadEnable:(BOOL)enable;

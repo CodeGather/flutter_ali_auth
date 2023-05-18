@@ -107,6 +107,11 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
  */
 - (PNSReporter * _Nonnull)getReporter;
 
+/**
+ 关闭二次授权弹窗页
+ */
+- (void)closePrivactAlertView;
+
 
 
 /**

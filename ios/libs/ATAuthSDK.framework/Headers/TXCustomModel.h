@@ -215,6 +215,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) BOOL checkBoxIsHidden;
 /** checkBox大小，高宽一样，必须大于0 */
 @property (nonatomic, assign) CGFloat checkBoxWH;
+/** checkBox是否和协议内容垂直居中，默认NO，即顶部对齐 */
+@property (nonatomic, assign) BOOL checkBoxVerticalCenter;
 
 /** 协议1，[协议名称,协议Url]，注：三个协议名称不能相同 */
 @property (nonatomic, copy) NSArray<NSString *> *privacyOne;
@@ -319,6 +321,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, strong) UIColor *privacyAlertBackgroundColor;
 /** 二次隐私协议弹窗透明度，默认不透明1.0 ，设置范围0.3~1.0之间 */
 @property (nonatomic, assign) CGFloat privacyAlertAlpha;
+/** 二次隐私协议弹窗标题文字内容，默认"请阅读并同意以下条款" */
+@property (nonatomic, copy) NSString *privacyAlertTitleContent;
 /** 二次隐私协议弹窗标题文字大小，最小12，默认12 */
 @property (nonatomic, strong) UIFont *privacyAlertTitleFont;
 /** 二次隐私协议弹窗标题文字颜色，默认黑色 */
@@ -335,6 +339,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) NSArray<UIColor *> *privacyAlertContentColors;
 /** 二次隐私协议弹窗协议文案支持居中、居左、居右设置，默认居左 */
 @property (nonatomic, assign) NSTextAlignment privacyAlertContentAlignment;
+/** 二次隐私协议弹窗按钮文字内容 默认“同意”*/
+@property (nonatomic, copy) NSString *privacyAlertBtnContent;
 /** 二次隐私协议弹窗按钮按钮背景图片 ,默认高度50.0pt，@[激活状态的图片,高亮状态的图片] */
 @property (nonatomic, copy) NSArray<UIImage *> *privacyAlertBtnBackgroundImages;
 /** 二次隐私协议弹窗按钮文字颜色，默认黑色, @[激活状态的颜色,高亮状态的颜色] */
@@ -363,10 +369,27 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) PNSBuildFrameBlock privacyAlertTitleFrameBlock;
 /** 二次隐私协议弹窗内容尺寸，默认为从标题顶部位置开始，最终会根据设置进来的width对协议文本进行自适应，得到的size是协议控件的最终大小。不能超出父视图 */
 @property (nonatomic, copy) PNSBuildFrameBlock privacyAlertPrivacyContentFrameBlock;
-/** 二次隐私协议弹窗尺寸,默认为父视图的宽度一半,居中显示。高度默认50, */
+/** 二次隐私协议弹窗确认按钮尺寸,默认为父视图的宽度一半,居中显示。高度默认50, */
 @property (nonatomic, copy) PNSBuildFrameBlock privacyAlertButtonFrameBlock;
 /** 二次隐私协议弹窗右侧关闭按钮尺寸，默认宽高44，居弹窗右侧15，居弹窗顶部0*/
 @property (nonatomic, copy) PNSBuildFrameBlock privacyAlertCloseFrameBlock;
+
+/**
+ * 二次授权页弹窗自定义控件添加，注意：自定义视图的创建初始化和添加到父视图，都需要在主线程！！
+ * @param  superCustomView 父视图
+*/
+@property (nonatomic, copy) void(^privacyAlertCustomViewBlock)(UIView *superPrivacyAlertCustomView);
+
+/**
+ *  二次授权页弹窗布局完成时会调用该block，可以在该block实现里面可设置自定义添加控件的frame
+ *  @param  privacyAlertFrame 二次授权页弹窗frame
+ *  @param  privacyAlertTitleFrame 二次授权页弹窗标题frame
+ *  @param  privacyAlertPrivacyContentFrame 二次授权页弹窗协议内容frame
+ *  @param  privacyAlertButtonFrame 二次授权页弹窗确认按钮frame
+ *  @param  privacyAlertCloseFrame 二次授权页弹窗右上角关闭按钮frame
+*/
+@property (nonatomic, copy) void(^privacyAlertCustomViewLayoutBlock)(CGRect privacyAlertFrame, CGRect privacyAlertTitleFrame, CGRect privacyAlertPrivacyContentFrame, CGRect privacyAlertButtonFrame, CGRect privacyAlertCloseFrame);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,4 +1,11 @@
-#  
+#
+
+## 1.1.1
+* Update ios     sdk to 2.12.13.1
+* Update android sdk to 2.12.13.1
+* Performance optimization
+* Improve stability
+* fix setLoadingBackgroundPath -> setLogBtnBackgroundPath
 
 ## 1.1.0
 * Update ios sdk to 2.12.12

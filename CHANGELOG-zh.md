@@ -1,5 +1,12 @@
 #  
 
+## 1.1.1
+* 更新ios sdk 为 2.12.13.1
+* 更新android sdk 为 2.12.13.1
+* 性能优化
+* 提升稳定性
+* 修复 setLoadingBackgroundPath -> setLogBtnBackgroundPath
+
 ## 1.1.0
 * 更新ios sdk 为2.12.12
 * 新增autoQuitPage字段
