@@ -91,6 +91,10 @@ bool bool_false = false;
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
       result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   }
+  else if ([@"getCurrentCarrierName" isEqualToString:call.method]) {
+    // 获取当前上网卡运营商名称，比如中国移动、中国电信、中国联通
+    result([[TXCommonUtils init] getCurrentCarrierName]);
+  }
   // 初始化SDK
   else if ([@"initSdk" isEqualToString:call.method]) {
     _isHideToast = [call.arguments boolValueForKey: @"isHideToast" defaultValue: NO];
@@ -162,7 +166,7 @@ bool bool_false = false;
       [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable checkDic) {
         if ([PNSCodeSuccess isEqualToString:[checkDic objectForKey:@"resultCode"]] == YES) {
           //3. 调用取号接口，加速授权页的弹起
-          [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout: 5000 complete:^(NSDictionary * _Nonnull resultDic) {
+          [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout: 5.0 complete:^(NSDictionary * _Nonnull resultDic) {
             //4. 预取号成功后判断是否延时登录，否则立即登录
             if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == YES) {
               if (![dic boolValueForKey: @"isDelay" defaultValue: NO]) {
@@ -191,7 +195,7 @@ bool bool_false = false;
         [weakSelf showResult:resultDic];
         [dict setValue: @(bool_false) forKey: @"data"];
     } else {
-      [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:3.0 complete:^(NSDictionary * _Nonnull resultDic) {
+      [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:5.0 complete:^(NSDictionary * _Nonnull resultDic) {
           /// NSLog(@"为后面授权页拉起加个速，加速结果：%@", resultDic);
       }];
         // 中国移动支持2G/3G/4G、中国联通支持3G/4G、中国电信支持4G。   2G网络下认证失败率较高

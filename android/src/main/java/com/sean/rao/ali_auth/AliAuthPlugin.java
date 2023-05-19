@@ -95,6 +95,24 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       case "getPlatformVersion":
         result.success("当前Android信息：" + android.os.Build.VERSION.RELEASE);
         break;
+      case "getCurrentCarrierName":
+        // CMCC(移动)、CUCC(联通)、CTCC(电信)
+        String carrierName = "获取失败";
+        if (oneKeyLoginPublic == null) {
+          PhoneNumberAuthHelper phoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(mActivity, null);
+          carrierName = phoneNumberAuthHelper.getCurrentCarrierName();
+        } else {
+          carrierName = oneKeyLoginPublic.getCurrentCarrierName();
+        }
+        if (carrierName.contains("CMCC")) {
+          carrierName = "中国移动";
+        } else if (carrierName.contains("CUCC")) {
+          carrierName = "中国联通";
+        } else if (carrierName.contains("CTCC")) {
+          carrierName = "中国电信";
+        }
+        result.success(carrierName);
+        break;
       case "initSdk":
         JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(call.arguments));
         if (!jsonObject.getBooleanValue("isHideToast")) {

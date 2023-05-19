@@ -42,6 +42,11 @@ class AliAuth {
     return AliAuthPlatform.instance.quitPage();
   }
 
+  /// 强制关闭一键登录授权页面
+  static Future<String> getCurrentCarrierName() async {
+    return AliAuthPlatform.instance.getCurrentCarrierName();
+  }
+
   /// pageRoute
   static Future<void> openPage(String? pageRoute) async {
     return AliAuthPlatform.instance.openPage(pageRoute);

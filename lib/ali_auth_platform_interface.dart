@@ -60,6 +60,10 @@ abstract class AliAuthPlatform extends PlatformInterface {
     throw UnimplementedError('quitPage() has not been implemented.');
   }
 
+  Future<String> getCurrentCarrierName() {
+    throw UnimplementedError('quitPage() has not been implemented.');
+  }
+
   Future login({int timeout = 5000}) {
     throw UnimplementedError('login() has not been implemented.');
   }

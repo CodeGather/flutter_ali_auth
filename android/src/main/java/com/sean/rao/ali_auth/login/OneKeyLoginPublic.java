@@ -29,8 +29,6 @@ import io.flutter.plugin.common.EventChannel;
  */
 public class OneKeyLoginPublic extends LoginParams {
     private static final String TAG = OneKeyLoginPublic.class.getSimpleName();
-
-    public PhoneNumberAuthHelper mPhoneNumberAuthHelper;
     public TokenResultListener mTokenResultListener;
 
     public Activity mActivity;
@@ -123,6 +121,15 @@ public class OneKeyLoginPublic extends LoginParams {
         } else {
             //如果环境检查失败 使用其他登录方式
         }
+    }
+
+    /**
+     * 返回默认上网卡运营商
+     * @param
+     * @return CMCC(移动)、CUCC(联通)、CTCC(电信)
+     */
+    public String getCurrentCarrierName(){
+        return mPhoneNumberAuthHelper.getCurrentCarrierName();
     }
 
     /**
