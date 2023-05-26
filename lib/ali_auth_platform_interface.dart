@@ -1,7 +1,8 @@
 import 'package:ali_auth/ali_auth_model.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'ali_auth_method_channel.dart';
+import 'ali_auth_method_channel.dart'
+    if (dart.library.html) "ali_auth_web.dart";
 
 abstract class AliAuthPlatform extends PlatformInterface {
   /// Constructs a AliAuthPlatform.
@@ -9,7 +10,7 @@ abstract class AliAuthPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static AliAuthPlatform _instance = MethodChannelAliAuth();
+  static AliAuthPlatform _instance = createMethodChannelAliAuth();
 
   /// The default instance of [AliAuthPlatform] to use.
   ///

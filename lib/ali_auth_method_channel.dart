@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'ali_auth_model.dart';
 import 'ali_auth_platform_interface.dart';
 
+AliAuthPlatform createMethodChannelAliAuth() => MethodChannelAliAuth();
+
 /// 阿里云一键登录类
 /// 原来的全屏登录和dialog 统一有配置参数isDislog来控制
 class MethodChannelAliAuth extends AliAuthPlatform {
