@@ -573,6 +573,9 @@ class AliAuthModel {
   /// 关闭的时长 默认3s
   final int? toastDelay;
 
+  /// 是否是弹框模式 默认为 false
+  final bool isDialog;
+
   const AliAuthModel(
     this.androidSk,
     this.iosSk, {
@@ -763,6 +766,7 @@ class AliAuthModel {
     this.toastMarginBottom = 0,
     this.toastPositionMode = 'bottom',
     this.toastDelay = 3,
+    this.isDialog = false,
   })  : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
@@ -955,6 +959,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'toastMarginBottom': instance.toastMarginBottom,
       'toastPositionMode': instance.toastPositionMode,
       'toastDelay': instance.toastDelay,
+      'isDialog': instance.isDialog,
     };
 
 /// 初始配置&注意事项
