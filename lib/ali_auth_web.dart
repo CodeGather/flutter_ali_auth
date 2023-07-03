@@ -3,6 +3,8 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
 import 'ali_auth_platform_interface.dart';
 
+AliAuthPlatform createMethodChannelAliAuth() => AliAuthPluginApi();
+
 /// A web implementation of the AliAuthPlatform of the AliAuth plugin.
 class AliAuthPluginApi extends AliAuthPlatform {
   /// Constructs a AliAuthWeb

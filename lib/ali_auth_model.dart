@@ -573,6 +573,7 @@ class AliAuthModel {
   /// 关闭的时长 默认3s
   final int? toastDelay;
 
+
   const AliAuthModel(
     this.androidSk,
     this.iosSk, {

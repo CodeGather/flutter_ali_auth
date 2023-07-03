@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'ali_auth_model.dart';
 import 'ali_auth_platform_interface.dart';
-import 'ali_auth_web.dart';
-
 export 'ali_auth_enum.dart';
 export 'ali_auth_model.dart';
 
@@ -90,7 +88,7 @@ class AliAuth {
   static Future<void> checkAuthAvailable(String accessToken, String jwtToken,
       {required Function(dynamic) success,
       required Function(dynamic) error}) async {
-    await AliAuthPluginApi()
+    await AliAuthPlatform.instance
         .checkAuthAvailable(accessToken, jwtToken, success, error);
   }
 
@@ -98,6 +96,6 @@ class AliAuth {
   static Future<void> getVerifyToken(
       {required Function(dynamic) success,
       required Function(dynamic) error}) async {
-    await AliAuthPluginApi().getVerifyToken(success, error);
+    await AliAuthPlatform.instance.getVerifyToken(success, error);
   }
 }
