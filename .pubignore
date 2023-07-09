@@ -29,6 +29,7 @@
 .pub-cache/
 .pub/
 */build/
+/build/
 */pods/
 /doc/
 /screenshot/
