@@ -215,7 +215,7 @@ bool bool_false = false;
       [dict setValue: @"600024" forKey: @"code"];
       [dict setValue: @(bool_true) forKey: @"data"];
     }
-    self->_eventSink(dict);
+    [self resultData: dict];
   }];
 }
 
@@ -240,7 +240,7 @@ bool bool_false = false;
     @"msg" : @"点击第三方登录按钮",
     @"data" : [NSNumber numberWithInteger: index]
   };
-  self->_eventSink(dict);
+  [self resultData: dict];
   if (!self->_isChecked && !self->_isHideToast) {
     NSDictionary *dic = self -> _callData.arguments;
     [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
@@ -404,6 +404,12 @@ bool bool_false = false;
   [hud hideAnimated:YES afterDelay: [dic floatValueForKey: @"toastDelay" defaultValue: 3]];
 }
 
+-(void) resultData:(NSDictionary *)dict{
+  if (_eventSink != nil) {
+       _eventSink(dict);
+    }
+}
+
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult {
   // 当存在isHiddenLoading时需要执行关闭
@@ -419,7 +425,7 @@ bool bool_false = false;
       @"data" : [showResult objectForKey: @"token"]?:@""
   };
 
-  self->_eventSink(dict);
+  [self resultData: dict];
   [self showResultLog: showResult];
 }
 
@@ -432,7 +438,7 @@ bool bool_false = false;
       @"data" : [showResult objectForKey: @"token"]?:@""
   };
 
-  self->_eventSink(dict);
+  [self resultData: dict];
   [self showResultLog: showResult];
 }
 
@@ -486,9 +492,7 @@ bool bool_false = false;
             @"authorizationCodeStr": @""
         };
 
-        if (_eventSink) {
-            _eventSink(resultData);
-        }
+      [self resultData: resultData];
     }
 }
 
@@ -537,9 +541,7 @@ bool bool_false = false;
             @"authorizationCodeStr": authorizationCodeStr
         };
 
-        if (_eventSink) {
-            _eventSink(resultData);
-        }
+      [self resultData: resultData];
     }else if ([authorization.credential isKindOfClass:[ASPasswordCredential class]]){
         // 这个获取的是iCloud记录的账号密码，需要输入框支持iOS 12 记录账号密码的新特性，如果不支持，可以忽略
         // Sign in using an existing iCloud Keychain credential.
@@ -563,9 +565,7 @@ bool bool_false = false;
             @"authorizationCodeStr": @""
         };
       
-        if (_eventSink) {
-            _eventSink(resultData);
-        }
+      [self resultData: resultData];
     }else{
         NSLog(@"授权信息均不符");
         NSDictionary *resultData = @{
@@ -579,9 +579,7 @@ bool bool_false = false;
             @"authorizationCodeStr": @""
         };
       
-        if (_eventSink) {
-            _eventSink(resultData);
-        }
+      [self resultData: resultData];
     }
 }
 
@@ -623,9 +621,7 @@ bool bool_false = false;
         @"authorizationCodeStr": @""
     };
   
-    if (_eventSink) {
-        _eventSink(resultData);
-    }
+  [self resultData: resultData];
 }
 
 #pragma mark - 告诉代理应该在哪个window 展示内容给用户

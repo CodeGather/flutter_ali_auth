@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, PNSLoggerLevel) {
  *  设置埋点上传开关，但不会对通过 setupUploader: 接口实现的自定义上传方法起作用
  *  @param  enable 开关设置BOOL值，默认为YES
  */
-- (void)setUploadEnable:(BOOL)enable;
+- (void)setUploadEnable:(BOOL)enable DEPRECATED_MSG_ATTRIBUTE("日志不再上传");;
 
 @end
 

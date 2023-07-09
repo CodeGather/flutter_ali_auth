@@ -1,5 +1,20 @@
 #  
 
+## 1.1.2
+* 更新web sdk 为 2.0.10
+* 更新ios sdk 为 2.12.14
+* 更新android sdk 为 2.12.14
+* 授权页运营商协议文本颜色 -> protocolOwnColor
+* 授权页协议1文本颜色 -> protocolOwnOneColor
+* 授权页协议2文本颜色 -> protocolOwnTwoColor
+* 授权页协议3文本颜色 -> protocolOwnThreeColor
+* 二次授权页协议1文本颜色 -> privacyAlertOwnOneColor
+* 二次授权页协议2文本颜色 -> privacyAlertOwnTwoColor
+* 二次授权页协议3文本颜色 -> privacyAlertOwnThreeColor
+* 二次授权页运营商协议文本颜色 -> privacyAlertOperatorColor
+* 性能优化
+* 提升稳定性
+
 ## 1.1.1
 * 更新ios sdk 为 2.12.13.1
 * 更新android sdk 为 2.12.13.1

@@ -2,15 +2,17 @@ import 'dart:html' as html show window;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
 import 'ali_auth_platform_interface.dart';
+export 'ali_auth_method_channel.dart';
 
 /// A web implementation of the AliAuthPlatform of the AliAuth plugin.
-class AliAuthPluginApi extends AliAuthPlatform {
+class AliAuthPluginWeb extends AliAuthPlatform {
   /// Constructs a AliAuthWeb
-  AliAuthPluginApi();
+  AliAuthPluginWeb();
+
   AliAuthPluginWebApi aliAuthPluginWebApi = AliAuthPluginWebApi();
 
   static void registerWith(Registrar registrar) {
-    AliAuthPlatform.instance = AliAuthPluginApi();
+    AliAuthPlatform.instance = AliAuthPluginWeb();
   }
 
   /// Returns a [String] containing the version of the platform.

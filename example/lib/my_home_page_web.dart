@@ -16,6 +16,9 @@ class MyHomePageWebState extends State<MyHomePageWeb>
     with WidgetsBindingObserver {
   String _platformVersion = 'Unknown';
 
+  String accessToken = "XXXXXXXXXX";
+  String jwtToken = "******";
+
   @override
   void initState() {
     super.initState();
@@ -30,28 +33,9 @@ class MyHomePageWebState extends State<MyHomePageWeb>
     // We also handle the message potentially returning null.
     try {
       platformVersion = await AliAuth.sdkVersion ?? 'Unknown platform version';
-      AliAuth.checkAuthAvailable("123", "1234", success: (status) {
-        if (kDebugMode) {
-          print(status);
-        }
-        AliAuth.getVerifyToken(success: (status) {
-          if (kDebugMode) {
-            print(status);
-          }
-        }, error: (status) {
-          if (kDebugMode) {
-            print(status);
-          }
-        });
-      }, error: (status) {
-        if (kDebugMode) {
-          print(status);
-        }
-      });
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
-
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
@@ -74,6 +58,39 @@ class MyHomePageWebState extends State<MyHomePageWeb>
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             children: [
               Text("当前SDK版本：$_platformVersion"),
+              TextFormField(
+                decoration: const InputDecoration(hintText: "请输入内容accessToken"),
+                onChanged: (value) => accessToken = value,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(hintText: "请输入内容jwtToken"),
+                onChanged: (value) => jwtToken = value,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  AliAuth.checkAuthAvailable(accessToken, jwtToken,
+                      success: (status) {
+                    if (kDebugMode) {
+                      print(status);
+                    }
+                    AliAuth.getVerifyToken(success: (status) {
+                      if (kDebugMode) {
+                        print(status);
+                      }
+                    }, error: (status) {
+                      if (kDebugMode) {
+                        print(status);
+                      }
+                    });
+                  }, error: (status) {
+                    if (kDebugMode) {
+                      print(status);
+                    }
+                  });
+                },
+                child: const Text("开始鉴权"),
+              ),
+              const Divider(),
               ElevatedButton(
                 onPressed: () async {},
                 child: const Text("开始全屏Video登录"),

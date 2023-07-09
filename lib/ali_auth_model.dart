@@ -276,6 +276,18 @@ class AliAuthModel {
   /// 自定义第一条url
   final String? protocolOneURL;
 
+  /// 设置授权页运营商协议文本颜色。
+  final String? protocolOwnColor;
+
+  /// 设置授权页协议1文本颜色。
+  final String? protocolOwnOneColor;
+
+  /// 授权页协议2文本颜色。
+  final String? protocolOwnTwoColor;
+
+  /// 授权页协议3文本颜色。
+  final String? protocolOwnThreeColor;
+
   /// 自定义第二条名称
   final String? protocolTwoName;
 
@@ -500,6 +512,18 @@ class AliAuthModel {
   /// 设置服务协议文字颜色。
   final String? privacyAlertContentColor;
 
+  /// 设置授权页协议1文本颜色。
+  final String? privacyAlertOwnOneColor;
+
+  /// 设置授权页协议2文本颜色。
+  final String? privacyAlertOwnTwoColor;
+
+  /// 设置授权页协议3文本颜色。
+  final String? privacyAlertOwnThreeColor;
+
+  /// 设置授权页运营商协议文本颜色。
+  final String? privacyAlertOperatorColor;
+
   /// 设置服务协议非协议文字颜色。
   final String? privacyAlertContentBaseColor;
 
@@ -614,6 +638,18 @@ class AliAuthModel {
     this.protocolColor,
     this.protocolLayoutGravity,
     this.sloganTextColor,
+
+    /// 授权页运营商协议文本颜色。
+    this.protocolOwnColor,
+
+    /// 授权页协议1文本颜色。
+    this.protocolOwnOneColor,
+
+    /// 授权页协议2文本颜色。
+    this.protocolOwnTwoColor,
+
+    /// 授权页协议3文本颜色。
+    this.protocolOwnThreeColor,
     this.sloganText,
     this.logBtnBackgroundPath,
     this.loadingImgPath,
@@ -752,6 +788,18 @@ class AliAuthModel {
     this.privacyAlertCloseScaleType,
     this.privacyAlertCloseImgWidth,
     this.privacyAlertCloseImgHeight,
+
+    /// 授权页协议1文本颜色。
+    this.privacyAlertOwnOneColor,
+
+    /// 授权页协议2文本颜色。
+    this.privacyAlertOwnTwoColor,
+
+    /// 授权页协议3文本颜色。
+    this.privacyAlertOwnThreeColor,
+
+    /// 授权页运营商协议文本颜色。
+    this.privacyAlertOperatorColor,
     this.tapPrivacyAlertMaskCloseAlert = true,
     this.autoQuitPage = true,
     this.isHideToast = false,

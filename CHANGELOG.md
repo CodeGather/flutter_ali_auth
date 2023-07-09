@@ -1,5 +1,20 @@
 #
 
+## 1.1.2
+* Update web sdk to 2.0.10
+* Update iOS SDK to 2.12.14
+* Update Android SDK to 2.12.14
+* Authorization page operator agreement text color ->protocolOwnColor
+* Authorization page agreement 1 text color ->protocolOwnOneColor
+* Authorization page agreement 2 text color ->protocolOwnTwoColor
+* Authorization page agreement 3 text color ->protocolOwnThreeColor
+* Second authorization page agreement 1 text color ->privacyAlertOwnOneColor
+* Second authorization page agreement 2 text color ->privacyAlertOwnTwoColor
+* Second authorization page agreement 3 text color ->privacyAlertOwnThreeColor
+* Second Authorization Page Operator Agreement Text Color ->PrivacyAlertOperatorColor
+* Performance optimization
+* Improve stability
+
 ## 1.1.1
 * Update ios     sdk to 2.12.13.1
 * Update android sdk to 2.12.13.1

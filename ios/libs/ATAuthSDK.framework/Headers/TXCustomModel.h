@@ -228,6 +228,14 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, copy) NSArray<NSString *> *privacyConectTexts;
 /** 协议内容颜色数组，[非点击文案颜色，点击文案颜色] */
 @property (nonatomic, copy) NSArray<UIColor *> *privacyColors;
+/** 运营商协议内容颜色 ，优先级最高，如果privacyOperatorColors不设置，则取privacyColors中的点击文案颜色，privacyColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyOperatorColor;
+/** 协议1内容颜色，优先级最高，如果privacyOneColors不设置，则取privacyColors中的点击文案颜色，privacyColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyOneColor;
+/** 协议2内容颜色，优先级最高，如果privacyTwoColors不设置，则取privacyColors中的点击文案颜色，privacyColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyTwoColor;
+/** 协议3内容颜色，优先级最高，如果privacyThreeColors不设置，则取privacyColors中的点击文案颜色，privacyColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyThreeColor;
 /** 协议文案支持居中、居左、居右设置，默认居左 */
 @property (nonatomic, assign) NSTextAlignment privacyAlignment;
 /** 协议整体文案，前缀部分文案 */
@@ -288,7 +296,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /**
  * 自定义控件添加，注意：自定义视图的创建初始化和添加到父视图，都需要在主线程！！
  * @param  superCustomView 父视图
-*/
+ */
 @property (nonatomic, copy) void(^customViewBlock)(UIView *superCustomView);
 
 /**
@@ -303,7 +311,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
  *  @param  loginFrame 登录按钮的frame
  *  @param  changeBtnFrame 切换到其他方式按钮的frame
  *  @param  privacyFrame 协议整体（包括checkBox）的frame
-*/
+ */
 @property (nonatomic, copy) void(^customViewLayoutBlock)(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame);
 
 #pragma mark - 二次隐私协议弹窗设置
@@ -337,8 +345,22 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, strong) UIColor *privacyAlertContentBackgroundColor;
 /** 二次隐私协议弹窗协议内容颜色数组，[非点击文案颜色，点击文案颜色],默认[0x999999,0x1890FF] */
 @property (nonatomic, copy) NSArray<UIColor *> *privacyAlertContentColors;
+/** 二次隐私协议弹窗协议运营商协议内容颜色，优先级最高，如果privacyAlertOperatorColors不设置，则取privacyAlertContentColors中的点击文案颜色，privacyAlertContentColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyAlertOperatorColor;
+/** 二次隐私协议弹窗协议协议1内容颜色 ，优先级最高，如果privacyAlertOneColors不设置，则取privacyAlertContentColors中的点击文案颜色，privacyAlertContentColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyAlertOneColor;
+/** 二次隐私协议弹窗协议协议2内容颜色 ，优先级最高，如果privacyAlertTwoColors不设置，则取privacyAlertContentColors中的点击文案颜色，privacyAlertContentColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyAlertTwoColor;
+/** 二次隐私协议弹窗协议协议3内容颜色 ，优先级最高，如果privacyAlertThreeColors不设置，则取privacyAlertContentColors中的点击文案颜色，privacyAlertContentColors不设置，则是默认色*/
+@property (nonatomic, strong) UIColor *privacyAlertThreeColor;
 /** 二次隐私协议弹窗协议文案支持居中、居左、居右设置，默认居左 */
 @property (nonatomic, assign) NSTextAlignment privacyAlertContentAlignment;
+
+/** 二次隐私协议弹窗协议整体文案，前缀部分文案 ,如果不赋值，默认使用privacyPreText*/
+@property (nonatomic, copy) NSString *privacyAlertPreText;
+/** 二次隐私协议弹窗协议整体文案，后缀部分文案 如果不赋值，默认使用privacySufText*/
+@property (nonatomic, copy) NSString *privacyAlertSufText;
+
 /** 二次隐私协议弹窗按钮文字内容 默认“同意”*/
 @property (nonatomic, copy) NSString *privacyAlertBtnContent;
 /** 二次隐私协议弹窗按钮按钮背景图片 ,默认高度50.0pt，@[激活状态的图片,高亮状态的图片] */
@@ -377,7 +399,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /**
  * 二次授权页弹窗自定义控件添加，注意：自定义视图的创建初始化和添加到父视图，都需要在主线程！！
  * @param  superCustomView 父视图
-*/
+ */
 @property (nonatomic, copy) void(^privacyAlertCustomViewBlock)(UIView *superPrivacyAlertCustomView);
 
 /**
@@ -387,7 +409,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
  *  @param  privacyAlertPrivacyContentFrame 二次授权页弹窗协议内容frame
  *  @param  privacyAlertButtonFrame 二次授权页弹窗确认按钮frame
  *  @param  privacyAlertCloseFrame 二次授权页弹窗右上角关闭按钮frame
-*/
+ */
 @property (nonatomic, copy) void(^privacyAlertCustomViewLayoutBlock)(CGRect privacyAlertFrame, CGRect privacyAlertTitleFrame, CGRect privacyAlertPrivacyContentFrame, CGRect privacyAlertButtonFrame, CGRect privacyAlertCloseFrame);
 
 @end

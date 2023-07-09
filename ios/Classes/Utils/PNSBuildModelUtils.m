@@ -328,6 +328,24 @@
     ];
   }
   
+  // 协议1内容颜色
+  model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
+  // 协议2内容颜色
+  model.privacyTwoColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnTwoColor" defaultValue: @"#000000"]];
+  // 协议3内容颜色
+  model.privacyThreeColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnThreeColor" defaultValue: @"#000000"]];
+  // 运营商协议内容颜色
+  model.privacyOperatorColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnColor" defaultValue: @"#000000"]];
+  
+  // 二次协议1内容颜色
+  model.privacyAlertOneColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnOneColor" defaultValue: @"#000000"]];
+  // 二次协议2内容颜色
+  model.privacyAlertTwoColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnTwoColor" defaultValue: @"#000000"]];
+  // 二次协议3内容颜色
+  model.privacyAlertThreeColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnThreeColor" defaultValue: @"#000000"]];
+  // 二次运营商协议内容颜色
+  model.privacyAlertOperatorColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOperatorColor" defaultValue: @"#000000"]];
+  
   /** 导航背景色*/
   model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#FFFFFF"]];
   /** 导航文字色 */
@@ -801,6 +819,24 @@
       [self getColor: privacyColors[1]]
     ];
   }
+  
+  // 协议1内容颜色
+  model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
+  // 协议2内容颜色
+  model.privacyTwoColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnTwoColor" defaultValue: @"#000000"]];
+  // 协议3内容颜色
+  model.privacyThreeColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnThreeColor" defaultValue: @"#000000"]];
+  // 运营商协议内容颜色
+  model.privacyOperatorColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnColor" defaultValue: @"#000000"]];
+  
+  // 二次协议1内容颜色
+  model.privacyAlertOneColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnOneColor" defaultValue: @"#000000"]];
+  // 二次协议2内容颜色
+  model.privacyAlertTwoColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnTwoColor" defaultValue: @"#000000"]];
+  // 二次协议3内容颜色
+  model.privacyAlertThreeColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnThreeColor" defaultValue: @"#000000"]];
+  // 二次运营商协议内容颜色
+  model.privacyAlertOperatorColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOperatorColor" defaultValue: @"#000000"]];
   
   model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];
   model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
@@ -1356,6 +1392,24 @@
         [self getColor: privacyColors[1]]
       ];
     }
+  
+    // 协议1内容颜色
+    model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
+    // 协议2内容颜色
+    model.privacyTwoColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnTwoColor" defaultValue: @"#000000"]];
+    // 协议3内容颜色
+    model.privacyThreeColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnThreeColor" defaultValue: @"#000000"]];
+    // 运营商协议内容颜色
+    model.privacyOperatorColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnColor" defaultValue: @"#000000"]];
+    
+    // 二次协议1内容颜色
+    model.privacyAlertOneColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnOneColor" defaultValue: @"#000000"]];
+    // 二次协议2内容颜色
+    model.privacyAlertTwoColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnTwoColor" defaultValue: @"#000000"]];
+    // 二次协议3内容颜色
+    model.privacyAlertThreeColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnThreeColor" defaultValue: @"#000000"]];
+    // 二次运营商协议内容颜色
+    model.privacyAlertOperatorColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOperatorColor" defaultValue: @"#000000"]];
     
     model.privacyAlignment = [viewConfig intValueForKey: @"protocolLayoutGravity" defaultValue: 1];;
     model.privacyFont = [UIFont fontWithName:@"PingFangSC-Regular" size: [viewConfig floatValueForKey: @"privacyTextSize" defaultValue: 12.0]];
@@ -1745,6 +1799,24 @@
     [self getColor: [viewConfig stringValueForKey: @"protocolColor" defaultValue: @"#F00F00"]],
     [self getColor: [viewConfig stringValueForKey: @"protocolCustomColor" defaultValue: @"#FDFDFD"]]
   ];
+  
+  // 协议1内容颜色
+  model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
+  // 协议2内容颜色
+  model.privacyTwoColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnTwoColor" defaultValue: @"#000000"]];
+  // 协议3内容颜色
+  model.privacyThreeColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnThreeColor" defaultValue: @"#000000"]];
+  // 运营商协议内容颜色
+  model.privacyOperatorColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnColor" defaultValue: @"#000000"]];
+  
+  // 二次协议1内容颜色
+  model.privacyAlertOneColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnOneColor" defaultValue: @"#000000"]];
+  // 二次协议2内容颜色
+  model.privacyAlertTwoColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnTwoColor" defaultValue: @"#000000"]];
+  // 二次协议3内容颜色
+  model.privacyAlertThreeColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOwnThreeColor" defaultValue: @"#000000"]];
+  // 二次运营商协议内容颜色
+  model.privacyAlertOperatorColor = [self getColor: [viewConfig stringValueForKey: @"privacyAlertOperatorColor" defaultValue: @"#000000"]];
   
   /** 导航背景色*/
   model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#FFFFFF"]];

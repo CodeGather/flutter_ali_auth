@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 获取当前上网卡运营商编码，比如46000、46001、46003
 @return 结果
 */
-- (NSString *)getCurrentCarrierCode;
+- (NSString *)getCurrentCarrierCode API_DEPRECATED("废弃，完成不可用，返回空字符串", ios(4.0, 16.0));
 
 /**
 获取当前上网卡网络类型，比如WiFi，4G
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 获取双卡设备下，非上网卡信息
  @return 结果
 */
-- (NSString *)getOptionalCarrierInfo;
+- (NSString *)getOptionalCarrierInfo API_DEPRECATED("废弃，完成不可用，返回空字符串", ios(4.0, 16.0));;
 
 /**
  获取当前蜂网络Ip地址

@@ -38,6 +38,8 @@ static NSString * const PNSCodeInterfaceLimited = @"600014";
 static NSString * const PNSCodeInterfaceTimeout = @"600015";
 /// AppID、Appkey解析失败
 static NSString * const PNSCodeDecodeAppInfoFailed = @"600017";
+/// 该号码已被运营商管控,目前只有联通号码有该功能
+static NSString * const PNSCodePhoneBlack = @"600018";
 /// 运营商已切换
 static NSString * const PNSCodeCarrierChanged = @"600021";
 /// 终端环境检测失败（终端不支持认证 / 终端检测参数错误）
