@@ -1,5 +1,10 @@
 #
 
+## 1.1.3
+* Whether to verify the protocol when clicking the switch button when adding iOS ->switchCheck
+* Fix the newly added protocol text color parameter
+* Removing Workflows Compilation Testing
+
 ## 1.1.2
 * Update web sdk to 2.0.10
 * Update iOS SDK to 2.12.14
