@@ -239,6 +239,9 @@ class AliAuthModel {
   /// 设置切换按钮点是否可⻅
   final bool? switchAccHidden;
 
+  /// 是否需要点击切换按钮时校验是否勾选协议 默认值true
+  final bool? switchCheck;
+
   /// 设置切换按钮⽂字内容
   final String? switchAccText;
 
@@ -624,6 +627,7 @@ class AliAuthModel {
     this.numberColor,
     this.numberSize,
     this.switchAccHidden,
+    this.switchCheck,
     this.switchAccTextColor,
     this.logBtnText,
     this.logBtnTextSize,
@@ -641,10 +645,8 @@ class AliAuthModel {
 
     /// 授权页运营商协议文本颜色。
     this.protocolOwnColor,
-
     /// 授权页协议1文本颜色。
     this.protocolOwnOneColor,
-
     /// 授权页协议2文本颜色。
     this.protocolOwnTwoColor,
 
@@ -791,10 +793,8 @@ class AliAuthModel {
 
     /// 授权页协议1文本颜色。
     this.privacyAlertOwnOneColor,
-
     /// 授权页协议2文本颜色。
     this.privacyAlertOwnTwoColor,
-
     /// 授权页协议3文本颜色。
     this.privacyAlertOwnThreeColor,
 
@@ -845,11 +845,15 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'numberColor': instance.numberColor,
       'numberSize': instance.numberSize,
       'switchAccHidden': instance.switchAccHidden,
+      'switchCheck': instance.switchCheck,
       'switchAccTextColor': instance.switchAccTextColor,
       'logBtnText': instance.logBtnText,
       'logBtnTextSize': instance.logBtnTextSize,
       'logBtnTextColor': instance.logBtnTextColor,
       'sloganTextColor': instance.sloganTextColor,
+      'protocolOwnColor': instance.protocolOwnColor,
+      'protocolOwnOneColor': instance.protocolOwnOneColor,
+      'protocolOwnTwoColor': instance.protocolOwnTwoColor,
       'sloganText': instance.sloganText,
       'logBtnBackgroundPath': instance.logBtnBackgroundPath,
       'loadingImgPath': instance.loadingImgPath,
@@ -991,6 +995,9 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
           instance.privacyAlertCloseScaleType?.index ?? 0,
       'privacyAlertCloseImgWidth': instance.privacyAlertCloseImgWidth,
       'privacyAlertCloseImgHeight': instance.privacyAlertCloseImgHeight,
+      'privacyAlertOwnOneColor': instance.privacyAlertOwnOneColor,
+      'privacyAlertOwnTwoColor': instance.privacyAlertOwnTwoColor,
+      'privacyAlertOwnThreeColor': instance.privacyAlertOwnThreeColor,
       'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
       'isHiddenLoading': instance.isHiddenLoading,
       'autoQuitPage': instance.autoQuitPage ?? true,

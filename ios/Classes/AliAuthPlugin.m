@@ -351,8 +351,9 @@ bool bool_false = false;
                   });
                 }
               } else if ([PNSCodeLoginControllerClickChangeBtn isEqualToString:code]) {
-                if (!self->_isChecked && !self-> _isHideToast) {
-                  NSDictionary *dic = self -> _callData.arguments;
+                // 通过switchCheck 参数动态控制 是否需要切换其他方式时需要勾选
+                NSDictionary *dic = self -> _callData.arguments;
+                if (!self->_isChecked && !self-> _isHideToast && [dic boolValueForKey: @"switchCheck" defaultValue: YES]) {
                   [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
                   return;
                 } else {
