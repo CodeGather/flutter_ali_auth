@@ -61,11 +61,11 @@ However, when using or referring to the ideas or related contents of this plug-i
 1、 针对移动闪退问题：
 在示范工程，pods -> TARGETS -> ali_auth -> Build Settings -> Linking -> Other Linker Flags 里面加上 -ObjC（因为AuthSDK是通过pod依赖进去的，所有对应的target里面要加这个配置，不然移动网络会crash）
 如下图所示：  
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/error_add.jpg" alt="cmcc_crash" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/error_add.jpg" alt="cmcc_crash" width="100">
 
 2、该插件已添加ATAuthSDK.framework，在编译时请勿将ATAuthSDK.framework重复添加，以免出现未知错误
 如下图所示添加的为错误操作  
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/error_add.jpg" alt="cmcc_crash" width="110"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/error_add2.png" alt="cmcc_crash" width="200">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/error_add.jpg" alt="cmcc_crash" width="110"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/error_add2.png" alt="cmcc_crash" width="200">
   
 ## Install    
 ```
@@ -77,19 +77,19 @@ dependencies:
 
 ## DEMO    
   
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_123128.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120625.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120629.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120634.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/Screenshot_20220517_120649.jpg" width="100">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/Screenshot_20220517_123128.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/Screenshot_20220517_120625.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/Screenshot_20220517_120629.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/Screenshot_20220517_120634.jpg" width="100"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/Screenshot_20220517_120649.jpg" width="100">
   
 ## VIDEO
   
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/SVID_20220517_120504.gif" width="100"> 
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/SVID_20220517_120504.gif" width="100"> 
 
 ## Reward
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_wx.jpg" width="222">  
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_wx.jpg" width="222">  
 
 ## QQ Group chat
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshot/play_qq.jpg" width="200">
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_qq.jpg" width="200">
 
 ## Stargazers over time
 
