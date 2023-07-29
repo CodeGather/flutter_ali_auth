@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ali_auth'
-  s.version          = '1.1.3'
+  s.version          = '1.1.4'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
   是一个集成阿里云号码认证服务SDK的flutter插件
@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
+
   s.dependency 'Flutter'
   s.dependency 'SDWebImage'
   s.dependency 'MJExtension'

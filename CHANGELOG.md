@@ -1,5 +1,10 @@
 #
 
+## 1.1.4
+* Update iOS SDK to 2.12.15
+* Update Android SDK to 2.12.15
+* Click on the non pop-up area in the authorization page pop-up mode to exit the authorization page.
+
 ## 1.1.3
 * Whether to verify the protocol when clicking the switch button when adding iOS ->switchCheck
 * Fix the newly added protocol text color parameter

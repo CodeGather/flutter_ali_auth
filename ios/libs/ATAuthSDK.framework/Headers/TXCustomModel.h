@@ -130,6 +130,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, strong) UIImage *backgroundImage;
 /** 授权页背景图片view的 content mode，默认为 UIViewContentModeScaleAspectFill */
 @property (nonatomic, assign) UIViewContentMode backgroundImageContentMode;
+/** 点击授权页背景是否关闭授权页，只有在弹窗模式下生效，默认NO*/
+@property (nonatomic, assign) BOOL tapAuthPageMaskClosePage;
 
 #pragma mark- logo图片
 /** logo图片设置 */
@@ -398,7 +400,7 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 
 /**
  * 二次授权页弹窗自定义控件添加，注意：自定义视图的创建初始化和添加到父视图，都需要在主线程！！
- * @param  superCustomView 父视图
+ * @param  superPrivacyAlertCustomView 父视图
  */
 @property (nonatomic, copy) void(^privacyAlertCustomViewBlock)(UIView *superPrivacyAlertCustomView);
 

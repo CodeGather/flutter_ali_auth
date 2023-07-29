@@ -62,14 +62,6 @@
                                          target:target
                                        selector:selector];
           break;
-//        case PNSBuildModelStyleAlertAutorotate:
-//            model = [self buildAlertAutorotateModeWithButton1Title:button1Title
-//                                                           target:target
-//                                                         selector:selector
-//                                                      button2Title:button2Title
-//                                                           target2:target2
-//                                                         selector2:selector2];
-//            break;
       case PNSBuildModelStyleSheetPortrait:
           model = [self buildSheetPortraitModel:dict
                                          target:target
@@ -80,36 +72,12 @@
                                      target:target
                                    selector:selector];
           break;
-//        case PNSDIYAlertPortraitBounce:
-//            model = [self buildAlertBounceModelWithButton1Title:button1Title
-//                                                        target:target
-//                                                      selector:selector
-//                                                   button2Title:button2Title
-//                                                        target2:target2
-//                                                      selector2:selector2];
-//            break;
       // 自定义界面
       case PNSDIYAlertPortraitDropDown:
           model = [self buildAlertDropDownModel:dict
                                          target:target
                                        selector:selector];
           break;
-//        case PNSDIYPortraitFade:
-//            model = [self buildFadeModel:button1Title
-//                                                 target:target
-//                                               selector:selector
-//                                            button2Title:button2Title
-//                                                 target2:target2
-//                                               selector2:selector2];
-//            break;
-//        case PNSDIYPortraitScale:
-//            model = [self buildScaleModel:button1Title
-//                                                  target:target
-//                                                selector:selector
-//                                             button2Title:button2Title
-//                                                  target2:target2
-//                                                selector2:selector2];
-//            break;
       // gif/video
       default:
         model = [self buildVideoOrGifBackgroundModel:dict
@@ -887,7 +855,9 @@
       return CGRectZero; //横屏时模拟隐藏该控件
     }
   };
-    
+  
+  /// 点击授权页背景是否关闭授权页，只有在弹窗模式下生效，默认NO
+  model.tapAuthPageMaskClosePage=[viewConfig boolValueForKey: @"tapAuthPageMaskClosePage" defaultValue: NO];
   /// 页面弹出方向 START
   model.presentDirection = [viewConfig intValueForKey: @"presentDirection" defaultValue: 0];
   /// 页面弹出方向 END
@@ -1437,7 +1407,9 @@
         frame.origin.y = superViewSize.height - frame.size.height;
         return frame;
     };
-    
+  
+    /// 点击授权页背景是否关闭授权页，只有在弹窗模式下生效，默认NO
+    model.tapAuthPageMaskClosePage=[viewConfig boolValueForKey: @"tapAuthPageMaskClosePage" defaultValue: NO];
     
     /// 背景设置 START
     NSString * backgroundColor = [viewConfig stringValueForKey: @"backgroundColor" defaultValue: nil];

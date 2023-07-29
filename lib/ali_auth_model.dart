@@ -369,6 +369,9 @@ class AliAuthModel {
   /// 设置底部虚拟按键背景⾊（系统版本 5.0 以上可设置）
   final String? bottomNavColor;
 
+  /// 授权页弹窗模式点击非弹窗区域关闭授权页
+  final bool? tapAuthPageMaskClosePage;
+
   /// 弹窗宽度
   final int? dialogWidth;
 
@@ -701,6 +704,7 @@ class AliAuthModel {
     this.privacyEnd,
     this.vendorPrivacyPrefix,
     this.vendorPrivacySuffix,
+    this.tapAuthPageMaskClosePage=false,
     this.dialogWidth,
     this.dialogHeight,
     this.dialogBottom,
@@ -891,6 +895,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'checkedImgPath': instance.checkedImgPath,
       'vendorPrivacyPrefix': instance.vendorPrivacyPrefix,
       'vendorPrivacySuffix': instance.vendorPrivacySuffix,
+      'tapAuthPageMaskClosePage': instance.tapAuthPageMaskClosePage ?? false,
       'dialogWidth': instance.dialogWidth,
       'dialogHeight': instance.dialogHeight,
       'dialogBottom': instance.dialogBottom,
