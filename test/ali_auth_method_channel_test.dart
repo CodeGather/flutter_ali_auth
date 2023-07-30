@@ -7,7 +7,7 @@ void main() {
   // const MethodChannel channel = MethodChannel('ali_auth');
 
   TestWidgetsFlutterBinding.ensureInitialized();
-  //
+
   // setUp(() {
   //   channel.setMockMethodCallHandler((MethodCall methodCall) async {
   //     return '42';
@@ -19,6 +19,6 @@ void main() {
   // });
 
   test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
+    expect(await platform.getSdkVersion(), '42');
   });
 }
