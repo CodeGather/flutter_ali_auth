@@ -172,6 +172,8 @@ bool bool_false = false;
               if (![dic boolValueForKey: @"isDelay" defaultValue: NO]) {
                 [self loginWithModel: self->_model complete:^{}];
               }
+            }else{
+                [self showResult: resultDic];
             }
           }];
         } else {
