@@ -3,6 +3,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, ACM_DELETE_TYPE) {
+    ACM_DELETE_TYPE_ALL,
+    ACM_DELETE_TYPE_FAILED,
+    ACM_DELETE_TYPE_UNUPLOAD
+};
+
+
+
 @interface ACMMonitor : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
@@ -34,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  上传失败的埋点，一般放在重启应用后
  */
 - (void)uploadFailedRecords;
+
+/**
+ *  删除埋点
+ *  @param type 删除类型
+ *  @param block 结果的异步回调
+ */
+- (void)deleteRecordsByType:(ACM_DELETE_TYPE)type block:(void (^)(BOOL))block;
 
 @end
 

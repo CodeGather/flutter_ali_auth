@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 - (NSString *_Nonnull)getVersion;
 
 /**
- *  初始化SDK调用参数，app生命周期内调用一次
+ *  SDK鉴权，app生命周期内调用一次
  *  @param  info app对应的秘钥
  *  @param  complete 结果异步回调到主线程，成功时resultDic=@{resultCode:600000, msg:...}，其他情况时"resultCode"值请参考PNSReturnCode
  */
@@ -91,6 +91,21 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 - (void)setCheckboxIsChecked:(BOOL)isChecked;
 
 /**
+ *  查询授权页checkbox是否勾选，YES：勾选，NO：未勾选
+ */
+- (BOOL)queryCheckBoxIsChecked;
+
+/**
+ *  授权页协议内容动画执行，注意：必须设置privacyAnimation属性，才会执行动画
+ */
+- (void)privacyAnimationStart;
+
+/**
+ *  授权页checkbox动画执行，注意：必须设置checkboxAnimation属性，才会执行动画
+ */
+- (void)checkboxAnimationStart;
+
+/**
  *  手动隐藏一键登录获取登录Token之后的等待动画，默认为自动隐藏，当设置 TXCustomModel 实例 autoHideLoginLoading = NO 时, 可调用该方法手动隐藏
  */
 - (void)hideLoginLoading;
@@ -108,7 +123,7 @@ typedef NS_ENUM(NSInteger, PNSAuthType) {
 - (PNSReporter * _Nonnull)getReporter;
 
 /**
- 关闭二次授权弹窗页
+ * 关闭二次授权弹窗页
  */
 - (void)closePrivactAlertView;
 

@@ -533,6 +533,9 @@ class AliAuthModel {
   /// 设置服务协议非协议文字颜色。
   final String? privacyAlertContentBaseColor;
 
+  /// 二次弹窗协议名称是否添加下划线, 默认false
+  final bool? privacyAlertProtocolNameUseUnderLine;
+
   /// 设置服务协议左右两侧间距。
   final int? privacyAlertContentHorizontalMargin;
 
@@ -782,6 +785,7 @@ class AliAuthModel {
     this.privacyAlertContentAlignment,
     this.privacyAlertContentColor,
     this.privacyAlertContentBaseColor,
+    this.privacyAlertProtocolNameUseUnderLine = false,
     this.privacyAlertContentHorizontalMargin,
     this.privacyAlertContentVerticalMargin,
     this.privacyAlertBtnBackgroundImgPath,
@@ -984,6 +988,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
           EnumUtils.formatGravityValue(instance.privacyAlertContentAlignment),
       'privacyAlertContentColor': instance.privacyAlertContentColor,
       'privacyAlertContentBaseColor': instance.privacyAlertContentBaseColor,
+      'privacyAlertProtocolNameUseUnderLine': instance.privacyAlertProtocolNameUseUnderLine,
       'privacyAlertContentHorizontalMargin':
           instance.privacyAlertContentHorizontalMargin,
       'privacyAlertContentVerticalMargin':

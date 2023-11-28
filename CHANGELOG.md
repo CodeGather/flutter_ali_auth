@@ -1,5 +1,13 @@
 #
 
+## 1.1.6
+* Update iOS SDK to 2.12.17.2
+* Update Android SDK to 2.12.17.2
+
+## 1.1.5
+* Update iOS SDK to 2.12.16
+* Update Android SDK to 2.12.16
+
 ## 1.1.4
 * Update iOS SDK to 2.12.15
 * Update Android SDK to 2.12.15

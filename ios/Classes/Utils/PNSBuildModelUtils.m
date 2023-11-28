@@ -295,7 +295,8 @@
       protocolThreeURL
     ];
   }
-  
+
+  model.privacyAlertContentUnderline = [viewConfig boolValueForKey: @"privacyAlertProtocolNameUseUnderLine" defaultValue: NO];
   // 协议1内容颜色
   model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
   // 协议2内容颜色
@@ -787,7 +788,8 @@
       [self getColor: privacyColors[1]]
     ];
   }
-  
+
+  model.privacyAlertContentUnderline = [viewConfig boolValueForKey: @"privacyAlertProtocolNameUseUnderLine" defaultValue: NO];
   // 协议1内容颜色
   model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
   // 协议2内容颜色
@@ -1362,7 +1364,8 @@
         [self getColor: privacyColors[1]]
       ];
     }
-  
+
+    model.privacyAlertContentUnderline = [viewConfig boolValueForKey: @"privacyAlertProtocolNameUseUnderLine" defaultValue: NO];
     // 协议1内容颜色
     model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
     // 协议2内容颜色
@@ -1771,7 +1774,8 @@
     [self getColor: [viewConfig stringValueForKey: @"protocolColor" defaultValue: @"#F00F00"]],
     [self getColor: [viewConfig stringValueForKey: @"protocolCustomColor" defaultValue: @"#FDFDFD"]]
   ];
-  
+
+  model.privacyAlertContentUnderline = [viewConfig boolValueForKey: @"privacyAlertProtocolNameUseUnderLine" defaultValue: NO];
   // 协议1内容颜色
   model.privacyOneColor = [self getColor: [viewConfig stringValueForKey: @"protocolOwnOneColor" defaultValue: @"#000000"]];
   // 协议2内容颜色
