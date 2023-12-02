@@ -1,5 +1,8 @@
 #
 
+## 1.1.7
+* fix
+
 ## 1.1.6
 * Update iOS SDK to 2.12.17.2
 * Update Android SDK to 2.12.17.2

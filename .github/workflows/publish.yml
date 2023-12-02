@@ -1,0 +1,21 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publishing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@main # required!
+
+      - name: '>> Dart package <<'
+        uses: k-paxian/dart-package-publisher@master
+        with:
+          accessToken: ${{secrets.RElEASE_TOKEN }}
+          refreshToken: ${{secrets.REFRESH_TOKEN }}
+          skipTests: true
+          force: true
