@@ -52,13 +52,12 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           "m2jWr9sTsoXwmMx7qf0T2KQOQBpqkxeNW9I1ZNZ96ZCeBbeD9xYOUaC2mE9mcqog041VCot2sLcy9UArf+re517e5R9yowKCjf15VglZSP/HweRhOT8Cvci43zagyRqo40l85LTnZ5uJPaVauDLJB7hOTIkNPGm3fb621k6A6ZDh6aDGAKWyy0tPUPV/9RFrfeig9SURNe9Vl/Aok6SKg+SftM30uk2W8wdbV8gMVbU51Odnoapm2ZlAJYmCrdoXvROW5qc8pbQ8=";
 
       dialogWidth =
-          (PlatformDispatcher.instance.implicitView!.physicalSize.width /
-                  PlatformDispatcher.instance.implicitView!.devicePixelRatio *
+          (PlatformDispatcher.instance.views.first.physicalSize.width /
+                  PlatformDispatcher.instance.views.first.devicePixelRatio *
                   0.8)
               .floor();
-      dialogHeight = (PlatformDispatcher
-                      .instance.implicitView!.physicalSize.height /
-                  PlatformDispatcher.instance.implicitView!.devicePixelRatio *
+      dialogHeight = (PlatformDispatcher.instance.views.first.physicalSize.height /
+                  PlatformDispatcher.instance.views.first.devicePixelRatio *
                   0.65)
               .floor() -
           50;
