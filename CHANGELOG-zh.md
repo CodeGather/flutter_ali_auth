@@ -1,5 +1,8 @@
 #  
 
+## 1.1.9
+* 修复android sdk 版本错误
+
 ## 1.1.8
 * 更新android sdk 为 2.13.2.1
 * 更新ios sdk 为 2.13.2
