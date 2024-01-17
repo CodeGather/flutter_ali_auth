@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface YTXVendorConfig : NSObject
-/// 当前供应商标识：中移互联（cm_zyhl），小沃联通（cu_xw），电信世纪龙（ct_sjl）
+/// 当前供应商标识：中移互联（cm_zyhl），联通小沃（cu_xw），联通在线（cu_zx）,电信世纪龙（ct_sjl）
 @property (nonatomic, copy) NSString *vendorKey;
 /// 供应商 access id
 @property (nonatomic, copy) NSString *vendorAccessId;

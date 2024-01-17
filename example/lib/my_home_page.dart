@@ -47,16 +47,21 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     /// 初始化第三方按钮数据
     setState(() {
       androidSk =
-          "rt7nM6GmyXmmGtPMlFM7LFnUayakjqor6UpM+6IzxMeYdpGeE3C7NHGQbacjgeeAyIA45DWm2EITQZVq2cg9bTouiIgMc9KOPY3VnqKADTYijp78gj58d7oNQCzCMD6G4XwCkdWhBFXQw5kC3pJ9iGcVzWtGptZDgzCRDqG/vW+2KAHTlTYOvcWiRwyVM1Iaxr1m2Gz0CySqVkQaWa3vIw9BCMZKcr5ywmGykXgnA5rcPNLi7TcSBrV4mYD5m8IYCUez/QeLoOgY3VUCuInxhkLOKglQ/qdQRby2a/eRCgf/k0xC+XHGiw==";
+          "k1ReOFbE7mWUhefnT2BAGdKCGqgtnZbcPa/vGFc6z//ytIrOxZRndH0pdIeHM465OfdpHPMFxgPATR1EnKE7aonZ5hyEP1CE4Wz0QhWEWNTg7mmeq8hstbgFtjP8boZx/mPalQZmfD5heQ9E5Rahg4tWQfsCBENlQLgR/6vqtA8F3knXFa6awGegHj3C8bSXyCVj2OKxZFAvrZ1+1bd7TD2We3HyXsSJoDBLGuSqZIZ3VkExNC8jX4fL9uP5Ul9VVNSjahTn70u+9RYdB0BrtJpw+FPytOIsapzqdfrtqkFTk3v0+BcVJnA==";
       iosSk =
-          "m/IntllldpvZtYI9FPbHqRJUF2wlr/8q5FLj2jxX+ePrn32dI4vlPLXdghiu6Rpw1L7rJMbVHuLYyzwWGii+eB19JLDCZCkbcwNgnR/HSCTanbEqYEYEpypFghJDAyE7G9ERfe/gIojJKEdKIPhU9bJs1MIsSPo6RafJuWN6MyxzN9Ch4moqIlQSQLySLqGzc4NARSRP55oZbGR+rXf/NDqlbKaAvpsiphQEZ3vuGWDY+kuvi7OqULQ5T3edtgtcnT+C9YSx3f8=";
+          "m2jWr9sTsoXwmMx7qf0T2KQOQBpqkxeNW9I1ZNZ96ZCeBbeD9xYOUaC2mE9mcqog041VCot2sLcy9UArf+re517e5R9yowKCjf15VglZSP/HweRhOT8Cvci43zagyRqo40l85LTnZ5uJPaVauDLJB7hOTIkNPGm3fb621k6A6ZDh6aDGAKWyy0tPUPV/9RFrfeig9SURNe9Vl/Aok6SKg+SftM30uk2W8wdbV8gMVbU51Odnoapm2ZlAJYmCrdoXvROW5qc8pbQ8=";
 
       dialogWidth =
-          (window.physicalSize.width / window.devicePixelRatio * 0.8).floor();
-      dialogHeight =
-          (window.physicalSize.height / window.devicePixelRatio * 0.65)
-                  .floor() -
-              50;
+          (PlatformDispatcher.instance.implicitView!.physicalSize.width /
+                  PlatformDispatcher.instance.implicitView!.devicePixelRatio *
+                  0.8)
+              .floor();
+      dialogHeight = (PlatformDispatcher
+                      .instance.implicitView!.physicalSize.height /
+                  PlatformDispatcher.instance.implicitView!.devicePixelRatio *
+                  0.65)
+              .floor() -
+          50;
       unit = dialogHeight ~/ 10;
       logBtnHeight = (unit * 1.1).floor();
 

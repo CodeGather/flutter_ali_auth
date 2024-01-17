@@ -252,6 +252,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) NSInteger privacyOperatorIndex;
 /** 协议整体文案字体，小于12.0不生效 */
 @property (nonatomic, strong) UIFont *privacyFont;
+/** 协议整体文案行间距，默认0 */
+@property (nonatomic, assign) CGFloat privacyLineSpaceDp;
 /** 运营商协议文案字体，仅对运营商协议本体文案和前后缀生效，小于12.0不生效 */
 @property (nonatomic, strong) UIFont *privacyOperatorFont;
 /** 运营商协议文案下划线，仅对运营商协议本体文案和前后缀生效，YES：展示下划线；NO：不展示下划线，默认不展示 */
@@ -351,6 +353,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 @property (nonatomic, assign) NSTextAlignment privacyAlertTitleAlignment;
 /** 二次隐私协议弹窗协议内容文字字体，最小12，默认12 */
 @property (nonatomic, strong) UIFont *privacyAlertContentFont;
+/** 二次隐私协议弹窗协议内容行间距，默认0 */
+@property (nonatomic, assign) CGFloat privacyAlertLineSpaceDp;
 /** 二次隐私协议弹窗协议内容背景颜色，默认白色 */
 @property (nonatomic, strong) UIColor *privacyAlertContentBackgroundColor;
 /** 二次隐私协议弹窗协议内容颜色数组，[非点击文案颜色，点击文案颜色],默认[0x999999,0x1890FF] */

@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ali_auth'
-  s.version          = '1.1.7'
+  s.version          = '1.1.8'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
   是一个集成阿里云号码认证服务SDK的flutter插件
@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   # 加载静态资源
   s.resources = ['Assets/*']
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '11.0'
   # s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   s.pod_target_xcconfig = {'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'   }
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }

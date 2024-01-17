@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 group 'com.sean.rao.ali_auth'
-version '1.1.7'
+version '1.1.8'
 
 buildscript {
     repositories {
@@ -80,7 +80,7 @@ dependencies {
 //    implementation 'com.alibaba:fastjson:1.2.83'
 
     implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
-    implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
+//    implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
     implementation(name: "logger-${loggerVersion}-release", ext:'aar')
     implementation(name: "main-${mainVersion}-release", ext:'aar')
 
