@@ -1,9 +1,9 @@
 // import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ali_auth/ali_auth_method_channel.dart';
+// import 'package:ali_auth/ali_auth_method_channel.dart';
 
 void main() {
-  MethodChannelAliAuth platform = MethodChannelAliAuth();
+  // MethodChannelAliAuth platform = MethodChannelAliAuth();
   // const MethodChannel channel = MethodChannel('ali_auth');
 
   TestWidgetsFlutterBinding.ensureInitialized();

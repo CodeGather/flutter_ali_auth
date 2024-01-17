@@ -11,11 +11,10 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main # required!
-
       - name: '>> Dart package <<'
         uses: k-paxian/dart-package-publisher@master
         with:
-          accessToken: ${{secrets.RElEASE_TOKEN }}
+          accessToken: ${{secrets.ACCESS_TOKEN }}
           refreshToken: ${{secrets.REFRESH_TOKEN }}
           skipTests: true
           force: true
