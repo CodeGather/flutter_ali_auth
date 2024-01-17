@@ -1,4 +1,4 @@
-name: Publish Package
+name: Release Package
 
 # 监听版本号变化
 on:
