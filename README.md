@@ -82,9 +82,6 @@
 | 700004    | 点击协议富⽂本⽂字事件 |
 | 700005    | 点击点击第三方按钮事件 |
 
-#https://www.jianshu.com/p/88d45977d482
-#https://github.com/flutter/flutter/issues/35784
-
 ## 步骤
 - 1、配置APP的签名安装于手机
 - 2、获取签名APK文件下载地址：[点击下载快速获取签名工具](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/87870/cn_zh/1534313766610/AppSignGet.apk)
@@ -96,8 +93,8 @@
 
 ## 注意事项
 
-董敬龙:异常动画在个别机型会有 效果不明显  如果你想要全屏和弹窗同时使用那就避免不了
-董敬龙:或者你们可以选择不设置动画
+关于点击事件穿透问题
+## [参考一](https://www.jianshu.com/p/88d45977d482) [参考二](https://github.com/flutter/flutter/issues/35784)
 
 1、 针对移动闪退问题：
 在示范工程，pods -> TARGETS -> ali_auth -> Build Settings -> Linking -> Other Linker Flags 里面加上 -ObjC（因为AuthSDK是通过pod依赖进去的，所有对应的target里面要加这个配置，不然移动网络会crash）
