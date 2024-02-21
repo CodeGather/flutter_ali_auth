@@ -82,5 +82,4 @@ static NSString * const PNSCodeLoginPrivacyAlertViewPrivacyContentClick = @"7000
 
 /*************** 二次授权页返回code码 FINISH ***************/
 
-
 #endif /* PNSReturnCode_h */

@@ -1,5 +1,9 @@
 #
 
+## 1.2.0
+* Update Android SDK to 2.13.3
+* Update iOS SDK to 2.13.3
+
 ## 1.1.9
 * fix android sdk version
 
