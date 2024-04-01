@@ -56,11 +56,12 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   PlatformDispatcher.instance.views.first.devicePixelRatio *
                   0.8)
               .floor();
-      dialogHeight = (PlatformDispatcher.instance.views.first.physicalSize.height /
-                  PlatformDispatcher.instance.views.first.devicePixelRatio *
-                  0.65)
-              .floor() -
-          50;
+      dialogHeight =
+          (PlatformDispatcher.instance.views.first.physicalSize.height /
+                      PlatformDispatcher.instance.views.first.devicePixelRatio *
+                      0.65)
+                  .floor() -
+              50;
       unit = dialogHeight ~/ 10;
       logBtnHeight = (unit * 1.1).floor();
 

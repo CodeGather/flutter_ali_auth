@@ -651,8 +651,10 @@ class AliAuthModel {
 
     /// 授权页运营商协议文本颜色。
     this.protocolOwnColor,
+
     /// 授权页协议1文本颜色。
     this.protocolOwnOneColor,
+
     /// 授权页协议2文本颜色。
     this.protocolOwnTwoColor,
 
@@ -707,7 +709,7 @@ class AliAuthModel {
     this.privacyEnd,
     this.vendorPrivacyPrefix,
     this.vendorPrivacySuffix,
-    this.tapAuthPageMaskClosePage=false,
+    this.tapAuthPageMaskClosePage = false,
     this.dialogWidth,
     this.dialogHeight,
     this.dialogBottom,
@@ -801,8 +803,10 @@ class AliAuthModel {
 
     /// 授权页协议1文本颜色。
     this.privacyAlertOwnOneColor,
+
     /// 授权页协议2文本颜色。
     this.privacyAlertOwnTwoColor,
+
     /// 授权页协议3文本颜色。
     this.privacyAlertOwnThreeColor,
 
@@ -988,7 +992,8 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
           EnumUtils.formatGravityValue(instance.privacyAlertContentAlignment),
       'privacyAlertContentColor': instance.privacyAlertContentColor,
       'privacyAlertContentBaseColor': instance.privacyAlertContentBaseColor,
-      'privacyAlertProtocolNameUseUnderLine': instance.privacyAlertProtocolNameUseUnderLine,
+      'privacyAlertProtocolNameUseUnderLine':
+          instance.privacyAlertProtocolNameUseUnderLine,
       'privacyAlertContentHorizontalMargin':
           instance.privacyAlertContentHorizontalMargin,
       'privacyAlertContentVerticalMargin':
