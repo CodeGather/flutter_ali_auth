@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 group 'com.sean.rao.ali_auth'
-version '1.2.1'
+version '1.2.2'
 
 buildscript {
     repositories {

@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ali_auth'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
   是一个集成阿里云号码认证服务SDK的flutter插件
