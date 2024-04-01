@@ -15,7 +15,7 @@
   }
   
   if (hexColor.length < 8) {
-    return [self colorWithHexString: hexColor alpha: 1 defaultValue: defaultValue];
+    return [self colorWithHexString: hexColor alpha: 1 defaultValue: [UIColor blueColor]];
   }
   
   unsigned int alpha, red, green, blue;

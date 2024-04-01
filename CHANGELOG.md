@@ -1,5 +1,10 @@
 #
 
+## 1.2.1
+* Update android sdk 为 2.13.5
+* Update ios sdk 为 2.13.7
+* Update web sdk 为 2.1.3
+
 ## 1.2.0
 * Update Android SDK to 2.13.3
 * Update iOS SDK to 2.13.3

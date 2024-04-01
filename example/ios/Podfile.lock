@@ -1,5 +1,5 @@
 PODS:
-  - ali_auth (1.1.8):
+  - ali_auth (1.2.1):
     - Flutter
     - MBProgressHUD
     - MJExtension
@@ -16,7 +16,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
 
 SPEC REPOS:
-  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+  trunk:
     - MBProgressHUD
     - MJExtension
     - SDWebImage
@@ -28,12 +28,12 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  ali_auth: b9f581ae4bf79e1a98d476e54fe9ec1bb3c226a1
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  ali_auth: e7ead9a3a498bb4cf6f9e7893b46d4b086b160ed
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   SDWebImage: fc8f2d48bbfd72ef39d70e981bd24a3f3be53fec
 
-PODFILE CHECKSUM: fa81abfe4d9ad2398256bbff0931c789ee353a47
+PODFILE CHECKSUM: febdfd11a6e0d89f8825f798c6e429c9cd41f55a
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.0
