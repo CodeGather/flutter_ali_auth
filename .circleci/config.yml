@@ -3,10 +3,10 @@ version: 2.1
 
 jobs:
   build:
-#    docker:
-#      - image: ghcr.io/cirruslabs/flutter:3.21.0-0.0.pre
-    container:
-      image: ghcr.io/cirruslabs/flutter:latest
+    docker:
+      - image: ghcr.io/cirruslabs/flutter:latest
+#    container:
+#      image: ghcr.io/cirruslabs/flutter:latest
     steps:
       - checkout
       - run: ls
