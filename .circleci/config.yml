@@ -4,8 +4,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      # https://hub.docker.com/r/mobiledevops/flutter-sdk-image
-      - image: mobiledevops/flutter-sdk-image:latest
+      - image: ghcr.io/cirruslabs/flutter:3.21.0-0.0.pre
     steps:
       - checkout
       - run: ls
