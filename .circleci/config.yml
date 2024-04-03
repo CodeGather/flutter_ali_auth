@@ -5,6 +5,7 @@ jobs:
   build:
     docker:
       - image: ghcr.io/cirruslabs/flutter:latest
+      - image: circleci/openjdk:8u312-buster-node-browsers-legacy
     steps:
       - checkout
       - run: java -version
