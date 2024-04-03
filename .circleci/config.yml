@@ -10,6 +10,11 @@ jobs:
       - run: ls
       - run: flutter doctor
       - run: flutter test
+      - name: Setup Java JDK
+          uses: actions/setup-java@v3
+          with:
+            distribution: 'zulu'
+            java-version: '11'
       - run: 
           command: flutter build apk --release
           working_directory: example
