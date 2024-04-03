@@ -5,7 +5,7 @@ jobs:
   build:
     docker:
       - image: ghcr.io/cirruslabs/flutter:latest
-      - image: cimg/openjdk:8.0.402
+      - image: cimg/openjdk:8.0.402-node
     steps:
       - checkout
       - run: java -version
