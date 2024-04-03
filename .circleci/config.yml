@@ -6,15 +6,15 @@ jobs:
     docker:
       - image: ghcr.io/cirruslabs/flutter:latest
     steps:
-      - checkout
-      - run: ls
-      - run: flutter doctor
-      - run: flutter test
       - name: Setup Java JDK
           uses: actions/setup-java@v3
           with:
             distribution: 'zulu'
             java-version: '11'
+      - checkout
+      - run: ls
+      - run: flutter doctor
+      - run: flutter test
       - run: 
           command: flutter build apk --release
           working_directory: example
