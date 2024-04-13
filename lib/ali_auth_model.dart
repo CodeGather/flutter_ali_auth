@@ -52,7 +52,7 @@ class AliAuthModel {
   final String? statusBarColor;
 
   /// 设置状态栏文字颜色(系统版本6.0以上可设置黑色白色)，true为黑色
-  final bool? isLightColor;
+  final bool? lightColor;
 
   /// 设置状态栏是否隐藏
   final bool? isStatusBarHidden;
@@ -615,7 +615,7 @@ class AliAuthModel {
     this.privacyOffsetX,
     this.statusBarColor,
     this.bottomNavColor,
-    this.isLightColor,
+    this.lightColor,
     this.isStatusBarHidden,
     this.statusBarUIFlag,
     this.navColor,
@@ -839,7 +839,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'pageType': instance.pageType?.index ?? 0,
       'statusBarColor': instance.statusBarColor,
       'bottomNavColor': instance.bottomNavColor,
-      'isLightColor': instance.isLightColor,
+      'lightColor': instance.lightColor,
       'isStatusBarHidden': instance.isStatusBarHidden,
       'statusBarUIFlag': EnumUtils.formatUiFagValue(instance.statusBarUIFlag),
       'navColor': instance.navColor,
