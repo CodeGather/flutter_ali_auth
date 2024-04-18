@@ -8,7 +8,7 @@ jobs:
       - image: ghcr.io/cirruslabs/flutter:latest
     steps:
       - checkout
-      - run: echo JAVA_HOME
+      - run: echo $JAVA_HOME
       - run:
           name: Set global environment variables
           command: >
@@ -16,7 +16,7 @@ jobs:
             echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' | sudo tee -a /etc/environment
             source /etc/environment
             \;
-      - run: echo JAVA_HOME
+      - run: echo $JAVA_HOME
       - run: java -version
       - run: ls
       - run: flutter doctor
