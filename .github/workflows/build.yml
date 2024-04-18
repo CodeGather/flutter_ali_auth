@@ -1,6 +1,5 @@
 name: Build Release
 
-# 监听版本号变化
 on:
   push:
     branches: [ main ]
@@ -9,7 +8,7 @@ on:
 
 jobs:
   # Release 操作
-  release:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
