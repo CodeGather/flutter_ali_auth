@@ -7,11 +7,8 @@ jobs:
       - image: ghcr.io/cirruslabs/flutter:latest
     steps:
       - checkout
-      - run:
-        name: Install Java 1.8
-        command: |
-          sudo update-alternatives --config java
-          sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+      - run: sudo apt update
+      - run: sudo apt install openjdk-8-jdk
       - run: java -version
       - run: ls
       - run: flutter doctor
