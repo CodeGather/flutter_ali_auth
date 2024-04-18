@@ -1,5 +1,5 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
-# version: 2.1
+version: 2.1
 
 jobs:
   build:
@@ -8,6 +8,11 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update && sudo apt-get install -y openjdk-8-jdk
+      - run:
+        name: Set global environment variables
+          command: |
+            echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64' | sudo tee -a /etc/environment
+            source /etc/environment
       - run: java -version
       - run: ls
       - run: flutter doctor
