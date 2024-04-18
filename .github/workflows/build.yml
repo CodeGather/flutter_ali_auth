@@ -1,4 +1,4 @@
-name: Build Release Package
+name: Build Release
 
 # 监听版本号变化
 on:
