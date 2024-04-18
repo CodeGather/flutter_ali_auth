@@ -5,10 +5,11 @@ jobs:
   build:
     docker:
       - image: ghcr.io/cirruslabs/flutter:latest
+      - image: cimg/openjdk:8.0.402-node
+    parallelism: 2
+    resource_class: large
     steps:
       - checkout
-      - run: sudo apt update
-      - run: sudo apt install openjdk-8-jdk
       - run: java -version
       - run: ls
       - run: flutter doctor
