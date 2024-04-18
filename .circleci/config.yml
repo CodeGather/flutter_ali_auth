@@ -2,7 +2,7 @@
 # https://app.circleci.com/projects/github/CodeGather/flutter_ali_auth/config/?branchName=master&pipelineNumber=#
 version: 2.1
 orbs:
-  java: circleci/openjdk:8-jdk
+  java: circleci/java@1.0.1
 
 jobs:
   build:
