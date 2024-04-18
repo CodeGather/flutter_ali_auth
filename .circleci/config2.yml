@@ -1,0 +1,23 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+# version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: ghcr.io/cirruslabs/flutter:latest
+      - image: cimg/openjdk:8.0.402-node
+    steps:
+      - checkout
+      - run: java -version
+      - run: ls
+      - run: flutter doctor
+      - run: flutter test
+      - run: 
+          command: flutter build apk --release
+          working_directory: example
+      - store_artifacts:
+          path: build/app/outputs/flutter-apk/app-release.apk
+          
+  
+  
+
