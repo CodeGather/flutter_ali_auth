@@ -1,5 +1,15 @@
 #  
 
+## 1.2.3
+* 更新android sdk 为 2.13.5
+* 更新ios sdk 为 2.13.7
+* 更新web sdk 为 2.1.3
+* 修复 isLightColor 字段不生效 -> 参数调整为 lightColor
+
+## 1.2.2
+* 更新android sdk 为 2.13.6
+* 更新ios sdk 为 2.13.7
+
 ## 1.2.1
 * 更新android sdk 为 2.13.5
 * 更新ios sdk 为 2.13.7

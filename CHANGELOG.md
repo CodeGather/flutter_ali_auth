@@ -1,5 +1,14 @@
 #
 
+## 1.2.3
+* Update android sdk 为 2.13.5
+* Update ios sdk 为 2.13.7
+* Fix isLightColor field not taking effect -> Adjust parameters to lightColor
+
+## 1.2.2
+* Update android sdk 为 2.13.6
+* Update ios sdk 为 2.13.7
+
 ## 1.2.1
 * Update android sdk 为 2.13.5
 * Update ios sdk 为 2.13.7
