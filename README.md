@@ -1,5 +1,5 @@
 [![Pub](https://img.shields.io/pub/v/ali_auth.svg)](https://pub.flutter-io.cn/packages/ali_auth)
-[!Actions](https://github.com/CodeGather/flutter_ali_auth/Build%20Release/badge.svg)
+![example workflow](https://github.com/CodeGather/flutter_ali_auth/actions/workflows/build.yml/badge.svg)
 
 
 [![GitHub license](https://img.shields.io/github/license/CodeGather/flutter_ali_auth?style=social)](https://github.com/CodeGather/flutter_ali_auth/blob/master/LICENSE)
