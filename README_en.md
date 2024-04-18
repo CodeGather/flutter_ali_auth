@@ -1,5 +1,5 @@
 [![Pub](https://img.shields.io/pub/v/ali_auth.svg)](https://pub.flutter-io.cn/packages/ali_auth)
-[![CircleCI](https://circleci.com/gh/CodeGather/flutter_ali_auth/tree/master.svg?style=svg)](https://circleci.com/gh/CodeGather/flutter_ali_auth/tree/master)
+[!Actions](https://github.com/CodeGather/flutter_ali_auth/Build%20Release/badge.svg)
 
 
 # ali_auth
