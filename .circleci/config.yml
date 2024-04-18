@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - run: java -version
-     - run: ls
+      - run: ls
 
 workflows:
   build-and-test:
