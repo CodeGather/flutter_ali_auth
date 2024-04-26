@@ -1,5 +1,8 @@
 #  
 
+## 1.2.4
+* 修复 checkboxHidden 参数
+
 ## 1.2.3
 * 更新android sdk 为 2.13.5
 * 更新ios sdk 为 2.13.7
