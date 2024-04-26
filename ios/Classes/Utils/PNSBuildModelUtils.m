@@ -826,7 +826,7 @@
   };
   
   // 勾选统一按钮
-  BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+  BOOL checkStatus = [viewConfig boolValueForKey: @"checkboxHidden" defaultValue: NO];
   model.checkBoxIsHidden = checkStatus;
   if (!checkStatus) {
     UIImage* unchecked = [self changeUriPathToImage: [viewConfig stringValueForKey: @"uncheckedImgPath" defaultValue: nil]];
@@ -1145,7 +1145,6 @@
 }
 
 #pragma mark - 底部弹窗
-
 + (TXCustomModel *)buildSheetPortraitModel:(NSDictionary *)viewConfig
                                                    target:(id)target
                                                  selector:(SEL)selector {
@@ -1339,7 +1338,7 @@
     /// 8自定义第三方按钮布局 END
   
     /// 9勾选统一按钮 START
-    BOOL checkStatus = [viewConfig boolValueForKey: @"checkBoxHidden" defaultValue: NO];
+    BOOL checkStatus = [viewConfig boolValueForKey: @"checkboxHidden" defaultValue: NO];
     model.checkBoxIsHidden = checkStatus;
     if (!checkStatus) {
       UIImage* unchecked = [self changeUriPathToImage: [viewConfig stringValueForKey: @"uncheckedImgPath" defaultValue: nil]];
@@ -1561,7 +1560,6 @@
 }
 
 #pragma mark - other
-
 + (TXCustomModel *)buildVideoOrGifBackgroundModel:(NSDictionary *)viewConfig
                                            target:(id)target
                                             style:(PNSBuildModelStyle)style

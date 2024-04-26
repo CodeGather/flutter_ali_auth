@@ -1,5 +1,8 @@
 #
 
+## 1.2.4
+* Fix checkboxHidden field
+
 ## 1.2.3
 * Update android sdk 为 2.13.5
 * Update ios sdk 为 2.13.7
