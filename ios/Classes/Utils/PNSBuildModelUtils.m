@@ -1162,9 +1162,24 @@
               NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"navTextSize" defaultValue: 20.0]]
             }
     ];;
+  
+    /// 关闭按钮
     model.alertCloseItemIsHidden = [viewConfig boolValueForKey: @"alertCloseItemIsHidden" defaultValue: NO];
     UIImage * alertCloseImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"alertCloseImage" defaultValue: nil]];
     model.alertCloseImage = alertCloseImage?:[UIImage imageNamed:@"icon_close_light"];
+    model.alertCloseItemFrameBlock = ^CGRect(CGSize screenSize,CGSize superViewSize,CGRect frame) {
+        if ([self isHorizontal:screenSize]) {
+          //横屏时模拟隐藏该控件
+          return CGRectZero;
+        } else {
+          frame.origin.x = [viewConfig intValueForKey: @"alertCloseImageX" defaultValue: 5];
+          frame.origin.y = [viewConfig intValueForKey: @"alertCloseImageY" defaultValue: 5];
+          frame.size.width = [viewConfig intValueForKey: @"alertCloseImageW" defaultValue: 30];
+          frame.size.height = [viewConfig intValueForKey: @"alertCloseImageH" defaultValue: 30];
+          return frame;
+        }
+    };
+    /// 关闭按钮
   
     /// 3logo 设置 START
     model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
@@ -1402,9 +1417,10 @@
     /// 协议
   
   
+    /// 授权页面配置
     model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
         frame.size.width = superViewSize.width;
-        frame.size.height = 460;
+        frame.size.height = [viewConfig floatValueForKey: @"dialogHeight" defaultValue: 460];
         frame.origin.x = 0;
         frame.origin.y = superViewSize.height - frame.size.height;
         return frame;

@@ -1,5 +1,8 @@
 #
 
+## 1.2.5
+* Fix dialogHeight、alertCloseImageX、alertCloseImageY、alertCloseImageW、alertCloseImageH field
+
 ## 1.2.4
 * Fix checkboxHidden field
 
