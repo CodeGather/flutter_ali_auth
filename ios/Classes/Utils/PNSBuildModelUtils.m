@@ -1229,16 +1229,36 @@
                                             style:(PNSBuildModelStyle)style
                                          selector:(SEL)selector {
   PNSBackgroundView *backgroundView = [[PNSBackgroundView alloc] init];
+  return [self buildModelOption: viewConfig target:target style: style background: backgroundView selector:selector];
+}
+
+#pragma mark - 公共配置
++ (TXCustomModel *)buildModelOption:(NSDictionary *)viewConfig
+                                           target:(id)target
+                                            style:(PNSBuildModelStyle)style
+                                       background:(PNSBackgroundView*)backgroundView
+                                         selector:(SEL)selector {
+  TXCustomModel *model = [[TXCustomModel alloc] init];
+  
   // 判断背景类型
   NSURL *backgroundUrl = [NSURL fileURLWithPath:[self changeUriToPath: [viewConfig stringValueForKey: @"backgroundPath" defaultValue: nil]]];
-  if (PNSBuildModelStyleGifBackground == style) {
-    backgroundView.gifUrl = backgroundUrl;
+  if (backgroundView != nil && backgroundUrl != nil) {
+    if (PNSBuildModelStyleGifBackground == style) {
+      backgroundView.gifUrl = backgroundUrl;
+    } else {
+      backgroundView.videoUrl = backgroundUrl;
+    }
+    [backgroundView show];
   } else {
-    backgroundView.videoUrl = backgroundUrl;
+    NSString * backgroundColor = [viewConfig stringValueForKey: @"backgroundColor" defaultValue: nil];
+    if (![backgroundColor isEqual: nil]) {
+      model.backgroundColor = [self getColor: backgroundColor];
+    }
+    NSString * backgroundImagePath = [viewConfig stringValueForKey: @"backgroundPath" defaultValue: nil];
+    if (![backgroundImagePath isEqual: nil]) {
+      model.backgroundImage = [self changeUriPathToImage: backgroundImagePath];
+    }
   }
-  [backgroundView show];
-  
-  TXCustomModel *model = [[TXCustomModel alloc] init];
   
   /// 返回按钮 END
   /// 1、状态栏 START
@@ -1435,7 +1455,9 @@
       }
       /// 添加第三方图标
       model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-        [superCustomView addSubview:backgroundView];
+        if (backgroundView != nil && backgroundUrl != nil) {
+          [superCustomView addSubview:backgroundView];
+        }
         for (int i = 0 ; i < customArrayView.count; i++) {
           [superCustomView addSubview:customArrayView[i]];
         }
@@ -1453,7 +1475,9 @@
         CGRect changeBtnFrame,   /// 切换到其他的参数
         CGRect privacyFrame      /// 协议区域的参数
       ) {
-        backgroundView.frame = CGRectMake(0, -CGRectGetMaxY(navFrame), contentViewFrame.size.width, contentViewFrame.size.height);
+        if (backgroundView != nil && backgroundUrl != nil) {
+          backgroundView.frame = CGRectMake(0, -CGRectGetMaxY(navFrame), contentViewFrame.size.width, contentViewFrame.size.height);
+        }
         
         NSUInteger count = customArrayView.count;
         NSInteger contentWidth = screenSize.width;
@@ -1464,25 +1488,6 @@
         }
       };
     }
-  } else {
-    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-      [superCustomView addSubview:backgroundView];
-    };
-    
-    model.customViewLayoutBlock = ^(
-      CGSize screenSize,       /// 全屏参数
-      CGRect contentViewFrame, /// contentView参数
-      CGRect navFrame,         /// 导航参数
-      CGRect titleBarFrame,    /// title参数
-      CGRect logoFrame,        /// logo区域参数
-      CGRect sloganFrame,      /// slogan参数
-      CGRect numberFrame,      /// 号码处参数
-      CGRect loginFrame,       /// 登录按钮处的参数
-      CGRect changeBtnFrame,   /// 切换到其他的参数
-      CGRect privacyFrame      /// 协议区域的参数
-    ) {
-      backgroundView.frame = CGRectMake(0, -CGRectGetMaxY(navFrame), contentViewFrame.size.width, contentViewFrame.size.height);
-    };
   }
   /// 8、第三方 END
   
@@ -1582,14 +1587,29 @@
   }
   /// 9、协议 END
 
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    //model.navIsHidden = YES;
-    model.navBackImage = [UIImage imageNamed:@"icon_nav_back_light"];
-    model.navColor = [UIColor clearColor];
-    model.navTitle = [[NSAttributedString alloc] init];
-    model.numberColor = [UIColor whiteColor];
+  if (backgroundView != nil) {
+    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+        [superCustomView addSubview:backgroundView];
+    };
     
-    return model;
+    model.customViewLayoutBlock = ^(
+      CGSize screenSize,       /// 全屏参数
+      CGRect contentViewFrame, /// contentView参数
+      CGRect navFrame,         /// 导航参数
+      CGRect titleBarFrame,    /// title参数
+      CGRect logoFrame,        /// logo区域参数
+      CGRect sloganFrame,      /// slogan参数
+      CGRect numberFrame,      /// 号码处参数
+      CGRect loginFrame,       /// 登录按钮处的参数
+      CGRect changeBtnFrame,   /// 切换到其他的参数
+      CGRect privacyFrame      /// 协议区域的参数
+    ) {
+        backgroundView.frame = CGRectMake(0, -CGRectGetMaxY(navFrame), contentViewFrame.size.width, contentViewFrame.size.height);
+    };
+  }
+  /// 屏幕方向
+  model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
+  return model;
 }
 
 #pragma mark - DIY 动画
