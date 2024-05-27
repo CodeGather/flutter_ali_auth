@@ -2,7 +2,8 @@
 //  AliAuthEnum.好的.h
 //  Pods
 //
-//  Created by Yau on 2022/5/19.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 #import <Foundation/Foundation.h>
 

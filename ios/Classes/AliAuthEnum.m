@@ -2,7 +2,8 @@
 //  AliAuthEnum.m
 //  ali_auth
 //
-//  Created by Yau on 2022/5/19.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 
 #import "AliAuthEnum.h"

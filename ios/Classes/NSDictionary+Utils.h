@@ -2,8 +2,8 @@
 //  NSDictionaryUtils.h
 //  UZEngine
 //
-//  Created by kenny on 14-4-9.
-//  Copyright (c) 2014年 APICloud. All rights reserved.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

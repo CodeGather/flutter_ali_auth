@@ -2,8 +2,8 @@
 //  PNSBaseNavigationController.h
 //  ATAuthSceneDemo
 //
-//  Created by 刘超的MacBook on 2020/8/21.
-//  Copyright © 2020 刘超的MacBook. All rights reserved.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

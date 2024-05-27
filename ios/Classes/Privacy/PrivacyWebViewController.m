@@ -2,8 +2,8 @@
 //  PrivacyWebViewController.m
 //  ATAuthSceneDemo
 //
-//  Created by 小明 on 2022/1/5.
-//  Copyright © 2022 刘超的MacBook. All rights reserved.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 
 #import "PrivacyWebViewController.h"

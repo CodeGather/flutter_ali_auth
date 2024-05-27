@@ -2,8 +2,8 @@
 //  NSDictionary+Utils.m
 //  BCPay
 //
-//  Created by Ewenlong03 on 15/9/25.
-//  Copyright © 2015年 BeeCloud. All rights reserved.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 
 #import "NSDictionary+Utils.h"

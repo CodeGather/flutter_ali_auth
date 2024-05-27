@@ -2,8 +2,8 @@
 //  PNSBuildModelUtils.m
 //  ATAuthSceneDemo
 //
-//  Created by 刘超的MacBook on 2020/8/6.
-//  Copyright © 2020 刘超的MacBook. All rights reserved.
+//  Created by Yau的MacBook on 2022/5/19.
+//  Copyright © 2022 Yau的MacBook. All rights reserved.
 //
 #import "NSDictionary+Utils.h"
 
@@ -39,90 +39,57 @@
   /// _model = [TXCustomModel mj_objectWithKeyValues: dic];
   PNSBuildModelStyle style = [dict intValueForKey: @"pageType" defaultValue: 0];
   switch (style) {
-      // 竖屏
+      // 全屏-竖屏
       case PNSBuildModelStylePortrait:
-          model = [self buildFullScreenPortraitModel:dict
-                                              target:target
-                                            selector:selector];
+          model = [self buildFullScreenPortraitModel:dict target:target selector:selector];
           break;
-      // 横屏
+      // 全屏-横屏
       case PNSBuildModelStyleLandscape:
-          model = [self buildFullScreenLandscapeModel:dict
-                                               target:target
-                                             selector:selector];
+          model = [self buildFullScreenLandscapeModel:dict target:target selector:selector];
           break;
-      // 自定义web
+      // 弹窗-竖屏
       case PNSBuildModelStyleAlertPortrait:
-          model = [self buildAlertPortraitMode:dict
-                                        target:target
-                                      selector:selector];
+          model = [self buildAlertPortraitMode:dict target:target selector:selector];
           break;
+      // 弹窗-横屏
       case PNSBuildModelStyleAlertLandscape:
-          model = [self buildAlertLandscapeMode:dict
-                                         target:target
-                                       selector:selector];
+          model = [self buildAlertLandscapeMode:dict target:target selector:selector];
           break;
+      // 底部弹窗
       case PNSBuildModelStyleSheetPortrait:
-          model = [self buildSheetPortraitModel:dict
-                                         target:target
-                                       selector:selector];
+          model = [self buildSheetPortraitModel:dict target:target selector:selector];
           break;
+      // DIY
       case PNSDIYAlertPortraitFade:
-          model = [self buildAlertFadeModel:dict
-                                     target:target
-                                   selector:selector];
+          model = [self buildAlertFadeModel:dict target:target selector:selector];
           break;
       // 自定义界面
       case PNSDIYAlertPortraitDropDown:
-          model = [self buildAlertDropDownModel:dict
-                                         target:target
-                                       selector:selector];
+          model = [self buildAlertDropDownModel:dict target:target selector:selector];
           break;
       // gif/video
       default:
-        model = [self buildVideoOrGifBackgroundModel:dict
-                                              target:target
-                                             style:style
-                                          selector:selector];
+        model = [self buildVideoOrGifBackgroundModel:dict target:target style:style selector:selector];
         break;
   }
   return model;
 }
 
-/**
- * 处理参数，对参数进行处理包含color、Path
- * @param parmas 字典数据
- * @return 处理后的数据
- */
-+ (NSDictionary *) formatParmas: (NSDictionary *)parmas{
-  NSArray *keysArray = [parmas allKeys];
-  for (int i = 0; i < keysArray.count; i++) {
-    NSString *key = keysArray[i];
-    NSString *value = parmas[key];
-    //根据键值处理字典中的每一项
-    if ([key containsString: @"color"] && [value containsString: @"#"])
-    {
-      [parmas setValue: [self getColor: value] forKey: key];
-    }
-    // 判断是否时路径字段
-    // 排除按钮状态的背景logBtnBackgroundPath
-    else if (
-       ![key containsString: @"logBtnBackgroundPath"] &&
-       ([key containsString: @"path"] || [key containsString: @"Path"]) &&
-       ![value containsString: @"http"] && ![value isEqual: nil] && ![value isEqual: @""])
-    {
-      [parmas setValue: [self changeUriToPath: value] forKey: key];
-    }
-  }
-  
-  return parmas;
-}
-
-#pragma mark - 全屏相关
+#pragma mark - 全屏-竖屏
 + (TXCustomModel *)buildFullScreenPortraitModel:(NSDictionary *)viewConfig
                                                         target:(id)target
                                                       selector:(SEL)selector{
   TXCustomModel *model = [[TXCustomModel alloc] init];
+  
+  // JSON -> TXCustomModel
+  // TXCustomModel *modelConfig = [TXCustomModel mj_objectWithKeyValues:viewConfig];
+  
+  // 1状态栏START
+  model.prefersStatusBarHidden = [viewConfig boolValueForKey: @"isStatusBarHidden" defaultValue: NO];
+  bool isLightColor = [viewConfig boolValueForKey: @"lightColor" defaultValue: NO];
+  model.preferredStatusBarStyle = isLightColor ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+  // 1状态栏ENd
+  
   /// 导航设置
   model.navIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
   model.navColor = [self getColor: [viewConfig stringValueForKey: @"navColor" defaultValue: @"#3971fe"]];
@@ -479,7 +446,7 @@
   
   return model;
 }
-
+#pragma mark - 全屏-横屏
 + (TXCustomModel *)buildFullScreenLandscapeModel:(NSDictionary *)dict
                                                          target:(id)target
                                                        selector:(SEL)selector {
@@ -540,100 +507,18 @@
     return model;
 }
 
-+ (TXCustomModel *)buildFullScreenAutorotateModel:(NSDictionary *)dict
-                                                          target:(id)target
-                                                        selector:(SEL)selector {
-    TXCustomModel *model = [[TXCustomModel alloc] init];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    model.navColor = [UIColor orangeColor];
-    NSDictionary *attributes = @{
-        NSForegroundColorAttributeName : [UIColor whiteColor],
-        NSFontAttributeName : [UIFont systemFontOfSize:20.0]
-    };
-    model.navTitle = [[NSAttributedString alloc] initWithString:@"一键登录" attributes:attributes];
-    model.navBackImage = [UIImage imageNamed:@"icon_nav_back_light"];
-    model.logoImage = [UIImage imageNamed:@"taobao"];
-    model.changeBtnIsHidden = YES;
-    model.privacyOne = @[@"协议1", @"https://www.taobao.com"];
-    
-    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        frame.size.width = 80;
-        frame.size.height = 80;
-        frame.origin.y = screenSize.height > screenSize.width ? 30 : 15;
-        frame.origin.x = (superViewSize.width - 80) * 0.5;
-        return frame;
-    };
-    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.size.width = superViewSize.width - 40;
-            frame.size.height = 20;
-            frame.origin.x = 20;
-            frame.origin.y = 20 + 80 + 20;
-            return frame;
-        } else {
-            return CGRectZero;
-        }
-    };
-    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.origin.y = 130 + 20 + 15;
-        } else {
-            frame.origin.y = 15 + 80 + 15;
-        }
-        return frame;
-    };
-    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.origin.y = 170 + 30 + 20;
-        } else {
-            frame.origin.y = 110 + 30 + 20;
-        }
-        return frame;
-    };
-    
-//    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [button1 setTitle:button1Title forState:UIControlStateNormal];
-//    [button1 addTarget:target1 action:selector1 forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [button2 setTitle:button2Title forState:UIControlStateNormal];
-//    [button2 addTarget:target2 action:selector2 forControlEvents:UIControlEventTouchUpInside];
-    
-//    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-//        [superCustomView addSubview:button1];
-//        [superCustomView addSubview:button2];
-//    };
-//    model.customViewLayoutBlock = ^(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame) {
-//        if (screenSize.height > screenSize.width) {
-//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(loginFrame) + 20,
-//                                       CGRectGetWidth(loginFrame),
-//                                       30);
-//
-//            button2.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(button1.frame) + 15,
-//                                       CGRectGetWidth(loginFrame),
-//                                       30);
-//        } else {
-//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(loginFrame) + 20,
-//                                       CGRectGetWidth(loginFrame) * 0.5,
-//                                       30);
-//
-//            button2.frame = CGRectMake(CGRectGetMaxX(button1.frame),
-//                                       CGRectGetMinY(button1.frame),
-//                                       CGRectGetWidth(loginFrame) * 0.5,
-//                                       30);
-//        }
-//    };
-    return model;
-}
-
-#pragma mark - 弹窗
+#pragma mark - 弹窗-竖屏
 + (TXCustomModel *)buildAlertPortraitMode:(NSDictionary *)viewConfig
                                                   target:(id)target
                                                 selector:(SEL)selector {
   TXCustomModel *model = [[TXCustomModel alloc] init];
+  
+  // 1状态栏START
+  model.prefersStatusBarHidden = [viewConfig boolValueForKey: @"isStatusBarHidden" defaultValue: NO];
+  bool isLightColor = [viewConfig boolValueForKey: @"lightColor" defaultValue: NO];
+  model.preferredStatusBarStyle = isLightColor ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+  // 1状态栏ENd
+  
   model.alertBarIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
   model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"alertTitleBarColor" defaultValue: @"#3971fe"]];
   model.alertTitle = [
@@ -973,10 +858,7 @@
   /// 背景设置 END
   return model;
 }
-
-+ (void) clickAllScreen:(UITapGestureRecognizer *) recognizer {
-  NSLog(@"点击事件屏蔽");
-}
+#pragma mark - 弹窗-横屏
 + (TXCustomModel *)buildAlertLandscapeMode:(NSDictionary *)dict
                                                    target:(id)target
                                                  selector:(SEL)selector{
@@ -1037,113 +919,6 @@
     return model;
 }
 
-+ (TXCustomModel *)buildAlertAutorotateMode:(NSDictionary *)dict
-                                                    target:(id)target
-                                                  selector:(SEL)selector {
-    TXCustomModel *model = [[TXCustomModel alloc] init];
-    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
-    model.alertCornerRadiusArray = @[@10, @10, @10, @10];
-    model.alertTitleBarColor = [UIColor orangeColor];
-    NSDictionary *attributes = @{
-        NSForegroundColorAttributeName : [UIColor whiteColor],
-        NSFontAttributeName : [UIFont systemFontOfSize:20.0]
-    };
-    model.alertTitle = [[NSAttributedString alloc] initWithString:@"一键登录" attributes:attributes];
-    model.alertCloseImage = [UIImage imageNamed:@"icon_close_light"];
-    model.logoImage = [UIImage imageNamed:@"taobao"];
-    model.sloganIsHidden = YES;
-    model.changeBtnIsHidden = YES;
-    model.privacyOne = @[@"自定义协议", @"https://www.taobao.com"];
-    
-    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.size.width = superViewSize.width * 0.8;
-            frame.size.height = frame.size.width / 0.618;
-        } else {
-            frame.size.height = superViewSize.height * 0.8;
-            frame.size.width = frame.size.height / 0.618;
-        }
-        frame.origin.x = (superViewSize.width - frame.size.width) * 0.5;
-        frame.origin.y = (superViewSize.height - frame.size.height) * 0.5;
-        return frame;
-    };
-    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.size.width = 80;
-            frame.size.height = 80;
-            frame.origin.y = 20;
-            frame.origin.x = (superViewSize.width - 80) * 0.5;
-        } else {
-            frame = CGRectZero;
-        }
-        return frame;
-    };
-    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.size.height = 20;
-            frame.size.width = superViewSize.width - 40;
-            frame.origin.x = 20;
-            frame.origin.y = 20 + 80 + 20;
-        } else {
-            frame = CGRectZero;
-        }
-        return frame;
-    };
-    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.origin.y = 120 + 20 + 15;
-        } else {
-            frame.origin.y = 30;
-        }
-        return frame;
-    };
-    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        if (screenSize.height > screenSize.width) {
-            frame.origin.y = 155 + 20 + 30;
-        } else {
-            frame.origin.y = 30 + 20 + 30;
-        }
-        return frame;
-    };
-    
-//    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [button1 setTitle:button1Title forState:UIControlStateNormal];
-//    [button1 addTarget:target1 action:selector1 forControlEvents:UIControlEventTouchUpInside];
-//
-//    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
-//    [button2 setTitle:button2Title forState:UIControlStateNormal];
-//    [button2 addTarget:target2 action:selector2 forControlEvents:UIControlEventTouchUpInside];
-//
-//    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
-//        [superCustomView addSubview:button1];
-//        [superCustomView addSubview:button2];
-//    };
-//    model.customViewLayoutBlock = ^(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame) {
-//        if (screenSize.height > screenSize.width) {
-//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(loginFrame) + 20,
-//                                       CGRectGetWidth(loginFrame),
-//                                       30);
-//
-//            button2.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(button1.frame) + 15,
-//                                       CGRectGetWidth(loginFrame),
-//                                       30);
-//        } else {
-//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
-//                                       CGRectGetMaxY(loginFrame) + 20,
-//                                       CGRectGetWidth(loginFrame) * 0.5,
-//                                       30);
-//
-//            button2.frame = CGRectMake(CGRectGetMaxX(button1.frame),
-//                                       CGRectGetMinY(button1.frame),
-//                                       CGRectGetWidth(loginFrame) * 0.5,
-//                                       30);
-//        }
-//    };
-    return model;
-}
-
 #pragma mark - 底部弹窗
 + (TXCustomModel *)buildSheetPortraitModel:(NSDictionary *)viewConfig
                                                    target:(id)target
@@ -1151,6 +926,12 @@
     TXCustomModel *model = [[TXCustomModel alloc] init];
     model.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
     model.alertCornerRadiusArray = @[@10, @0, @0, @10];
+  
+    // 1状态栏START
+    model.prefersStatusBarHidden = [viewConfig boolValueForKey: @"isStatusBarHidden" defaultValue: NO];
+    bool isLightColor = [viewConfig boolValueForKey: @"lightColor" defaultValue: NO];
+    model.preferredStatusBarStyle = isLightColor ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    // 1状态栏ENd
     
     model.alertBarIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
     model.alertTitleBarColor = [self getColor: [viewConfig stringValueForKey: @"alertTitleBarColor" defaultValue: @"#3971fe"]];
@@ -1442,139 +1223,6 @@
     return model;
 }
 
-#pragma mark - DIY 动画
-+ (TXCustomModel *)buildAlertFadeModel:(NSDictionary *)dict
-                                               target:(id)target
-                                             selector:(SEL)selector {
-    
-    TXCustomModel *model = [self buildAlertPortraitMode:dict
-                                                                target:target
-                                                              selector:selector];
-    
-    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    entryAnimation.fromValue = @1.03;
-    entryAnimation.toValue = @1;
-    entryAnimation.duration = 0.25;
-    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    model.entryAnimation = entryAnimation;
-    
-    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    exitAnimation.fromValue = @1;
-    exitAnimation.toValue = @0;
-    exitAnimation.duration = 0.25;
-    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    model.exitAnimation = exitAnimation;
-    
-    //背景本身就是渐变，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
-    return model;
-}
-
-+ (TXCustomModel *)buildAlertBounceModel:(NSDictionary *)dict
-                                                 target:(id)target
-                                               selector:(SEL)selector {
-    
-    TXCustomModel *model = [self buildAlertPortraitMode:dict
-                                                                target:target
-                                                              selector:selector];
-    
-    CAKeyframeAnimation *entryAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-    entryAnimation.values = @[@0.01, @1.2, @0.9, @1];
-    entryAnimation.keyTimes = @[@0, @0.4, @0.6, @1];
-    entryAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    entryAnimation.duration = 0.25;
-    model.entryAnimation = entryAnimation;
-    
-    CAKeyframeAnimation *exitAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-    exitAnimation.values = @[@1, @1.2, @0.01];
-    exitAnimation.keyTimes = @[@0, @0.4, @1];
-    exitAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    exitAnimation.duration = 0.25;
-    model.exitAnimation = exitAnimation;
-    
-    //背景使用默认的渐变效果，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
-    return model;
-}
-
-+ (TXCustomModel *)buildAlertDropDownModel:(NSDictionary *)dict
-                                                   target:(id)target
-                                                 selector:(SEL)selector {
-    
-    TXCustomModel *model = [self buildAlertPortraitMode:dict
-                                                 target:target
-                                               selector:selector];
-    
-    //提前设置好弹窗大小，弹窗是依赖于全屏布局，所以其父视图大小即为屏幕大小
-    CGFloat width = UIScreen.mainScreen.bounds.size.width * 0.8;
-    CGFloat height = width / 0.618;
-    CGFloat x = (UIScreen.mainScreen.bounds.size.width - width) * 0.5;
-    CGFloat y = (UIScreen.mainScreen.bounds.size.height - height) * 0.5;
-    CGRect contentViewFrame = CGRectMake(x, y, width, height);
-    
-    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        return contentViewFrame;
-    };
-    
-    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
-    animation.values = @[@(-CGRectGetMaxY(contentViewFrame)), @20, @-10, @0];
-    animation.keyTimes = @[@0, @0.5, @0.75, @1];
-    animation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
-    animation.duration = 0.25;
-    model.entryAnimation = animation;
-    
-    //背景使用默认的渐变效果，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
-    return model;
-}
-
-+ (TXCustomModel *)buildFadeModel:(NSDictionary *)dict
-                                          target:(id)target
-                                        selector:(SEL)selector {
-    
-    TXCustomModel *model = [self buildFullScreenPortraitModel:dict
-                                                                      target:target
-                                                                    selector:selector];
-    
-    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    entryAnimation.fromValue = @0.5;
-    entryAnimation.toValue = @1;
-    entryAnimation.duration = 0.25;
-    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    model.entryAnimation = entryAnimation;
-    
-    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    exitAnimation.fromValue = @1;
-    exitAnimation.toValue = @0;
-    exitAnimation.duration = 0.25;
-    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    model.exitAnimation = exitAnimation;
-    
-    return model;
-}
-
-+ (TXCustomModel *)buildScaleModel:(NSDictionary *)dict
-                                           target:(id)target
-                                         selector:(SEL)selector {
-    
-    TXCustomModel *model = [self buildFullScreenPortraitModel:dict
-                                                                      target:target
-                                                                    selector:selector];
-    
-    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    entryAnimation.fromValue = @0;
-    entryAnimation.toValue = @1;
-    entryAnimation.duration = 0.25;
-    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    model.entryAnimation = entryAnimation;
-    
-    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    exitAnimation.fromValue = @1;
-    exitAnimation.toValue = @0;
-    exitAnimation.duration = 0.25;
-    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    model.exitAnimation = exitAnimation;
-    
-    return model;
-}
-
 #pragma mark - other
 + (TXCustomModel *)buildVideoOrGifBackgroundModel:(NSDictionary *)viewConfig
                                            target:(id)target
@@ -1591,10 +1239,57 @@
   [backgroundView show];
   
   TXCustomModel *model = [[TXCustomModel alloc] init];
+  
   /// 返回按钮 END
   /// 1、状态栏 START
+  model.prefersStatusBarHidden = [viewConfig boolValueForKey: @"isStatusBarHidden" defaultValue: NO];
+  bool isLightColor = [viewConfig boolValueForKey: @"lightColor" defaultValue: NO];
+  model.preferredStatusBarStyle = isLightColor ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
   /// 1、状态栏 END
   /// 2、导航 START
+  model.navIsHidden = [viewConfig boolValueForKey: @"navHidden" defaultValue: NO];
+  model.navColor = [self getColor: [viewConfig stringValueForKey: @"navColor" defaultValue: @"#3971fe"]];
+  model.navTitle = [
+    [NSAttributedString alloc]
+      initWithString: [viewConfig stringValueForKey: @"navText" defaultValue: @"一键登录"]
+          attributes: @{
+            NSForegroundColorAttributeName: UIColor.whiteColor,
+            NSFontAttributeName : [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"navTextSize" defaultValue: 20.0]]
+          }
+  ];
+  /// 2.1返回按钮
+  bool isHiddenNavBack = [viewConfig boolValueForKey: @"navReturnHidden" defaultValue: NO];
+  model.hideNavBackItem = isHiddenNavBack;
+  UIImage * navBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
+  /// 2.2返回按钮
+  model.navBackImage = navBackImage?:[UIImage imageNamed:@"icon_close_light"];
+  if (!isHiddenNavBack) {
+    /// 自定义返回按钮
+    model.navBackButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+      UIImageView *imageView = [[UIImageView alloc]init];
+      imageView.image = navBackImage;
+      imageView.frame = CGRectMake(
+                         CGRectGetMinX(frame),
+                         CGRectGetMaxY(frame),
+                         CGRectGetWidth(frame),
+                         CGRectGetHeight(frame)
+                       );
+      frame.origin.y = [viewConfig floatValueForKey: @"navReturnOffsetY" defaultValue: 5];
+      frame.origin.x = [viewConfig floatValueForKey: @"navReturnOffsetX" defaultValue: 15];
+      
+      frame.size.width = [viewConfig floatValueForKey: @"navReturnImgWidth" defaultValue: 40];
+      frame.size.height = [viewConfig floatValueForKey: @"navReturnImgHeight" defaultValue: 40];
+      return frame;
+    };
+  }
+  /// 2.3协议页面导航设置
+  model.privacyNavColor = [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000"]];
+  UIImage * privacyNavBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
+  if(privacyNavBackImage != nil){
+    model.privacyNavBackImage = privacyNavBackImage;
+  }
+  model.privacyNavTitleFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 18]];
+  model.privacyNavTitleColor = [self getColor: [viewConfig stringValueForKey: @"webNavTextColor" defaultValue: @"#000"]];
   /// 2、导航 END
   /// 3、LOGO START
   model.logoIsHidden = [viewConfig boolValueForKey: @"logoHidden" defaultValue: NO];
@@ -1769,9 +1464,45 @@
         }
       };
     }
+  } else {
+    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+      [superCustomView addSubview:backgroundView];
+    };
+    
+    model.customViewLayoutBlock = ^(
+      CGSize screenSize,       /// 全屏参数
+      CGRect contentViewFrame, /// contentView参数
+      CGRect navFrame,         /// 导航参数
+      CGRect titleBarFrame,    /// title参数
+      CGRect logoFrame,        /// logo区域参数
+      CGRect sloganFrame,      /// slogan参数
+      CGRect numberFrame,      /// 号码处参数
+      CGRect loginFrame,       /// 登录按钮处的参数
+      CGRect changeBtnFrame,   /// 切换到其他的参数
+      CGRect privacyFrame      /// 协议区域的参数
+    ) {
+      backgroundView.frame = CGRectMake(0, -CGRectGetMaxY(navFrame), contentViewFrame.size.width, contentViewFrame.size.height);
+    };
   }
   /// 8、第三方 END
+  
   /// 9、协议 START
+  /// 勾选统一按钮
+  BOOL checkStatus = [viewConfig boolValueForKey: @"checkboxHidden" defaultValue: NO];
+  model.checkBoxIsHidden = checkStatus;
+  if (!checkStatus) {
+    UIImage* unchecked = [self changeUriPathToImage: [viewConfig stringValueForKey: @"uncheckedImgPath" defaultValue: nil]];
+    UIImage* checked = [self changeUriPathToImage: [viewConfig stringValueForKey: @"checkedImgPath" defaultValue: nil]];
+    if (unchecked != nil && checked != nil) {
+      model.checkBoxImages = @[
+        unchecked,
+        checked
+      ];
+    }
+  }
+  model.checkBoxIsChecked = [viewConfig boolValueForKey: @"privacyState" defaultValue: NO];
+  model.checkBoxWH = [viewConfig floatValueForKey: @"checkBoxHeight" defaultValue: 17.0];
+  
   model.privacyOne = @[
     [viewConfig stringValueForKey: @"protocolOneName" defaultValue: @""],
     [viewConfig stringValueForKey: @"protocolOneURL" defaultValue: @""]
@@ -1857,6 +1588,337 @@
     model.navColor = [UIColor clearColor];
     model.navTitle = [[NSAttributedString alloc] init];
     model.numberColor = [UIColor whiteColor];
+    
+    return model;
+}
+
+#pragma mark - DIY 动画
++ (TXCustomModel *)buildAlertFadeModel:(NSDictionary *)dict
+                                               target:(id)target
+                                             selector:(SEL)selector {
+    
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
+                                                                target:target
+                                                              selector:selector];
+    
+    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    entryAnimation.fromValue = @1.03;
+    entryAnimation.toValue = @1;
+    entryAnimation.duration = 0.25;
+    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    model.entryAnimation = entryAnimation;
+    
+    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    exitAnimation.fromValue = @1;
+    exitAnimation.toValue = @0;
+    exitAnimation.duration = 0.25;
+    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    model.exitAnimation = exitAnimation;
+    
+    //背景本身就是渐变，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
+    return model;
+}
+
++ (TXCustomModel *)buildAlertBounceModel:(NSDictionary *)dict
+                                                 target:(id)target
+                                               selector:(SEL)selector {
+    
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
+                                                                target:target
+                                                              selector:selector];
+    
+    CAKeyframeAnimation *entryAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    entryAnimation.values = @[@0.01, @1.2, @0.9, @1];
+    entryAnimation.keyTimes = @[@0, @0.4, @0.6, @1];
+    entryAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    entryAnimation.duration = 0.25;
+    model.entryAnimation = entryAnimation;
+    
+    CAKeyframeAnimation *exitAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    exitAnimation.values = @[@1, @1.2, @0.01];
+    exitAnimation.keyTimes = @[@0, @0.4, @1];
+    exitAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    exitAnimation.duration = 0.25;
+    model.exitAnimation = exitAnimation;
+    
+    //背景使用默认的渐变效果，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
+    return model;
+}
+
++ (TXCustomModel *)buildFullScreenAutorotateModel:(NSDictionary *)dict
+                                                          target:(id)target
+                                                        selector:(SEL)selector {
+    TXCustomModel *model = [[TXCustomModel alloc] init];
+  
+    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
+    model.navColor = [UIColor orangeColor];
+    NSDictionary *attributes = @{
+        NSForegroundColorAttributeName : [UIColor whiteColor],
+        NSFontAttributeName : [UIFont systemFontOfSize:20.0]
+    };
+    model.navTitle = [[NSAttributedString alloc] initWithString:@"一键登录" attributes:attributes];
+    model.navBackImage = [UIImage imageNamed:@"icon_nav_back_light"];
+    model.logoImage = [UIImage imageNamed:@"taobao"];
+    model.changeBtnIsHidden = YES;
+    model.privacyOne = @[@"协议1", @"https://www.taobao.com"];
+    
+    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        frame.size.width = 80;
+        frame.size.height = 80;
+        frame.origin.y = screenSize.height > screenSize.width ? 30 : 15;
+        frame.origin.x = (superViewSize.width - 80) * 0.5;
+        return frame;
+    };
+    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.size.width = superViewSize.width - 40;
+            frame.size.height = 20;
+            frame.origin.x = 20;
+            frame.origin.y = 20 + 80 + 20;
+            return frame;
+        } else {
+            return CGRectZero;
+        }
+    };
+    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.origin.y = 130 + 20 + 15;
+        } else {
+            frame.origin.y = 15 + 80 + 15;
+        }
+        return frame;
+    };
+    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.origin.y = 170 + 30 + 20;
+        } else {
+            frame.origin.y = 110 + 30 + 20;
+        }
+        return frame;
+    };
+    
+//    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [button1 setTitle:button1Title forState:UIControlStateNormal];
+//    [button1 addTarget:target1 action:selector1 forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [button2 setTitle:button2Title forState:UIControlStateNormal];
+//    [button2 addTarget:target2 action:selector2 forControlEvents:UIControlEventTouchUpInside];
+    
+//    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+//        [superCustomView addSubview:button1];
+//        [superCustomView addSubview:button2];
+//    };
+//    model.customViewLayoutBlock = ^(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame) {
+//        if (screenSize.height > screenSize.width) {
+//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(loginFrame) + 20,
+//                                       CGRectGetWidth(loginFrame),
+//                                       30);
+//
+//            button2.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(button1.frame) + 15,
+//                                       CGRectGetWidth(loginFrame),
+//                                       30);
+//        } else {
+//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(loginFrame) + 20,
+//                                       CGRectGetWidth(loginFrame) * 0.5,
+//                                       30);
+//
+//            button2.frame = CGRectMake(CGRectGetMaxX(button1.frame),
+//                                       CGRectGetMinY(button1.frame),
+//                                       CGRectGetWidth(loginFrame) * 0.5,
+//                                       30);
+//        }
+//    };
+    return model;
+}
+
++ (TXCustomModel *)buildAlertAutorotateMode:(NSDictionary *)dict
+                                                    target:(id)target
+                                                  selector:(SEL)selector {
+    TXCustomModel *model = [[TXCustomModel alloc] init];
+  
+    model.supportedInterfaceOrientations = UIInterfaceOrientationMaskAllButUpsideDown;
+    model.alertCornerRadiusArray = @[@10, @10, @10, @10];
+    model.alertTitleBarColor = [UIColor orangeColor];
+    NSDictionary *attributes = @{
+        NSForegroundColorAttributeName : [UIColor whiteColor],
+        NSFontAttributeName : [UIFont systemFontOfSize:20.0]
+    };
+    model.alertTitle = [[NSAttributedString alloc] initWithString:@"一键登录" attributes:attributes];
+    model.alertCloseImage = [UIImage imageNamed:@"icon_close_light"];
+    model.logoImage = [UIImage imageNamed:@"taobao"];
+    model.sloganIsHidden = YES;
+    model.changeBtnIsHidden = YES;
+    model.privacyOne = @[@"自定义协议", @"https://www.taobao.com"];
+    
+    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.size.width = superViewSize.width * 0.8;
+            frame.size.height = frame.size.width / 0.618;
+        } else {
+            frame.size.height = superViewSize.height * 0.8;
+            frame.size.width = frame.size.height / 0.618;
+        }
+        frame.origin.x = (superViewSize.width - frame.size.width) * 0.5;
+        frame.origin.y = (superViewSize.height - frame.size.height) * 0.5;
+        return frame;
+    };
+    model.logoFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.size.width = 80;
+            frame.size.height = 80;
+            frame.origin.y = 20;
+            frame.origin.x = (superViewSize.width - 80) * 0.5;
+        } else {
+            frame = CGRectZero;
+        }
+        return frame;
+    };
+    model.sloganFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.size.height = 20;
+            frame.size.width = superViewSize.width - 40;
+            frame.origin.x = 20;
+            frame.origin.y = 20 + 80 + 20;
+        } else {
+            frame = CGRectZero;
+        }
+        return frame;
+    };
+    model.numberFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.origin.y = 120 + 20 + 15;
+        } else {
+            frame.origin.y = 30;
+        }
+        return frame;
+    };
+    model.loginBtnFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        if (screenSize.height > screenSize.width) {
+            frame.origin.y = 155 + 20 + 30;
+        } else {
+            frame.origin.y = 30 + 20 + 30;
+        }
+        return frame;
+    };
+    
+//    UIButton *button1 = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [button1 setTitle:button1Title forState:UIControlStateNormal];
+//    [button1 addTarget:target1 action:selector1 forControlEvents:UIControlEventTouchUpInside];
+//
+//    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+//    [button2 setTitle:button2Title forState:UIControlStateNormal];
+//    [button2 addTarget:target2 action:selector2 forControlEvents:UIControlEventTouchUpInside];
+//
+//    model.customViewBlock = ^(UIView * _Nonnull superCustomView) {
+//        [superCustomView addSubview:button1];
+//        [superCustomView addSubview:button2];
+//    };
+//    model.customViewLayoutBlock = ^(CGSize screenSize, CGRect contentViewFrame, CGRect navFrame, CGRect titleBarFrame, CGRect logoFrame, CGRect sloganFrame, CGRect numberFrame, CGRect loginFrame, CGRect changeBtnFrame, CGRect privacyFrame) {
+//        if (screenSize.height > screenSize.width) {
+//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(loginFrame) + 20,
+//                                       CGRectGetWidth(loginFrame),
+//                                       30);
+//
+//            button2.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(button1.frame) + 15,
+//                                       CGRectGetWidth(loginFrame),
+//                                       30);
+//        } else {
+//            button1.frame = CGRectMake(CGRectGetMinX(loginFrame),
+//                                       CGRectGetMaxY(loginFrame) + 20,
+//                                       CGRectGetWidth(loginFrame) * 0.5,
+//                                       30);
+//
+//            button2.frame = CGRectMake(CGRectGetMaxX(button1.frame),
+//                                       CGRectGetMinY(button1.frame),
+//                                       CGRectGetWidth(loginFrame) * 0.5,
+//                                       30);
+//        }
+//    };
+    return model;
+}
+
++ (TXCustomModel *)buildAlertDropDownModel:(NSDictionary *)dict
+                                                   target:(id)target
+                                                 selector:(SEL)selector {
+    
+    TXCustomModel *model = [self buildAlertPortraitMode:dict
+                                                 target:target
+                                               selector:selector];
+    
+    //提前设置好弹窗大小，弹窗是依赖于全屏布局，所以其父视图大小即为屏幕大小
+    CGFloat width = UIScreen.mainScreen.bounds.size.width * 0.8;
+    CGFloat height = width / 0.618;
+    CGFloat x = (UIScreen.mainScreen.bounds.size.width - width) * 0.5;
+    CGFloat y = (UIScreen.mainScreen.bounds.size.height - height) * 0.5;
+    CGRect contentViewFrame = CGRectMake(x, y, width, height);
+    
+    model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+        return contentViewFrame;
+    };
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+    animation.values = @[@(-CGRectGetMaxY(contentViewFrame)), @20, @-10, @0];
+    animation.keyTimes = @[@0, @0.5, @0.75, @1];
+    animation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    animation.duration = 0.25;
+    model.entryAnimation = animation;
+    
+    //背景使用默认的渐变效果，可以省略不写 model.bgEntryAnimation、model.bgExitAnimation
+    return model;
+}
+
++ (TXCustomModel *)buildFadeModel:(NSDictionary *)dict
+                                          target:(id)target
+                                        selector:(SEL)selector {
+    
+    TXCustomModel *model = [self buildFullScreenPortraitModel:dict
+                                                                      target:target
+                                                                    selector:selector];
+    
+    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    entryAnimation.fromValue = @0.5;
+    entryAnimation.toValue = @1;
+    entryAnimation.duration = 0.25;
+    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    model.entryAnimation = entryAnimation;
+    
+    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    exitAnimation.fromValue = @1;
+    exitAnimation.toValue = @0;
+    exitAnimation.duration = 0.25;
+    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    model.exitAnimation = exitAnimation;
+    
+    return model;
+}
+
++ (TXCustomModel *)buildScaleModel:(NSDictionary *)dict
+                                           target:(id)target
+                                         selector:(SEL)selector {
+    
+    TXCustomModel *model = [self buildFullScreenPortraitModel:dict
+                                                                      target:target
+                                                                    selector:selector];
+    
+    CABasicAnimation *entryAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    entryAnimation.fromValue = @0;
+    entryAnimation.toValue = @1;
+    entryAnimation.duration = 0.25;
+    entryAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    model.entryAnimation = entryAnimation;
+    
+    CABasicAnimation *exitAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    exitAnimation.fromValue = @1;
+    exitAnimation.toValue = @0;
+    exitAnimation.duration = 0.25;
+    exitAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    model.exitAnimation = exitAnimation;
     
     return model;
 }
@@ -1961,6 +2023,39 @@
     return [UIColor colorWithRed:((float)((hex & 0xFF0000) >> 16))/255.0 green:((float)((hex & 0xFF00) >> 8))/255.0 blue:((float)(hex & 0xFF))/255.0 alpha:alpha];
 }
 
++ (void) clickAllScreen:(UITapGestureRecognizer *) recognizer {
+  NSLog(@"点击事件屏蔽");
+}
+
+#pragma mark 处理参数
+/**
+ * 处理参数，对参数进行处理包含color、Path
+ * @param parmas 字典数据
+ * @return 处理后的数据
+ */
++ (NSDictionary *) formatParmas: (NSDictionary *)parmas{
+  NSArray *keysArray = [parmas allKeys];
+  for (int i = 0; i < keysArray.count; i++) {
+    NSString *key = keysArray[i];
+    NSString *value = parmas[key];
+    //根据键值处理字典中的每一项
+    if ([key containsString: @"color"] && [value containsString: @"#"])
+    {
+      [parmas setValue: [self getColor: value] forKey: key];
+    }
+    // 判断是否时路径字段
+    // 排除按钮状态的背景logBtnBackgroundPath
+    else if (
+       ![key containsString: @"logBtnBackgroundPath"] &&
+       ([key containsString: @"path"] || [key containsString: @"Path"]) &&
+       ![value containsString: @"http"] && ![value isEqual: nil] && ![value isEqual: @""])
+    {
+      [parmas setValue: [self changeUriToPath: value] forKey: key];
+    }
+  }
+  
+  return parmas;
+}
 
 #pragma mark  ======获取flutterVc========
 +(FlutterViewController *)flutterVC{
