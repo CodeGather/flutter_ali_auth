@@ -6,6 +6,7 @@
 * Update web sdk to 2.1.4
 * fastjson2 -> 2.0.51.android5
 * Fix the protocol details navigation parameter privacyNavColor in iOS bottom pop-up mode privacyNavBackImage、privacyNavTitleFont、privacyNavTitleColor
+* Please note that the following content needs to be added to gradle. properties under the project, as detailed in the demo: org. gradle. jvmargs=- Xmx1536M - Dfile. encoding=UTF-8-- add open=Java. base/Java. io=ALL UNNAMED
 
 ## 1.2.5
 * Fix dialogHeight、alertCloseImageX、alertCloseImageY、alertCloseImageW、alertCloseImageH field
