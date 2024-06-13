@@ -7,8 +7,8 @@ import android.util.Log;
 
 import androidx.annotation.IntRange;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.mobile.auth.gatewayauth.AuthUIConfig;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.mobile.auth.gatewayauth.PreLoginResultListener;
@@ -19,7 +19,6 @@ import com.sean.rao.ali_auth.common.LoginParams;
 import com.sean.rao.ali_auth.config.BaseUIConfig;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import io.flutter.plugin.common.EventChannel;
