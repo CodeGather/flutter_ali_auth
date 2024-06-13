@@ -1198,6 +1198,16 @@
     /// 协议
   
   
+    /// 协议页面导航设置
+    model.privacyNavColor =  [self getColor: [viewConfig stringValueForKey: @"webNavColor" defaultValue: @"#000000"]];
+    UIImage * privacyNavBackImage = [self changeUriPathToImage: [viewConfig stringValueForKey: @"webNavReturnImgPath" defaultValue: nil]];
+    if(privacyNavBackImage != nil){
+    model.privacyNavBackImage = privacyNavBackImage;
+    }
+    model.privacyNavTitleFont = [UIFont systemFontOfSize: [viewConfig floatValueForKey: @"webNavTextSize" defaultValue: 18]];
+    model.privacyNavTitleColor = [self getColor: [viewConfig stringValueForKey: @"webNavTextColor" defaultValue: @"#000000"]];
+
+  
     /// 授权页面配置
     model.contentViewFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
         frame.size.width = superViewSize.width;

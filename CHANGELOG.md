@@ -4,6 +4,7 @@
 * Update android sdk to 2.13.10
 * Update ios sdk to 2.13.10
 * Update web sdk to 2.1.4
+* Fix the protocol details navigation parameter privacyNavColor in iOS bottom pop-up mode privacyNavBackImage、privacyNavTitleFont、privacyNavTitleColor
 
 ## 1.2.5
 * Fix dialogHeight、alertCloseImageX、alertCloseImageY、alertCloseImageW、alertCloseImageH field
