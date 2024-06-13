@@ -4,6 +4,7 @@
 * Update android sdk to 2.13.10
 * Update ios sdk to 2.13.10
 * Update web sdk to 2.1.4
+* fastjson2 -> 2.0.51.android5
 * Fix the protocol details navigation parameter privacyNavColor in iOS bottom pop-up mode privacyNavBackImage、privacyNavTitleFont、privacyNavTitleColor
 
 ## 1.2.5
