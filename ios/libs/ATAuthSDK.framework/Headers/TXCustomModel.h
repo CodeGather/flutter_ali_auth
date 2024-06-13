@@ -74,6 +74,9 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 /** 构建标题栏右侧关闭按钮的frame，view布局或布局发生变化时调用，不实现则按默认处理 */
 @property (nonatomic, copy) PNSBuildFrameBlock alertCloseItemFrameBlock;
 
+/** 弹窗位置是否根据键盘弹起关闭动态调整，仅在键盘弹起后遮挡弹窗的情况生效，调整后弹窗将居于键盘上方，默认NO*/
+@property (nonatomic, assign) BOOL alertFrameChangeWithKeyboard;
+
 #pragma mark- 导航栏（只对全屏模式有效）
 /**授权页显示中，导航栏是否隐藏，默认NO*/
 @property (nonatomic, assign) BOOL navIsHidden;
