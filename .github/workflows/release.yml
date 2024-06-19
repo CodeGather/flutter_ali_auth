@@ -15,7 +15,7 @@ jobs:
       discussions: write
     steps:
       # 拉取项目代码
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # 建立 java 环境
       - name: Setup Java JDK
         uses: actions/setup-java@v3

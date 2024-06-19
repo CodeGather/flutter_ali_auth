@@ -127,9 +127,10 @@ dependencies:
 
 <img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_al.jpg" width="200"><img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_wx.jpg" width="222">  
 
-## QQ交流群
+## 知识星球
+### 为了不浪费大家宝贵的时间，也迫于现实的压力，如果你想获取更优质的服务欢迎加入知识星球，提供的服务远比一杯咖啡更有性价比
 
-<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/play_qq.jpg" width="200">  
+<img src="https://raw.githubusercontent.com/CodeGather/flutter_ali_auth/master/screenshots/zsxq.png" width="400">  
 
 ## 关注趋势
 
