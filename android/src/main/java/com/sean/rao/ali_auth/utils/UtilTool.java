@@ -153,8 +153,9 @@ public class UtilTool {
   public static JSONObject resultFormatData(String code, @Nullable String msg, @Nullable Object jsonDataObj){
     JSONObject jsonObj = new JSONObject();
     jsonObj.put("code", code);
-    jsonObj.put("data", jsonDataObj);
     jsonObj.put("msg", msg != null && !msg.isEmpty() ? msg : StatusAll.getName(code));
+    jsonObj.put("data", jsonDataObj != null ? jsonDataObj : "");
+    jsonObj.put("isChecked", false);
     return jsonObj;
   }
 }

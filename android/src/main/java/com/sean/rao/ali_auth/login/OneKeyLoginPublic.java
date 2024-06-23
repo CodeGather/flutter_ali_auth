@@ -1,7 +1,6 @@
 package com.sean.rao.ali_auth.login;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 
@@ -19,6 +18,8 @@ import com.sean.rao.ali_auth.common.LoginParams;
 import com.sean.rao.ali_auth.config.BaseUIConfig;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import io.flutter.plugin.common.EventChannel;
@@ -28,15 +29,6 @@ import io.flutter.plugin.common.EventChannel;
  */
 public class OneKeyLoginPublic extends LoginParams {
     private static final String TAG = OneKeyLoginPublic.class.getSimpleName();
-    public TokenResultListener mTokenResultListener;
-
-    public Activity mActivity;
-    public Context mContext;
-    public BaseUIConfig mUIConfig;
-    public JSONObject jsonObject;
-    public EventChannel.EventSink eventSink;
-    public boolean sdkAvailable = true;
-    public AuthUIConfig.Builder config;
 
     public OneKeyLoginPublic(Activity activity, EventChannel.EventSink _eventSink, Object arguments){
         mActivity = activity;
@@ -47,10 +39,11 @@ public class OneKeyLoginPublic extends LoginParams {
 
         // 初始化SDK
         sdkInit();
-        mUIConfig = BaseUIConfig.init(jsonObject.getIntValue("pageType"), mActivity, _eventSink, jsonObject, config, mPhoneNumberAuthHelper);
+        mUIConfig = BaseUIConfig.init(jsonObject.getIntValue("pageType"));
         if (jsonObject.getBooleanValue("isDelay")) {
         } else {
             // 非延时的情况下需要判断是否给予登录
+            mAuthHelper.quitLoginPage();
             oneKeyLogin();
         }
     }
@@ -59,7 +52,7 @@ public class OneKeyLoginPublic extends LoginParams {
      * 初始化SDK
      */
     private void sdkInit() {
-        mTokenResultListener = new TokenResultListener() {
+        mTokenResultListener=new TokenResultListener() {
             @Override
             public void onTokenSuccess(String s) {
                 sdkAvailable = true;
@@ -75,38 +68,41 @@ public class OneKeyLoginPublic extends LoginParams {
 
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i("TAG", "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.setAuthListener(null);
+                        mAuthHelper.setAuthListener(null);
                         if (jsonObject.getBooleanValue("autoQuitPage")) {
-                            mPhoneNumberAuthHelper.quitLoginPage();
+                            mAuthHelper.quitLoginPage();
                         }
                     }
-                    eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), null, tokenRet.getToken()));
+                    showResult(tokenRet.getCode(), null, tokenRet.getToken());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
             }
 
             @Override
             public void onTokenFailed(String s) {
                 sdkAvailable = false;
-                mPhoneNumberAuthHelper.hideLoginLoading();
+                mAuthHelper.hideLoginLoading();
                 Log.e(TAG, "获取token失败：" + s);
                 try {
                     TokenRet tokenRet = TokenRet.fromJson(s);
-                    eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), tokenRet.getMsg(),null));
+                    List<String> skip = Collections.singletonList(ResultCode.CODE_ERROR_USER_SWITCH);
+                    if (!skip.contains(tokenRet.getCode())) {
+                        showResult(tokenRet.getCode(), tokenRet.getMsg(),null);
+                    }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
-                mPhoneNumberAuthHelper.setAuthListener(null);
+                mAuthHelper.setAuthListener(null);
             }
         };
-        mPhoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(mContext, mTokenResultListener);
-        mPhoneNumberAuthHelper.getReporter().setLoggerEnable(jsonObject.getBooleanValue("isDebug"));
-        mPhoneNumberAuthHelper.setAuthSDKInfo(jsonObject.getString("androidSk"));
+        mAuthHelper=PhoneNumberAuthHelper.getInstance(mContext, mTokenResultListener);
+        mAuthHelper.getReporter().setLoggerEnable(jsonObject.getBooleanValue("isDebug"));
+        mAuthHelper.setAuthSDKInfo(jsonObject.getString("androidSk"));
 
         /// 延时的情况下进行预取号，加快拉取授权页面
         if (jsonObject.getBooleanValue("isDelay")) {
-            mPhoneNumberAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
+            mAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
         }
     }
 
@@ -116,6 +112,7 @@ public class OneKeyLoginPublic extends LoginParams {
      */
     public void startLogin(int timeout){
         if (sdkAvailable) {
+            mAuthHelper.quitLoginPage();
             getLoginToken(timeout);
         } else {
             //如果环境检查失败 使用其他登录方式
@@ -128,17 +125,17 @@ public class OneKeyLoginPublic extends LoginParams {
      * @return CMCC(移动)、CUCC(联通)、CTCC(电信)
      */
     public String getCurrentCarrierName(){
-        return mPhoneNumberAuthHelper.getCurrentCarrierName();
+        return mAuthHelper.getCurrentCarrierName();
     }
 
     /**
      * 进入app就需要登录的场景使用
      */
     private void oneKeyLogin() {
-        mPhoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(mActivity.getApplicationContext(), mTokenResultListener);
-        mPhoneNumberAuthHelper.checkEnvAvailable(2);
+        mAuthHelper = PhoneNumberAuthHelper.getInstance(mActivity.getApplicationContext(), mTokenResultListener);
+        mAuthHelper.checkEnvAvailable(2);
         mUIConfig.configAuthPage();
-        mPhoneNumberAuthHelper.getLoginToken(mContext, 5000);
+        mAuthHelper.getLoginToken(mContext, 5000);
     }
 
     /**
@@ -148,11 +145,11 @@ public class OneKeyLoginPublic extends LoginParams {
      * @param timeout
      */
     private void accelerateLoginPage(int timeout) {
-        mPhoneNumberAuthHelper.accelerateLoginPage(timeout, new PreLoginResultListener() {
+        mAuthHelper.accelerateLoginPage(timeout, new PreLoginResultListener() {
             @Override
             public void onTokenSuccess(String s) {
                 Log.e(TAG, "预取号成功: " + s);
-                eventSink.success(UtilTool.resultFormatData("600016", null, s));
+                showResult("600016", null, s);
             }
             @Override
             public void onTokenFailed(String s, String s1) {
@@ -160,7 +157,7 @@ public class OneKeyLoginPublic extends LoginParams {
                 JSONObject jsonDataObj = new JSONObject();
                 jsonDataObj.put("name", s);
                 jsonDataObj.put("name1", s1);
-                eventSink.success(UtilTool.resultFormatData("600012", null, jsonDataObj));
+                showResult("600012", null, jsonDataObj);
             }
         });
     }
@@ -179,16 +176,16 @@ public class OneKeyLoginPublic extends LoginParams {
                     if (ResultCode.CODE_START_AUTHPAGE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i(TAG, "唤起授权页成功：" + s);
                     }
-                    eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), tokenRet.getMsg(), tokenRet.getToken()));
+                    showResult(tokenRet.getCode(), tokenRet.getMsg(),tokenRet.getToken());
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i(TAG, "获取token成功：" + s);
-                        mPhoneNumberAuthHelper.setAuthListener(null);
+                        mAuthHelper.setAuthListener(null);
                         if (jsonObject.getBooleanValue("autoQuitPage")) {
-                            mPhoneNumberAuthHelper.quitLoginPage();
+                            mAuthHelper.quitLoginPage();
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
             }
 
@@ -198,19 +195,19 @@ public class OneKeyLoginPublic extends LoginParams {
                 //如果环境检查失败 使用其他登录方式
                 try {
                     TokenRet tokenRet = TokenRet.fromJson(s);
-                    eventSink.success(UtilTool.resultFormatData(tokenRet.getCode(), tokenRet.getMsg(),null));
+                    showResult(tokenRet.getCode(), tokenRet.getMsg(),null);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
                 // 失败时也不关闭
-                mPhoneNumberAuthHelper.setAuthListener(null);
+                mAuthHelper.setAuthListener(null);
                 if (jsonObject.getBooleanValue("autoQuitPage")) {
-                    mPhoneNumberAuthHelper.quitLoginPage();
+                    mAuthHelper.quitLoginPage();
                 }
             }
         };
-        mPhoneNumberAuthHelper.setAuthListener(mTokenResultListener);
-        mPhoneNumberAuthHelper.getLoginToken(mContext, timeout);
+        mAuthHelper.setAuthListener(mTokenResultListener);
+        mAuthHelper.getLoginToken(mContext, timeout);
     }
 
 
@@ -221,16 +218,15 @@ public class OneKeyLoginPublic extends LoginParams {
      * 600013 系统维护，功能不可⽤
      */
     public void checkEnvAvailable(@IntRange(from = 1, to = 2) int type){
-        mPhoneNumberAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
+        mAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
     }
 
     /**
      * 退出授权页面
      */
     public void quitPage(){
-        mPhoneNumberAuthHelper.quitLoginPage();
+        mAuthHelper.quitLoginPage();
     }
-
 
     /**
      * 处理参数，对参数进行处理包含color、Path
@@ -242,17 +238,22 @@ public class OneKeyLoginPublic extends LoginParams {
         for (Map.Entry<String, Object> entry : formatData.entrySet()) {
             // System.out.println(entry.getKey() + "----" + entry.getValue());
             // 判断是否使眼色代码
-            if ((String.valueOf(entry.getKey()).contains("color") || String.valueOf(entry.getKey()).contains("Color")) && String.valueOf(entry.getValue()).contains("#")) {
-                formatData.put(String.valueOf(entry.getKey()), Color.parseColor(formatData.getString(entry.getKey().toString())));
+            if (entry.getKey().toLowerCase().contains("color") && String.valueOf(entry.getValue()).contains("#")) {
+                System.out.println(entry.getKey() + "----" + entry.getValue());
+                formatData.put(entry.getKey(), Color.parseColor(formatData.getString(entry.getKey())));
             }
             // 判断是否时路径字段
             // 排除按钮状态的背景logBtnBackgroundPath
             else if (
-                    !String.valueOf(entry.getKey()).contains("logBtnBackgroundPath") &&
-                            (String.valueOf(entry.getKey()).contains("path") || String.valueOf(entry.getKey()).contains("Path")) &&
-                            !formatData.getString(entry.getKey().toString()).isEmpty() &&
-                            !formatData.getString(entry.getKey().toString()).contains("http")) {
-                formatData.put(String.valueOf(entry.getKey()), UtilTool.flutterToPath(formatData.getString(entry.getKey().toString())));
+                    !entry.getKey().contains("logBtnBackgroundPath") &&
+                    entry.getKey().toLowerCase().contains("path") &&
+                    !formatData.getString(entry.getKey()).isEmpty() &&
+                    !formatData.getString(entry.getKey()).contains("http")
+            ) {
+                formatData.put(entry.getKey(), UtilTool.flutterToPath(formatData.getString(entry.getKey())));
+            } else {
+                System.out.println(entry.getKey() + "--------------" + entry.getValue());
+                formatData.put(entry.getKey(), entry.getValue());
             }
         }
 

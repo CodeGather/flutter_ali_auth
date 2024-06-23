@@ -29,14 +29,8 @@ import io.flutter.plugin.common.EventChannel;
  */
 public class CustomAuthUIControlClickListener extends LoginParams implements AuthUIControlClickListener {
   private final String TAG = "CustomAuth: ";
-  public PhoneNumberAuthHelper mAuthHelper;
-  public AuthUIConfig.Builder autoConfig;
-  public EventChannel.EventSink eventSink;
 
-  public CustomAuthUIControlClickListener(EventChannel.EventSink _eventSink, AuthUIConfig.Builder _config, PhoneNumberAuthHelper _authHelper) {
-    eventSink = _eventSink;
-    autoConfig = _config;
-    mAuthHelper = _authHelper;
+  public CustomAuthUIControlClickListener() {
   }
 
   @Override
@@ -55,6 +49,7 @@ public class CustomAuthUIControlClickListener extends LoginParams implements Aut
       //点击授权页默认样式的切换其他登录方式 会关闭授权页
       //如果不希望关闭授权页那就setSwitchAccHidden(true)隐藏默认的  通过自定义view添加自己的
       case ResultCode.CODE_ERROR_USER_SWITCH:
+        mAuthHelper.quitLoginPage();
         Log.e(TAG, "点击了授权页默认切换其他登录方式");
         break;
       //点击一键登录按钮会发出此回调
@@ -66,6 +61,7 @@ public class CustomAuthUIControlClickListener extends LoginParams implements Aut
       case ResultCode.CODE_ERROR_USER_CHECKBOX:
         isChecked = jsonDataObj.getBooleanValue("isChecked");
         Log.e(TAG, "checkbox状态变为" + jsonDataObj.getBooleanValue("isChecked"));
+        jsonDataObj = null;
         break;
       //点击协议栏触发此回调
       case ResultCode.CODE_ERROR_USER_PROTOCOL_CONTROL:
@@ -74,6 +70,6 @@ public class CustomAuthUIControlClickListener extends LoginParams implements Aut
       default:
         break;
     }
-    eventSink.success(UtilTool.resultFormatData(code, null, jsonDataObj));
+    showResult(code, null, jsonDataObj);
   }
 }

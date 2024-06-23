@@ -21,8 +21,8 @@ public class FullLandConfig extends BaseUIConfig {
 
     private int mOldScreenOrientation;
 
-    public FullLandConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public FullLandConfig() {
+        super();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class FullLandConfig extends BaseUIConfig {
         }
         updateScreenSize(authPageOrientation);
 
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 
     @Override

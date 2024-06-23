@@ -68,7 +68,7 @@
            android:exported="false"
            android:launchMode="singleTop"
            android:screenOrientation="behind"
-           android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+           android:theme="@style/authsdk_activity_dialog"/>
 
        <!--移动授权页-->
        <activity

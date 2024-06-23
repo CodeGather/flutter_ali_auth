@@ -70,30 +70,23 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * @CreateDate: 2021/4/29 4:53 PM
  * @Version: 1.0
  */
-public class NativeBackgroundAdapter {
+public class NativeBackgroundAdapter extends LoginParams{
     private volatile OnGifListener onGifListener;
     private volatile GifAnimationDrawable gifAnimationDrawable;
     private CacheManage mCacheManage;
     private ExecutorService mExecutorService;
     private String key, path;
-    private JSONObject jsonObject;
-    private PhoneNumberAuthHelper authHelper;
-    private EventChannel.EventSink eventSink;
 
-    public NativeBackgroundAdapter(CacheManage cacheManage, ExecutorService executorService, final Context context,
-                                   String key, JSONObject jsonObject, EventChannel.EventSink _eventSink, PhoneNumberAuthHelper authHelper) {
+    public NativeBackgroundAdapter(CacheManage cacheManage, ExecutorService executorService, String key) {
         this.key = key;
-        this.jsonObject = jsonObject;
-        this.authHelper = authHelper;
-        this.eventSink = _eventSink;
-        this.path = jsonObject.getString("backgroundPath");
+        this.path = jsonObject.getString("pageBackgroundPath");
         mCacheManage = cacheManage;
         mExecutorService = executorService;
         mCacheManage.checkAndCreateBitmapCache();
 
         if ("gifPath".equals(key)) {
             if (null == mCacheManage.getBitmap(path)) {
-                getAssetGifFirstFrame(context, path);
+                getAssetGifFirstFrame(mContext, path);
             }
         }
         
@@ -102,7 +95,7 @@ public class NativeBackgroundAdapter {
                 mExecutorService.execute(new Runnable() {
                     @Override
                     public void run() {
-                        Bitmap bitmap = getAssetVideoCoverBitmap(context.getAssets(), path);
+                        Bitmap bitmap = getAssetVideoCoverBitmap(mContext.getAssets(), path);
                         if(null!=bitmap) {
                             mCacheManage.cacheBitmap(path, bitmap);
                         }
@@ -550,7 +543,7 @@ public class NativeBackgroundAdapter {
                 );
                 imageButton.setOnClickListener(v -> {
                     eventSink.success(UtilTool.resultFormatData("700000", null, null));
-                    authHelper.quitLoginPage();
+                    mAuthHelper.quitLoginPage();
                 });
 
                 linearLayout.addView(imageButton, buttonParams);

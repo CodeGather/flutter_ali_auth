@@ -1,5 +1,5 @@
 PODS:
-  - ali_auth (1.2.5):
+  - ali_auth (1.2.6):
     - Flutter
     - MBProgressHUD
     - MJExtension
@@ -28,7 +28,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  ali_auth: cbc262bde8b7a5436d9a4eb74f3200cffdf1b334
+  ali_auth: a0548a983a855f494d51af9f65ba02a24deb5104
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961

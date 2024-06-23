@@ -13,5 +13,5 @@ package com.sean.rao.ali_auth.common;
  * @Version: 1.0
  */
 public interface OnListener {
-  void CallBack(Boolean status);
+  void CallBack(boolean status);
 }

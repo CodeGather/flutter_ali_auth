@@ -40,17 +40,17 @@ public class CustomAssetsConfig extends BaseUIConfig {
     private CacheManage mCacheManage;
     private ExecutorService mThreadExecutor;
     private NativeBackgroundAdapter nativeBackgroundAdapter;
-    public CustomAssetsConfig(Activity activity, JSONObject jsonObject, EventChannel.EventSink _eventSink, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public CustomAssetsConfig() {
+        super();
         String fileType = "imagePath";
-        if (jsonObject.getString("backgroundPath") != null && !jsonObject.getString("backgroundPath").equals("")) {
-            if (MediaFileUtil.isImageGifFileType(jsonObject.getString("backgroundPath"))) {
+        if (jsonObject.getString("pageBackgroundPath") != null && !jsonObject.getString("pageBackgroundPath").isEmpty()) {
+            if (MediaFileUtil.isImageGifFileType(jsonObject.getString("pageBackgroundPath"))) {
                 fileType = "gifPath";
-            } else if (MediaFileUtil.isVideoFileType(jsonObject.getString("backgroundPath"))) {
+            } else if (MediaFileUtil.isVideoFileType(jsonObject.getString("pageBackgroundPath"))) {
                 fileType = "videoPath";
             }
         }
-        mCacheManage=new CacheManage(activity.getApplication());
+        mCacheManage=new CacheManage(mActivity.getApplication());
         mThreadExecutor=new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(),
             Runtime.getRuntime().availableProcessors(),
             0, 
@@ -58,7 +58,7 @@ public class CustomAssetsConfig extends BaseUIConfig {
             new ArrayBlockingQueue<Runnable>(10),
             new ThreadPoolExecutor.CallerRunsPolicy()
         );
-        nativeBackgroundAdapter = new NativeBackgroundAdapter(mCacheManage, mThreadExecutor, activity, fileType, jsonObject, _eventSink, authHelper);
+        nativeBackgroundAdapter = new NativeBackgroundAdapter(mCacheManage, mThreadExecutor, fileType);
     }
     @Override
     public void configAuthPage() {
@@ -88,6 +88,6 @@ public class CustomAssetsConfig extends BaseUIConfig {
                 .setRootViewId(AuthRegisterViewConfig.RootViewId.ROOT_VIEW_ID_BODY)
                 .build());
 
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 }

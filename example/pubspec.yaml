@@ -58,7 +58,9 @@ flutter:
   assets:
     - assets/
     - assets/logo.png
-    - assets/background_gif.gif
+    - assets/icon_close.png
+    - assets/return_btn.png
+    - assets/return_btn_fill.png
     - assets/background_gif.gif
     - assets/background_gif1.gif
     - assets/background_gif2.gif

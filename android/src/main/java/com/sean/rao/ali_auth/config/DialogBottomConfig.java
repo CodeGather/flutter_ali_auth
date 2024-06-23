@@ -28,8 +28,8 @@ import io.flutter.plugin.common.EventChannel;
 
 public class DialogBottomConfig extends BaseUIConfig {
 
-    public DialogBottomConfig(Activity activity, EventChannel.EventSink eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, eventSink, jsonObject, config, authHelper);
+    public DialogBottomConfig() {
+        super();
     }
 
     @Override
@@ -53,12 +53,13 @@ public class DialogBottomConfig extends BaseUIConfig {
             try {
                 RoundedBitmapDrawable pageBackgroundDrawable = RoundedBitmapDrawableFactory.create(mContext.getResources(), UtilTool.getPathToBitmap(mContext, jsonObject.getString("pageBackgroundPath")));
                 pageBackgroundDrawable.setCornerRadius(AppUtils.dp2px(mContext, jsonObject.getIntValue("pageBackgroundRadius")));
-                autoConfig.setPageBackgroundDrawable(pageBackgroundDrawable);
+                config.setPageBackgroundDrawable(pageBackgroundDrawable);
             } catch (IOException e) {
-                eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+                // eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+                showResult("500000", "背景处理时出现错误", e.getMessage());
             }
         }
 
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 }

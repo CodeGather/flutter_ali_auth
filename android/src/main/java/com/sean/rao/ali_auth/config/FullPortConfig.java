@@ -15,13 +15,13 @@ import io.flutter.plugin.common.EventChannel;
 public class FullPortConfig extends BaseUIConfig {
     private final String TAG = "全屏竖屏样式";
 
-    public FullPortConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public FullPortConfig() {
+        super();
     }
 
     @Override
     public void configAuthPage() {
-        mAuthHelper.setUIClickListener(new CustomAuthUIControlClickListener(eventSink, autoConfig, mAuthHelper));
+        mAuthHelper.setUIClickListener(new CustomAuthUIControlClickListener());
         //添加自定义切换其他登录方式
         mAuthHelper.addAuthRegistViewConfig("switch_msg", new AuthRegisterViewConfig.Builder()
                 .setView(initSwitchView(420))
@@ -41,6 +41,6 @@ public class FullPortConfig extends BaseUIConfig {
         if (Build.VERSION.SDK_INT == 26) {
             authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
         }
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 }

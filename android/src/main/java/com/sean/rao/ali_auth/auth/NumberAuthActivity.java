@@ -21,7 +21,7 @@ import com.sean.rao.ali_auth.utils.ExecutorManager;
 
 public class NumberAuthActivity extends Activity {
     private static final String TAG = NumberAuthActivity.class.getSimpleName();
-    private PhoneNumberAuthHelper mPhoneNumberAuthHelper;
+    private PhoneNumberAuthHelper mAuthHelper;
     private TokenResultListener mVerifyListener;
     private Button mAuthButton;
     private EditText mNumberEt;
@@ -60,9 +60,9 @@ public class NumberAuthActivity extends Activity {
                     if (ResultCode.CODE_SUCCESS.equals(pTokenRet.getCode()) && !TextUtils.isEmpty(pTokenRet.getToken())) {
                         getResultWithToken(pTokenRet.getToken(), phoneNumber);
                     }
-                    mPhoneNumberAuthHelper.setAuthListener(null);
+                    mAuthHelper.setAuthListener(null);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
             }
 
@@ -77,10 +77,10 @@ public class NumberAuthActivity extends Activity {
                         finish();
                     }
                 });
-                mPhoneNumberAuthHelper.setAuthListener(null);
+                mAuthHelper.setAuthListener(null);
             }
         };
-        mPhoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(getApplicationContext(), mVerifyListener);
+        mAuthHelper = PhoneNumberAuthHelper.getInstance(getApplicationContext(), mVerifyListener);
     }
 
     /**
@@ -89,7 +89,7 @@ public class NumberAuthActivity extends Activity {
      * @param timeout
      */
     public void accelerateVerify(int timeout) {
-        mPhoneNumberAuthHelper.accelerateVerify(timeout, new PreLoginResultListener() {
+        mAuthHelper.accelerateVerify(timeout, new PreLoginResultListener() {
             @Override
             public void onTokenSuccess(String vendor) {
                 //成功时返回运营商简称
@@ -104,8 +104,8 @@ public class NumberAuthActivity extends Activity {
     }
 
     public void numberAuth(int timeout) {
-        mPhoneNumberAuthHelper.setAuthListener(mVerifyListener);
-        mPhoneNumberAuthHelper.getVerifyToken(timeout);
+        mAuthHelper.setAuthListener(mVerifyListener);
+        mAuthHelper.getVerifyToken(timeout);
     }
 
     public void getResultWithToken(final String token, final String phoneNumber) {
@@ -126,8 +126,6 @@ public class NumberAuthActivity extends Activity {
             }
         });
     }
-
-
 
     public void showLoadingDialog(String hint) {
         if (mProgressDialog == null) {

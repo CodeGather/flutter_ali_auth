@@ -1,5 +1,11 @@
 #
 
+## 1.2.7
+* Add return parameter isChecked
+* Unified background parameter pageBackgroundPath
+* Optimize unified configuration of iOS code parameters
+* Fix the issue of Android physical buttons not being able to be reopened after returning
+
 ## 1.2.6
 * Update android sdk to 2.13.10
 * Update ios sdk to 2.13.10

@@ -12,6 +12,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 
+import androidx.annotation.NonNull;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,7 +40,7 @@ public class GifAnimationDrawable extends Drawable implements Runnable, Animatab
     private Bitmap mBitmap;
 
     @Override
-    protected void onBoundsChange(Rect bounds) {
+    protected void onBoundsChange(@NonNull Rect bounds) {
         super.onBoundsChange(bounds);
         mApplyGravity = true;
     }
@@ -67,7 +69,7 @@ public class GifAnimationDrawable extends Drawable implements Runnable, Animatab
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         if (mBitmap == null) {
             Log.e(TAG, "bmp is invalid");
             return;
@@ -167,7 +169,7 @@ public class GifAnimationDrawable extends Drawable implements Runnable, Animatab
     }
 
     @Override
-    public void unscheduleSelf(Runnable what) {
+    public void unscheduleSelf(@NonNull Runnable what) {
         mCurFrame = -1;
         preloadFirstFrame();
         super.unscheduleSelf(what);

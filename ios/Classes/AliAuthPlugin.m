@@ -101,9 +101,7 @@ bool bool_false = false;
     if (_eventSink == nil) {
       result(@{ @"code": @"500001", @"msg": @"请先对插件进行监听！" });
     } else {
-      if (_model == nil || ![call.arguments boolValueForKey: @"isDelay" defaultValue: NO]) {
-        [self initSdk];
-      }
+      [self initSdk];
     }
   }
   // 延时登录获取非延时登录
@@ -113,7 +111,7 @@ bool bool_false = false;
       [self showResult: dict];
       return;
     }
-    self->_isChecked = NO;
+    self->_isChecked = [_callData.arguments boolValueForKey: @"privacyState" defaultValue: NO];
     [self loginWithModel: _model complete:^{}];
   }
   else if ([@"checkEnvAvailable" isEqualToString:call.method]) {
@@ -409,8 +407,10 @@ bool bool_false = false;
 
 -(void) resultData:(NSDictionary *)dict{
   if (_eventSink != nil) {
-       _eventSink(dict);
-    }
+    NSMutableDictionary *mutableDict = [dict mutableCopy];
+    [mutableDict setObject: self->_isChecked ? @(bool_true):@(bool_false) forKey: @"isChecked"];
+    _eventSink(mutableDict);
+  }
 }
 
 #pragma mark -  格式化数据utils返回数据

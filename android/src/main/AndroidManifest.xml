@@ -24,5 +24,16 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="adjustResize"
             android:usesCleartextTraffic="true"/>
+
+        <!--二次弹窗-->
+        <activity
+            android:name="com.mobile.auth.gatewayauth.PrivacyDialogActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            tools:replace="android:configChanges"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@style/authsdk_activity_dialog"/>
+
     </application>
 </manifest>

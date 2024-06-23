@@ -31,54 +31,46 @@ import java.io.IOException;
 import io.flutter.plugin.common.EventChannel;
 
 public abstract class BaseUIConfig extends LoginParams {
-    public Activity mActivity;
-    public Context mContext;
-    public PhoneNumberAuthHelper mAuthHelper;
     public int mScreenWidthDp;
     public int mScreenHeightDp;
-    public AuthUIConfig.Builder autoConfig;
-    public EventChannel.EventSink eventSink;
-    public JSONObject jsonObject;
 
-    public static BaseUIConfig init(int type, Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
+    public static BaseUIConfig init(int type) {
         isChecked = false;
         switch (type) {
             case Constant.FULL_PORT:
-                return new FullPortConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new FullPortConfig();
             case Constant.FULL_LAND:
-                return new FullLandConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new FullLandConfig();
             case Constant.DIALOG_PORT:
-                return new DialogPortConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new DialogPortConfig();
             case Constant.DIALOG_LAND:
-                return new DialogLandConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new DialogLandConfig();
             case Constant.DIALOG_BOTTOM:
-                return new DialogBottomConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new DialogBottomConfig();
             case Constant.CUSTOM_XML:
-                return new CustomXmlConfig(activity, _eventSink, jsonObject, config, authHelper);
+                return new CustomXmlConfig();
             default:
-                if (jsonObject.getString("backgroundPath") != null && !jsonObject.getString("backgroundPath").equals("")) {
-                    if (jsonObject.getString("backgroundPath").equals("xml")) {
-                        return new CustomXmlConfig(activity, _eventSink, jsonObject, config, authHelper);
-                    } else if (jsonObject.getString("backgroundPath").equals("view")) {
-                        return new CustomViewConfig(activity, _eventSink, jsonObject, config, authHelper);
+                if (jsonObject.getString("pageBackgroundPath") != null && !jsonObject.getString("pageBackgroundPath").isEmpty()) {
+                    if (jsonObject.getString("pageBackgroundPath").equals("xml")) {
+                        return new CustomXmlConfig();
+                    } else if (jsonObject.getString("pageBackgroundPath").equals("view")) {
+                        return new CustomViewConfig();
                     } else {
-                        return new CustomAssetsConfig(activity, jsonObject, _eventSink, config, authHelper);
+                        return new CustomAssetsConfig();
                     }
                 }
                 return null;
         }
     }
 
-    public BaseUIConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject _jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        mActivity = activity;
-        mContext = activity.getApplicationContext();
-        mAuthHelper = authHelper;
-        autoConfig = config;
-        eventSink = _eventSink;
-        jsonObject = _jsonObject;
 
+    /**
+     * 删除自定义布局参数，防止内存溢出
+     */
+    public BaseUIConfig() {
         // 防止内存泄漏
-        clearCustomConfig();
+        mAuthHelper.removeAuthRegisterXmlConfig();
+        mAuthHelper.removeAuthRegisterViewConfig();
     }
 
     /**
@@ -118,7 +110,6 @@ public abstract class BaseUIConfig extends LoginParams {
                     LinearLayout itemLinearLayout = new LinearLayout(mContext);
                     /// 按钮和文字布局
                     itemLinearLayout.setOrientation(LinearLayout.VERTICAL);
-
                     /// 按钮控件
                     ImageButton itemButton = new ImageButton(mActivity);
                     /// 需要转化路径
@@ -130,7 +121,8 @@ public abstract class BaseUIConfig extends LoginParams {
                                 )
                         );
                     } catch (IOException e) {
-                        eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+                        // eventSink.success(UtilTool.resultFormatData("500000", null, e.getMessage()));
+                        showResult("500000", "出现错误", e.getMessage());
                     }
                     ViewGroup.LayoutParams buttonLayoutParams = new ViewGroup.LayoutParams(
                             AppUtils.dp2px(mContext, customThirdView.getFloatValue("itemWidth") > 0 ? customThirdView.getFloatValue("itemWidth") : 60),
@@ -141,7 +133,8 @@ public abstract class BaseUIConfig extends LoginParams {
                     /// 第三方按钮的点击事件
                     itemButton.setOnClickListener(v -> {
                         // 判断是否隐藏toast
-                        eventSink.success(UtilTool.resultFormatData("600019", null, finalI));
+                        showResult("700005", "点击第三方登录按钮", finalI);
+                        // eventSink.success(UtilTool.resultFormatData("600019", null, finalI));
                         if (!jsonObject.getBooleanValue("isHideToast") && !isChecked) {
                             Toaster.show(jsonObject.getString("toastText"));
                             return;
@@ -151,7 +144,6 @@ public abstract class BaseUIConfig extends LoginParams {
                         }
                     });
                     itemLinearLayout.addView(itemButton);
-
 
                     Object itemName = customThirdViewName.get(i);
                     if (itemName != null && !String.valueOf(itemName).isEmpty()) {
@@ -177,7 +169,6 @@ public abstract class BaseUIConfig extends LoginParams {
                         );
                         linearLayout.addView(space);
                     }
-
                     /// 将item放入布局中
                     linearLayout.addView(itemLinearLayout);
                 }
@@ -187,14 +178,6 @@ public abstract class BaseUIConfig extends LoginParams {
         } else {
             return null;
         }
-    }
-
-    /**
-     * 删除自定义布局参数，防止内存溢出
-     */
-    void clearCustomConfig(){
-        mAuthHelper.removeAuthRegisterXmlConfig();
-        mAuthHelper.removeAuthRegisterViewConfig();
     }
 
     /**
@@ -241,7 +224,5 @@ public abstract class BaseUIConfig extends LoginParams {
      *  在横屏APP弹竖屏一键登录页面或者竖屏APP弹横屏授权页时处理特殊逻辑
      *  Android8.0只能启动SCREEN_ORIENTATION_BEHIND模式的Activity
      */
-    public void onResume() {
-
-    }
+    public void onResume() {}
 }

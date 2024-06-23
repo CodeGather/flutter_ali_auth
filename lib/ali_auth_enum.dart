@@ -15,6 +15,22 @@ enum ScaleType {
   centerInside,
 }
 
+enum ContentMode{
+  scaleToFill,
+  scaleAspectFit,      // contents scaled to fit with fixed aspect. remainder is transparent
+  scaleAspectFill,     // contents scaled to fill with fixed aspect. some portion of content may be clipped.
+  redraw,              // redraw on bounds change (calls -setNeedsDisplay)
+  center,              // contents remain same size. positioned adjusted.
+  top,
+  bottom,
+  left,
+  right,
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+}
+
 enum Gravity { centerHorizntal, left, right }
 
 enum UIFAG {
@@ -40,31 +56,22 @@ enum PNSPresentationDirection {
 enum PageType {
   ///全屏（竖屏）
   fullPort,
-
   ///全屏（横屏）
   fullLand,
-
   ///弹窗（竖屏）
   dialogPort,
-
   ///"弹窗（横屏）
   dialogLand,
-
   ///底部弹窗
   dialogBottom,
-
   ///自定义View
   customView,
-
   ///自定义View（Xml）
   customXml,
-
   /// 自定义背景GIF
   customGif,
-
   /// 自定义背景视频
   customMOV,
-
   /// 自定义背景图片
   customPIC,
 }
@@ -119,19 +126,19 @@ class EnumUtils {
 
 /// 第三方布局实体
 class CustomThirdView {
-  final int? top;
-  final int? right;
-  final int? bottom;
-  final int? left;
-  final int? width;
-  final int? height;
-  final int? space;
-  final int? size;
-  final String? color;
-  final int? itemWidth;
-  final int? itemHeight;
-  final List<String>? viewItemName;
-  final List<String>? viewItemPath;
+  late int? top;
+  late int? right;
+  late int? bottom;
+  late int? left;
+  late int? width;
+  late int? height;
+  late int? space;
+  late int? size;
+  late String? color;
+  late int? itemWidth;
+  late int? itemHeight;
+  late List<String>? viewItemName;
+  late List<String>? viewItemPath;
   CustomThirdView(
       this.top,
       this.right,
@@ -190,14 +197,14 @@ Map<String, dynamic> _$CustomThirdViewToJson(CustomThirdView instance) =>
 
 ///  自定义布局实体
 class CustomView {
-  final int? top;
-  final int? right;
-  final int? bottom;
-  final int? left;
-  final int? width;
-  final int? height;
-  final String? imgPath;
-  final ScaleType? imgScaleType;
+  late int? top;
+  late int? right;
+  late int? bottom;
+  late int? left;
+  late int? width;
+  late int? height;
+  late String? imgPath;
+  late ScaleType? imgScaleType;
   CustomView(this.top, this.right, this.bottom, this.left, this.width,
       this.height, this.imgPath, this.imgScaleType);
 

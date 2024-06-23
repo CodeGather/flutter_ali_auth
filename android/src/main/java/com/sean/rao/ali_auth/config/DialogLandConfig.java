@@ -23,8 +23,8 @@ public class DialogLandConfig extends BaseUIConfig{
     private int mOldScreenOrientation;
 
 
-    public DialogLandConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public DialogLandConfig() {
+        super();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class DialogLandConfig extends BaseUIConfig{
 //                    }
 //                })
 //                .build());
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 
     private ImageView createLandDialogPhoneNumberIcon(int leftMargin) {

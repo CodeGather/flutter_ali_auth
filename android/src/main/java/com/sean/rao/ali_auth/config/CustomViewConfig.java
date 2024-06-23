@@ -26,8 +26,8 @@ import static com.nirvana.tools.core.AppUtils.dp2px;
  */
 public class CustomViewConfig extends BaseUIConfig {
 
-    public CustomViewConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public CustomViewConfig() {
+        super();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CustomViewConfig extends BaseUIConfig {
             authPageOrientation = ActivityInfo.SCREEN_ORIENTATION_BEHIND;
         }
 
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 
     private ImageView initNumberLogoView() {

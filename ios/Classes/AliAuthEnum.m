@@ -51,6 +51,68 @@ static NSDictionary * StatusAll = nil;
   return StatusAll;
 }
 
++ (NSDictionary *)keyPair {
+  return @{
+    /// 1、状态栏
+    @"isStatusBarHidden": @"prefersStatusBarHidden",
+    @"lightColor": @"preferredStatusBarStyle",
+    /// 2、导航栏
+    @"navHidden": @"navIsHidden",
+    @"backgroundColor": @"alertContentViewColor",
+    @"navReturnImgPath": @"navBackImage",
+    @"navReturnHidden": @"hideNavBackItem",
+    /// 3、Logo
+    @"logoImgPath": @"logoImage",
+    @"logoHidden": @"logoIsHidden",
+    /// 4、Slogan
+    @"sloganHidden": @"sloganIsHidden",
+    /// 5、掩码栏
+    @"numberSize": @"numberFont",
+    /// 6、登录按钮
+    /// 7、切换到其他方式
+    @"switchAccHidden": @"changeBtnIsHidden",
+    @"switchAccText": @"changeBtnTitle",
+    /// 9、协议栏
+    @"checkboxHidden": @"checkBoxIsHidden",
+    @"checkBoxHeight": @"checkBoxWH",
+    @"privacyState": @"checkBoxIsChecked", 
+    @"privacyTextSize": @"privacyFont",
+    @"protocolGravity": @"privacyAlignment",
+    @"protocolOwnOneColor": @"privacyOneColor",
+    @"protocolOwnTwoColor": @"privacyTwoColor",
+    @"protocolOwnThreeColor": @"privacyThreeColor",
+    @"protocolOwnColor": @"privacyOperatorColor",
+    @"privacyBefore": @"privacyPreText",
+    @"privacyEnd": @"privacySufText",
+    @"vendorPrivacyPrefix": @"privacyOperatorPreText",
+    @"vendorPrivacySuffix": @"privacyOperatorSufText",
+    @"privacyConectTexts": @"privacyConectTexts",
+    /// 协议详情
+    @"webNavColor": @"privacyNavColor",
+    @"webNavTextColor": @"privacyNavTitleColor",
+    @"webNavTextSize": @"privacyNavTitleFont",
+    @"webNavReturnImgPath": @"privacyNavBackImage",
+    ///
+    @"pageBackgroundPath": @"backgroundImage",
+    /// 弹窗
+    @"dialogCornerRadiusArray": @"alertCornerRadiusArray",
+    @"alertCloseImagePath": @"alertCloseImage",
+    /// 二次
+    @"privacyAlertIsNeedAutoLogin": @"privacyAlertIsNeedAutoLogin",
+    @"privacyAlertTitleTextSize": @"privacyAlertTitleFont",
+    @"privacyAlertContentVerticalMargin": @"privacyAlertLineSpaceDp",
+    @"privacyAlertBtnText": @"privacyAlertBtnContent",
+    @"privacyAlertBtnTextSize": @"privacyAlertButtonFont",
+    @"privacyAlertCloseImagPath": @"privacyAlertCloseButtonImage",
+    @"privacyAlertContentTextSize": @"privacyAlertContentFont",
+    @"privacyAlertBtnBackgroundImgPath": @"privacyAlertBtnBackgroundImages",
+    @"privacyAlertCloseBtnShow": @"privacyAlertCloseButtonIsNeedShow",
+    @"privacyAlertBefore": @"privacyAlertPreText",
+    @"privacyAlertEnd": @"privacyAlertSufText",
+    @"privacyAlertProtocolNameUseUnderLine": @"privacyAlertContentUnderline",
+  };
+}
+
 #pragma mark --枚举，消息提示框的位置
 typedef NS_ENUM(NSInteger, MBProgressHUBPosition) {
     MBProgressHUBPositionTop,            //头部
@@ -58,5 +120,4 @@ typedef NS_ENUM(NSInteger, MBProgressHUBPosition) {
     MBProgressHUBPositionBottom          //底部
 };
 @end
-
 

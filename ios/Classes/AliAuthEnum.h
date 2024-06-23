@@ -10,6 +10,7 @@
 
 @interface AliAuthEnum : NSObject
 + (NSDictionary *)initData;
++ (NSDictionary *)keyPair;
 @end
 // FOUNDATION_EXPORT NSString * const StatusAll;
 
@@ -30,7 +31,7 @@ typedef NS_ENUM(NSUInteger, PNSBuildModelStyle) {
     //DIY 动画
     PNSDIYAlertPortraitFade,
     PNSDIYAlertPortraitDropDown,
-//    PNSDIYAlertPortraitBounce,
+    // PNSDIYAlertPortraitBounce,
 //    PNSDIYPortraitFade,
 //    PNSDIYPortraitScale,
   

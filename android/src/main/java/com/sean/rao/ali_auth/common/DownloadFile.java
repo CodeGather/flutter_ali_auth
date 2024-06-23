@@ -41,10 +41,8 @@ class DownloadFile {
       if (conn.getResponseCode() == 200) {
         inputStream = conn.getInputStream();
       }
-    } catch (ProtocolException e) {
-      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
+      e.fillInStackTrace();
     }
 
     return inputStream;
@@ -68,10 +66,8 @@ class DownloadFile {
         final byte[] data =dataStream.toByteArray();
         bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
       }
-    } catch (ProtocolException e) {
-      e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
+      e.fillInStackTrace();
     }
 
     return bitmap;

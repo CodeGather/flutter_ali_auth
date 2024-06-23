@@ -26,8 +26,8 @@ import io.flutter.plugin.common.EventChannel;
  */
 public class CustomXmlConfig extends BaseUIConfig {
 
-    public CustomXmlConfig(Activity activity, EventChannel.EventSink _eventSink, JSONObject jsonObject, AuthUIConfig.Builder config, PhoneNumberAuthHelper authHelper) {
-        super(activity, _eventSink, jsonObject, config, authHelper);
+    public CustomXmlConfig() {
+        super();
     }
     @Override
     public void configAuthPage() {
@@ -50,7 +50,8 @@ public class CustomXmlConfig extends BaseUIConfig {
                             @Override
                             public void onClick(View v) {
                                 /// 点击关闭按钮
-                                eventSink.success(UtilTool.resultFormatData("700000", null, null));
+                                // eventSink.success(UtilTool.resultFormatData("700000", null, null));
+                                showResult("700000", "点击返回按钮", "");
                                 mAuthHelper.quitLoginPage();
                             }
                         });
@@ -59,13 +60,14 @@ public class CustomXmlConfig extends BaseUIConfig {
                             @Override
                             public void onClick(View v) {
                                 /// 点击切换其他按钮
-                                eventSink.success(UtilTool.resultFormatData("700001", null, null));
+                                showResult("700001", "切换到其他方式", "");
+                                // eventSink.success(UtilTool.resultFormatData("700001", null, null));
                                 mAuthHelper.quitLoginPage();
                             }
                         });
                     }
                 })
                 .build());
-        mAuthHelper.setAuthUIConfig(autoConfig.setScreenOrientation(authPageOrientation).create());
+        mAuthHelper.setAuthUIConfig(config.setScreenOrientation(authPageOrientation).create());
     }
 }

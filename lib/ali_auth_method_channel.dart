@@ -48,7 +48,7 @@ class MethodChannelAliAuth extends AliAuthPlatform {
   /// 使用一键登录传入 SERVICE_TYPE_LOGIN 2  使用号码校验传入 SERVICE_TYPE_AUTH  1 默认值 2
   @override
   Future<dynamic> initSdk(AliAuthModel? config) async {
-    config ??= const AliAuthModel("", "");
+    config ??= AliAuthModel("", "");
     return await methodChannel.invokeMethod("initSdk", config.toJson());
   }
 
