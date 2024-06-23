@@ -57,12 +57,14 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       iosSk =
           "mjWr9sTsoXwmMx7qf0T2KQOQBpqkxeNW9I1ZNZ96ZCeBbeD9xYOUaC2mE9mcqog041VCot2sLcy9UArf+re517e5R9yowKCjf15VglZSP/HweRhOT8Cvci43zagyRqo40l85LTnZ5uJPaVauDLJB7hOTIkNPGm3fb621k6A6ZDh6aDGAKWyy0tPUPV/9RFrfeig9SURNe9Vl/Aok6SKg+SftM30uk2W8wdbV8gMVbU51Odnoapm2ZlAJYmCrdoXvROW5qc8pbQ8=";
 
-      screenWidth = (PlatformDispatcher.instance.views.first.physicalSize.width /
-          PlatformDispatcher.instance.views.first.devicePixelRatio)
-          .floor();
-      screenHeight = (PlatformDispatcher.instance.views.first.physicalSize.height /
-          PlatformDispatcher.instance.views.first.devicePixelRatio)
-          .floor();
+      screenWidth =
+          (PlatformDispatcher.instance.views.first.physicalSize.width /
+                  PlatformDispatcher.instance.views.first.devicePixelRatio)
+              .floor();
+      screenHeight =
+          (PlatformDispatcher.instance.views.first.physicalSize.height /
+                  PlatformDispatcher.instance.views.first.devicePixelRatio)
+              .floor();
       dialogWidth =
           (PlatformDispatcher.instance.views.first.physicalSize.width /
                   PlatformDispatcher.instance.views.first.devicePixelRatio *

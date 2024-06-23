@@ -15,12 +15,12 @@ enum ScaleType {
   centerInside,
 }
 
-enum ContentMode{
+enum ContentMode {
   scaleToFill,
-  scaleAspectFit,      // contents scaled to fit with fixed aspect. remainder is transparent
-  scaleAspectFill,     // contents scaled to fill with fixed aspect. some portion of content may be clipped.
-  redraw,              // redraw on bounds change (calls -setNeedsDisplay)
-  center,              // contents remain same size. positioned adjusted.
+  scaleAspectFit, // contents scaled to fit with fixed aspect. remainder is transparent
+  scaleAspectFill, // contents scaled to fill with fixed aspect. some portion of content may be clipped.
+  redraw, // redraw on bounds change (calls -setNeedsDisplay)
+  center, // contents remain same size. positioned adjusted.
   top,
   bottom,
   left,
@@ -56,22 +56,31 @@ enum PNSPresentationDirection {
 enum PageType {
   ///全屏（竖屏）
   fullPort,
+
   ///全屏（横屏）
   fullLand,
+
   ///弹窗（竖屏）
   dialogPort,
+
   ///"弹窗（横屏）
   dialogLand,
+
   ///底部弹窗
   dialogBottom,
+
   ///自定义View
   customView,
+
   ///自定义View（Xml）
   customXml,
+
   /// 自定义背景GIF
   customGif,
+
   /// 自定义背景视频
   customMOV,
+
   /// 自定义背景图片
   customPIC,
 }
