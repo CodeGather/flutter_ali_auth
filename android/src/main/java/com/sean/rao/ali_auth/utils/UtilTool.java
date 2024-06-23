@@ -114,7 +114,7 @@ public class UtilTool {
       stateListDrawable.addState(new int[]{-android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_b);
       stateListDrawable.addState(new int[]{-android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
     } catch (IOException e) {
-      e.printStackTrace();
+      e.fillInStackTrace();
     }
     return stateListDrawable;
   }

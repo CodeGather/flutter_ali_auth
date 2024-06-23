@@ -78,7 +78,7 @@
            android:exported="false"
            android:launchMode="singleTask"
            android:screenOrientation="behind"
-           android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+           android:theme="@style/authsdk_activity_dialog" />
 
        <!--适配华为（huawei）刘海屏-->
        <meta-data

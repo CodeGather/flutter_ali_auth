@@ -151,7 +151,7 @@ public abstract class BaseUIConfig extends LoginParams {
                         TextView textView = new TextView(mContext);
                         textView.setText(String.valueOf(itemName));
                         // 文字颜色
-                        textView.setTextColor(customThirdView.getString("color") != null && customThirdView.getString("color").isEmpty() ? Color.parseColor(customThirdView.getString("color")) : Color.BLACK);
+                        textView.setTextColor(customThirdView.getString("color") != null && !customThirdView.getString("color").isEmpty() ? Color.parseColor(customThirdView.getString("color")) : Color.BLACK);
                         textView.setTextSize(
                                 TypedValue.COMPLEX_UNIT_SP,
                                 customThirdView.getFloatValue("size") > 0 ? customThirdView.getFloatValue("size") : 14F

@@ -5,6 +5,7 @@
 * 统一背景参数 pageBackgroundPath
 * 优化iOS端代码参数统一配置
 * 修复Android物理按键返回后无法再次打开问题
+* 修复android无法打开二次弹窗的问题
 
 ## 1.2.6
 * 更新android sdk 为 2.13.10
