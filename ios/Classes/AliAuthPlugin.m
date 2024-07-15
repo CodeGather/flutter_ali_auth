@@ -336,12 +336,17 @@ bool bool_false = false;
               [[weakSelf findCurrentViewController].view hitTest:CGPointMake(_vc.view.bounds.size.width, _vc.view.bounds.size.height) withEvent:nil];
 //              [[weakSelf findCurrentViewController].view addSubview:headerView];
               
-              // 当存在isHiddenLoading时需要执行loading
               bool isHiddenLoading = [self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES];
-              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenLoading) {
+              // 当未勾选隐私协议时，弹出 Toast 提示
+              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] &&
+                    !self->_isChecked) {
+                    NSDictionary *dic = self->_callData.arguments;
+                    [self showToast:[dic stringValueForKey:@"toastText" defaultValue:@"请先阅读用户协议"]];
+                    // 当存在isHiddenLoading时需要执行loading
+              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenLoading) {
                   dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
-                  });
+                });
               } else if ([PNSCodeSuccess isEqualToString:code]) {
                 bool autoQuitPage = [self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES];
                 // 登录成功后是否自动关闭页面
