@@ -1,5 +1,10 @@
 #  
 
+## 1.2.8
+* 更新android sdk 为 2.13.14
+* 更新ios sdk 为 2.13.14
+* 修复Ios端二次弹窗的大小
+
 ## 1.2.7
 * 添加返回参数 isChecked
 * 统一背景参数 pageBackgroundPath

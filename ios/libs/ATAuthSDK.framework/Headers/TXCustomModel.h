@@ -384,6 +384,8 @@ typedef CGRect(^PNSBuildFrameBlock)(CGSize screenSize, CGSize superViewSize, CGR
 
 /** 二次隐私协议弹窗按钮文字内容 默认“同意”*/
 @property (nonatomic, copy) NSString *privacyAlertBtnContent;
+/** 二次隐私协议弹窗登录按钮的圆角值，如果值<=0则为直角 ，默认0*/
+@property (nonatomic, assign) CGFloat privacyAlertBtnCornerRadius;
 /** 二次隐私协议弹窗按钮按钮背景图片 ,默认高度50.0pt，@[激活状态的图片,高亮状态的图片] */
 @property (nonatomic, copy) NSArray<UIImage *> *privacyAlertBtnBackgroundImages;
 /** 二次隐私协议弹窗按钮文字颜色，默认黑色, @[激活状态的颜色,高亮状态的颜色] */

@@ -1,5 +1,10 @@
 #
 
+## 1.2.8
+* Update Android SDK to 2.13.14
+* Update iOS SDK to 2.13.14
+* Fix the size of secondary pop ups on Ios end
+
 ## 1.2.7
 * Add return parameter isChecked
 * Unified background parameter pageBackgroundPath

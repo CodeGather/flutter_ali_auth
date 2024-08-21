@@ -1902,17 +1902,17 @@
   }
   /// 协议1，[协议名称,协议Url]
   model.privacyOne = @[
-    [dict stringValueForKey: @"protocolOneName" defaultValue: @"协议1"],
+    [dict stringValueForKey: @"protocolOneName" defaultValue: @""],
     [dict stringValueForKey: @"protocolOneURL" defaultValue: @""]
   ];
   /// 协议2，[协议名称,协议Url]
   model.privacyTwo = @[
-    [dict stringValueForKey: @"protocolTwoName" defaultValue: @"协议2"],
+    [dict stringValueForKey: @"protocolTwoName" defaultValue: @""],
     [dict stringValueForKey: @"protocolTwoURL" defaultValue: @""]
   ];
   /// 协议3，[协议名称,协议Url]
   model.privacyThree = @[
-    [dict stringValueForKey: @"protocolThreeName" defaultValue: @"协议3"],
+    [dict stringValueForKey: @"protocolThreeName" defaultValue: @""],
     [dict stringValueForKey: @"protocolThreeURL" defaultValue: @""]
   ];
   /// 扩大选区
@@ -1973,6 +1973,18 @@
       };
     }
   }
+  
+  #pragma mark 10、二次弹窗
+  /// 弹窗大小
+  model.privacyAlertFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    return CGRectMake(
+        [dict floatValueForKey: @"privacyAlertOffsetX" defaultValue: 40],
+        [dict floatValueForKey: @"privacyAlertOffsetY" defaultValue: frame.origin.y],
+        [dict floatValueForKey: @"privacyAlertWidth" defaultValue: frame.size.width - 80],
+        [dict floatValueForKey: @"privacyAlertHeight" defaultValue: 200]
+    );
+  };
+  
   #pragma mark 屏幕方向
   if (model.privacyAlertIsNeedShow) {
     model.privacyAlertTitleFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
