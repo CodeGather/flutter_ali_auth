@@ -28,6 +28,7 @@ jobs:
         with:
           channel: stable
           flutter-version-file: pubspec.yaml
+      - run: flutter --version
       # 下载项目依赖
       - run: flutter pub get
       # 执行测试
