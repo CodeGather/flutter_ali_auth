@@ -1607,7 +1607,13 @@
                   }
               } else if ([key containsString:@"Color"]) {
                   if ([key isEqual:@"lightColor"]) {
-                    [model setValue: @([dict boolValueForKey: key defaultValue: NO] ? UIStatusBarStyleLightContent : UIStatusBarStyleLightContent) forKey:newKey];
+                    if (@available(iOS 13.0, *)) {
+                      // UIStatusBarStyleLightContent Light content, for use on dark backgrounds
+                      // UIStatusBarStyleDarkContent Dark content, for use on light backgrounds
+                      [model setValue: @([dict boolValueForKey: key defaultValue: NO] ? UIStatusBarStyleDarkContent : UIStatusBarStyleLightContent) forKey:newKey];
+                    } else {
+                      [model setValue: @([dict boolValueForKey: key defaultValue: NO] ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent) forKey:newKey];
+                    }
                   } else {
                     [model setValue: [self getColor: [dict stringValueForKey: key defaultValue: @"#23effe"]] forKey:newKey];
                   }
