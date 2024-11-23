@@ -1,5 +1,9 @@
 #
 
+## 1.3.0
+* Update Android SDK to 2.14.3
+* Update iOS SDK to 2.14.3
+
 ## 1.2.9
 * Update Android SDK to 2.14.2
 * Update iOS SDK to 2.14.2
