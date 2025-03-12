@@ -64,6 +64,12 @@ class MethodChannelAliAuth extends AliAuthPlatform {
     return await methodChannel.invokeMethod('quitPage');
   }
 
+  /// 强制关闭Loading
+  @override
+  Future<void> hideLoading() async {
+    return await methodChannel.invokeMethod('hideLoading');
+  }
+
   /// 强制关闭一键登录授权页面
   @override
   Future<String> getCurrentCarrierName() async {

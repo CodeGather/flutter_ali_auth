@@ -1,4 +1,12 @@
-#
+#  
+
+## 1.3.1
+* Update Android SDK to 2.14.5
+* Update iOS SDK to 2.14.5
+* IOS fields: privacyAlertContentTextSize
+* IOS fields: privacyAlertBtnWidth
+* IOS fields: privacyAlertBtnHeigth
+* IOS field: customReturnBtn
 
 ## 1.3.0
 * Update Android SDK to 2.14.3

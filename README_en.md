@@ -23,8 +23,9 @@ This is a one click login plug-in for alicloud number authentication service
 As other functions of the project use alicloud services, Alibaba cloud is also used in the one click login function, which is conducive to better maintenance in the later stage.
 This plug-in is free, open source and highly customized. If you have any problems in use, you are welcome to give feedback. If you feel that this plug-in is not good enough, you can provide your valuable opinions,
 If you want to customize in your own project, please modify the clone of this plug-in locally. However, you are welcome to release other versions of plug-ins after modifying through this plug-in,
-However, when using or referring to the ideas or related contents of this plug-in,   
- 
+However, when using or referring to the ideas or related contents of this plug-in, 
+
+
 # Please indicate the source and link to this plug-in. Thank you for your cooperation.  
 
 
@@ -52,10 +53,14 @@ However, when using or referring to the ideas or related contents of this plug-i
 | 700005    | 点击点击第三方按钮事件 |
 
 ## 步骤
-
+- 1、配置APP的签名安装于手机
+- 2、获取签名APK文件下载地址：[点击下载快速获取签名工具](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/87870/cn_zh/1534313766610/AppSignGet.apk)
+- 3、使用签名APP获取签名
+- 4、配置appid+秘钥，阿里云后台配置签名，注意签名要和APP配置的签名一致，否则无法使用
 - [帮助文档](https://help.aliyun.com/product/75010.html)
 - [前往添加号码认证方案-获取秘钥](https://dypns.console.aliyun.com/?spm=5176.12818093.favorites.ddypns.488716d0ttKe13#/)
 - 使用秘钥初始化环境 AliAuthPlugin.initSdk()
+- [号码认证服务合规指南](https://help.aliyun.com/zh/pnvs/security-and-compliance/number-certification-service-compliance-guidelines)
 
 ## matters needing attention
 

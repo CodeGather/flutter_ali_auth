@@ -65,6 +65,9 @@ static NSString * const PNSCodeLoginControllerClickCheckBoxBtn = @"700003";
 static NSString * const PNSCodeLoginControllerClickProtocol = @"700004";
 /// 中断页面消失的时候，也就是suspendDisMissVC设置为YES的时候，点击左上角返回按钮时透出的状态码
 static NSString * const PNSCodeLoginControllerSuspendDisMissVC = @"700010";
+/// 授权页已销毁
+static NSString * const PNSCodeLoginControllerDeallocVC = @"700020";
+
 
 /*************** 号码认证授权页相关返回码 FINISH ***************/
 

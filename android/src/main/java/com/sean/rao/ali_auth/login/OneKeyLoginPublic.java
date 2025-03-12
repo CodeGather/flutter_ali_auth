@@ -229,6 +229,13 @@ public class OneKeyLoginPublic extends LoginParams {
     }
 
     /**
+     * 结束授权页loading dialog
+     */
+    public void hideLoading(){
+        mAuthHelper.hideLoginLoading();
+    }
+
+    /**
      * 处理参数，对参数进行处理包含color、Path
      * @param parmas
      * @return

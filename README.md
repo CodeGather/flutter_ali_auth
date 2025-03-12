@@ -20,7 +20,7 @@
 由于项目的其他功能都采用阿里云的服务，在一键登录的功能上也采用阿里云利于后期的更好维护。
 本插件免费开源，高定制，如果在使用中有什么问题，欢迎反馈，如果觉得本插件还不够好可以提供您的宝贵意见，
 如果你想在自己项目中定制，请将本插件clone为本地进行修改，但是通过本插件进行修改后发布其他版本的插件也欢迎，
-但是在使用或者参考了本插件的思路或者相关内容，   
+但是在使用或者参考了本插件的思路或者相关内容，
 
 # 请注明出处并且链接到本插件，谢谢您的配合。  
 
@@ -92,6 +92,7 @@
 - [帮助文档](https://help.aliyun.com/product/75010.html)
 - [前往添加号码认证方案-获取秘钥](https://dypns.console.aliyun.com/?spm=5176.12818093.favorites.ddypns.488716d0ttKe13#/)
 - 使用秘钥初始化环境 AliAuthPlugin.initSdk()
+- [号码认证服务合规指南](https://help.aliyun.com/zh/pnvs/security-and-compliance/number-certification-service-compliance-guidelines)
 
 ## 注意事项
 

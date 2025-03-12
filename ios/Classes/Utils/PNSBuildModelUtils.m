@@ -1579,21 +1579,29 @@
           /// 分为两种情况数组和字符串
           if ([dict[key] isKindOfClass:[NSArray class]]) {
             NSArray *array = [dict arrayValueForKey: key defaultValue: [NSArray array]];
-            // 使用for循环遍历数组
             NSMutableArray *mutableArray = [array mutableCopy];
-            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-              // 处理数组中的每个元素，并获取其下标
-              // NSLog(@"Item at index %lu: %@", (unsigned long)idx, obj);
-              /// 处理图片路径
-              if ([key containsString:@"Path"]) {
-                mutableArray[idx] = [self changeUriPathToImage: obj];
-              } else if ([key containsString:@"Color"]) {
-                mutableArray[idx] = [self getColor: obj];
-              } else {
-                mutableArray[idx] = obj;
-              }
-            }];
-            [model setValue: array forKey:newKey];
+            if ([key isEqual: @"privacyAlertCornerRadiusArray"] && array.count == 4) {
+              // 左上、右上、右下、左下 -> 左上，左下，右下，右上
+              mutableArray[0] = array[0];
+              mutableArray[1] = array[3];
+              mutableArray[2] = array[2];
+              mutableArray[3] = array[1];
+            } else {
+              // 使用for循环遍历数组
+              [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                // 处理数组中的每个元素，并获取其下标
+                // NSLog(@"Item at index %lu: %@", (unsigned long)idx, obj);
+                /// 处理图片路径
+                if ([key containsString:@"Path"]) {
+                  mutableArray[idx] = [self changeUriPathToImage: obj];
+                } else if ([key containsString:@"Color"]) {
+                  mutableArray[idx] = [self getColor: obj];
+                } else {
+                  mutableArray[idx] = obj;
+                }
+              }];
+            }
+            [model setValue: [mutableArray copy] forKey:newKey];
           } else {
               /// 处理图片路径
               if ([key containsString:@"Path"]) {
@@ -1704,26 +1712,50 @@
     model.navTitle = attrs;
   }
   if (model.navIsHidden) {
-    /// 动态读取assets文件夹下的资源
-    UIImage * navBackImage = model.navBackImage?:[UIImage imageNamed:@"icon_close_light"];
-    model.navBackImage = navBackImage;
     if (!model.hideNavBackItem) {
-      /// 自定义返回按钮
-      model.navBackButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
-        UIImageView *imageView = [[UIImageView alloc]init];
-        imageView.image = navBackImage;
-        imageView.frame = CGRectMake(
-           CGRectGetMinX(frame),
-           CGRectGetMaxY(frame),
-           CGRectGetWidth(frame),
-           CGRectGetHeight(frame)
-         );
-        frame.origin.y = [dict floatValueForKey: @"navReturnOffsetY" defaultValue: 5];
-        frame.origin.x = [dict floatValueForKey: @"navReturnOffsetX" defaultValue: 15];
-        frame.size.width = [dict floatValueForKey: @"navReturnImgWidth" defaultValue: 40];
-        frame.size.height = [dict floatValueForKey: @"navReturnImgHeight" defaultValue: 40];
-        return frame;
-      };
+      /// 获取自定义的参数
+      NSDictionary *customReturnBtn = [dict dictValueForKey: @"customReturnBtn" defaultValue: nil];
+      /// 获取自定义的资源路径资源
+      UIImage * navBackImagePath = [self changeUriPathToImage: [customReturnBtn stringValueForKey: @"imgPath" defaultValue: nil]];
+      if (customReturnBtn != nil && navBackImagePath != nil) {
+        model.navBackImage = navBackImagePath;
+        /// 自定义返回按钮
+        model.navBackButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+          UIImageView *imageView = [[UIImageView alloc]init];
+          imageView.image = navBackImagePath;
+          imageView.frame = CGRectMake(
+             CGRectGetMinX(frame),
+             CGRectGetMaxY(frame),
+             CGRectGetWidth(frame),
+             CGRectGetHeight(frame)
+           );
+          frame.origin.y = [customReturnBtn floatValueForKey: @"top" defaultValue: 5];
+          frame.origin.x = [customReturnBtn floatValueForKey: @"left" defaultValue: 15];
+          frame.size.width = [customReturnBtn floatValueForKey: @"width" defaultValue: 40];
+          frame.size.height = [customReturnBtn floatValueForKey: @"height" defaultValue: 40];
+          return frame;
+        };
+      } else {
+        /// 动态读取assets文件夹下的资源
+        UIImage * navBackImage = model.navBackImage?:[UIImage imageNamed:@"icon_close_light"];
+        model.navBackImage = navBackImage;
+        /// 自定义返回按钮
+        model.navBackButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+          UIImageView *imageView = [[UIImageView alloc]init];
+          imageView.image = navBackImage;
+          imageView.frame = CGRectMake(
+             CGRectGetMinX(frame),
+             CGRectGetMaxY(frame),
+             CGRectGetWidth(frame),
+             CGRectGetHeight(frame)
+           );
+          frame.origin.y = [dict floatValueForKey: @"navReturnOffsetY" defaultValue: 5];
+          frame.origin.x = [dict floatValueForKey: @"navReturnOffsetX" defaultValue: 15];
+          frame.size.width = [dict floatValueForKey: @"navReturnImgWidth" defaultValue: 40];
+          frame.size.height = [dict floatValueForKey: @"navReturnImgHeight" defaultValue: 40];
+          return frame;
+        };
+      }
     }
   }
   #pragma mark 3、Logo
@@ -1981,6 +2013,15 @@
   }
   
   #pragma mark 10、二次弹窗
+  model.privacyAlertTitleFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    // return CGRectMake(0, 20, frame.size.width, frame.size.height);
+    return CGRectMake(
+        0,
+        [dict floatValueForKey: @"privacyAlertTitleOffsetY" defaultValue: 20],
+        frame.size.width,
+        frame.size.height
+    );
+  };
   /// 弹窗大小
   model.privacyAlertFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
     return CGRectMake(
@@ -1990,6 +2031,17 @@
         [dict floatValueForKey: @"privacyAlertHeight" defaultValue: 200]
     );
   };
+  /// 确认按钮
+  model.privacyAlertButtonFrameBlock = ^CGRect(CGSize screenSize, CGSize superViewSize, CGRect frame) {
+    // return CGRectMake(frame.origin.x,superViewSize.height - 50 - 20, frame.size.width, 50);
+    return CGRectMake(
+        frame.origin.x,
+        frame.origin.y,
+        [dict floatValueForKey: @"privacyAlertBtnWidth" defaultValue: frame.size.width],
+        [dict floatValueForKey: @"privacyAlertBtnHeigth" defaultValue: 50]
+    );
+  };
+  
   
   #pragma mark 屏幕方向
   if (model.privacyAlertIsNeedShow) {

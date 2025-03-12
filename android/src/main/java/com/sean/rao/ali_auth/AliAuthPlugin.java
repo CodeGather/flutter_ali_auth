@@ -183,6 +183,9 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       case "quitPage":
         oneKeyLoginPublic.quitPage();
         break;
+      case "hideLoading":
+        oneKeyLoginPublic.hideLoading();
+        break;
       case "openPage":
         if (flutterEngine == null) {
           flutterEngine = new FlutterEngine(mContext);
@@ -300,7 +303,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
     result.success(resultObject);
   }
 
-
   // 注册回调
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   private void registerNetworkCallback(Context context) {
@@ -310,8 +312,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
     builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
     cm.registerNetworkCallback(builder.build(), callback);
   }
-
-
 
   // 注销回调
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

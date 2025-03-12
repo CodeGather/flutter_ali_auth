@@ -41,6 +41,11 @@ class AliAuth {
     return AliAuthPlatform.instance.quitPage();
   }
 
+  /// 强制关闭Loading
+  static Future<void> hideLoading() async {
+    return AliAuthPlatform.instance.hideLoading();
+  }
+
   /// 强制关闭一键登录授权页面
   static Future<String> getCurrentCarrierName() async {
     return AliAuthPlatform.instance.getCurrentCarrierName();
