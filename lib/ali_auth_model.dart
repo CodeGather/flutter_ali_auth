@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'ali_auth_enum.dart';
 
 /// 登录窗口配置
@@ -873,7 +874,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) {
       privacyAlertCornerRadiusArray[3], // 左下
       privacyAlertCornerRadiusArray[2], // 右下
       privacyAlertCornerRadiusArray[1], // 右上
-    ]
+    ];
   }
 
   return <String, dynamic>{
