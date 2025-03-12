@@ -406,7 +406,10 @@ class AliAuthModel {
   late String? loadingBackgroundPath;
 
   /// 是否隐藏loading
-  late bool? isHiddenLoading;
+  late bool? isHiddenToast;
+
+  /// 是否隐藏loading
+  late bool? autoHideLoginLoading;
 
   /// 底部虚拟导航栏
   late String? bottomNavBarColor;
@@ -758,7 +761,8 @@ class AliAuthModel {
     this.protocolAction,
     this.packageName,
     this.loadingBackgroundPath,
-    this.isHiddenLoading,
+    this.isHiddenToast,
+    this.autoHideLoginLoading,
     this.isHiddenCustom,
     this.customThirdView,
     this.backgroundColor,
@@ -1054,7 +1058,8 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'privacyAlertOwnTwoColor': instance.privacyAlertOwnTwoColor,
       'privacyAlertOwnThreeColor': instance.privacyAlertOwnThreeColor,
       'tapPrivacyAlertMaskCloseAlert': instance.tapPrivacyAlertMaskCloseAlert,
-      'isHiddenLoading': instance.isHiddenLoading,
+      'isHiddenToast': instance.isHiddenToast,
+      'autoHideLoginLoading': instance.autoHideLoginLoading ?? true,
       'autoQuitPage': instance.autoQuitPage,
       'isHideToast': instance.isHideToast,
       'toastText': instance.toastText,

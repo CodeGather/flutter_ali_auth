@@ -126,6 +126,9 @@ bool bool_false = false;
   else if ([@"quitPage" isEqualToString:call.method]) {
     [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
   }
+  else if ([@"hideLoading" isEqualToString:call.method]) {
+    [[TXCommonHandler sharedInstance] hideLoginLoading];
+  }
   else if ([@"appleLogin" isEqualToString:call.method]) {
     [self handleAuthorizationAppleIDButtonPress:call result:result];
   }
@@ -336,14 +339,14 @@ bool bool_false = false;
               [[weakSelf findCurrentViewController].view hitTest:CGPointMake(_vc.view.bounds.size.width, _vc.view.bounds.size.height) withEvent:nil];
 //              [[weakSelf findCurrentViewController].view addSubview:headerView];
               
-              bool isHiddenLoading = [self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES];
+              bool isHiddenToast = [self->_callData.arguments boolValueForKey: @"isHiddenToast" defaultValue: YES];
               // 当未勾选隐私协议时，弹出 Toast 提示
               if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] &&
                     !self->_isChecked) {
                     NSDictionary *dic = self->_callData.arguments;
                     [self showToast:[dic stringValueForKey:@"toastText" defaultValue:@"请先阅读用户协议"]];
-                    // 当存在isHiddenLoading时需要执行loading
-              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenLoading) {
+                    // 当存在autoHideLoginLoading时需要执行loading
+              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenToast) {
                   dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
                 });
@@ -420,8 +423,8 @@ bool bool_false = false;
 
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult {
-  // 当存在isHiddenLoading时需要执行关闭
-  if (![self->_callData.arguments boolValueForKey: @"isHiddenLoading" defaultValue: YES]) {
+  // 当存在autoHideLoginLoading时需要执行关闭
+  if (![self->_callData.arguments boolValueForKey: @"autoHideLoginLoading" defaultValue: YES]) {
     dispatch_async(dispatch_get_main_queue(), ^{
       [MBProgressHUD hideHUDForView: [self findCurrentViewController].view animated:YES];
     });
