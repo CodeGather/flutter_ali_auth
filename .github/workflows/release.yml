@@ -3,8 +3,12 @@ name: Release Package
 # 监听版本号变化
 on:
   push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+#  push:
+#    tags:
+#      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   # Release 操作
@@ -39,7 +43,7 @@ jobs:
         working-directory: example
       # 发布到 上次文件至artifact
       - name: Upload Release APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
           path: example/build/app/outputs/apk/release/app-release.apk
