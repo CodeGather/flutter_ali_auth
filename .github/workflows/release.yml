@@ -3,12 +3,8 @@ name: Release Package
 # 监听版本号变化
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-#  push:
-#    tags:
-#      - 'v[0-9]+.[0-9]+.[0-9]+*'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   # Release 操作
