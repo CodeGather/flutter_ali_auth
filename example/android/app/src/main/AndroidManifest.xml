@@ -3,6 +3,7 @@
     package="com.sean.rao.aliAuth">
    <application
         android:label="@string/app_name"
+       tools:overrideLibrary="com.sean.rao.ali_auth"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name="com.sean.rao.aliAuth.MainActivity"
