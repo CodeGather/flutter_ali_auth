@@ -389,10 +389,15 @@ class AliAuthModel {
   /// dialog安卓端有效 iOS无效
   late int? pageBackgroundRadius;
   late bool? webSupportedJavascript;
+
+  /// setAuthPageActIn
   late String? authPageActIn;
   late String? activityOut;
+
+  /// setAuthPageActOut
   late String? authPageActOut;
   late String? activityIn;
+
   late int? screenOrientation;
   late List<String>? privacyConectTexts;
   late int? privacyOperatorIndex;
@@ -632,6 +637,18 @@ class AliAuthModel {
   /// 关闭的时长 默认3s
   late int? toastDelay;
 
+  /// 横屏水滴屏全屏适配 默认false
+  late bool? fullScreen;
+
+  /// 授权页是否跟随系统深色模式 默认false
+  late bool? authPageUseDayLight;
+
+  /// SDK内置所有界面隐藏底部导航栏 默认false
+  late bool? keepAllPageHideNavigationBar;
+
+  /// 授权页物理返回键禁用 默认false
+  late bool? closeAuthPageReturnBack;
+
   AliAuthModel(
     this.androidSk,
     this.iosSk, {
@@ -856,6 +873,10 @@ class AliAuthModel {
     this.toastMarginBottom = 0,
     this.toastPositionMode = 'bottom',
     this.toastDelay = 3,
+    this.fullScreen=false,
+    this.authPageUseDayLight=false,
+    this.keepAllPageHideNavigationBar=false,
+    this.closeAuthPageReturnBack=false,
   })  : assert(androidSk != null || iosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
@@ -1070,6 +1091,10 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'toastMarginBottom': instance.toastMarginBottom,
       'toastPositionMode': instance.toastPositionMode,
       'toastDelay': instance.toastDelay,
+      'fullScreen': instance.fullScreen ?? false,
+      'authPageUseDayLight': instance.authPageUseDayLight ?? false,
+      'keepAllPageHideNavigationBar': instance.keepAllPageHideNavigationBar ?? false,
+      'closeAuthPageReturnBack': instance.closeAuthPageReturnBack ?? false,
     };
 
 /// 初始配置&注意事项

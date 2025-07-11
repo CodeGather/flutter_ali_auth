@@ -117,6 +117,10 @@ bool bool_false = false;
   else if ([@"checkEnvAvailable" isEqualToString:call.method]) {
     [self checkVerifyEnable:call result:result];
   }
+  else if ([@"queryCheckBoxIsChecked" isEqualToString:call.method]) {
+    BOOL status = [[TXCommonHandler sharedInstance] queryCheckBoxIsChecked];
+    result(status);
+  }
   else if ([@"checkCellularDataEnable" isEqualToString:call.method]) {
     [self checkCellularDataEnable:call result:result];
   }

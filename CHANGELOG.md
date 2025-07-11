@@ -1,5 +1,15 @@
 #  
 
+## 1.3.2
+* Update Android SDK to 2.14.7
+* Update iOS SDK to 2.14.6
+* Update Web SDK to 2.1.12
+* Add method：queryCheckBoxIsChecked
+* Android fields：fullScreen
+* Android fields：authPageUseDayLight
+* Android fields：keepAllPageHideNavigationBar
+* Android fields：closeAuthPageReturnBack
+
 ## 1.3.1
 * Update Android SDK to 2.14.5
 * Update iOS SDK to 2.14.5

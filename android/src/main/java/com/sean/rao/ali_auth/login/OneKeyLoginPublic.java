@@ -69,9 +69,6 @@ public class OneKeyLoginPublic extends LoginParams {
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i("TAG", "获取token成功：" + s);
                         mAuthHelper.setAuthListener(null);
-                        if (jsonObject.getBooleanValue("autoQuitPage")) {
-                            mAuthHelper.quitLoginPage();
-                        }
                     }
                     showResult(tokenRet.getCode(), null, tokenRet.getToken());
                 } catch (Exception e) {
@@ -100,7 +97,22 @@ public class OneKeyLoginPublic extends LoginParams {
         mAuthHelper.getReporter().setLoggerEnable(jsonObject.getBooleanValue("isDebug"));
         mAuthHelper.setAuthSDKInfo(jsonObject.getString("androidSk"));
 
+        // 授权页是否跟随系统深色模式
+        mAuthHelper.setAuthPageUseDayLight(jsonObject.getBooleanValue("authPageUseDayLight", false));
+        // 横屏水滴屏全屏适配
+        mAuthHelper.keepAuthPageLandscapeFullSreen(jsonObject.getBooleanValue("autoQuitPage", false));
+        // 用户控制返回键及左上角返回按钮效果, 是否自动退出授权页面，false时由用户自己控制
+        if (!jsonObject.getBooleanValue("autoQuitPage", false)) {
+            mAuthHelper.userControlAuthPageCancel();
+        }
+        // SDK内置所有界面隐藏底部导航栏
+        if (jsonObject.getBooleanValue("keepAllPageHideNavigationBar", false)) {
+            mAuthHelper.keepAllPageHideNavigationBar();
+        }
+        // 授权页物理返回键禁用
+        mAuthHelper.closeAuthPageReturnBack(jsonObject.getBooleanValue("closeAuthPageReturnBack", false));
         /// 延时的情况下进行预取号，加快拉取授权页面
+
         if (jsonObject.getBooleanValue("isDelay")) {
             mAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
         }
@@ -132,8 +144,6 @@ public class OneKeyLoginPublic extends LoginParams {
      * 进入app就需要登录的场景使用
      */
     private void oneKeyLogin() {
-        mAuthHelper = PhoneNumberAuthHelper.getInstance(mActivity.getApplicationContext(), mTokenResultListener);
-        mAuthHelper.checkEnvAvailable(2);
         mUIConfig.configAuthPage();
         mAuthHelper.getLoginToken(mContext, 5000);
     }
@@ -180,9 +190,6 @@ public class OneKeyLoginPublic extends LoginParams {
                     if (ResultCode.CODE_SUCCESS.equals(tokenRet.getCode())) {
                         Log.i(TAG, "获取token成功：" + s);
                         mAuthHelper.setAuthListener(null);
-                        if (jsonObject.getBooleanValue("autoQuitPage")) {
-                            mAuthHelper.quitLoginPage();
-                        }
                     }
                 } catch (Exception e) {
                     e.fillInStackTrace();
@@ -201,9 +208,6 @@ public class OneKeyLoginPublic extends LoginParams {
                 }
                 // 失败时也不关闭
                 mAuthHelper.setAuthListener(null);
-                if (jsonObject.getBooleanValue("autoQuitPage")) {
-                    mAuthHelper.quitLoginPage();
-                }
             }
         };
         mAuthHelper.setAuthListener(mTokenResultListener);
@@ -218,7 +222,15 @@ public class OneKeyLoginPublic extends LoginParams {
      * 600013 系统维护，功能不可⽤
      */
     public void checkEnvAvailable(@IntRange(from = 1, to = 2) int type){
-        mAuthHelper.checkEnvAvailable(PhoneNumberAuthHelper.SERVICE_TYPE_LOGIN);
+        mAuthHelper.checkEnvAvailable(type);
+    }
+
+
+    /**
+     * 获取授权页协议勾选框选中状态
+     */
+    public boolean queryCheckBoxIsChecked(){
+        return mAuthHelper.queryCheckBoxIsChecked();
     }
 
     /**

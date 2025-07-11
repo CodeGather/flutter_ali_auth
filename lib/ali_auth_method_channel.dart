@@ -64,6 +64,21 @@ class MethodChannelAliAuth extends AliAuthPlatform {
     return await methodChannel.invokeMethod('quitPage');
   }
 
+  /// SDK环境检查函数，检查终端是否支持号码认证。
+  ///
+  /// @see PhoneNumberAuthHelper#SERVICE_TYPE_AUTH  本机号码校验
+  /// @see PhoneNumberAuthHelper#SERVICE_TYPE_LOGIN 一键登录校验
+  @override
+  Future<void> checkEnvAvailable() async {
+    return await methodChannel.invokeMethod('checkEnvAvailable');
+  }
+
+  /// 获取授权页协议勾选框选中状态
+  @override
+  Future<void> queryCheckBoxIsChecked() async {
+    return await methodChannel.invokeMethod('queryCheckBoxIsChecked');
+  }
+
   /// 强制关闭Loading
   @override
   Future<void> hideLoading() async {

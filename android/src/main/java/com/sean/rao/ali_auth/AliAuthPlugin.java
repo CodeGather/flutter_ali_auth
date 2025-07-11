@@ -177,6 +177,10 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
       case "checkEnvAvailable":
         oneKeyLoginPublic.checkEnvAvailable(2);
         break;
+      case "queryCheckBoxIsChecked":
+        boolean status = oneKeyLoginPublic.queryCheckBoxIsChecked();
+        result.success(status);
+        break;
       case "checkCellularDataEnable":
         isNetEnabled(mContext, result);
         break;
@@ -304,7 +308,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
   }
 
   // 注册回调
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   private void registerNetworkCallback(Context context) {
     ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkRequest.Builder builder = new NetworkRequest.Builder();
@@ -314,7 +317,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
   }
 
   // 注销回调
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   private void unregisterNetworkCallback(Context context) {
     ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
     cm.unregisterNetworkCallback(callback);
@@ -329,7 +331,7 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
   public boolean isNetContected(Context context) {
     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo info = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-    if (cm != null && info != null && info.isConnected()) {
+    if (info != null && info.isConnected()) {
       Log.i(TAG, "移动网络连接成功");
       return true;
     }
