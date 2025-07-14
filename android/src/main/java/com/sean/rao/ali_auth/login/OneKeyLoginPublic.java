@@ -307,7 +307,7 @@ public class OneKeyLoginPublic extends LoginParams {
          *  activityIn = var2;
          */
         if(UtilTool.dataStatus(jsonObject, "authPageActOut") && UtilTool.dataStatus(jsonObject, "activityIn")){
-            config.setAuthPageActIn(jsonObject.getString("authPageActOut"), jsonObject.getString("activityIn"));
+            config.setAuthPageActOut(jsonObject.getString("authPageActOut"), jsonObject.getString("activityIn"));
         }
         /**
          *  protocolOneName = var1;

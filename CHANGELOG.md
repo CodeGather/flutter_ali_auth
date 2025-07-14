@@ -1,5 +1,11 @@
 #  
 
+## 1.3.4
+* Fix Android animation Field
+
+## 1.3.3
+* Fix More Bug
+
 ## 1.3.2
 * Update Android SDK to 2.14.7
 * Update iOS SDK to 2.14.6
