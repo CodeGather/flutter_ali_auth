@@ -1,5 +1,8 @@
 #  
 
+## 1.3.5
+* 修复'BOOL' (aka 'bool') to 'id _Nullable' is disallowed with ARC
+
 ## 1.3.4
 * 修复安卓动画失效问题
 

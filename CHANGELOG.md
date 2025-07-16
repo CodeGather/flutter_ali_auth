@@ -1,5 +1,8 @@
 #  
 
+## 1.3.5
+* Fix 'BOOL' (aka 'bool') to 'id _Nullable' is disallowed with ARC
+
 ## 1.3.4
 * Fix Android animation Field
 
