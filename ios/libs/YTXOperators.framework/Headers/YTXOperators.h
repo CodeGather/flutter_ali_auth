@@ -16,5 +16,5 @@ FOUNDATION_EXPORT const unsigned char YTXOperatorsVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <YTXOperators/PublicHeader.h>
 
-#import "YTXVendorService.h"
-#import "YTXNetUtils.h"
+#import <YTXOperators/YTXVendorService.h>
+#import <YTXOperators/YTXNetUtils.h>

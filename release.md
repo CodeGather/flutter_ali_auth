@@ -1,3 +1,5 @@
 
-## 1.3.5
-* 修复'BOOL' (aka 'bool') to 'id _Nullable' is disallowed with ARC
+## 1.3.6
+* Update Android SDK to 2.14.14
+* Update iOS SDK to 2.14.11
+* Update Web SDK to 2.1.13

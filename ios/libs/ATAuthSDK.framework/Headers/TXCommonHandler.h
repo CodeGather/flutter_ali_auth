@@ -8,6 +8,7 @@
 #import "TXCustomModel.h"
 #import "PNSReporter.h"
 
+
 typedef NS_ENUM(NSInteger, PNSAuthType) {
     PNSAuthTypeVerifyToken = 1,  //本机号码校验
     PNSAuthTypeLoginToken = 2    //一键登录

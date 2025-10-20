@@ -1,5 +1,10 @@
 #  
 
+## 1.3.6
+* 更新android sdk 为 2.14.14
+* 更新ios sdk 为 2.14.11
+* 更新web sdk 为 2.1.13
+
 ## 1.3.5
 * 修复'BOOL' (aka 'bool') to 'id _Nullable' is disallowed with ARC
 
