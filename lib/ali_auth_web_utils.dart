@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:js_util';
-import 'package:js/js.dart';
+import 'dart:js_interop';
 
 typedef Func1<A, R> = R Function(A a);
 
