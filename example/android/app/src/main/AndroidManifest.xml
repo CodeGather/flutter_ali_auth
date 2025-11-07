@@ -59,7 +59,7 @@
            android:exported="false"
            android:launchMode="singleTop"
            android:screenOrientation="behind"
-           android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+           android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
        <!--联通电信授权页-->
        <activity

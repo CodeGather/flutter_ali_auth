@@ -1,23 +1,15 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Build;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.mobile.auth.gatewayauth.AuthRegisterViewConfig;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
 import com.mobile.auth.gatewayauth.CustomInterface;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.utils.AppUtils;
-
-import io.flutter.plugin.common.EventChannel;
 
 public class DialogLandConfig extends BaseUIConfig{
     private int mOldScreenOrientation;

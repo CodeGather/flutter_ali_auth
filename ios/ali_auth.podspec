@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.dependency 'SDWebImage'
   s.dependency 'MJExtension'
-  s.dependency 'MBProgressHUD'
+  # s.dependency 'MBProgressHUD'
 
   s.frameworks = 'Network'
 

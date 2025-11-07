@@ -4,7 +4,7 @@
 #import "AliAuthEnum.h"
 #import "MJExtension.h"
 #import <ATAuthSDK/ATAuthSDK.h>
-#import "MBProgressHUD.h"
+//#import "MBProgressHUD.h"
 #import "PNSBuildModelUtils.h"
 #import "NSDictionary+Utils.h"
 #import "UIColor+Hex.h"
@@ -333,7 +333,7 @@ bool bool_false = false;
           
             //3. 调用获取登录Token接口，可以立马弹起授权页
             // 关闭loading
-            [MBProgressHUD hideHUDForView:_vc.view animated:YES];
+            // [MBProgressHUD hideHUDForView:_vc.view animated:YES];
             [[TXCommonHandler sharedInstance] getLoginTokenWithTimeout:timeout controller:_vc model:model complete:^(NSDictionary * _Nonnull resultDic) {
               NSString *code = [resultDic objectForKey:@"resultCode"];
 //              UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];
@@ -350,10 +350,10 @@ bool bool_false = false;
                     NSDictionary *dic = self->_callData.arguments;
                     [self showToast:[dic stringValueForKey:@"toastText" defaultValue:@"请先阅读用户协议"]];
                     // 当存在autoHideLoginLoading时需要执行loading
-              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenToast) {
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
-                });
+//              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenToast) {
+//                  dispatch_async(dispatch_get_main_queue(), ^{
+//                    [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
+//                });
               } else if ([PNSCodeSuccess isEqualToString:code]) {
                 bool autoQuitPage = [self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES];
                 // 登录成功后是否自动关闭页面
@@ -386,35 +386,35 @@ bool bool_false = false;
 
 #pragma mark -  toast
 - (void)showToast:(NSString*) message {
-  NSDictionary *dic = _callData.arguments;
-  UIView *view = [self findCurrentViewController].view;
-  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: view animated:YES];
-  // Set the text mode to show only text.
-  hud.mode = MBProgressHUDModeText;
-  hud.label.text = NSLocalizedString(message, @"温馨提示");
-  // 内边剧
-  hud.margin = [dic floatValueForKey: @"toastPadding" defaultValue: 10];
-  // 文本颜色
-  hud.contentColor = [UIColor colorWithHex: [dic stringValueForKey: @"toastColor" defaultValue: @"#FFFFFF"] defaultValue: @"#FFFFFF"];
-  // 弹窗背景
-  hud.bezelView.color = [UIColor colorWithHex: [dic stringValueForKey: @"toastBackground" defaultValue: @"#000000"] defaultValue: @"#000000"];
-  // 弹窗背景样式
-  hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-  
-  CGFloat offSetY = view.bounds.size.height / 2;
-  NSString* toastPosition = [dic stringValueForKey: @"toastPositionMode" defaultValue: @"bottom"];
-  if ([toastPosition  isEqual: @"top"]) {
-    CGFloat top = [dic floatValueForKey: @"toastMarginTop" defaultValue: 30.f];
-    offSetY = - offSetY + view.window.safeAreaInsets.top + top;
-  } else if ([toastPosition  isEqual: @"bottom"]) {
-    CGFloat bottom = [dic floatValueForKey: @"toastMarginBottom" defaultValue: 30.f];
-    offSetY = offSetY - view.window.safeAreaInsets.bottom - bottom;
-  } else if ([toastPosition  isEqual: @"center"]) {
-    offSetY = 0;
-  }
-  // 设置上下的位置
-  hud.offset = CGPointMake(0.f, offSetY);
-  [hud hideAnimated:YES afterDelay: [dic floatValueForKey: @"toastDelay" defaultValue: 3]];
+//  NSDictionary *dic = _callData.arguments;
+//  UIView *view = [self findCurrentViewController].view;
+//  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo: view animated:YES];
+//  // Set the text mode to show only text.
+//  hud.mode = MBProgressHUDModeText;
+//  hud.label.text = NSLocalizedString(message, @"温馨提示");
+//  // 内边剧
+//  hud.margin = [dic floatValueForKey: @"toastPadding" defaultValue: 10];
+//  // 文本颜色
+//  hud.contentColor = [UIColor colorWithHex: [dic stringValueForKey: @"toastColor" defaultValue: @"#FFFFFF"] defaultValue: @"#FFFFFF"];
+//  // 弹窗背景
+//  hud.bezelView.color = [UIColor colorWithHex: [dic stringValueForKey: @"toastBackground" defaultValue: @"#000000"] defaultValue: @"#000000"];
+//  // 弹窗背景样式
+//  hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+//  
+//  CGFloat offSetY = view.bounds.size.height / 2;
+//  NSString* toastPosition = [dic stringValueForKey: @"toastPositionMode" defaultValue: @"bottom"];
+//  if ([toastPosition  isEqual: @"top"]) {
+//    CGFloat top = [dic floatValueForKey: @"toastMarginTop" defaultValue: 30.f];
+//    offSetY = - offSetY + view.window.safeAreaInsets.top + top;
+//  } else if ([toastPosition  isEqual: @"bottom"]) {
+//    CGFloat bottom = [dic floatValueForKey: @"toastMarginBottom" defaultValue: 30.f];
+//    offSetY = offSetY - view.window.safeAreaInsets.bottom - bottom;
+//  } else if ([toastPosition  isEqual: @"center"]) {
+//    offSetY = 0;
+//  }
+//  // 设置上下的位置
+//  hud.offset = CGPointMake(0.f, offSetY);
+//  [hud hideAnimated:YES afterDelay: [dic floatValueForKey: @"toastDelay" defaultValue: 3]];
 }
 
 -(void) resultData:(NSDictionary *)dict{

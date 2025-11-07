@@ -1,9 +1,7 @@
 package com.sean.rao.ali_auth;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -11,19 +9,11 @@ import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Build;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.hjq.toast.CustomToast;
-import com.hjq.toast.ToastStrategy;
-import com.hjq.toast.Toaster;
-import com.hjq.toast.config.IToast;
-import com.hjq.toast.config.IToastStyle;
 import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
@@ -114,48 +104,6 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         break;
       case "initSdk":
         JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(call.arguments));
-        if (!jsonObject.getBooleanValue("isHideToast")) {
-          Toaster.init(mActivity.getApplication(), new ToastStrategy(){
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public IToast createToast(IToastStyle<?> style) {
-              IToast toast = super.createToast(style);
-              CustomToast customToast = ((CustomToast) toast);
-              // 设置 Toast 动画效果
-              //customToast.setAnimationsId(R.anim.xxx);
-              // 设置短 Toast 的显示时长（默认是 2000 毫秒）
-              customToast.setShortDuration(jsonObject.getIntValue("toastDelay") * 1000);
-              if (UtilTool.dataStatus(jsonObject, "toastPositionMode")) {
-                String mode = jsonObject.getString("toastPositionMode");
-                switch (mode){
-                  case "top":
-                    customToast.setGravity(Gravity.TOP, 0, jsonObject.getIntValue("marginTop") + 10);
-                    break;
-                  case "bottom":
-                    customToast.setGravity(Gravity.BOTTOM, 0, jsonObject.getIntValue("marginBottom") + 10);
-                    break;
-                  default:
-                    customToast.setGravity(Gravity.CENTER, 0, 0);
-                    break;
-                }
-              }
-              View view = customToast.getView();
-              // 设置背景颜色
-              view.setBackgroundColor(Color.parseColor(jsonObject.getString("toastBackground")));
-              // 设置内边剧
-              view.setPadding(
-                      jsonObject.getIntValue("toastPadding"),
-                      jsonObject.getIntValue("toastPadding"),
-                      jsonObject.getIntValue("toastPadding"),
-                      jsonObject.getIntValue("toastPadding")
-              );
-              // 重置view样式
-              customToast.setView(view);
-              return toast;
-            }
-          });
-        }
-
         if (_events == null) {
           result.error("500001", "请先对插件进行监听！", null);
         } else {
@@ -310,16 +258,20 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
   // 注册回调
   private void registerNetworkCallback(Context context) {
     ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkRequest.Builder builder = new NetworkRequest.Builder();
-    builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
-    builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
-    cm.registerNetworkCallback(builder.build(), callback);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          NetworkRequest.Builder builder = new NetworkRequest.Builder();
+          builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+          builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+          cm.registerNetworkCallback(builder.build(), callback);
+      }
   }
 
   // 注销回调
   private void unregisterNetworkCallback(Context context) {
     ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    cm.unregisterNetworkCallback(callback);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          cm.unregisterNetworkCallback(callback);
+      }
   }
 
   /**

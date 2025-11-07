@@ -5,6 +5,7 @@ version '1.3.6'
 buildscript {
     repositories {
         mavenLocal()
+        mavenCentral()
 //        google()
 //        jcenter()
         // JitPack 远程仓库：https://jitpack.io
@@ -33,9 +34,9 @@ rootProject.allprojects {
         maven { url 'https://maven.aliyun.com/repository/google' }
 
         // 一键登录本地依赖
-        flatDir {
-            dirs project(':ali_auth').file('libs')
-        }
+//        flatDir {
+//            dirs project(':ali_auth').file('libs')
+//        }
     }
 }
 
@@ -44,7 +45,13 @@ android {
         namespace = "com.sean.rao.ali_auth"
     }
 
-    compileSdkVersion 33
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    compileSdkVersion 35
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -83,13 +90,16 @@ android {
         //    implementation 'com.google.code.gson:gson:2.10.1'
         //    implementation 'com.alibaba:fastjson:1.2.83'
 
-        implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
-        //    implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
-        implementation(name: "logger-${loggerVersion}-release", ext:'aar')
-        implementation(name: "main-${mainVersion}-release", ext:'aar')
+        implementation files("libs/auth_number_product-${authLibVersion}-release.aar")
+        implementation files("libs/logger-${loggerVersion}-release.aar")
+        implementation files("libs/main-${mainVersion}-release.aar")
+//        implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
+//        implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
+//        implementation(name: "logger-${loggerVersion}-release", ext:'aar')
+//        implementation(name: "main-${mainVersion}-release", ext:'aar')
 
         // 吐司框架：https://github.com/getActivity/Toaster
-        implementation 'com.github.getActivity:Toaster:12.2'
+        // implementation 'com.github.getActivity:Toaster:12.2'
 
         // uc的crash收集库，客户可自行选择是否需要集成
         // implementation 'com.ucweb.wpk:crashsdk:3.2.2.2'

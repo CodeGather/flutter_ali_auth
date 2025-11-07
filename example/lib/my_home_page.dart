@@ -5,6 +5,8 @@ import 'package:ali_auth/ali_auth.dart';
 import 'package:ali_auth_example/my_router_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -53,7 +55,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     /// 初始化第三方按钮数据
     setState(() {
       androidSk =
-          "RwZ0kq2Zn+0IQFb0/1ajfhpYg9qmw/VyRLuumsC5TtVHkyncsQkxjghtBJ70ZxsuiJD/LF7Sp+Be/i/QBGfdSq1unyvuZz/4Zq1B61beqnK9AkEWGM7fJ2N+yNWtBUQ8vAOJqu6+WA+R0+/eG3c5lyUaudycPMaw7fNm7wjR2xCPYCzkYrPC0sA1HWW+s2Rp32DcP87IjftvLnRIuCa/OGk2yPWaENqW68MF0EF2S8M0gscaamkQ+pHR/+R/4jFNYt1jPKEMx9Jqxuy96uRC0WoOPaFJ428KdRQbG7AgLFENEgFb9wkq5A==";
+          "PjbfDrDI3QeCWBB1h1yO7zV8MSSu+qt33+ePn//wKNxQQA1TNqgxx6JgM/H3CmbT7H/zMzKBRLS4E1oOV+bzcWN4FR/EBu/LPwSyxO/ygV+b27KEMYXZdN9+WMEP+D0vc/ob4x0bWB72YcRSPAjH2HsFByBJMhWr7oEgxuMNEUf+NesmO6RpQ+s0seT1hGEJJj9C21NpghPZeZfTb4bQ7b0pExjffHZO1KhKOWsOXMMH+pb9EnFg9K/PqPqX73p4H9D3+0HMFEx7PPLsr+/6/JbBLaTsEn1uROxN/qP1xpe30yB5QbWexQ==";
       iosSk =
           "mjWr9sTsoXwmMx7qf0T2KQOQBpqkxeNW9I1ZNZ96ZCeBbeD9xYOUaC2mE9mcqog041VCot2sLcy9UArf+re517e5R9yowKCjf15VglZSP/HweRhOT8Cvci43zagyRqo40l85LTnZ5uJPaVauDLJB7hOTIkNPGm3fb621k6A6ZDh6aDGAKWyy0tPUPV/9RFrfeig9SURNe9Vl/Aok6SKg+SftM30uk2W8wdbV8gMVbU51Odnoapm2ZlAJYmCrdoXvROW5qc8pbQ8=";
 
@@ -102,6 +104,16 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       if (kDebugMode) {
         print("----------------> $onEvent <----------------");
       }
+
+      Fluttertoast.showToast(
+          msg: "This is Center Short Toast",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
 
       // 自己关闭授权页面
       if (onEvent["code"] == "700005") {

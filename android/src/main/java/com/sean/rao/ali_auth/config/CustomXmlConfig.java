@@ -1,24 +1,14 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.mobile.auth.gatewayauth.AuthRegisterXmlConfig;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.mobile.auth.gatewayauth.ui.AbstractPnsViewDelegate;
 import com.sean.rao.ali_auth.R;
-import com.sean.rao.ali_auth.utils.UtilTool;
-
-import io.flutter.plugin.common.EventChannel;
 
 /**
  * xml文件方便预览

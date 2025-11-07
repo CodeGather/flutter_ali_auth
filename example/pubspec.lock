@@ -69,14 +69,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_easyloading:
-    dependency: "direct dev"
-    description:
-      name: flutter_easyloading
-      sha256: ba21a3c883544e582f9cc455a4a0907556714e1e9cf0eababfcb600da191d17c
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.5"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -85,14 +77,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.0.0"
-  flutter_spinkit:
-    dependency: transitive
-    description:
-      name: flutter_spinkit
-      sha256: d2696eed13732831414595b98863260e33e8882fc069ee80ec35d4ac9ddb0472
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "5.2.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -103,6 +87,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "144ddd74d49c865eba47abe31cbc746c7b311c82d6c32e571fd73c4264b740e2"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "9.0.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -244,6 +236,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "15.0.0"
+  web:
+    dependency: transitive
+    description:
+      name: web
+      sha256: "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
 sdks:
   dart: ">=3.8.0 <4.0.0"
   flutter: ">=3.35.5"

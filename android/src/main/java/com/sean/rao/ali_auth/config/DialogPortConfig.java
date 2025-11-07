@@ -1,22 +1,16 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.mobile.auth.gatewayauth.AuthRegisterViewConfig;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.utils.AppUtils;
 import com.sean.rao.ali_auth.utils.UtilTool;
 
 import java.io.IOException;
-
-import io.flutter.plugin.common.EventChannel;
 
 public class DialogPortConfig extends BaseUIConfig {
     /**

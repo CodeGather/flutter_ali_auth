@@ -1,16 +1,10 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.mobile.auth.gatewayauth.AuthRegisterViewConfig;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.common.CustomAuthUIControlClickListener;
-
-import io.flutter.plugin.common.EventChannel;
 
 public class FullPortConfig extends BaseUIConfig {
     private final String TAG = "全屏竖屏样式";

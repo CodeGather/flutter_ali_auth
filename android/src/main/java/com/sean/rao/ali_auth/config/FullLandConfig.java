@@ -1,21 +1,7 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Build;
-import android.view.Gravity;
-import android.view.View;
-
-import com.alibaba.fastjson2.JSONObject;
-import com.mobile.auth.gatewayauth.AuthRegisterXmlConfig;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
-import com.mobile.auth.gatewayauth.ui.AbstractPnsViewDelegate;
-
-import io.flutter.plugin.common.EventChannel;
-
-import static android.view.View.SYSTEM_UI_FLAG_LOW_PROFILE;
 
 public class FullLandConfig extends BaseUIConfig {
 

@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'my_home_page.dart';
 import 'my_home_page_web.dart';
 import 'my_router_page.dart';
@@ -22,8 +22,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    configLoading();
   }
 
   Widget getDefaultRouter() {
@@ -44,30 +42,19 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  /// 弹窗插件初始化
-  void configLoading() {
-    EasyLoading.instance
-      ..displayDuration = const Duration(milliseconds: 2000)
-      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-      ..loadingStyle = EasyLoadingStyle.dark
-      ..indicatorSize = 45.0
-      ..radius = 10.0
-      ..progressColor = Colors.yellow
-      ..backgroundColor = Colors.green
-      ..indicatorColor = Colors.yellow
-      ..textColor = Colors.yellow
-      ..maskColor = Colors.blue.withOpacity(0.5)
-      ..userInteractions = true
-      ..dismissOnTap = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
         // 退出APP方法一
-        EasyLoading.show(
-          status: '您确定要退出思预云吗?',
+        Fluttertoast.showToast(
+            msg: '您确定要退出思预云吗?',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
         );
         return Future.value(false);
       }, // look here!
@@ -77,7 +64,6 @@ class _MyAppState extends State<MyApp> {
           '/homePage': (BuildContext context) => const MyHomePage(),
           '/routerPage': (BuildContext context) => const MyRouterPage(),
         },
-        builder: EasyLoading.init(),
       ),
     );
   }

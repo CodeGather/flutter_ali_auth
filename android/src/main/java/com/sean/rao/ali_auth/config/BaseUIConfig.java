@@ -1,7 +1,5 @@
 package com.sean.rao.ali_auth.config;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.util.TypedValue;
@@ -17,9 +15,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.hjq.toast.Toaster;
-import com.mobile.auth.gatewayauth.AuthUIConfig;
-import com.mobile.auth.gatewayauth.PhoneNumberAuthHelper;
 import com.sean.rao.ali_auth.common.Constant;
 
 import com.sean.rao.ali_auth.common.LoginParams;
@@ -135,10 +130,10 @@ public abstract class BaseUIConfig extends LoginParams {
                         // 判断是否隐藏toast
                         showResult("700005", "点击第三方登录按钮", finalI);
                         // eventSink.success(UtilTool.resultFormatData("600019", null, finalI));
-                        if (!jsonObject.getBooleanValue("isHideToast") && !isChecked) {
-                            Toaster.show(jsonObject.getString("toastText"));
-                            return;
-                        }
+//                        if (!jsonObject.getBooleanValue("isHideToast") && !isChecked) {
+//                            Toaster.show(jsonObject.getString("toastText"));
+//                            return;
+//                        }
                         if (jsonObject.getBooleanValue("autoQuitPage")) {
                             mAuthHelper.quitLoginPage();
                         }
