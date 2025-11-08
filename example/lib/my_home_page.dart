@@ -105,16 +105,6 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         print("----------------> $onEvent <----------------");
       }
 
-      Fluttertoast.showToast(
-          msg: "This is Center Short Toast",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-
       // 自己关闭授权页面
       if (onEvent["code"] == "700005") {
         AliAuth.quitPage();
@@ -124,7 +114,15 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       if (onEvent["code"] == "600000" && onEvent["data"] != null) {
         // AliAuth.quitPage();
       }
-      // EasyLoading.show(status: onEvent['msg'] ?? "", maskType: EasyLoadingMaskType.black);
+      Fluttertoast.showToast(
+          msg: "${onEvent['msg']}",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
       setState(() {
         status = onEvent.toString();
       });

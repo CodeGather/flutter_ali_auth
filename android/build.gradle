@@ -24,6 +24,7 @@ buildscript {
 rootProject.allprojects {
     repositories {
         mavenLocal()
+        mavenCentral()
 //        google()
 //        jcenter()
         // JitPack 远程仓库：https://jitpack.io
@@ -90,9 +91,10 @@ android {
         //    implementation 'com.google.code.gson:gson:2.10.1'
         //    implementation 'com.alibaba:fastjson:1.2.83'
 
-        implementation files("libs/auth_number_product-${authLibVersion}-release.aar")
-        implementation files("libs/logger-${loggerVersion}-release.aar")
-        implementation files("libs/main-${mainVersion}-release.aar")
+        implementation fileTree(dir: 'libs', include: ['*.aar'])
+//        implementation files("libs/auth_number_product-${authLibVersion}-release.aar")
+//        implementation files("libs/logger-${loggerVersion}-release.aar")
+//        implementation files("libs/main-${mainVersion}-release.aar")
 //        implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
 //        implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
 //        implementation(name: "logger-${loggerVersion}-release", ext:'aar')
