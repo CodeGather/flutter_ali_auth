@@ -54,8 +54,7 @@ class _MyAppState extends State<MyApp> {
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0
-        );
+            fontSize: 16.0);
         return Future.value(false);
       }, // look here!
       child: MaterialApp(

@@ -1,5 +1,8 @@
 name: ali_auth_example
 description: Demonstrates how to use the ali_auth plugin.
+version: 1.3.6
+homepage: https://github.com/CodeGather/flutter_ali_auth
+repository: https://github.com/CodeGather/flutter_ali_auth/tree/master/example
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

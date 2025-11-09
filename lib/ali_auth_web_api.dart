@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:js/js.dart';
+import 'dart:js_util'; // Add this import
 import 'dart:js_interop';
 
 @JS("PhoneNumberServer")
