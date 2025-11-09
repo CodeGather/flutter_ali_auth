@@ -1,11 +1,11 @@
 PODS:
   - ali_auth (1.3.6):
     - Flutter
-    - MBProgressHUD
     - MJExtension
     - SDWebImage
   - Flutter (1.0.0)
-  - MBProgressHUD (1.2.0)
+  - fluttertoast (0.0.2):
+    - Flutter
   - MJExtension (3.4.1)
   - SDWebImage (5.18.10):
     - SDWebImage/Core (= 5.18.10)
@@ -14,10 +14,10 @@ PODS:
 DEPENDENCIES:
   - ali_auth (from `.symlinks/plugins/ali_auth/ios`)
   - Flutter (from `Flutter`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
 
 SPEC REPOS:
   trunk:
-    - MBProgressHUD
     - MJExtension
     - SDWebImage
 
@@ -26,14 +26,16 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/ali_auth/ios"
   Flutter:
     :path: Flutter
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
 
 SPEC CHECKSUMS:
-  ali_auth: 6cfa87046bdef670e58c0c4bdfe44f66c7a5f8a2
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  ali_auth: eb9e395aa4d6ec6be0adff258939dfd4bf74ce2c
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
   MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
   SDWebImage: fc8f2d48bbfd72ef39d70e981bd24a3f3be53fec
 
-PODFILE CHECKSUM: febdfd11a6e0d89f8825f798c6e429c9cd41f55a
+PODFILE CHECKSUM: aa816d5d481f63a1be71fbb8f8dddfdb9fb7d204
 
 COCOAPODS: 1.16.2

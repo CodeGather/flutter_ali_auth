@@ -250,7 +250,7 @@ bool bool_false = false;
   [self resultData: dict];
   if (!self->_isChecked && !self->_isHideToast) {
     NSDictionary *dic = self -> _callData.arguments;
-    [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
+    // [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
   } else {
     [[TXCommonHandler sharedInstance] cancelLoginVCAnimated: YES complete:^(void) {}];
   }
@@ -343,17 +343,8 @@ bool bool_false = false;
               [[weakSelf findCurrentViewController].view hitTest:CGPointMake(_vc.view.bounds.size.width, _vc.view.bounds.size.height) withEvent:nil];
 //              [[weakSelf findCurrentViewController].view addSubview:headerView];
               
-              bool isHiddenToast = [self->_callData.arguments boolValueForKey: @"isHiddenToast" defaultValue: YES];
               // 当未勾选隐私协议时，弹出 Toast 提示
-              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] &&
-                    !self->_isChecked) {
-                    NSDictionary *dic = self->_callData.arguments;
-                    [self showToast:[dic stringValueForKey:@"toastText" defaultValue:@"请先阅读用户协议"]];
-                    // 当存在autoHideLoginLoading时需要执行loading
-//              } else if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !isHiddenToast) {
-//                  dispatch_async(dispatch_get_main_queue(), ^{
-//                    [MBProgressHUD showHUDAddedTo:[weakSelf findCurrentViewController].view animated:YES];
-//                });
+              if ([PNSCodeLoginControllerClickLoginBtn isEqualToString:code] && !self->_isChecked) {
               } else if ([PNSCodeSuccess isEqualToString:code]) {
                 bool autoQuitPage = [self->_callData.arguments boolValueForKey: @"autoQuitPage" defaultValue: YES];
                 // 登录成功后是否自动关闭页面
@@ -366,8 +357,6 @@ bool bool_false = false;
                 // 通过switchCheck 参数动态控制 是否需要切换其他方式时需要勾选
                 NSDictionary *dic = self -> _callData.arguments;
                 if (!self->_isChecked && !self-> _isHideToast && [dic boolValueForKey: @"switchCheck" defaultValue: YES]) {
-                  [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
-                  return;
                 } else {
                   [[TXCommonHandler sharedInstance] cancelLoginVCAnimated:YES complete:nil];
                 }
@@ -428,11 +417,11 @@ bool bool_false = false;
 #pragma mark -  格式化数据utils返回数据
 - (void)showResult:(id __nullable)showResult {
   // 当存在autoHideLoginLoading时需要执行关闭
-  if (![self->_callData.arguments boolValueForKey: @"autoHideLoginLoading" defaultValue: YES]) {
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [MBProgressHUD hideHUDForView: [self findCurrentViewController].view animated:YES];
-    });
-  }
+//  if (![self->_callData.arguments boolValueForKey: @"autoHideLoginLoading" defaultValue: YES]) {
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//      [MBProgressHUD hideHUDForView: [self findCurrentViewController].view animated:YES];
+//    });
+//  }
   
   NSDictionary *dict = @{
       @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
