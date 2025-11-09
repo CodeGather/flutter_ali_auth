@@ -242,13 +242,18 @@ bool bool_false = false;
 - (void)btnClick: (UIGestureRecognizer *) sender {
   UIButton *view = (UIButton *)sender;
   NSInteger index = view.tag;
-  NSDictionary *dict = @{
-    @"code": @"700005",
-    @"msg" : @"点击第三方登录按钮",
-    @"data" : [NSNumber numberWithInteger: index]
-  };
+  /// 700000 为 自定义返回按钮的 tag
+  NSDictionary * dict = index == 700000 ? @{
+      @"code": @"700000",
+      @"msg" : @"用户取消登录",
+      @"data" : @"cancel login by tapping customized back button"
+    } : @{
+      @"code": @"700005",
+      @"msg" : @"点击第三方登录按钮",
+      @"data" : [NSNumber numberWithInteger: index]
+    };
   [self resultData: dict];
-  if (!self->_isChecked && !self->_isHideToast) {
+  if (index != 700000 && !self->_isChecked && !self->_isHideToast) {
     NSDictionary *dic = self -> _callData.arguments;
     // [self showToast: [dic stringValueForKey: @"toastText" defaultValue: @"请先阅读用户协议"]];
   } else {
