@@ -8,7 +8,6 @@ buildscript {
         mavenCentral()
 //        google()
 //        jcenter()
-        // JitPack 远程仓库：https://jitpack.io
         maven { url 'https://dl.bintray.com/jetbrains/anko'}
         maven { url 'https://download.flutter.io'}
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -36,12 +35,8 @@ rootProject.allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        maven {
-            url "$dir/libs"
-        }
 //        google()
 //        jcenter()
-        // JitPack 远程仓库：https://jitpack.io
         maven { url 'https://dl.bintray.com/jetbrains/anko'}
         maven { url 'https://download.flutter.io'}
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -58,12 +53,6 @@ android {
     if (project.android.hasProperty("namespace")) {
         namespace = "com.sean.rao.ali_auth"
     }
-
-//    sourceSets {
-//        main {
-//            jniLibs.srcDirs = ['libs']
-//        }
-//    }
 
     compileSdkVersion 35
 
@@ -103,28 +92,10 @@ android {
         implementation "com.alibaba.fastjson2:fastjson2:2.0.51.android5"
         //    implementation 'com.google.code.gson:gson:2.10.1'
         //    implementation 'com.alibaba:fastjson:1.2.83'
-//        implementation "com.pgyer:sdk:3.0.9"
-
 
         implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
         implementation(name: "logger-${loggerVersion}-release", ext:'aar')
         implementation(name: "main-${mainVersion}-release", ext:'aar')
-
-//        implementation "com.mobile.auth:auth-number-product:2.14.14"
-//        implementation project(':libs:main-release')
-//        implementation project(':libs:logger-release')
-//        implementation(version: "${authLibVersion}", name: "auth-number-release", ext:'aar', group: "libs")
-//        implementation(version: "${loggerVersion}", name: "logger-release", ext:'aar', group: "libs")
-//        implementation(version: "${mainVersion}", name: "main-release", ext:'aar', group: "libs")
-
-//        implementation fileTree(dir: 'libs', include: ['*.aar'])
-//        implementation files("libs/auth_number_product-${authLibVersion}-release.aar")
-//        implementation files("libs/logger-${loggerVersion}-release.aar")
-//        implementation files("libs/main-${mainVersion}-release.aar")
-//        implementation(name: "auth_number_product-${authLibVersion}-release", ext:'aar')
-//        implementation(name: "crashshield-${crashshieldVersion}-release", ext:'aar')
-//        implementation(name: "logger-${loggerVersion}-release", ext:'aar')
-//        implementation(name: "main-${mainVersion}-release", ext:'aar')
 
         // 吐司框架：https://github.com/getActivity/Toaster
         // implementation 'com.github.getActivity:Toaster:12.2'
