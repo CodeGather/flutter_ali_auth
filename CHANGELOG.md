@@ -1,5 +1,13 @@
 #  
 
+## 1.3.7
+* Update the Android SDK to version 2.14.19
+* Update iOS SDK to 2.14.13
+* Update the web SDK to version 2.1.14
+* Add Android obfuscation
+* Add the return values for 600016 and 600024 in iOS
+* Added setCheckBoxIsChecked method
+
 ## 1.3.6
 * Update Android SDK to 2.14.14
 * Update iOS SDK to 2.14.11

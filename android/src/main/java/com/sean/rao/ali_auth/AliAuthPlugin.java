@@ -129,6 +129,10 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         boolean status = oneKeyLoginPublic.queryCheckBoxIsChecked();
         result.success(status);
         break;
+      case "setCheckboxIsChecked":
+        boolean checked = oneKeyLoginPublic.setCheckBoxIsChecked();
+        result.success(checked);
+        break;
       case "checkCellularDataEnable":
         isNetEnabled(mContext, result);
         break;

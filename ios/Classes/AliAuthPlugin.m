@@ -121,6 +121,10 @@ bool bool_false = false;
     BOOL status = [[TXCommonHandler sharedInstance] queryCheckBoxIsChecked];
     result(@(status));
   }
+  else if ([@"setCheckboxIsChecked" isEqualToString:call.method]) {
+    [[TXCommonHandler sharedInstance] setCheckboxIsChecked:YES];
+    result(@(bool_true));
+  }
   else if ([@"checkCellularDataEnable" isEqualToString:call.method]) {
     [self checkCellularDataEnable:call result:result];
   }
@@ -170,6 +174,8 @@ bool bool_false = false;
       //2. 调用check接口检查及准备接口调用环境
       [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable checkDic) {
         if ([PNSCodeSuccess isEqualToString:[checkDic objectForKey:@"resultCode"]] == YES) {
+          NSDictionary *dict = @{ @"resultCode": @"600024" };
+          [self showResult: dict];
           //3. 调用取号接口，加速授权页的弹起
           [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout: 5.0 complete:^(NSDictionary * _Nonnull resultDic) {
             //4. 预取号成功后判断是否延时登录，否则立即登录
@@ -177,9 +183,12 @@ bool bool_false = false;
               if (![dic boolValueForKey: @"isDelay" defaultValue: NO]) {
                 [self loginWithModel: self->_model complete:^{}];
               }
-            }else{
-                [self showResult: resultDic];
+              NSString *carrierNam = [TXCommonUtils getCurrentCarrierName];
+              NSDictionary *acceleDict = @{ @"resultCode": @"600016", @"data": carrierNam };
+              [self showResult: acceleDict];
+              return;
             }
+            [self showResult: resultDic];
           }];
         } else {
           NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:checkDic];
@@ -274,21 +283,23 @@ bool bool_false = false;
     
     //1. 调用check接口检查及准备接口调用环境
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:PNSAuthTypeLoginToken complete:^(NSDictionary * _Nullable resultDic) {
-        if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-            [weakSelf showResult:resultDic];
-            return;
-        }
-        
-        //2. 调用取号接口，加速授权页的弹起
-        [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
-            if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
-                [weakSelf showResult:resultDic];
-                return;
-            }
-            
-            [weakSelf showResult:resultDic];
-        }];
-    }];
+      if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
+          [weakSelf showResult:resultDic];
+          return;
+      }
+      NSDictionary *dict = @{ @"resultCode": @"600024" };
+      [self showResult: dict];
+      
+      //2. 调用取号接口，加速授权页的弹起
+      [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
+          if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
+              [weakSelf showResult:resultDic];
+              return;
+          }
+          NSDictionary *acceleDict = @{ @"resultCode": @"600016" };
+          [self showResult: acceleDict];
+      }];
+  }];
 }
 
 // 跳转Flutter混合原生view界面
@@ -323,7 +334,6 @@ bool bool_false = false;
           [weakSelf showResult:resultDic];
           return;
         }
-        
         //2. 调用取号接口，加速授权页的弹起
         [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
           if ([PNSCodeSuccess isEqualToString:[resultDic objectForKey:@"resultCode"]] == NO) {
@@ -426,7 +436,8 @@ bool bool_false = false;
   NSDictionary *dict = @{
       @"code": [NSString stringWithFormat: @"%@", [showResult objectForKey:@"resultCode"]],
       @"msg" : [AliAuthEnum initData][[showResult objectForKey:@"resultCode"]]?:@"",
-      @"data" : [showResult objectForKey: @"token"]?:@""
+      @"data" : [showResult objectForKey: @"token"]?:@"",
+      @"isChecked": self->_isChecked ? @(bool_true):@(bool_false)
   };
 
   [self resultData: dict];

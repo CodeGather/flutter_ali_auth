@@ -68,6 +68,10 @@ abstract class AliAuthPlatform extends PlatformInterface {
     throw UnimplementedError('queryCheckBoxIsChecked() has not been implemented.');
   }
 
+  Future<void> setCheckboxIsChecked() {
+    throw UnimplementedError('setCheckboxIsChecked() has not been implemented.');
+  }
+
   Future<void> hideLoading() {
     throw UnimplementedError('quitPage() has not been implemented.');
   }

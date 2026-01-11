@@ -79,6 +79,12 @@ class MethodChannelAliAuth extends AliAuthPlatform {
     return await methodChannel.invokeMethod('queryCheckBoxIsChecked');
   }
 
+  /// 获取授权页协议勾选框选中状态
+  @override
+  Future<void> setCheckboxIsChecked() async {
+    return await methodChannel.invokeMethod('setCheckboxIsChecked');
+  }
+
   /// 强制关闭Loading
   @override
   Future<void> hideLoading() async {

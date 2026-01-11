@@ -98,6 +98,9 @@
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/ali_auth/example/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/ali_auth/example/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/ios/.symlinks/plugins/ali_auth/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

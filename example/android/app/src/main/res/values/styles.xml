@@ -27,6 +27,15 @@
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
 
+    <style name="FullScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 兼容刘海屏 -->
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

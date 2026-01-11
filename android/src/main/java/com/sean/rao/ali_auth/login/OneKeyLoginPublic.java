@@ -233,6 +233,17 @@ public class OneKeyLoginPublic extends LoginParams {
         return mAuthHelper.queryCheckBoxIsChecked();
     }
 
+
+    /**
+     * 设置授权页协议勾选框选中状态
+     *
+     * @param paramBoolean勾选框选中状态
+     */
+    public boolean setCheckBoxIsChecked(){
+        mAuthHelper.setProtocolChecked(true);
+        return true;
+    }
+
     /**
      * 退出授权页面
      */
