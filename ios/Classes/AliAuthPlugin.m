@@ -655,6 +655,23 @@ bool bool_false = false;
 #pragma mark  ======在view上添加UIViewController========
 - (UIViewController *)findCurrentViewController{
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
+
+     // 如果未获取到 window 且系统为 iOS 13+，尝试使用 connectedScenes
+    if (!window && @available(iOS 13.0, *)) {
+        NSSet<UIScene *> *scenes = [UIApplication sharedApplication].connectedScenes;
+        for (UIScene *scene in scenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]] && scene.activationState == UISceneActivationStateForegroundActive) {
+                UIWindowScene *windowScene = (UIWindowScene *)scene;
+                for (UIWindow *w in windowScene.windows) {
+                    if (w.isKeyWindow) {
+                        window = w;
+                        break;
+                    }
+                }
+                if (window) break;
+            }
+        }
+    }
   
 //    UIViewController * vc = [[ViewController alloc] init];
 //    window.rootViewController = vc;
