@@ -116,7 +116,11 @@ public class AliAuthPlugin extends FlutterActivity implements FlutterPlugin, Act
         break;
       case "login":
         if (oneKeyLoginPublic != null) {
-          oneKeyLoginPublic.startLogin(LoginParams.jsonObject.getIntValue("timeout", 5000));
+          if (!oneKeyLoginPublic.sdkAvailable) {
+            _events.success(UtilTool.resultFormatData("500005", null, ""));
+          } else {
+            oneKeyLoginPublic.startLogin(LoginParams.jsonObject.getIntValue("timeout", 5000));
+          }
         } else {
           // result.error("500002", "该接口为延时登录接口，请先初始化后再次调用该接口！", null);
           _events.success(UtilTool.resultFormatData("500003", null, ""));
