@@ -38,3 +38,9 @@ jobs:
       - name: Build Release apk
         run: flutter build apk --release
         working-directory: example
+      # 发布 APK 至 artifact
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: example/build/app/outputs/apk/release/app-release.apk
