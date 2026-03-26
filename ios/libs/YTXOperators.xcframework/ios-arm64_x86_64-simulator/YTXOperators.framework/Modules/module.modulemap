@@ -1,0 +1,6 @@
+framework module YTXOperators {
+  umbrella header "YTXOperators.h"
+
+  export *
+  module * { export * }
+}
