@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'ali_auth'
-  s.version          = '1.3.7'
+  s.version          = '1.3.8'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
   是一个集成阿里云号码认证服务SDK的flutter插件
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'Network'
 
-  s.vendored_frameworks = 'libs/ATAuthSDK.framework', 'libs/YTXMonitor.framework', 'libs/YTXOperators.framework'
+  s.vendored_frameworks = 'libs/ATAuthSDK.xcframework', 'libs/YTXMonitor.xcframework', 'libs/YTXOperators.xcframework'
   s.static_framework = false
 
   # 解决移动crash
@@ -35,8 +35,8 @@ Pod::Spec.new do |s|
   s.resources = ['Assets/*']
 
   s.ios.deployment_target = '11.0'
-  # s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
-  s.pod_target_xcconfig = {'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'   }
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+#   s.pod_target_xcconfig = {'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'   }
+#   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end
 

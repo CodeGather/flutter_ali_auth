@@ -1,5 +1,11 @@
 #  
 
+## 1.3.8
+* Update the Android SDK to version 2.14.19
+* Update iOS SDK to 2.14.15
+* Update the web SDK to version 2.1.15
+* Change the introduction of IOS to a dynamic library, and modify the framework to xcframework
+
 ## 1.3.7
 * Update the Android SDK to version 2.14.19
 * Update iOS SDK to 2.14.13
