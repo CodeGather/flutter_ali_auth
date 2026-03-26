@@ -1,4 +1,4 @@
-import 'dart:html' as html show window;
+import 'dart:ui_web' as ui;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
 import 'ali_auth_platform_interface.dart';
@@ -18,7 +18,7 @@ class AliAuthPluginWeb extends AliAuthPlatform {
   /// Returns a [String] containing the version of the platform.
   @override
   Future<String?> getPlatformVersion() async {
-    final version = html.window.navigator.userAgent;
+    final version = ui.BrowserDetection.instance.debugUserAgentOverride;
     return version;
   }
 

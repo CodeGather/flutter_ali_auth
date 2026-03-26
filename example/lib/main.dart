@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +10,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -26,7 +25,7 @@ class _MyAppState extends State<MyApp> {
 
   Widget getDefaultRouter() {
     //还记得我们上边的routerPage嘛， 这个东西就是我们传进来的字符串，我们可以根据这个字符串来决定加载那个flutter页面
-    String router = window.defaultRouteName;
+    String router = PlatformDispatcher.instance.defaultRouteName;
     if (kDebugMode) {
       print("获取到路由数据--------$router");
     }
@@ -44,19 +43,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        // 退出APP方法一
-        Fluttertoast.showToast(
-            msg: '您确定要退出思预云吗?',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        return Future.value(false);
-      }, // look here!
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        // 退出APP方法二
+        if (!didPop) {
+          Fluttertoast.showToast(
+              msg: '您确定要退出思预云吗?',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+        }
+      },// look here!
       child: MaterialApp(
         home: getDefaultRouter(),
         routes: <String, WidgetBuilder>{

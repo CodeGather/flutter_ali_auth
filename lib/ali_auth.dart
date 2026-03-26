@@ -66,7 +66,7 @@ class AliAuth {
   }
 
   /// 数据监听
-  static loginListen(
+  static void loginListen(
       {bool type = true,
       required Function onEvent,
       Function? onError,
@@ -76,17 +76,17 @@ class AliAuth {
   }
 
   /// 暂停
-  static pause() {
+  static void pause() {
     return AliAuthPlatform.instance.pause();
   }
 
   /// 恢复
-  static resume() {
+  static void resume() {
     return AliAuthPlatform.instance.resume();
   }
 
   /// 销毁监听
-  static dispose() {
+  static void dispose() {
     return AliAuthPlatform.instance.dispose();
   }
 

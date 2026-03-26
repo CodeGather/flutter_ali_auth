@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -139,6 +139,8 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         /// AliAuth.quitPage();
         break;
       case AppLifecycleState.detached: // TODO: Handle this case.
+        break;
+      default:
         break;
     }
   }

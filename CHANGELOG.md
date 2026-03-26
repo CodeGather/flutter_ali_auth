@@ -1,5 +1,8 @@
 #  
 
+## 1.3.9
+* FIX BUG
+
 ## 1.3.8
 * Update the Android SDK to version 2.14.19
 * Update iOS SDK to 2.14.15

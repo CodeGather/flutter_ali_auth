@@ -2,7 +2,7 @@ import 'package:ali_auth_example/my_home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyRouterPage extends StatefulWidget {
-  const MyRouterPage({Key? key}) : super(key: key);
+  const MyRouterPage({super.key});
 
   @override
   State<StatefulWidget> createState() {

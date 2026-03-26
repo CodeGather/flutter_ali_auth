@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyHomePageWeb extends StatefulWidget {
-  const MyHomePageWeb({Key? key}) : super(key: key);
+  const MyHomePageWeb({super.key});
 
   @override
   State<StatefulWidget> createState() {

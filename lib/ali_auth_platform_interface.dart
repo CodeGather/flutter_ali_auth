@@ -40,15 +40,15 @@ abstract class AliAuthPlatform extends PlatformInterface {
     throw UnimplementedError('onChange() has not been implemented.');
   }
 
-  resume() {
+  void resume() {
     throw UnimplementedError('resume() has not been implemented.');
   }
 
-  dispose() {
+  void dispose() {
     throw UnimplementedError('dispose() has not been implemented.');
   }
 
-  pause() {
+  void pause() {
     throw UnimplementedError('pause() has not been implemented.');
   }
 
@@ -88,7 +88,7 @@ abstract class AliAuthPlatform extends PlatformInterface {
     throw UnimplementedError('login() has not been implemented.');
   }
 
-  loginListen(
+  void loginListen(
       {bool type = true,
       required Function onEvent,
       Function? onError,
