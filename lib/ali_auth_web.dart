@@ -1,3 +1,4 @@
+import 'dart:js_interop';
 import 'dart:ui_web' as ui;
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'ali_auth_web_api.dart';
@@ -44,14 +45,18 @@ class AliAuthPluginWeb extends AliAuthPlatform {
   Future<void> checkAuthAvailable(String accessToken, String jwtToken,
       Function(dynamic) success, Function(dynamic) error) async {
     aliAuthPluginWebApi.checkAuthAvailable(
-        accessToken, jwtToken, success, error);
+        accessToken,
+        jwtToken,
+        (JSAny? status) => success(status),
+        (JSAny? status) => error(status));
   }
 
   /// 获取本机号码校验Token
   @override
   Future<void> getVerifyToken(
       Function(dynamic) success, Function(dynamic) error) async {
-    aliAuthPluginWebApi.getVerifyToken(success, error);
+    aliAuthPluginWebApi.getVerifyToken(
+        (JSAny? status) => success(status), (JSAny? status) => error(status));
   }
 
   // ========== Web 不支持的接口（一键登录仅限移动端） ==========
