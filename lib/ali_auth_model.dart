@@ -1018,7 +1018,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'alertCloseImageH': instance.alertCloseImageH,
       'alertBlurViewColor': instance.alertBlurViewColor ?? "#000000",
       'alertBlurViewAlpha': instance.alertBlurViewAlpha ?? 0.5,
-      'presentDirection': instance.presentDirection,
+      'presentDirection': instance.presentDirection?.index,
       'privacyAlertIsNeedShow': instance.privacyAlertIsNeedShow ?? false,
       'privacyAlertIsNeedAutoLogin': instance.privacyAlertIsNeedAutoLogin,
       'privacyAlertMaskIsNeedShow': instance.privacyAlertMaskIsNeedShow,
