@@ -5,17 +5,20 @@ import 'dart:js_interop_unsafe';
 @JS('PhoneNumberServer')
 @staticInterop
 class PhoneNumberServer {
-  // 构造函数
-  external PhoneNumberServer();
+  // 构造函数（staticInterop 必须使用 factory）
+  external factory PhoneNumberServer();
+}
 
+// 实例成员放在静态扩展中
+extension PhoneNumberServerExtension on PhoneNumberServer {
   // 方法：获取网络连接状态（返回 Promise）
-  external Future<String?> getConnection();
+  external JSPromise<JSString?> getConnection();
 
   // 方法：设置日志开关
   external void setLoggerEnable(bool isEnable);
 
   // 方法：获取 SDK 版本（返回 Promise）
-  external Future<String?> getVersion();
+  external JSPromise<JSString?> getVersion();
 
   // 方法：鉴权（通过回调通知结果）
   external void checkAuthAvailable(JSObject params);
@@ -30,7 +33,8 @@ class AliAuthPluginWebApi {
 
   /// 网络类型检查接口
   Future<String?> getConnection() async {
-    return await _server.getConnection();
+    final result = await _server.getConnection().toDart;
+    return result?.toDart;
   }
 
   /// 设置 SDK 是否开启日志。开启后会在控制台打印更多内容便于排查问题。
@@ -40,7 +44,8 @@ class AliAuthPluginWebApi {
 
   /// 获取版本号
   Future<String?> getVersion() async {
-    return await _server.getVersion();
+    final result = await _server.getVersion().toDart;
+    return result?.toDart;
   }
 
   /// 调用之前先去用户服务端获取 accessToken 和 jwtToken

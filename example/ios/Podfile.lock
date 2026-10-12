@@ -1,5 +1,5 @@
 PODS:
-  - ali_auth (1.3.8):
+  - ali_auth (1.4.0):
     - Flutter
     - MJExtension
     - SDWebImage
@@ -30,9 +30,9 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
 
 SPEC CHECKSUMS:
-  ali_auth: b40aa22a08bce3d4b50f00fb498f6cdc566cad0f
+  ali_auth: e5a2a0acc3e99d5618c7a5c729ba74c539bef561
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  fluttertoast: 21eecd6935e7064cc1fcb733a4c5a428f3f24f0f
+  fluttertoast: fac57e14a92926e51402ed1da7a53ecd30588a44
   MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
   SDWebImage: 16309af6d214ba3f77a7c6f6fdda888cb313a50a
 
