@@ -231,6 +231,8 @@ public class OneKeyLoginPublic extends LoginParams {
      * 600013 系统维护，功能不可⽤
      */
     public void checkEnvAvailable(@IntRange(from = 1, to = 2) int type){
+        // 环境检查失败时 sdkInit 会把监听置空。重新检查前再挂上，否则结果回不到 Flutter。
+        mAuthHelper.setAuthListener(mTokenResultListener);
         mAuthHelper.checkEnvAvailable(type);
     }
 
