@@ -60,3 +60,57 @@ jobs:
           build-mode: 'debug'
           build-target: 'hap'
           project-path: 'example'
+
+  # Web 编译测试
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取项目代码
+      - uses: actions/checkout@v4
+      # 建立 Flutter 环境
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.x
+      - run: flutter --version
+      # 下载项目依赖
+      - run: flutter pub get
+      # 执行测试
+      - run: flutter test
+      # 编译 Web 版本（dart2js）
+      - name: Build Web
+        working-directory: example
+        run: flutter build web
+      # 编译 Web Wasm 版本（验证 wasm 兼容性）
+      - name: Build Web Wasm
+        working-directory: example
+        run: flutter build web --wasm
+
+  # iOS 编译测试（需 macOS 环境，构建时间较长）
+  ios-build:
+    runs-on: macos-latest
+    steps:
+      # 拉取项目代码
+      - uses: actions/checkout@v4
+      # 建立 java 环境
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      # 建立 Flutter 环境
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.x
+      - run: flutter --version
+      # 下载项目依赖
+      - run: flutter pub get
+      # 执行测试
+      - run: flutter test
+      # 编译 iOS 版本（--no-codesign 跳过签名，仅验证编译通过）
+      - name: Build iOS
+        working-directory: example
+        run: flutter build ios --release --no-codesign

@@ -99,5 +99,4 @@ dependencies:
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/CodeGather/flutter_ali_auth.svg)](https://starchart.cc/CodeGather/flutter_ali_auth)
-
+[![Star History Chart](https://api.star-history.com/chart?repos=codegather/flutter_ali_auth&type=date&legend=top-left)](https://www.star-history.com/?repos=codegather%2Fflutter_ali_auth&type=date&legend=top-left)
