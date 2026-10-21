@@ -38,3 +38,25 @@ jobs:
       - name: Build Release apk
         run: flutter build apk --release
         working-directory: example
+
+  # 鸿蒙端构建测试
+  harmonyos:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取项目代码
+      - uses: actions/checkout@v4
+      # 建立 java 环境（鸿蒙构建需要 JDK 17）
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      # 使用 flutter-ohos-builder 构建鸿蒙端（SDK 内置，无需手动下载）
+      # 参考: https://github.com/marketplace/actions/flutter-ohos-builder
+      - name: Build HarmonyOS
+        uses: zhongdaiqi/flutter-ohos-builder@v1
+        with:
+          flutter-version: '3.41.10-ohos-1.0.1'
+          build-mode: 'debug'
+          build-target: 'hap'
+          project-path: 'example'
