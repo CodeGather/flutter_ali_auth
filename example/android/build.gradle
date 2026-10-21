@@ -1,5 +1,5 @@
 allprojects {
-    ext.kotlin_version = '2.1.20' // Update this line
+    ext.kotlin_version = '2.2.20' // Update this line
     repositories {
         google()
         mavenCentral()
