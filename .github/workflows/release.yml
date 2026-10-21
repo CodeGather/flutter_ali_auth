@@ -7,12 +7,11 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
-  # Release 操作
-  release:
+  # Android 打包
+  build-android:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      discussions: write
     steps:
       # 拉取项目代码
       - uses: actions/checkout@v4
@@ -22,13 +21,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-      # 建立 Flutter 环境, 使用指定文件的环境
+      # 建立 Flutter 环境
       - name: Flutter action
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           flutter-version: 3.x
-#          flutter-version-file: pubspec.yaml
       - run: flutter --version
       # 下载项目依赖
       - run: flutter pub get
@@ -38,18 +36,113 @@ jobs:
       - name: Build Release apk
         run: flutter build apk --release
         working-directory: example
-      # 发布到 上次文件至artifact
-      - name: Upload Release APK
+      # 上传 APK 产物
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release.apk
-          path: example/build/app/outputs/apk/release/app-release.apk
+          name: android-apk
+          path: example/build/app/outputs/apk/release/*.apk
+
+  # 鸿蒙打包（SDK 内置）
+  build-harmonyos:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # 拉取项目代码
+      - uses: actions/checkout@v4
+      # 建立 java 环境（鸿蒙构建需要 JDK 17）
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      # 使用 flutter-ohos-builder 构建鸿蒙端
+      # 如需正式签名，可添加 ohos-sign-* 输入参数
+      - name: Build HarmonyOS
+        uses: zhongdaiqi/flutter-ohos-builder@v1.4
+        with:
+          flutter-version: '3.41.10-ohos-1.0.1'
+          build-mode: 'release'
+          build-target: 'app'
+          project-path: 'example'
+      # 上传 HAP/APP 产物
+      - name: Upload HarmonyOS
+        uses: actions/upload-artifact@v4
+        with:
+          name: harmonyos-app
+          path: |
+            example/ohos/entry/build/**/outputs/**/*.hap
+            example/ohos/entry/build/**/outputs/**/*.app
+
+  # iOS 打包（无签名，产物为 .app.zip）
+  build-ios:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      # 拉取项目代码
+      - uses: actions/checkout@v4
+      # 建立 java 环境
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      # 建立 Flutter 环境
+      - name: Flutter action
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.x
+      - run: flutter --version
+      # 下载项目依赖
+      - run: flutter pub get
+      # 执行测试
+      - run: flutter test
+      # 编译 iOS（--no-codesign 跳过签名，仅产出 .app）
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+        working-directory: example
+      # 压缩 .app 产物
+      - name: Zip iOS app
+        run: |
+          cd example/build/ios/iphoneos
+          if [ -d Runner.app ]; then
+            zip -r Runner-app-ios.zip Runner.app
+          else
+            echo "Runner.app not found, listing build dir..."
+            ls -la
+            find . -name "*.app" -maxdepth 2
+          fi
+      # 上传 iOS 产物
+      - name: Upload iOS
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: example/build/ios/iphoneos/*.zip
+
+  # 创建 Release（依赖所有构建完成）
+  release:
+    needs: [build-android, build-harmonyos, build-ios]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      discussions: write
+    steps:
+      # 拉取项目代码（用于读取 release.md）
+      - uses: actions/checkout@v4
+      # 下载所有构建产物
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
       # 创建 Release
       - name: Create a Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "example/build/app/outputs/apk/release/*.apk"
-          token: ${{ secrets.ACCOUNT_TOKEN }}
+          artifacts: "artifacts/**/*.apk,artifacts/**/*.hap,artifacts/**/*.app,artifacts/**/*.zip"
+          token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           artifactErrorsFailBuild: true
           generateReleaseNotes: true
