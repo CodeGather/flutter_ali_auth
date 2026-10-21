@@ -1,6 +1,7 @@
 #  
 
 ## 1.4.0
+* add ohos
 * Update Android SDK to 2.14.23
 * Update iOS SDK to 2.14.18
 * Change the introduction of iOS to a dynamic library, and modify the framework to xcframework to support Apple Silicon iOS 26+ simulators

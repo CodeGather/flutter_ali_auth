@@ -1,5 +1,6 @@
 
 ## 1.4.0
+* 新增鸿蒙端
 * 更新android sdk 为 2.14.23
 * 更新ios sdk 为 2.14.18
 * 将IOS的引入改为动态库，将framework修改xcframework 兼容 Apple Silicon iOS 26+ simulators
