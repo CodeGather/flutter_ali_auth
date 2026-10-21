@@ -16,12 +16,12 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   plugin_platform_interface: ^2.1.8
-  js: ^0.7.2
+  js: ^0.7.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -38,6 +38,8 @@ flutter:
         package: com.sean.rao.ali_auth
         pluginClass: AliAuthPlugin
       ios:
+        pluginClass: AliAuthPlugin
+      ohos:
         pluginClass: AliAuthPlugin
       web:
         pluginClass: AliAuthPluginWeb

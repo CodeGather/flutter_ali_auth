@@ -1,0 +1,11 @@
+{
+  "name": "ali_auth",
+  "version": "1.4.0",
+  "description": "Aliyun number authentication Flutter plugin for HarmonyOS.",
+  "main": "index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "numberauth_standard": "file:./libs/auth_number_product-v2.0.21-log-online-standard-release.har"
+  }
+}

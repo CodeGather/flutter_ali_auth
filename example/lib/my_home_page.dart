@@ -28,6 +28,9 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   /// iOS 密钥
   late String iosSk;
 
+  /// HarmonyOS 密钥
+  late String ohosSk;
+
   /// 弹窗宽度
   late int screenWidth;
 
@@ -58,6 +61,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
           "PjbfDrDI3QeCWBB1h1yO7zV8MSSu+qt33+ePn//wKNxQQA1TNqgxx6JgM/H3CmbT7H/zMzKBRLS4E1oOV+bzcWN4FR/EBu/LPwSyxO/ygV+b27KEMYXZdN9+WMEP+D0vc/ob4x0bWB72YcRSPAjH2HsFByBJMhWr7oEgxuMNEUf+NesmO6RpQ+s0seT1hGEJJj9C21NpghPZeZfTb4bQ7b0pExjffHZO1KhKOWsOXMMH+pb9EnFg9K/PqPqX73p4H9D3+0HMFEx7PPLsr+/6/JbBLaTsEn1uROxN/qP1xpe30yB5QbWexQ==";
       iosSk =
           "mjWr9sTsoXwmMx7qf0T2KQOQBpqkxeNW9I1ZNZ96ZCeBbeD9xYOUaC2mE9mcqog041VCot2sLcy9UArf+re517e5R9yowKCjf15VglZSP/HweRhOT8Cvci43zagyRqo40l85LTnZ5uJPaVauDLJB7hOTIkNPGm3fb621k6A6ZDh6aDGAKWyy0tPUPV/9RFrfeig9SURNe9Vl/Aok6SKg+SftM30uk2W8wdbV8gMVbU51Odnoapm2ZlAJYmCrdoXvROW5qc8pbQ8=";
+      ohosSk = "";
 
       screenWidth =
           (PlatformDispatcher.instance.views.first.physicalSize.width /
@@ -114,14 +118,16 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
       if (onEvent["code"] == "600000" && onEvent["data"] != null) {
         // AliAuth.quitPage();
       }
-      Fluttertoast.showToast(
-          msg: "${onEvent['msg']}",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+      if (defaultTargetPlatform.name != 'ohos') {
+        Fluttertoast.showToast(
+            msg: "${onEvent['msg']}",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
       setState(() {
         status = onEvent.toString();
       });
@@ -212,9 +218,12 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   _buildActionBtn('全屏登录', Icons.fullscreen, Colors.blue, () => AliAuth.initSdk(getFullPortConfig())),
                   _buildActionBtn('隐藏状态栏', Icons.visibility_off, Colors.indigo, () => AliAuth.initSdk(getFullPortStatusConfig())),
                   _buildActionBtn('二次认证', Icons.verified_user, Colors.teal, () => AliAuth.initSdk(getFullPortPrivacyConfig())),
-                  _buildActionBtn('Video背景', Icons.videocam, Colors.deepPurple, () => AliAuth.initSdk(getFullPortVideoConfig())),
-                  _buildActionBtn('Gif背景', Icons.gif_box, Colors.orange, () => AliAuth.initSdk(getFullPortGifConfig())),
-                  _buildActionBtn('自定义界面', Icons.dashboard, Colors.pink, () => AliAuth.initSdk(getFullPortCustomConfig())),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('Video背景', Icons.videocam, Colors.deepPurple, () => AliAuth.initSdk(getFullPortVideoConfig())),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('Gif背景', Icons.gif_box, Colors.orange, () => AliAuth.initSdk(getFullPortGifConfig())),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('自定义界面', Icons.dashboard, Colors.pink, () => AliAuth.initSdk(getFullPortCustomConfig())),
                 ]),
                 const SizedBox(height: 12),
                 _buildSectionTitle('🪟 弹窗登录'),
@@ -227,8 +236,10 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                 _buildSectionTitle('⏳ 延迟登录'),
                 _buildCard([
                   _buildActionBtn('全屏延迟', Icons.timer, Colors.blue, () => AliAuth.initSdk(getFullPortConfig(isDelay: true))),
-                  _buildActionBtn('Video延迟', Icons.videocam, Colors.deepPurple, () => AliAuth.initSdk(getFullPortVideoConfig(isDelay: true))),
-                  _buildActionBtn('Gif延迟', Icons.gif_box, Colors.orange, () => AliAuth.initSdk(getFullPortGifConfig(isDelay: true))),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('Video延迟', Icons.videocam, Colors.deepPurple, () => AliAuth.initSdk(getFullPortVideoConfig(isDelay: true))),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('Gif延迟', Icons.gif_box, Colors.orange, () => AliAuth.initSdk(getFullPortGifConfig(isDelay: true))),
                   _buildActionBtn('弹窗延迟', Icons.chat_bubble_outline, Colors.cyan, () => AliAuth.initSdk(getDialogConfig(isDelay: true))),
                   _buildActionBtn('底部弹窗延迟', Icons.keyboard_arrow_up, Colors.lightBlue, () => AliAuth.initSdk(getDialogButtomConfig(isDelay: true))),
                   _buildActionBtn('▶ 执行延迟登录', Icons.play_arrow, Colors.green, () => AliAuth.login()),
@@ -254,7 +265,8 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                   }),
                   if (Platform.isIOS)
                     _buildActionBtn('Apple登录', Icons.apple, Colors.black, () => AliAuth.appleLogin),
-                  _buildActionBtn('打开跳转页面', Icons.open_in_new, Colors.amber.shade700, () => AliAuth.openPage("routerPage")),
+                  if (defaultTargetPlatform.name != 'ohos')
+                    _buildActionBtn('打开跳转页面', Icons.open_in_new, Colors.amber.shade700, () => AliAuth.openPage("routerPage")),
                   _buildActionBtn('跳转路由页', Icons.navigation, Colors.blueGrey, () {
                     Navigator.of(context).push(MaterialPageRoute(builder: (_) => const MyRouterPage()));
                   }),
@@ -318,6 +330,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return AliAuthModel(
       androidSk,
       iosSk,
+      ohosSk: ohosSk,
       isDebug: true,
       autoQuitPage: false,
       isDelay: isDelay,
@@ -439,6 +452,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return AliAuthModel(
       androidSk,
       iosSk,
+      ohosSk: ohosSk,
       isDebug: true,
       autoQuitPage: false,
       isDelay: isDelay,
@@ -558,6 +572,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   AliAuthModel getFullPortPrivacyConfig({bool isDelay = false}) {
     customThirdView.top = unit * 10 + 80;
     return AliAuthModel(androidSk, iosSk,
+        ohosSk: ohosSk,
         isDebug: true,
         isDelay: isDelay,
         pageType: PageType.fullPort,
@@ -691,6 +706,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     customThirdView.top = unit * 12 + 80;
     CustomView customReturnBtn = CustomView.fromJson(configMap);
     return AliAuthModel(androidSk, iosSk,
+        ohosSk: ohosSk,
         isDebug: true,
         isDelay: isDelay,
         pageType: PageType.customMOV,
@@ -804,6 +820,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     customThirdView.top = unit * 12 + 80;
     CustomView customReturnBtn = CustomView.fromJson(configMap);
     return AliAuthModel(androidSk, iosSk,
+        ohosSk: ohosSk,
         isDebug: true,
         isDelay: isDelay,
         pageType: PageType.customGif,
@@ -899,6 +916,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   /// 自定义
   AliAuthModel getFullPortCustomConfig({bool isDelay = false}) {
     return AliAuthModel(androidSk, iosSk,
+        ohosSk: ohosSk,
         isDebug: true,
         isDelay: isDelay,
         pageType: PageType.customXml,
@@ -999,6 +1017,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return AliAuthModel(
       androidSk,
       iosSk,
+      ohosSk: ohosSk,
       isDebug: true,
       isDelay: isDelay,
       pageType: PageType.dialogPort,
@@ -1115,6 +1134,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return AliAuthModel(
       androidSk,
       iosSk,
+      ohosSk: ohosSk,
       isDebug: true,
       isDelay: isDelay,
       pageType: PageType.fullPort,
@@ -1254,6 +1274,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     return AliAuthModel(
       androidSk,
       iosSk,
+      ohosSk: ohosSk,
       isDebug: true,
       isDelay: isDelay,
       pageType: PageType.dialogBottom,
@@ -1355,6 +1376,7 @@ class MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   @Deprecated("即将删除......")
   Future<void> initSdkVoid({PageType pageType = PageType.fullPort}) async {
     AliAuthModel config = AliAuthModel(androidSk, iosSk,
+        ohosSk: ohosSk,
         isDebug: true,
         isDelay: true,
         pageType: pageType,

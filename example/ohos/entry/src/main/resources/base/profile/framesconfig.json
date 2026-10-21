@@ -1,0 +1,13 @@
+{
+  "SWITCH": 1,
+  "TRANSLATE": [
+    {
+      "serial_number": 1,
+      "min": 0,
+      "max": -1,
+      "preferred_fps": 60
+    }
+  ],
+  "SCALE": [],
+  "ROTATION": []
+}

@@ -104,15 +104,15 @@ public class UtilTool {
       List<String> btnPathList = Arrays.asList(btnPathImage.split(","));
       // 正常状态下的Drawable
       BitmapDrawable drawable_p = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(0)));
-      // 按下和获取焦点是的Drawable
-      BitmapDrawable drawable_n = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(1)));
-      // 被禁用时的Drawable
-      BitmapDrawable drawable_b = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(2)));
+      // Public Dart/iOS order: normal, disabled, pressed.
+      BitmapDrawable drawable_b = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(1)));
+      BitmapDrawable drawable_n = getBitmapToBitmapDrawable(mContext, flutterToPath(btnPathList.get(2)));
 
-      stateListDrawable.addState(new int[]{android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
-      stateListDrawable.addState(new int[]{android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_p);
-      stateListDrawable.addState(new int[]{-android.R.attr.state_activated, -android.R.attr.state_pressed}, drawable_b);
-      stateListDrawable.addState(new int[]{-android.R.attr.state_activated, android.R.attr.state_pressed}, drawable_n);
+      // Activation is unrelated to whether a button is enabled. The SDK's
+      // enabled, unpressed button must use the normal design color.
+      stateListDrawable.addState(new int[]{-android.R.attr.state_enabled}, drawable_b);
+      stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, drawable_n);
+      stateListDrawable.addState(new int[]{}, drawable_p);
     } catch (IOException e) {
       e.fillInStackTrace();
     }

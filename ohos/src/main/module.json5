@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "ali_auth",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}

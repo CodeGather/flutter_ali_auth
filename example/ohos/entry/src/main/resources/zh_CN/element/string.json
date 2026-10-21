@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "阿里云号码认证示例"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "阿里云号码认证示例"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ali_auth_example"
+    }
+  ]
+}

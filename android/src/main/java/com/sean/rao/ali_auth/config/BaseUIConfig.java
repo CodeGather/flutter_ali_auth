@@ -2,12 +2,14 @@ package com.sean.rao.ali_auth.config;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -105,11 +107,24 @@ public abstract class BaseUIConfig extends LoginParams {
                     LinearLayout itemLinearLayout = new LinearLayout(mContext);
                     /// 按钮和文字布局
                     itemLinearLayout.setOrientation(LinearLayout.VERTICAL);
-                    /// 按钮控件
+                    /// 按钮控件。ImageButton 默认背景是灰色按钮框，点按后焦点高亮也会铺成一块灰框。
                     ImageButton itemButton = new ImageButton(mActivity);
+                    itemButton.setPadding(0, 0, 0, 0);
+                    itemButton.setBackgroundColor(Color.TRANSPARENT);
+                    itemButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    itemButton.setStateListAnimator(null);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        itemButton.setBackgroundTintList(null);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        itemButton.setForeground(null);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        itemButton.setDefaultFocusHighlightEnabled(false);
+                    }
                     /// 需要转化路径
                     try {
-                        itemButton.setBackground(
+                        itemButton.setImageDrawable(
                                 UtilTool.getBitmapToBitmapDrawable(
                                         mContext,
                                         UtilTool.flutterToPath(String.valueOf(customThirdViewItem.get(i)))

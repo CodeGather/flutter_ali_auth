@@ -86,7 +86,6 @@ bool bool_false = false;
 #pragma mark - flutter调用 oc eventChannel start
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
    // SDK 初始化
-  _callData = call;
   _result = result;
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
       result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
@@ -97,6 +96,9 @@ bool bool_false = false;
   }
   // 初始化SDK
   else if ([@"initSdk" isEqualToString:call.method]) {
+    // Retain the SDK configuration: login only carries a timeout, and later
+    // channel calls must not reset switchCheck or other authorization options.
+    _callData = call;
     _isHideToast = [call.arguments boolValueForKey: @"isHideToast" defaultValue: NO];
     if (_eventSink == nil) {
       result(@{ @"code": @"500001", @"msg": @"请先对插件进行监听！" });
@@ -308,6 +310,22 @@ bool bool_false = false;
 }
 
 #pragma mark - action 一键登录公共方法
+- (void)updateCarrierSloganForModel:(TXCustomModel *)model {
+  // Preserve explicit custom slogans for other plugin callers. The app leaves
+  // this unset so each authorization uses the SDK's current data SIM carrier.
+  if ([_callData.arguments stringValueForKey:@"sloganText" defaultValue:@""].length > 0) {
+    return;
+  }
+  NSString *carrier = [TXCommonUtils getCurrentCarrierName];
+  NSArray<NSString *> *knownCarriers = @[@"中国移动", @"中国联通", @"中国电信", @"中国广电"];
+  NSString *text = [knownCarriers containsObject:carrier]
+      ? [NSString stringWithFormat:@"由%@提供认证服务", carrier]
+      : @"由运营商提供认证服务";
+  NSDictionary *attributes = model.sloganText.length > 0
+      ? [model.sloganText attributesAtIndex:0 effectiveRange:NULL] : @{};
+  model.sloganText = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
 - (void)loginWithModel:(TXCustomModel *)model  complete:(void (^)(void))completion {
   float timeout = 5.0; //self.tf_timeout.text.floatValue;
   __weak typeof(self) weakSelf = self;
@@ -344,6 +362,7 @@ bool bool_false = false;
             //3. 调用获取登录Token接口，可以立马弹起授权页
             // 关闭loading
             // [MBProgressHUD hideHUDForView:_vc.view animated:YES];
+            [self updateCarrierSloganForModel:model];
             [[TXCommonHandler sharedInstance] getLoginTokenWithTimeout:timeout controller:_vc model:model complete:^(NSDictionary * _Nonnull resultDic) {
               NSString *code = [resultDic objectForKey:@"resultCode"];
 //              UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickAllScreen:)];

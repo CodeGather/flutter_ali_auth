@@ -1,0 +1,10 @@
+{
+  "modelVersion": "5.0.0",
+  "name": "ali_auth_example",
+  "version": "1.0.0",
+  "description": "Demonstrates how to use the ali_auth plugin on HarmonyOS.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {}
+}

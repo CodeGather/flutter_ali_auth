@@ -8,6 +8,9 @@ class AliAuthModel {
   /// aliyun sk
   late String? iosSk;
 
+  /// aliyun sk
+  late String? ohosSk;
+
   /// 是否开启debug模式
   late bool? isDebug;
 
@@ -215,6 +218,11 @@ class AliAuthModel {
   /// 如果设置错误或者找不到图片则使用默认样式
   late String? logBtnBackgroundPath;
 
+  /// Solid fallback and corner radius (vp/pt/dp) for native authorization buttons.
+  late String? logBtnBackgroundColor;
+  late int? logBtnCornerRadius;
+  late bool? logBtnTextBold;
+
   /// 设置登录按钮相对导航栏顶部的位移，单位 dp
   late int? logBtnOffsetY;
 
@@ -251,6 +259,10 @@ class AliAuthModel {
   /// 设置切换按钮⽂字⼤⼩
   /// @Deprecated("即将删除的属性......")
   late int? switchAccTextSize;
+
+  /// Optional accessible target size, without enlarging the label (Android/iOS).
+  late int? switchAccButtonWidth;
+  late int? switchAccButtonHeight;
 
   /// 设置换按钮相对导航栏顶部的位移，单位 dp
   late int? switchOffsetY;
@@ -389,6 +401,10 @@ class AliAuthModel {
   /// dialog安卓端有效 iOS无效
   late int? pageBackgroundRadius;
   late bool? webSupportedJavascript;
+
+  /// setAuthPageActIn
+  /// Use a neutral fade for native entry/dismissal instead of navigation motion.
+  late bool? authPageCrossFade;
 
   /// setAuthPageActIn
   late String? authPageActIn;
@@ -652,6 +668,7 @@ class AliAuthModel {
   AliAuthModel(
     this.androidSk,
     this.iosSk, {
+    this.ohosSk,
     this.isDebug = true,
     this.isDelay = false,
     this.pageType = PageType.fullPort,
@@ -676,6 +693,8 @@ class AliAuthModel {
     this.numberColor,
     this.numberSize,
     this.switchAccHidden,
+    this.switchAccButtonWidth,
+    this.switchAccButtonHeight,
     this.switchCheck,
     this.switchAccTextColor,
     this.logBtnText,
@@ -705,6 +724,9 @@ class AliAuthModel {
     this.protocolOwnThreeColor,
     this.sloganText,
     this.logBtnBackgroundPath,
+    this.logBtnBackgroundColor,
+    this.logBtnCornerRadius,
+    this.logBtnTextBold,
     this.loadingImgPath,
     this.sloganOffsetY,
     this.logoOffsetY,
@@ -767,6 +789,7 @@ class AliAuthModel {
     this.webNavReturnImgPath,
     this.webSupportedJavascript,
     this.authPageActIn,
+    this.authPageCrossFade,
     this.activityOut,
     this.authPageActOut,
     this.activityIn,
@@ -877,7 +900,7 @@ class AliAuthModel {
     this.authPageUseDayLight=false,
     this.keepAllPageHideNavigationBar=false,
     this.closeAuthPageReturnBack=false,
-  })  : assert(androidSk != null || iosSk != null),
+  })  : assert(androidSk != null || iosSk != null || ohosSk != null),
         assert(pageType != null),
         assert(isDelay != null);
 
@@ -888,6 +911,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
     <String, dynamic>{
       'androidSk': instance.androidSk,
       'iosSk': instance.iosSk,
+      'ohosSk': instance.ohosSk,
       'isDebug': instance.isDebug ?? false,
       'isDelay': instance.isDelay ?? false,
       'pageType': instance.pageType?.index ?? 0,
@@ -911,6 +935,8 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'numberColor': instance.numberColor,
       'numberSize': instance.numberSize,
       'switchAccHidden': instance.switchAccHidden,
+      'switchAccButtonWidth': instance.switchAccButtonWidth,
+      'switchAccButtonHeight': instance.switchAccButtonHeight,
       'switchCheck': instance.switchCheck,
       'switchAccTextColor': instance.switchAccTextColor,
       'logBtnText': instance.logBtnText ?? "本机一键登录",
@@ -922,6 +948,9 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'protocolOwnTwoColor': instance.protocolOwnTwoColor,
       'sloganText': instance.sloganText,
       'logBtnBackgroundPath': instance.logBtnBackgroundPath,
+      'logBtnBackgroundColor': instance.logBtnBackgroundColor,
+      'logBtnCornerRadius': instance.logBtnCornerRadius,
+      'logBtnTextBold': instance.logBtnTextBold,
       'loadingImgPath': instance.loadingImgPath,
       'sloganOffsetY': instance.sloganOffsetY,
       'logoOffsetY': instance.logoOffsetY,
@@ -972,6 +1001,7 @@ Map<String, dynamic> _$AliAuthModelToJson(AliAuthModel instance) =>
       'webNavReturnImgPath': instance.webNavReturnImgPath,
       'webSupportedJavascript': instance.webSupportedJavascript,
       'authPageActIn': instance.authPageActIn,
+      'authPageCrossFade': instance.authPageCrossFade,
       'activityOut': instance.activityOut,
       'authPageActOut': instance.authPageActOut,
       'activityIn': instance.activityIn,

@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "AliAuth example"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "AliAuth example"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "ali_auth_example"
+    }
+  ]
+}

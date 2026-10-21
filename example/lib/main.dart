@@ -30,7 +30,8 @@ class _MyAppState extends State<MyApp> {
       print("获取到路由数据--------$router");
     }
     if (defaultTargetPlatform == TargetPlatform.iOS ||
-        defaultTargetPlatform == TargetPlatform.android) {
+        defaultTargetPlatform == TargetPlatform.android ||
+        defaultTargetPlatform.name == 'ohos') {
       if (router.contains('routerPage')) {
         return const MyRouterPage();
       } else {
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         // 退出APP方法二
-        if (!didPop) {
+        if (!didPop && defaultTargetPlatform.name != 'ohos') {
           Fluttertoast.showToast(
               msg: '您确定要退出思预云吗?',
               toastLength: Toast.LENGTH_SHORT,
